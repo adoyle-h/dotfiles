@@ -1,0 +1,13 @@
+{
+  "libs": [],
+  "loadEagerly": [],
+  "plugins": {
+    "doc_comment": {},
+    "complete_strings": {},
+    "commonjs": {},
+    "modules": {},
+    "node": {},
+    "node_resolve": {},
+    "es_modules": {}
+  }
+}

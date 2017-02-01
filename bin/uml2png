@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1090
+
+preview=
+
+usage() {
+    cat << EOF
+Usage: `basename $0` [-p] umlfile > output.png
+
+    -p      output image to stdout
+EOF
+    exit 1
+}
+
+while getopts ":p" optname
+do
+    case "$optname" in
+    "p")
+        preview=1
+        ;;
+    "?")
+        echo "Invalid option $OPTARG"
+        ;;
+    ":")
+        echo "Missing argument value for option $OPTARG"
+        ;;
+    *)
+        usage
+        ;;
+    esac
+done
+
+#$OPTIND为特殊变量，表示第几个选项，初始值为1
+shift $(($OPTIND - 1))      #除了选项之外，该脚本必须接至少一个参数
+if [ $# -eq 0 ]; then
+    usage
+fi
+
+if [ -z "$preview" ]; then
+    cat $@ | docker run --rm -i think/plantuml:latest -tpng
+else
+    cat $@ | docker run --rm -i think/plantuml:latest -tpng | imgcat &
+fi

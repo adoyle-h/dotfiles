@@ -1,0 +1,5 @@
+rules "~MD013", "~MD002"
+
+style "MD004", :style => "consistent"
+style "MD007", :indent => 4
+style "MD009", :br_spaces => 2

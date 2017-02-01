@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1090
+cat $1 | docker run --rm -i think/plantuml:latest

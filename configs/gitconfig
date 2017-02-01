@@ -1,0 +1,104 @@
+[user]
+    name = ADoyle
+    email = adoyle.h@gmail.com
+[color]
+    ui = true
+[core]
+    attributesfile = ~/.gitattributes
+    editor = nvim
+    excludesfile = ~/.gitignore
+    autocrlf = input
+    safecrlf = true
+    pager = diff-so-fancy | less --tabs=4 -RFX
+[alias]
+    lg = log --left-right --graph --format=\"%C(auto)%d %h%Creset% s %C(68)%ar %C(ul 117)%aN|%cN%Creset\"
+    lga = log --all --left-right --graph --format=\"%C(auto)%d %h%Creset% s %C(68)%ar %C(ul 117)%aN|%cN%Creset\"
+    lgas = log --simplify-by-decoration --all --left-right --graph --format=\"%C(auto)%d %h%Creset% s %C(68)%ar %C(ul 117)%aN|%cN%Creset\"
+    lgs = log --simplify-by-decoration --left-right --graph --format=\"%C(auto)%d %h%Creset% s %C(68)%ar %C(ul 117)%aN|%cN%Creset\"
+    f = fetch --prune
+    b = branch -vv
+    find = grep -n --heading --break
+    findn = grep -n
+    grepn = grep -n
+    c = commit -v
+    ca = commit --amend -v
+    caq = commit --amend --no-edit
+    a = add -v .
+    s = status -s -b
+    children = !"git b --contains"
+    parent = !"git show-branch | grep '*' | grep -v develop | head -1 | awk -F'[]~^[]' '{print }'"
+    conflicts = diff
+    ign = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
+    init-ign = !"git ign macOS,vim,node > .gitignore"
+    server = !git daemon --reuseaddr --base-path=.git --export-all --verbose
+    init-repo = !"git commit -m \"init repo\" --allow-empty && git checkout -b develop"
+    dl = clone --single-branch --depth 1
+    download = clone --single-branch --depth 1
+    findw = grep -W -n --heading --break
+    conf-fake-user = "!conf_fake_user() { git config user.name \"$1\" && git config user.email \"$1@gmail.com\" ;}; conf_fake_user "
+    show-user = config --show-origin --get-regexp \"user.(name)|(email)\"
+    au = add -u
+    d = "!f() { [ -z \"$GIT_PREFIX\" ] || cd \"$GIT_PREFIX\" && git diff --color \"$@\" | diff-so-fancy  | less --tabs=4 -RFX; }; f"
+    dc = !"git d --cached"
+    showd = "!f() { [ -z \"$GIT_PREFIX\" ] || cd \"$GIT_PREFIX\" && git show --color \"$@\" | diff-so-fancy  | less --tabs=4 -RFX; }; f"
+    co = checkout
+    cm = commit -m
+    cob = checkout -b
+    ls = ls-files
+    workconfig = ! git config user.name \"${GIT_CONFIG_WORK_USERNAME}\" && git config user.email \"${GIT_CONFIG_WORK_EMAIL}\"
+[push]
+    default = current
+[pull]
+    rebase = true
+[gui]
+    encoding = utf-8
+[i18n]
+    commitencoding = utf-8
+    logoutputencoding = utf-8
+[diff]
+    tool = ksdiff
+    submodule = log
+[diff "sketchtool"]
+  textconv = "sketchtool dump"
+  cachetextconv = true
+  binary = true
+[difftool "ksdiff"]
+    cmd = ksdiff -w $LOCAL $REMOTE
+[mergetool "ksdiff"]
+    cmd = ksdiff -w $BASE $LOCAL $REMOTE $MERGED
+[difftool "sourcetree"]
+    cmd = /usr/local/bin/ksdiff -w \"$LOCAL\" \"$REMOTE\"
+    path =
+[mergetool "sourcetree"]
+    cmd = /usr/local/bin/ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+    trustExitCode = true
+[rerere]
+    enabled = true
+[rebase]
+    stat = true
+    autoSquash = true
+[merge]
+    log = true
+    ff = false
+[filter "lfs"]
+    clean = git-lfs clean %f
+    smudge = git-lfs smudge %f
+    required = true
+[status]
+    submoduleSummary = true
+[color "diff"]
+    meta = yellow bold
+    old = red bold
+    new = green bold
+    whitespace = red reverse
+[color "diff-highlight"]
+    oldHighlight = "red bold 88"
+    oldNormal = "red bold"
+    newNormal = "green bold"
+    newHighlight = "green bold 28"
+[gpg]
+    program = gpg2
+;[http]
+;    proxy = socks5://127.0.0.1:1080
+;[https]
+;    proxy = socks5://127.0.0.1:1080

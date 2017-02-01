@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+sudo ls -ahlF ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/tty | awk '{print $NF}'

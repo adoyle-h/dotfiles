@@ -1,0 +1,11 @@
+---
+extends: default
+
+rules:
+    line-length: disable
+    indentation:
+        spaces: consistent
+        indent-sequences: true
+        check-multi-line-strings: true
+    empty-lines:
+        max: 1

@@ -8,10 +8,12 @@ My configurations and shell scripts.
 
 - [Dependencies](#dependencies)
 - [File Structure](#file-structure)
-    - [Main](#main)
-- [Bootstrap](#bootstrap)
-- [Install](#install)
+- [Installation](#installation)
+- [Usage](#usage)
+    - [Bootstrap](#bootstrap)
+    - [Install](#install)
 - [Enables](#enables)
+- [Version](#version)
 
 <!-- /MarkdownTOC -->
 
@@ -43,7 +45,7 @@ My configurations and shell scripts.
 │   ├── gvm.plugin.bash
 │   ├── lesspipe.plugin.bash
 │   ├── optionals.shell.bash
-│   ├── path.env.bash
+│   ├── path.env.bash            # change environment variable PATH
 │   ├── proxy.env.bash
 │   ├── secrets.env.bash -> ../secrets/secrets.env.bash
 │   ├── system-detect.shell.bash # detect system and run its bash scripts
@@ -54,7 +56,7 @@ My configurations and shell scripts.
 ├── bash_it/                     # https://github.com/Bash-it/bash-it#your-custom-scripts-aliases-themes-and-functions
 │   ├── aliases.bash
 │   ├── completions.bash
-│   ├── enable.bash              # enable bash_it
+│   ├── enable.bash              # bash_it configuration and entrance
 │   ├── lib.bash
 │   └── plugins.bash
 ├── bin/                         # link to ~/bin
@@ -62,7 +64,6 @@ My configurations and shell scripts.
 ├── bootstrap.bash*
 ├── cheat/                       # https://github.com/chrisallenlane/cheat
 ├── completions/                 # bash completions
-│   └── pm2-completion.sh*
 ├── configs/                     # application configuration
 ├── dotbot/                      # https://github.com/anishathalye/dotbot
 ├── install*
@@ -82,15 +83,25 @@ My configurations and shell scripts.
     └── known_hosts              # ignored
 ```
 
-### Main
+## Installation
 
-## Bootstrap
+```sh
+git clone --depth 1 --recursive https://github.com/adoyle-h/dotfiles.git ~/dotfiles
+mkdir -p ~/dotfiles/secrets
+# git clone --depth 1 https://github.com/adoyle-h/my-command-cheat.git ~/dotfiles/cheat
+```
+
+## Usage
+
+### Bootstrap
+
+**IT IS UNDER DEVELOPMENT. DO NOT USE!**
 
 Run `./bootstrap` to initialize in a new environment.
 
 **Do not call the script under sudo.**
 
-## Install
+### Install
 
 Run `./install` to create symbolic links.
 
@@ -154,6 +165,11 @@ The aliases/plugins/completions I enabled:
 - tmux
 - todo
 - virtualbox
+
+
+## Version
+
+No version yet
 
 <!-- links -->
 

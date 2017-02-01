@@ -30,7 +30,7 @@ _bootstrap_common() {
 
   if [[ ! -d ~/.bash_it ]] ; then
     echo 'To download bash_it'
-    git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
+    git clone --depth 1 https://github.com/Bash-it/bash-it.git ~/.bash_it
   fi
 
   if command -v nvm != 'nvm' ; then
@@ -40,22 +40,23 @@ _bootstrap_common() {
 
   if [[ ! -d ~/dotfiles ]] ; then
     echo 'To download my dotfiles'
-    git clone --depth 1 --recursive git@git.oschina.net:adoyle/dotfiles.git ~/dotfiles
+    git clone --depth 1 --recursive git@github.com:adoyle-h/dotfiles.git ~/dotfiles
     # ~/dotfiles/install
   fi
 
   if [[ ! -d ~/dotfiles/secrets ]] ; then
     echo 'To download my secrets'
+    # git clone --depth 1  ~/dotfiles/secrets
   fi
 
   if [[ ! -d ~/dotfiles/cheat ]] ; then
     echo 'To download my cheatsheet'
-    git clone --depth 1 git@git.oschina.net:adoyle/my-command-cheat.git ~/dotfiles/cheat
+    git clone --depth 1 git@github.com:adoyle-h/my-command-cheat.git ~/dotfiles/cheat
   fi
 
   if [[ ! -d ~/dotfiles/nvim ]] ; then
     echo 'To download my nvim configuration'
-    git clone --depth 1 git@git.oschina.net:adoyle/neovim-config.git ~/dotfiles/nvim
+    git clone --depth 1 git@github.com:adoyle-h/neovim-config.git ~/dotfiles/nvim
   fi
 
   if has not command fzf ; then
@@ -71,7 +72,7 @@ _bootstrap_common() {
 
   if [[ ! -d ~/.cd/core ]] ; then
     echo 'To download https://github.com/spencertipping/cd.git'
-    git clone --depth=1 https://github.com/spencertipping/cd.git ~/.cd/core
+    git clone --depth 1 https://github.com/spencertipping/cd.git ~/.cd/core
   fi
 
   if has not command grip ; then

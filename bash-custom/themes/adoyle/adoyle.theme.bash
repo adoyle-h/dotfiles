@@ -14,7 +14,7 @@ fi
 __last_process_exit_status_for_PS() {
   local exit_status=$1
   if [[ $exit_status != 0 ]]; then
-    echo "${spaces}"'[😱 '"$exit_status]"
+    echo '[😱 '"$exit_status]"
   fi
 }
 

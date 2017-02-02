@@ -7,13 +7,16 @@ My configurations and shell scripts.
 <!-- MarkdownTOC GFM -->
 
 - [Dependencies](#dependencies)
-- [File Structure](#file-structure)
+- [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
     - [Bootstrap](#bootstrap)
     - [Install](#install)
+- [File Structure](#file-structure)
 - [Enables](#enables)
 - [Version](#version)
+- [Suggestion, Bug Reporting, Contributing](#suggestion-bug-reporting-contributing)
+- [Copyright and License](#copyright-and-license)
 
 <!-- /MarkdownTOC -->
 
@@ -21,6 +24,32 @@ My configurations and shell scripts.
 
 1. [dotbot][]: To create symbolic links and manage the map via [`install.conf.yaml`](./install.conf.yaml).
 2. [bash-it][]: To manage all shell scripts in modules: aliases, plugins, completions and shell theme.
+
+## Features
+
+## Installation
+
+```sh
+git clone --depth 1 --recursive https://github.com/adoyle-h/dotfiles.git ~/dotfiles
+mkdir -p ~/dotfiles/secrets
+# git clone --depth 1 https://github.com/adoyle-h/my-command-cheat.git ~/dotfiles/cheat
+```
+
+## Usage
+
+### Bootstrap
+
+**IT IS UNDER DEVELOPMENT. DO NOT USE!**
+
+Run `./bootstrap` to initialize in a new environment.
+
+**Do not call the script under sudo.**
+
+### Install
+
+Run `./install` to create symbolic links.
+
+**Do not call the script under sudo.**
 
 ## File Structure
 
@@ -82,30 +111,6 @@ My configurations and shell scripts.
     ├── id_rsa.pub               # ignored
     └── known_hosts              # ignored
 ```
-
-## Installation
-
-```sh
-git clone --depth 1 --recursive https://github.com/adoyle-h/dotfiles.git ~/dotfiles
-mkdir -p ~/dotfiles/secrets
-# git clone --depth 1 https://github.com/adoyle-h/my-command-cheat.git ~/dotfiles/cheat
-```
-
-## Usage
-
-### Bootstrap
-
-**IT IS UNDER DEVELOPMENT. DO NOT USE!**
-
-Run `./bootstrap` to initialize in a new environment.
-
-**Do not call the script under sudo.**
-
-### Install
-
-Run `./install` to create symbolic links.
-
-**Do not call the script under sudo.**
 
 ## Enables
 
@@ -170,6 +175,25 @@ The aliases/plugins/completions I enabled:
 ## Version
 
 No version yet
+
+## Suggestion, Bug Reporting, Contributing
+
+Sorry, the project is a personal project which do not accept any Pull Requests.
+You could fork the repo to build your own project.
+
+Any comments and suggestions are always welcome. Please open an [issue][] to contact with me.
+
+## Copyright and License
+
+Copyright (c) 2017 ADoyle. The project is licensed under the **BSD 3-clause License**.
+
+See the [LICENSE][] file for the specific language governing permissions and limitations under the License.
+
+
+<!-- links -->
+
+[issue]: https://github.com/adoyle-h/dotfiles/issues
+[LICENSE]: ./LICENSE
 
 <!-- links -->
 

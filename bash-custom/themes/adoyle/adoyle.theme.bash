@@ -1,5 +1,7 @@
 export CLICOLOR=1
-export LSCOLORS=exgxFxDxcxdhDhHbHDeced
+# Preview https://geoff.greer.fm/lscolors/
+export LSCOLORS=exgxFxDxcxdhDhHbHDeced   # BSD LSCOLORS
+export LS_COLORS='di=34:ln=36:so=1;35:pi=1;33:ex=32:bd=33;47:cd=1;33;47:su=1;37;41:sg=1;37;1;43:tw=34;42:ow=34;43'  # Linux LS_COLORS
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in

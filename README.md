@@ -6,6 +6,7 @@ My configurations and shell scripts.
 
 <!-- MarkdownTOC GFM -->
 
+- [Environments](#environments)
 - [Dependencies](#dependencies)
 - [Features](#features)
 - [Installation](#installation)
@@ -20,10 +21,16 @@ My configurations and shell scripts.
 
 <!-- /MarkdownTOC -->
 
+## Environments
+
+- iTerm2 Build 3.0.14 (Terminal.app also work)
+- GNU bash 4.4.12(1)-release (x86_64-apple-darwin15.6.0) (It may work on GNU bash v3)
+- tmux 2.3 (optional)
+
 ## Dependencies
 
-1. [dotbot][]: To create symbolic links and manage the map via [`install.conf.yaml`](./install.conf.yaml).
-2. [bash-it][]: To manage all shell scripts in modules: aliases, plugins, completions and shell theme.
+- [dotbot][]: To create symbolic links and manage the map via [`install.conf.yaml`](./install.conf.yaml).
+- [bash-it][]: To manage all shell scripts in modules: aliases, plugins, completions and shell theme.
 
 ## Features
 
@@ -139,7 +146,6 @@ The aliases/plugins/completions I enabled:
 - nvm
 - osx-timemachine
 - osx
-- projects
 - proxy
 - rvm
 - ssh
@@ -165,7 +171,6 @@ The aliases/plugins/completions I enabled:
 - projects
 - rake
 - ssh
-- system
 - terraform
 - tmux
 - todo

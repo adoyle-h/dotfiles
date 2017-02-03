@@ -3,7 +3,7 @@
 
 # System completion should be first
 
-if command -v brew &>/dev/null ; then
+if [[ -x "$(command -v brew)" ]] ; then
   # If Homebrew is installed, its Bash completion modules are loaded.
   BREW_PREFIX=$(brew --prefix)
 

@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# v0.1.0
+
+action=$1
+flag=$2
+shift
+
+[ "$action" = "usage" ] && {
+  echo ""
+  echo "  Visualize done tasks:"
+  echo "    graph"
+  echo "      Draws bar graphs visualizing the number of completed task per day."
+  echo "      Optional argument (integer): number of days to visualize (default: 7)"
+  echo ""
+  exit
+}
+[ "$action" = "graph" ] && {
+  # check if python2 is defined
+  if hash python2 2>/dev/null; then
+        python2 "$TODO_ACTIONS_DIR"/graph/graph.py "$TODO_DIR" $flag
+  else
+        # use default python 
+        python "$TODO_ACTIONS_DIR"/graph/graph.py "$TODO_DIR" $flag
+  fi
+}

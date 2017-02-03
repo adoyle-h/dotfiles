@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1090
+
+action=$1
+shift
+
+[[ "$action" = "usage" ]] && {
+  echo "Usage: t actions"
+  echo ""
+  echo "Description: List all actions in your ${TODO_ACTIONS_DIR:-TODO_ACTIONS_DIR}"
+  echo ""
+  exit
+}
+
+ls "$TODO_ACTIONS_DIR"

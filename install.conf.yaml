@@ -40,6 +40,7 @@
     ~/.vintrc.yaml: configs/vintrc.yaml
     ~/.tern-project: configs/tern-project
     ~/.todo/config: configs/todo-config.bash
+    ~/.todo/actions: todo/actions
     ~/.grip/settings.py: secrets/grip-settings.py
     $XDG_CONFIG_HOME/peco/config.json: configs/peco.json
     $XDG_CONFIG_HOME/yamllint/config: configs/yamllint.yml

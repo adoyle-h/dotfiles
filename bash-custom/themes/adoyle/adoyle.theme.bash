@@ -27,8 +27,13 @@ __fill_ps_spaces() {
   if [[ $exit_status != 0 ]]; then
     len=$(expr $len - ${#exit_status} - 4)
   fi
-  # printf "%${len}s" | tr " " "¯"
-  printf '%0.s¯' $(seq 1 $len)  # this seems be faster
+
+  if [[ $len -lt 1 ]]; then
+    printf ''
+  else
+    # printf "%${len}s" | tr " " "¯"
+    printf '%0.s¯' $(seq 1 $len)  # this seems be faster
+  fi
 }
 
 __right_prompt() {

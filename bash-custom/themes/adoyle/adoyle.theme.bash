@@ -5,8 +5,8 @@ export LS_COLORS='di=34:ln=36:so=1;35:pi=1;33:ex=32:bd=33;47:cd=1;33;47:su=1;37;
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-  xterm-color) color_prompt=yes;;
-  screen-256color) color_prompt=yes;;
+  xterm-color | xterm-256color) color_prompt=yes;;
+  xterm-color | screen-256color) color_prompt=yes;;
 esac
 
 if [ -n "$force_color_prompt" ]; then
@@ -62,15 +62,7 @@ __main_theme() {
   fi
 }
 
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-  xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-  *)
-    __main_theme
-    ;;
-esac
+__main_theme
 
 unset -f _main_theme
 unset force_color_prompt

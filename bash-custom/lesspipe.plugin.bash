@@ -3,7 +3,6 @@
 # make less more friendly for non-text input files, see lesspipe(1)
 if [[ -x /usr/bin/lesspipe ]]; then
   LESSPIPE_SCRIPT=/usr/bin/lesspipe
-  eval "$(SHELL=/bin/sh lesspipe)"
 elif [[ -x /usr/local/bin/src-hilite-lesspipe.sh ]]; then
   LESSPIPE_SCRIPT=/usr/local/bin/src-hilite-lesspipe.sh
 fi

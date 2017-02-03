@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1090
 
-BASH_IT=${BASH_IT:=${HOME}/.bash_it}
-BASH_IT_CUSTOM=${BASH_IT_CUSTOM:=${BASH_IT}/custom}
+BASH_IT=${BASH_IT:-${HOME}/.bash_it}
+BASH_IT_CUSTOM=${BASH_IT_CUSTOM:-${BASH_IT}/custom}
 
 OS=$(uname -s)
 if [[ "${OS}" = "SunOS" ]] ; then

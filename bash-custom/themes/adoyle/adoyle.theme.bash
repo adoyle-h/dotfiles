@@ -46,13 +46,17 @@ __right_prompt() {
 }
 
 __main_theme() {
-  export GIT_PS1_SHOWDIRTYSTATE=1
-  export GIT_PS1_SHOWSTASHSTATE=1
-  export GIT_PS1_SHOWUNTRACKEDFILES=1
-  export GIT_PS1_SHOWCOLORHINTS=true
-  export GIT_PS1_SHOWUPSTREAM="git"
-  export GIT_PS1_DESCRIBE_STYLE="branch"
-  export GIT_PS1_STATESEPARATOR=" "
+  if command -v __git_ps1 ; then
+    export GIT_PS1_SHOWDIRTYSTATE=1
+    export GIT_PS1_SHOWSTASHSTATE=1
+    export GIT_PS1_SHOWUNTRACKEDFILES=1
+    export GIT_PS1_SHOWCOLORHINTS=true
+    export GIT_PS1_SHOWUPSTREAM="git"
+    export GIT_PS1_DESCRIBE_STYLE="branch"
+    export GIT_PS1_STATESEPARATOR=" "
+  # shellcheck disable=SC2016
+    local PS1_git='\[\e[1;34m\]$(__git_ps1 " (%s)")'
+  fi
 
   # local PS1_prefix0="\[\e[1m\]> \[\e[0;33m\][History \!|\#] [Time \A] [Jobs \j] $(__last_process_exit_status_for_PS) \[\e[m\]\n"
   # local PS1_prefix1='\[\e[1m\]> \[\e[0;32m\]\w\[\e[m\]\n'
@@ -62,7 +66,7 @@ __main_theme() {
   # shellcheck disable=SC2155,SC2016
   local PS1_prefix="\[$(tput sc; __right_prompt; tput rc)\]$PS1_prefix1"
   # shellcheck disable=SC2155,SC2016
-  local PS1_main='\[\e[1;32m\]𝕬\[\e[1;34m\]$(__git_ps1 " (%s)")\[\e[m\] '
+  local PS1_main='\[\e[1;32m\]𝕬'${PS1_git}'\[\e[m\] '
   PS1=$PS1_prefix$PS1_main
 
   if [[ $color_prompt != yes ]]; then

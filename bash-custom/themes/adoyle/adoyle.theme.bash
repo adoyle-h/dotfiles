@@ -9,7 +9,8 @@ case "$TERM" in
   xterm-color | screen-256color) color_prompt=yes;;
 esac
 
-if [ -n "$force_color_prompt" ]; then
+# shellcheck disable=SC2154
+if [[ -v force_color_prompt ]]; then
   color_prompt=yes
 fi
 
@@ -23,23 +24,25 @@ __last_process_exit_status_for_PS() {
 
 __fill_ps_spaces() {
   local exit_status=$1
-  local len=$(expr $COLUMNS - 26)
+  local len=$((COLUMNS - 26))
   if [[ $exit_status != 0 ]]; then
-    len=$(expr $len - ${#exit_status} - 4)
+    len=$((len - ${#exit_status} - 4))
   fi
 
   if [[ $len -lt 1 ]]; then
     printf ''
   else
     # printf "%${len}s" | tr " " "¯"
-    printf '%0.s¯' $(seq 1 $len)  # this seems be faster
+    printf '%0.s¯' $(seq 1 "$len")  # this seems be faster
   fi
 }
 
 __right_prompt() {
+  #shellcheck disable=SC2016
   local PS1_prefix0_es='$(es="$?"; filled=$(__fill_ps_spaces "$es"); echo ${filled}"\[\e[0;33m\]"$(__last_process_exit_status_for_PS "$es"))'
+  #shellcheck disable=SC2016
   local PS1_prefix0='\[\[\e[1;30m\]'$PS1_prefix0_es'[H\!|$(printf "%4s" \#)] [J\j] [T\A]\]'
-  echo -n $PS1_prefix0
+  echo -n "$PS1_prefix0"
 }
 
 __main_theme() {

@@ -139,10 +139,10 @@ The aliases/plugins/completions I enabled:
 - docker
 - explain
 - extract
-- fzf
 - gif
 - java
 - nginx
+- node
 - nvm
 - osx-timemachine
 - osx

@@ -4,7 +4,7 @@
 
 # If not running interactively, don't do anything
 [[ -z "$PS1" ]] && return
-if [[ -v FAST_BASH ]]; then
+if [[ -n "$FAST_BASH" ]]; then
   source ~/.fast_bashrc
   return
 fi

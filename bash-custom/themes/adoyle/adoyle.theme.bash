@@ -10,7 +10,7 @@ case "$TERM" in
 esac
 
 # shellcheck disable=SC2154
-if [[ -v force_color_prompt ]]; then
+if [[ -n "$FORCE_COLOR_PROMPT" ]]; then
   color_prompt=yes
 fi
 

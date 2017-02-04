@@ -4,7 +4,12 @@
 # System completion should be first
 
 GET_BASH_MAJOR_VERSION() {
-  "$BASH" --version | sed -r -n 's@.*[(version)|(版本)] ([0-9]{1,})\.[0-9]{1,}\.[0-9]{1,}\(1\)-release.*@\1@p'
+  if [[ -v TMUX ]]; then
+    local bsh="$SHELL"
+  else
+    local bsh="$BASH"
+  fi
+  "$bsh" --version | sed -r -n 's@.*[(version)|(版本)] ([0-9]{1,})\.[0-9]{1,}\.[0-9]{1,}\(1\)-release.*@\1@p'
 }
 # echo GET_BASH_MAJOR_VERSION-----$GET_BASH_MAJOR_VERSION
 

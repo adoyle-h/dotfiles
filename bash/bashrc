@@ -4,7 +4,10 @@
 
 # If not running interactively, don't do anything
 [[ -z "$PS1" ]] && return
-[[ $BASH_INITED == yes ]] && return
+if [[ -v FAST_BASH ]]; then
+  source ~/.fast_bashrc
+  return
+fi
 
 # _DEBUG=on
 
@@ -34,4 +37,3 @@ export XDG_CONFIG_DIRS="/etc/xdg"
 
 [[ "$_DEBUG" == "on" ]] && echo "Now executing $HOME/.bash_it.bash"
 source "$HOME/.bash_it.bash"
-export BASH_INITED=yes

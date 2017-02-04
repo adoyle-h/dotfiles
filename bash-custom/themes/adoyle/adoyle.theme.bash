@@ -46,7 +46,7 @@ __right_prompt() {
 }
 
 __main_theme() {
-  if command -v __git_ps1 ; then
+  if command -v __git_ps1 &>/dev/null ; then
     export GIT_PS1_SHOWDIRTYSTATE=1
     export GIT_PS1_SHOWSTASHSTATE=1
     export GIT_PS1_SHOWUNTRACKEDFILES=1
@@ -54,7 +54,7 @@ __main_theme() {
     export GIT_PS1_SHOWUPSTREAM="git"
     export GIT_PS1_DESCRIBE_STYLE="branch"
     export GIT_PS1_STATESEPARATOR=" "
-  # shellcheck disable=SC2016
+    # shellcheck disable=SC2016
     local PS1_git='\[\e[1;34m\]$(__git_ps1 " (%s)")'
   fi
 

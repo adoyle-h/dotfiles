@@ -30,7 +30,7 @@ My configurations and shell scripts.
 ## Dependencies
 
 - [dotbot][]: To create symbolic links and manage the map via [`install.conf.yaml`](./install.conf.yaml).
-- [bash-it][]: To manage all shell scripts in modules: aliases, plugins, completions and shell theme.
+- [bash-it][]: To manage all shell scripts in modules: aliases, plugins, completions and shell theme. But this repo uses [my modified version](https://github.com/adoyle-h/bash-it)
 
 ## Features
 
@@ -73,55 +73,56 @@ Run `./install` to create symbolic links.
 │   ├── bashrc
 │   ├── inputrc
 │   └── profile
-├── bash-custom/                 # your bash scripts
-│   ├── Debian/                  # bash scripts for Linux Debian
-│   ├── Macos/                   # bash scripts for Macos
-│   ├── aliases.shell.bash       # same to bash_it aliases
+├── bash-custom/                    # your bash scripts
+│   ├── Debian/                     # bash scripts for Linux Debian
+│   │   └── core.bash
+│   ├── aliases.shell.bash          # same to bash_it aliases
+│   ├── available/                  # Custom available bash scripts
+│   │   └── zzz_last_cd.plugin.bash # Ensure the plugin should be loaded at last
+│   ├── bash.plugin.bash
 │   ├── cheat.plugin.bash
-│   ├── completions.shell.bash   # same to bash_it completions
+│   ├── completions.shell.bash      # same to bash_it completions
 │   ├── editor.env.bash
+│   ├── enabled/                    # Custom enabled bash scripts
+│   │   └── zzz_last_cd.plugin.bash -> ../available/zzz_last_cd.plugin.bash
 │   ├── env.shell.bash
-│   ├── functions.shell.bash     # same to bash_it lib
+│   ├── functions.shell.bash        # same to bash_it lib
 │   ├── fzf.plugin.bash
 │   ├── gvm.plugin.bash
 │   ├── lesspipe.plugin.bash
+│   ├── Macos/                      # bash scripts for Macos
+│   │   └── core.bash
 │   ├── optionals.shell.bash
-│   ├── path.env.bash            # change environment variable PATH
+│   ├── path.env.bash               # change environment variable PATH
 │   ├── proxy.env.bash
 │   ├── secrets.env.bash -> ../secrets/secrets.env.bash
-│   ├── system-detect.shell.bash # detect system and run its bash scripts
-│   ├── themes/                  # the bash_it theme
+│   ├── system-detect.shell.bash    # detect system and run its bash scripts
+│   ├── themes/                     # the bash_it theme
+│   │   └── 𝕬/
+│   │       └── 𝕬.theme.bash
 │   ├── tmux.plugin.bash
 │   ├── variables.shell.bash
-│   └── zzz_last_cd.plugin.bash  # Ensure the plugin should be loaded at last
-├── bash_it/                     # https://github.com/Bash-it/bash-it#your-custom-scripts-aliases-themes-and-functions
+│   └── xcode.plugin.bash
+├── bash_it/                        # https://github.com/Bash-it/bash-it#your-custom-scripts-aliases-themes-and-functions
 │   ├── aliases.bash
 │   ├── completions.bash
-│   ├── enable.bash              # bash_it configuration and entrance
+│   ├── enable.bash                 # bash_it configuration and entrance
 │   ├── lib.bash
 │   └── plugins.bash
-├── bin/                         # link to ~/bin
+├── bin/                            # link to ~/bin
 ├── bootstrap -> ./bootstrap.bash*
 ├── bootstrap.bash*
-├── cheat/                       # https://github.com/chrisallenlane/cheat
-├── completions/                 # bash completions
-├── configs/                     # application configuration
-├── dotbot/                      # https://github.com/anishathalye/dotbot
+├── cheat/                          # https://github.com/chrisallenlane/cheat
+├── completions/                    # bash completions
+├── configs/                        # application configuration
+├── dotbot/                         # https://github.com/anishathalye/dotbot
 ├── install*
-├── install.conf.yaml            # dotbot configuration
-├── nvim/                        # neovim configuration
-├── secrets/                     # Put your sensitive data here
-│   ├── iterm/
-│   ├── keybase-installer/
-│   └── secrets.env.bash
-└── ssh/                         # link to ~/.ssh
-    ├── authorized_keys          # ignored
-    ├── config
-    ├── deploy/
-    ├── dev/
-    ├── id_rsa                   # ignored
-    ├── id_rsa.pub               # ignored
-    └── known_hosts              # ignored
+├── install.conf.yaml               # dotbot configuration
+├── nvim/                           # neovim configuration
+└── secrets/                        # Put your sensitive data here
+    ├── iterm/
+    ├── keybase-installer/
+    └── secrets.env.bash
 ```
 
 ## Enables

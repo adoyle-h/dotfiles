@@ -1,7 +1,7 @@
 #---------------------------- Shell Variables --------------------------------#
 
 ## shell history
-HISTIGNORE='ls:sl:bg:fg:history'
+HISTIGNORE='ls:sl:bg:fg:pwd:history'
 # don't put duplicate lines in the history. See bash(1) for more options
 HISTCONTROL=ignoredups
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)

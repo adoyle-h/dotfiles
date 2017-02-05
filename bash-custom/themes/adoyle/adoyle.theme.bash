@@ -2,8 +2,8 @@
 
 export CLICOLOR=1
 # Preview https://geoff.greer.fm/lscolors/
-export LSCOLORS=exgxFxDxcxdhDhHbHDeced   # BSD LSCOLORS
-export LS_COLORS='di=34:ln=36:so=1;35:pi=1;33:ex=32:bd=33;47:cd=1;33;47:su=1;37;41:sg=1;37;1;43:tw=34;42:ow=34;43'  # Linux LS_COLORS
+export LSCOLORS=exgxFxDxcxdgDEHbHDacad   # BSD LSCOLORS
+export LS_COLORS='di=34:ln=36:so=1;35:pi=1;33:ex=32:bd=33;46:cd=1;33;1;44:su=1;37;41:sg=1;37;1;43:tw=30;42:ow=30;43'  # Linux LS_COLORS
 
 BLACK="\[\e[0;30m\]"
 RED="\[\e[0;31m\]"
@@ -56,11 +56,17 @@ __fill_ps1_spaces() {
   local PS1_right=$2
   local PS1_left_plant=$(__trim_str_color "$PS1_left")
   local PS1_right_plant=$(__trim_str_color "$PS1_right")
-  echo -e PS1_left=$PS1_left >> ~/debug
-  echo -e PS1_right=$PS1_right >> ~/debug
-  echo -e PS1_left_plant=$PS1_left_plant >> ~/debug
-  echo -e PS1_right_plant=$PS1_right_plant >> ~/debug
   local COLS=$(( $(tput cols) - ${#PS1_left_plant} - ${#PS1_right_plant} ))
+
+  # For debug
+  # echo -e PS1_left=$PS1_left >> ~/debug
+  # echo -e PS1_right=$PS1_right >> ~/debug
+  # echo -e PS1_left_plant=$PS1_left_plant >> ~/debug
+  # echo -e PS1_right_plant=$PS1_right_plant >> ~/debug
+
+  if [[ -n "$TMUX" ]]; then
+    COLS=$(( COLS - 1 ))
+  fi
 
   if [[ $COLS -lt 1 ]]; then
     #shellcheck disable=SC2028

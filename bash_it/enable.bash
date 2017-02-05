@@ -3,7 +3,7 @@ export BASH_IT="$HOME/.bash_it"
 export BASH_IT_CUSTOM="$BASH_IT/custom/adoyle"
 
 # Lock and Load a custom theme file
-export BASH_IT_THEME='adoyle'
+export BASH_IT_THEME='𝕬'
 
 # Set this to false to turn off version control status checking within the prompt for all themes
 export SCM_CHECK=false

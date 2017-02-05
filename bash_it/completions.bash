@@ -4,7 +4,7 @@
 # System completion should be first
 
 GET_BASH_MAJOR_VERSION() {
-  if [[ -v TMUX ]]; then
+  if [[ -n "$TMUX" ]]; then
     local bsh="$SHELL"
   else
     local bsh="$BASH"

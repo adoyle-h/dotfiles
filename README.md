@@ -14,6 +14,7 @@ My configurations and shell scripts.
     - [Bootstrap](#bootstrap)
     - [Install](#install)
 - [File Structure](#file-structure)
+- [Script Order](#script-order)
 - [Enables](#enables)
 - [Version](#version)
 - [Suggestion, Bug Reporting, Contributing](#suggestion-bug-reporting-contributing)
@@ -69,10 +70,10 @@ Run `./install` to create symbolic links.
 .
 ├── README.md
 ├── bash/
-│   ├── bash_profile
-│   ├── bashrc
-│   ├── inputrc
-│   └── profile
+│   ├── bash_profile                # Link to ~/.bash_profile
+│   ├── bashrc                      # Link to ~/.bashrc
+│   ├── inputrc                     # Link to ~/.inputrc
+│   └── profile                     # Link to ~/.profile
 ├── bash-custom/                    # your bash scripts
 │   ├── Debian/                     # bash scripts for Linux Debian
 │   │   └── core.bash
@@ -107,23 +108,35 @@ Run `./install` to create symbolic links.
 │   ├── aliases.bash
 │   ├── completions.bash
 │   ├── enable.bash                 # bash_it configuration and entrance
-│   ├── lib.bash
+│   ├── lib.bash                    # Reset $PATH and $MANPATH, and set common functions
 │   └── plugins.bash
 ├── bin/                            # link to ~/bin
 ├── bootstrap -> ./bootstrap.bash*
 ├── bootstrap.bash*
-├── cheat/                          # https://github.com/chrisallenlane/cheat
+├── cheat/                          # It is ignored in git. git clone https://github.com/adoyle-h/my-command-cheat cheat
 ├── completions/                    # bash completions
 ├── configs/                        # application configuration
 ├── dotbot/                         # https://github.com/anishathalye/dotbot
 ├── install*
 ├── install.conf.yaml               # dotbot configuration
-├── nvim/                           # neovim configuration
-└── secrets/                        # Put your sensitive data here
+├── nvim/                           # neovim configuration. It is ignored in git. git clone https://github.com/adoyle-h/neovim-config nvim
+└── secrets/                        # Put your sensitive data here. It is ignored in git. mkdir secrets
     ├── iterm/
     ├── keybase-installer/
     └── secrets.env.bash
 ```
+
+## Script Order
+
+1. bash/bashrc
+2. bash_it/enable
+3. bash_it framework
+    1. bash_it/{lib,aliases,completions,plugins}
+4. bash-custom/*.bash
+    1. system-detect.shell.bash
+        - Macos/*.bash
+        - Debian/*.bash
+5. bash-custom/enabled/*.bash
 
 ## Enables
 

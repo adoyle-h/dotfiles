@@ -24,8 +24,8 @@ My configurations and shell scripts.
 ## Environments
 
 - iTerm2 Build 3.0.14 (Terminal.app also work)
-- GNU bash 4.4.12(1)-release (x86_64-apple-darwin15.6.0) (It may work on GNU bash v3)
-- tmux 2.3 (optional)
+- GNU bash 4.4.12(1)-release (x86_64-apple-darwin15.6.0) (It also works on GNU bash v3)
+- tmux 2.3 (Not necessary, It also works under Tmux)
 
 ## Dependencies
 
@@ -33,6 +33,11 @@ My configurations and shell scripts.
 - [bash-it][]: To manage all shell scripts in modules: aliases, plugins, completions and shell theme.
 
 ## Features
+
+- Manage shell script by modules
+- Responsive and pretty PS1, and personalized theme `𝕬`
+- Collections of dotfiles
+- My best practices for shell (bash)
 
 ## Installation
 

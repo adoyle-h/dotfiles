@@ -19,14 +19,6 @@ MAIN_MANPATHS="/usr/local/share/man:/usr/share/man"
 export MANPATH="$MAIN_MANPATHS"
 unset -v MAIN_MANPATHS
 
-# if [[ $PATH != ?(*:)"/usr/local/bin"?(:*) ]]; then
-#   export PATH=/usr/local/bin:$PATH
-# fi
-
-# if [[ $PATH != ?(*:)"$HOME/bin"?(:*) ]]; then
-#   export PATH=$HOME/bin:$PATH
-# fi
-
 has() {
   local condition="$1"
   local value="$2"
@@ -54,3 +46,10 @@ GET_BASH_MAJOR_VERSION() {
   "$bsh" --version | sed -r -n 's@.*[(version)|(版本)] ([0-9]{1,})\.[0-9]{1,}\.[0-9]{1,}\(1\)-release.*@\1@p'
 }
 
+__no_matched_path() {
+  local char=${3:-':'}
+  case "${char}${2}${char}" in
+    *${char}${1}${char}*) return 1;;
+    *) return 0;;
+  esac
+}

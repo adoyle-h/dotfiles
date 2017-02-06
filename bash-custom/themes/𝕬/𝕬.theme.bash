@@ -132,7 +132,9 @@ __prompt_command() {
 }
 
 if [[ -n "$PROMPT_COMMAND" ]]; then
-  PROMPT_COMMAND="__prompt_command; $PROMPT_COMMAND"
+  if __no_matched_path "__prompt_command" "$PROMPT_COMMAND" ';'; then
+    PROMPT_COMMAND="__prompt_command;$PROMPT_COMMAND"
+  fi
 else
   PROMPT_COMMAND=__prompt_command
 fi

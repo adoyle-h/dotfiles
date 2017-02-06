@@ -4,13 +4,6 @@
 FZF_MANPATH=$HOME/.fzf/man
 FZF_BIN=$HOME/.fzf/bin
 
-__no_matched_path() {
-  case ":${2}:" in
-    *:${1}:*) return 1;;
-    *) return 0;;
-  esac
-}
-
 if __no_matched_path "$FZF_BIN" "$PATH" ; then
   export PATH="$PATH:$FZF_BIN"
 fi

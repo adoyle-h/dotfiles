@@ -45,7 +45,9 @@
     cm = commit -m
     cob = checkout -b
     ls = ls-files
-    workconfig = ! git config user.name \"${GIT_CONFIG_WORK_USERNAME}\" && git config user.email \"${GIT_CONFIG_WORK_EMAIL}\"
+    workconfig = !"git config user.name \"${GIT_CONFIG_WORK_USERNAME}\" && git config user.email \"${GIT_CONFIG_WORK_EMAIL}\""
+    show-orig = "!f() { git status -s -uall | grep -e '\\.orig$' | awk '{print $2}'; }; f"
+    rm-orig = "!f() { git show-orig | xargs rm; }; f"
 [push]
     default = current
 [pull]
@@ -56,19 +58,29 @@
     commitencoding = utf-8
     logoutputencoding = utf-8
 [diff]
-    tool = ksdiff
+    tool = nvimdiff
     submodule = log
 [diff "sketchtool"]
-  textconv = "sketchtool dump"
-  cachetextconv = true
-  binary = true
+    textconv = "sketchtool dump"
+    cachetextconv = true
+    binary = true
 [difftool "ksdiff"]
     cmd = ksdiff -w $LOCAL $REMOTE
-[mergetool "ksdiff"]
-    cmd = ksdiff -w $BASE $LOCAL $REMOTE $MERGED
 [difftool "sourcetree"]
     cmd = /usr/local/bin/ksdiff -w \"$LOCAL\" \"$REMOTE\"
     path =
+[merge]
+    log = true
+    ff = false
+    tool = nvimdiff
+    ; conflictstyle = merge  ; default
+    conflictstyle = diff3
+[mergetool]
+    prompt = true
+[mergetool "nvimdiff"]
+    cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[mergetool "ksdiff"]
+    cmd = ksdiff -w $BASE $LOCAL $REMOTE $MERGED
 [mergetool "sourcetree"]
     cmd = /usr/local/bin/ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
     trustExitCode = true
@@ -77,9 +89,6 @@
 [rebase]
     stat = true
     autoSquash = true
-[merge]
-    log = true
-    ff = false
 [filter "lfs"]
     clean = git-lfs clean %f
     smudge = git-lfs smudge %f

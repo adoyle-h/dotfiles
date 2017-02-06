@@ -46,7 +46,6 @@
     $XDG_CONFIG_HOME/peco/config.json: configs/peco.json
     $XDG_CONFIG_HOME/yamllint/config: configs/yamllint.yml
     ~/.source-highlight/source-highlight.conf: configs/source-highlight.conf
-    ~/.fzf.bash: configs/fzf.bash
 
     # secrets
     ~/.ssh: secrets/ssh

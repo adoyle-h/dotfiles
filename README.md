@@ -144,7 +144,6 @@ The aliases/plugins/completions I enabled:
 
 [aliases]
 
-- osx
 
 [plugins]
 

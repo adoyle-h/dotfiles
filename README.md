@@ -226,11 +226,14 @@ Copyright (c) 2017 ADoyle. The project is licensed under the **BSD 3-clause Lice
 
 See the [LICENSE][] file for the specific language governing permissions and limitations under the License.
 
+See the [NOTICE][] file distributed with this work for additional information regarding copyright ownership.
+
 
 <!-- links -->
 
 [issue]: https://github.com/adoyle-h/dotfiles/issues
 [LICENSE]: ./LICENSE
+[NOTICE]: ./NOTICE
 
 <!-- links -->
 

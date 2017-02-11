@@ -35,19 +35,29 @@ My configurations and shell scripts.
 
 ## Features
 
-- Manage shell script by modules
+- Manage collections of dotfiles via [dotbot][]
+- Manage shell scripts/completions/aliases/plugins by modules via [bash-it][]
+  - Most features are implemented in separate plugins, which could be disabled by yourself.
+- Auto-execute specific scripts for different system (ubuntu/macos and so on)
 - Responsive and pretty PS1, and personalized theme `𝕬`
-- Collections of dotfiles
 - Collections of shell commands, which locates in `bin/` directory
 - Manage sub commands, which locates in `bin/sub/` directory. Based on [sub][]
 - My best practices for shell (bash)
+- My best practices for [todo.cli](https://github.com/ginatrapani/todo.txt-cli)
+- My best practices for [neovim][]
+- My cheat sheets based on [chrisallenlane/cheat](https://github.com/chrisallenlane/cheat)
+- Keep your classified data in `secrets/` folder, which is ignored by git.
 
 ## Installation
 
 ```sh
 git clone --depth 1 --recursive https://github.com/adoyle-h/dotfiles.git ~/dotfiles
+# Put your classified data in `secrets/` folder
 mkdir -p ~/dotfiles/secrets
-# git clone --depth 1 https://github.com/adoyle-h/my-command-cheat.git ~/dotfiles/cheat
+# cheat is optional
+git clone --depth 1 https://github.com/adoyle-h/my-command-cheat.git ~/dotfiles/cheat
+# neovim is optional
+git clone --depth 1 --recursive git@github.com:adoyle-h/neovim-config.git ~/dotfiles/nvim
 ```
 
 ## Usage
@@ -227,3 +237,4 @@ See the [LICENSE][] file for the specific language governing permissions and lim
 [dotbot]: https://github.com/anishathalye/dotbot/
 [bash-it]: https://github.com/Bash-it/bash-it
 [sub]: https://github.com/basecamp/sub
+[neovim]: https://github.com/neovim/neovim

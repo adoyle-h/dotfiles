@@ -58,11 +58,19 @@ My configurations and shell scripts.
 
 ## Preview
 
-![preview totally](./docs/img/preview.png?raw=true)
+![preview.png](./docs/img/preview.png?raw=true)
 
-Responsive UI (No need to restart Terminal. Only press Enter):
+Responsive UI (Adjust with window width). No need to restart Terminal. Only press Enter:
 
-![](./docs/img/responsive-ui.png?raw=true)
+![responsive-ui.png](./docs/img/responsive-ui.png?raw=true)
+
+Highlight Backgound jobs:
+
+![background-jobs.png](./docs/img/background-jobs.png?raw=true)
+
+Use sub commands:
+
+![sub-commands.jpeg](./docs/img/sub-commands.jpeg?raw=true)
 
 ## Installation
 

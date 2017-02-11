@@ -35,18 +35,21 @@ My configurations and shell scripts.
 
 ## Features
 
-- Manage collections of dotfiles via [dotbot][]
-- Manage shell scripts/completions/aliases/plugins by modules via [bash-it][]
+- Manage collections of dotfiles via [dotbot][]. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/install.conf.yaml).
+- Manage shell scripts/completions/aliases/plugins by modules via [bash-it][].
   - Most features are implemented in separate plugins, which could be disabled by yourself.
-- Auto-execute specific scripts for different system (ubuntu/macos and so on)
-- Responsive and pretty PS1, and personalized theme `𝕬`
-- Collections of shell commands, which locates in `bin/` directory
-- Manage sub commands, which locates in `bin/sub/` directory. Based on [sub][]
-- My best practices for shell (bash)
-- My best practices for [todo.cli](https://github.com/ginatrapani/todo.txt-cli)
-- My best practices for [neovim][]
-- My cheat sheets based on [chrisallenlane/cheat](https://github.com/chrisallenlane/cheat)
-- Keep your classified data in `secrets/` folder, which is ignored by git.
+  - All my plugins are put in [`bash-custom/`](./bash-custom/) folder. And some enabled plugins provided by bash-it. Refer to [Enables](#enables).
+- Auto-execute specific scripts for different system (ubuntu/macos and so on).
+- Responsive and pretty PS1, and personalized theme `𝕬`.
+- Collections of shell commands, which locates in [`bin/`](./bin/) directory.
+- Manage sub commands, which locates in [`bin/sub/`](./bin/sub/) directory. Based on [sub][].
+- My best practices for shell (bash).
+- My best practices for [todo.cli](https://github.com/ginatrapani/todo.txt-cli).
+- My best practices for [neovim][]. See [the configuration](https://github.com/adoyle-h/neovim-config).
+- My best practices for [tmux][]. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/configs/tmux.conf).
+- My best practices for git. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/configs/gitconfig).
+- My cheat sheets based on [chrisallenlane/cheat](https://github.com/chrisallenlane/cheat).
+- Maintain your classified data in `secrets/` folder, which is ignored by git.
 
 ## Installation
 
@@ -241,3 +244,4 @@ See the [NOTICE][] file distributed with this work for additional information re
 [bash-it]: https://github.com/Bash-it/bash-it
 [sub]: https://github.com/basecamp/sub
 [neovim]: https://github.com/neovim/neovim
+[tmux]: https://github.com/tmux/tmux

@@ -40,10 +40,12 @@ My configurations and shell scripts.
 - Manage shell scripts/completions/aliases/plugins by modules via [bash-it][].
   - Most features are implemented in separate plugins, which could be disabled by yourself.
   - All my plugins are put in [`bash-custom/`](./bash-custom/) folder. And some enabled plugins provided by bash-it. Refer to [Enables](#enables).
+  - Compatible with [bash-completion (For bash 3.x) and bash-completion2 (For bash 4.x)](https://github.com/scop/bash-completion). See the [configuration](https://github.com/adoyle-h/dotfiles/blob/master/bash_it/completions.bash)
 - Auto-execute specific scripts for different system (ubuntu/macos and so on).
 - Responsive and pretty PS1, and personalized theme `𝕬`.
 - Collections of shell commands, which locates in [`bin/`](./bin/) directory.
-- Manage sub commands, which locates in [`bin/sub/`](./bin/sub/) directory. Based on [sub][].
+- Manage sub commands, which locates in [`bin/sub/`](./bin/sub/) directory. The manage framework is modified from [sub][].
+  - Default `SUB_NAME=a`，press `a help` to see help. You can modify the enterpoint (SUB_NAME) in Plugin: [sub.plugin.bash][]
 - My best practices for shell (bash).
 - My best practices for [todo.cli](https://github.com/ginatrapani/todo.txt-cli).
 - My best practices for [neovim][]. See [the configuration](https://github.com/adoyle-h/neovim-config).
@@ -51,6 +53,8 @@ My configurations and shell scripts.
 - My best practices for git. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/configs/gitconfig).
 - My cheat sheets based on [chrisallenlane/cheat](https://github.com/chrisallenlane/cheat).
 - Maintain your classified data in `secrets/` folder, which is ignored by git.
+- Integrated with [spencertipping/cd](https://github.com/spencertipping/cd).
+- Integrated with [fzf][]. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/bash-custom/fzf.plugin.bash).
 
 ## Preview
 
@@ -254,3 +258,5 @@ See the [NOTICE][] file distributed with this work for additional information re
 [sub]: https://github.com/basecamp/sub
 [neovim]: https://github.com/neovim/neovim
 [tmux]: https://github.com/tmux/tmux
+[fzf]: https://github.com/junegunn/fzf
+[sub.plugin.bash]: https://github.com/adoyle-h/dotfiles/blob/master/bash-custom/sub.plugin.bash

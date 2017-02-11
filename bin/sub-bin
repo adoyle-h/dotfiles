@@ -32,7 +32,7 @@ get_sub_command_path() {
 command="$1"
 case "$command" in
 "" | "-h" | "--help" )
-  exec ""$SUB_NAME" help"
+  "$SUB_NAME" help
   ;;
 * )
   command_path="$(get_sub_command_path "$command")"

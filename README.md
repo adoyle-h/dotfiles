@@ -38,6 +38,8 @@ My configurations and shell scripts.
 - Manage shell script by modules
 - Responsive and pretty PS1, and personalized theme `𝕬`
 - Collections of dotfiles
+- Collections of shell commands, which locates in `bin/` directory
+- Manage sub commands, which locates in `bin/sub/` directory. Based on [sub][]
 - My best practices for shell (bash)
 
 ## Installation
@@ -111,6 +113,8 @@ Run `./install` to create symbolic links.
 │   ├── lib.bash                    # Reset $PATH and $MANPATH, and set common functions
 │   └── plugins.bash
 ├── bin/                            # link to ~/bin
+│   ├── sub/                        # Collections of sub commands
+│   └── a -> ./sub-bin              # Enterpoint of sub commands
 ├── bootstrap -> ./bootstrap.bash*
 ├── bootstrap.bash*
 ├── cheat/                          # It is ignored in git. git clone https://github.com/adoyle-h/my-command-cheat cheat
@@ -222,3 +226,4 @@ See the [LICENSE][] file for the specific language governing permissions and lim
 
 [dotbot]: https://github.com/anishathalye/dotbot/
 [bash-it]: https://github.com/Bash-it/bash-it
+[sub]: https://github.com/basecamp/sub

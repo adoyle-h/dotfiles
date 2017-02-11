@@ -9,6 +9,7 @@ My configurations and shell scripts.
 - [Environments](#environments)
 - [Dependencies](#dependencies)
 - [Features](#features)
+- [Preview](#preview)
 - [Installation](#installation)
 - [Usage](#usage)
     - [Bootstrap](#bootstrap)
@@ -50,6 +51,14 @@ My configurations and shell scripts.
 - My best practices for git. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/configs/gitconfig).
 - My cheat sheets based on [chrisallenlane/cheat](https://github.com/chrisallenlane/cheat).
 - Maintain your classified data in `secrets/` folder, which is ignored by git.
+
+## Preview
+
+![preview totally](./docs/img/preview.png?raw=true)
+
+Responsive UI (No need to restart Terminal. Only press Enter):
+
+![](./docs/img/responsive-ui.png?raw=true)
 
 ## Installation
 

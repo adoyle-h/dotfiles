@@ -41,7 +41,6 @@ alias irc="irssi"
 alias nginx='/etc/init.d/nginx'
 alias edit="nvim"
 alias pager="nvim"
-alias tm='tmux attach-session -t "work" || tmux new-session -s "work" -d -n "main"'
 alias dm='docker-machine'
 
 alias ..="cd .."

@@ -11,6 +11,9 @@ My configurations and shell scripts.
 - [Features](#features)
 - [Preview](#preview)
 - [Installation](#installation)
+- [Configuration](#configuration)
+    - [UI](#ui)
+    - [Dotfiles](#dotfiles)
 - [Usage](#usage)
     - [Bootstrap](#bootstrap)
     - [Install](#install)
@@ -31,12 +34,12 @@ My configurations and shell scripts.
 
 ## Dependencies
 
-- [dotbot][]: To create symbolic links and manage the map via [`install.conf.yaml`](./install.conf.yaml).
+- [dotbot][]: To create symbolic links and manage the map via [`install.conf.yaml`][install.conf.yaml].
 - [bash-it][]: To manage all shell scripts in modules: aliases, plugins, completions and shell theme. But this repo uses [my modified version](https://github.com/adoyle-h/bash-it)
 
 ## Features
 
-- Manage collections of dotfiles via [dotbot][]. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/install.conf.yaml).
+- Manage collections of dotfiles via [dotbot][]. See [the configuration][install.conf.yaml].
 - Manage shell scripts/completions/aliases/plugins by modules via [bash-it][].
   - Most features are implemented in separate plugins, which could be disabled by yourself.
   - All my plugins are put in [`bash-custom/`](./bash-custom/) folder. And some enabled plugins provided by bash-it. Refer to [Enables](#enables).
@@ -87,6 +90,17 @@ git clone --depth 1 --recursive git@github.com:adoyle-h/neovim-config.git ~/dotf
 ./install
 # checkout the output
 ```
+
+## Configuration
+
+### UI
+
+- Font: [DejaVuSansMonoForPowerline Nerd Font Book][font]
+- Color Scheme: [Deep][color scheme]. [Installation Instructions][color scheme - installation]
+
+### Dotfiles
+
+Edit the [`install.conf.yaml`][install.conf.yaml] file.
 
 ## Usage
 
@@ -224,6 +238,7 @@ See the [NOTICE][] file distributed with this work for additional information re
 
 <!-- links -->
 
+[install.conf.yaml]: ./install.conf.yaml
 [dotbot]: https://github.com/anishathalye/dotbot/
 [bash-it]: https://github.com/Bash-it/bash-it
 [sub]: https://github.com/basecamp/sub
@@ -231,3 +246,6 @@ See the [NOTICE][] file distributed with this work for additional information re
 [tmux]: https://github.com/tmux/tmux
 [fzf]: https://github.com/junegunn/fzf
 [sub.plugin.bash]: https://github.com/adoyle-h/dotfiles/blob/master/bash-custom/sub.plugin.bash
+[font]: https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/DejaVuSansMono
+[color scheme]: https://github.com/adoyle-h/iTerm2-Color-Schemes#deep
+[color scheme - installation]: https://github.com/adoyle-h/iTerm2-Color-Schemes#installation-instructions

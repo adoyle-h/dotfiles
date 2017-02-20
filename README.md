@@ -247,5 +247,5 @@ See the [NOTICE][] file distributed with this work for additional information re
 [fzf]: https://github.com/junegunn/fzf
 [sub.plugin.bash]: https://github.com/adoyle-h/dotfiles/blob/master/bash-custom/sub.plugin.bash
 [font]: https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/DejaVuSansMono
-[color scheme]: https://github.com/adoyle-h/iTerm2-Color-Schemes#deep
-[color scheme - installation]: https://github.com/adoyle-h/iTerm2-Color-Schemes#installation-instructions
+[color scheme]: https://github.com/mbadolato/iTerm2-Color-Schemes#deep
+[color scheme - installation]: https://github.com/mbadolato/iTerm2-Color-Schemes#installation-instructions

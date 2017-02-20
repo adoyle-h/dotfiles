@@ -12,6 +12,7 @@ right:page-down,\
 ctrl-t:toggle-all,\
 ctrl-n:page-down,\
 ctrl-p:page-up,\
+alt-j:jump,\
 esc:deselect-all,\
 ?:toggle-preview\
 "
@@ -33,7 +34,7 @@ export FZF_DEFAULT_OPTS="${FZF_SEARCH_MODE} ${FZF_SEARCH_RESULT} ${FZF_INTERFACE
 export FZF_DEFAULT_COMMAND='ag -l --ignore-dir node_modules --ignore-dir .git -g ""'
 # export FZF_CTRL_T_COMMAND="ls"
 export FZF_CTRL_T_OPTS="${FZF_DEFAULT_OPTS} --header='[Files]' ${FZF_CTRL_T_PREVIEW}"
-export FZF_CTRL_R_OPTS="${FZF_DEFAULT_OPTS} --header='[History]' ${FZF_CTRL_R_PREVIEW}"
+export FZF_CTRL_R_OPTS="${FZF_DEFAULT_OPTS} --header='[History]' --tiebreak=index ${FZF_CTRL_R_PREVIEW}"
 export FZF_ALT_C_OPTS="${FZF_DEFAULT_OPTS} --header='[Checkout Directory]' ${FZF_ALT_C_PREVIEW}"
 export FZF_COMPLETION_TRIGGER='**'
 

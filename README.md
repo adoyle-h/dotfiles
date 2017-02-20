@@ -16,7 +16,7 @@ My configurations and shell scripts.
     - [Install](#install)
 - [File Structure](#file-structure)
 - [Script Order](#script-order)
-- [Enables](#enables)
+- [Bash-it Enables](#bash-it-enables)
 - [Version](#version)
 - [Suggestion, Bug Reporting, Contributing](#suggestion-bug-reporting-contributing)
 - [Copyright and License](#copyright-and-license)
@@ -180,62 +180,21 @@ Run `./install` to create symbolic links.
         - Debian/*.bash
 5. bash-custom/enabled/*.bash
 
-## Enables
+## Bash-it Enables
 
 The aliases/plugins/completions I enabled:
 
 [aliases]
 
+`bash-it disable alias all`
 
 [plugins]
 
-- alias-completion
-- autojump
-- base
-- battery
-- browser
-- docker-compose
-- docker-machine
-- docker
-- explain
-- extract
-- gif
-- java
-- nginx
-- node
-- nvm
-- osx-timemachine
-- osx
-- proxy
-- rvm
-- ssh
-- xterm
+`bash-it enable plugin alias-completion autojump base battery browser docker-compose docker-machine docker explain extract gif java nginx node nvm osx-timemachine osx proxy rvm ssh xterm`
 
 [completions]
 
-- bash-it
-- brew
-- bundler
-- capistrano
-- defaults
-- docker-compose
-- docker-machine
-- docker
-- gem
-- go
-- grunt
-- makefile
-- npm
-- nvm
-- pip
-- projects
-- rake
-- ssh
-- terraform
-- tmux
-- todo
-- virtualbox
-
+`bash-it enable completion bash-it brew bundler capistrano defaults docker-compose docker-machine docker gem go grunt makefile npm nvm pip projects rake ssh terraform tmux todo virtualbox`
 
 ## Version
 

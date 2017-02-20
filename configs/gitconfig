@@ -9,7 +9,7 @@
     excludesfile = ~/.gitignore
     autocrlf = input
     safecrlf = true
-    pager = diff-so-fancy | less --tabs=4 -RFX
+    pager = less --tabs=4 -RFX
 [alias]
     lg = log --left-right --graph --format=\"%C(auto)%d %h%Creset% s %C(68)%ar %C(ul 117)%aN|%cN%Creset\"
     lga = log --all --left-right --graph --format=\"%C(auto)%d %h%Creset% s %C(68)%ar %C(ul 117)%aN|%cN%Creset\"

@@ -80,6 +80,8 @@ _bootstrap_common() {
     pip install grip
   fi
 
+  ./install
+
   echo '[Done] Bootstrap in common'
 }
 
@@ -110,5 +112,3 @@ else
 fi
 
 unset -f has _bootstrap_common _bootstrap_macos _bootstrap_linux
-set +o errexit
-set +o nounset

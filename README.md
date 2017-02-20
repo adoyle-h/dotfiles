@@ -82,6 +82,10 @@ mkdir -p ~/dotfiles/secrets
 git clone --depth 1 https://github.com/adoyle-h/my-command-cheat.git ~/dotfiles/cheat
 # neovim is optional
 git clone --depth 1 --recursive git@github.com:adoyle-h/neovim-config.git ~/dotfiles/nvim
+# check `install.conf.yaml` file
+# make soft-links
+./install
+# checkout the output
 ```
 
 ## Usage

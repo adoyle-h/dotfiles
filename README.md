@@ -2,6 +2,8 @@
 
 My configurations and shell scripts.
 
+**Currently, it is only a personal workplace rather than a framework. So you should FORK the REPO first before using it.**
+
 ## TOC
 
 <!-- MarkdownTOC GFM -->
@@ -78,13 +80,19 @@ Use sub commands:
 ## Installation
 
 ```sh
-git clone --depth 1 --recursive https://github.com/adoyle-h/dotfiles.git ~/dotfiles
+# Clone this repo
+DOTFILE_DIR=~/dotfiles
+git clone --depth 1 --recursive https://github.com/adoyle-h/dotfiles.git $DOTFILE_DIR
+# Install bash_it framework which is required
+git clone --depth 1 https://github.com/Bash-it/bash-it.git ~/.bash_it
+~/.bash_it/install.sh --no-modify-config
+${DOTFILE_DIR}/bash_it/reset.sh
 # Put your classified data in `secrets/` folder
-mkdir -p ~/dotfiles/secrets
+mkdir -p ${DOTFILE_DIR}/secrets
 # cheat is optional
-git clone --depth 1 https://github.com/adoyle-h/my-command-cheat.git ~/dotfiles/cheat
+git clone --depth 1 https://github.com/adoyle-h/my-command-cheat.git ${DOTFILE_DIR}/cheat
 # neovim is optional
-git clone --depth 1 --recursive git@github.com:adoyle-h/neovim-config.git ~/dotfiles/nvim
+git clone --depth 1 --recursive git@github.com:adoyle-h/neovim-config.git ${DOTFILE_DIR}/nvim
 # check `install.conf.yaml` file
 # make soft-links
 ./install

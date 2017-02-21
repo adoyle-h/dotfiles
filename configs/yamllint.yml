@@ -8,4 +8,7 @@ rules:
         indent-sequences: consistent
         check-multi-line-strings: true
     empty-lines:
-        max: 1
+        level: warning
+        max: 2
+        max-start: 1
+    new-line-at-end-of-file: enable

@@ -19,6 +19,17 @@ MAIN_MANPATHS="/usr/local/share/man:/usr/share/man"
 export MANPATH="$MAIN_MANPATHS"
 unset -v MAIN_MANPATHS
 
+a_debug() {
+  [[ -z "$_DEBUG" ]] && return 0
+  local ts=$(date +"%Y%m%d_%H%M%S")
+  echo -e "[$ts] $1"
+}
+
+a_debug_to_file() {
+  [[ -z "$_DEBUG" ]] && return 0
+  a_debug "$1" >> ~/debug
+}
+
 has() {
   local condition="$1"
   local value="$2"

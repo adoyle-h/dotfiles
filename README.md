@@ -20,8 +20,10 @@ My configurations and shell scripts.
     - [Bootstrap](#bootstrap)
     - [Install](#install)
 - [File Structure](#file-structure)
-- [Script Order](#script-order)
-- [Bash-it Enables](#bash-it-enables)
+- [Bash initialization process](#bash-initialization-process)
+- [Bash-it Enables/Disables](#bash-it-enablesdisables)
+- [Customize your Bash](#customize-your-bash)
+    - [Binary executables](#binary-executables)
 - [Version](#version)
 - [Suggestion, Bug Reporting, Contributing](#suggestion-bug-reporting-contributing)
 - [Copyright and License](#copyright-and-license)
@@ -36,6 +38,9 @@ My configurations and shell scripts.
 
 ## Dependencies
 
+- [git][]: **It is required**.
+- [gnu-sed][]: Macos default sed is poor, use [gnu-sed][] instead. **It is required**.
+- [bash-completion][] or bash-completion2. If omitted, git prompt will show nothing.
 - [dotbot][]: To create symbolic links and manage the map via [`install.conf.yaml`][install.conf.yaml].
 - [bash-it][]: To manage all shell scripts in modules: aliases, plugins, completions and shell theme. But this repo uses [my modified version](https://github.com/adoyle-h/bash-it)
 
@@ -83,6 +88,8 @@ Use sub commands:
 # Clone this repo
 DOTFILE_DIR=~/dotfiles
 git clone --depth 1 --recursive https://github.com/adoyle-h/dotfiles.git $DOTFILE_DIR
+# Install gnu-sed, if you are using Macos
+brew install gnu-sed --with-default-names
 # Install bash_it framework which is required
 git clone --depth 1 https://github.com/Bash-it/bash-it.git ~/.bash_it
 ~/.bash_it/install.sh --no-modify-config
@@ -102,6 +109,8 @@ git clone --depth 1 --recursive git@github.com:adoyle-h/neovim-config.git ${DOTF
 ## Configuration
 
 ### UI
+
+`$TERM` should be `xterm-256color` or `screen-256color` for best appearance.
 
 - Font: [DejaVuSansMonoForPowerline Nerd Font Book][font]
 - Color Scheme: [Deep][color scheme]. [Installation Instructions][color scheme - installation]
@@ -190,7 +199,9 @@ Run `./install` to create symbolic links.
     └── secrets.env.bash
 ```
 
-## Script Order
+## Bash initialization process
+
+It will generally execute these scripts in order:
 
 1. bash/bashrc
 2. bash_it/enable
@@ -202,21 +213,30 @@ Run `./install` to create symbolic links.
         - Debian/*.bash
 5. bash-custom/enabled/*.bash
 
-## Bash-it Enables
+## Bash-it Enables/Disables
 
-The aliases/plugins/completions I enabled:
+The aliases/plugins/completions I enabled could be referred in [`bash_it/reset.sh`](./bash_it/reset.sh).
 
-[aliases]
+## Customize your Bash
 
-`bash-it disable alias all`
+All your own plugins should be put in [`bash-custom/`](./bash-custom/).
 
-[plugins]
+Sometimes, you could modify the files in `bash_it/` for prior execution.
 
-`bash-it enable plugin alias-completion autojump base battery browser docker-compose docker-machine docker explain extract gif java nginx node nvm osx-timemachine osx proxy rvm ssh xterm`
+You should leave the [`bash/`](./bash/) folder alone. DO NOT CHANGE ANYTHING IN IT.
 
-[completions]
+### Binary executables
 
-`bash-it enable completion bash-it brew bundler capistrano defaults docker-compose docker-machine docker gem go grunt makefile npm nvm pip projects rake ssh terraform tmux todo virtualbox`
+All your own binary executables should be put in [`bin`](./bin/) folder.
+
+These executables could also be put in [`bin/sub/`]('./bin/sub/') which is included in `$PATH`,
+and it could be referred as sub-command. Example:
+
+- `a help`
+- `a comments`
+- `a 256color`
+
+All sub-commands are auto-completed. Type `a <Tab>` to see all sub-commands.
 
 ## Version
 
@@ -257,3 +277,4 @@ See the [NOTICE][] file distributed with this work for additional information re
 [font]: https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/DejaVuSansMono
 [color scheme]: https://github.com/mbadolato/iTerm2-Color-Schemes#deep
 [color scheme - installation]: https://github.com/mbadolato/iTerm2-Color-Schemes#installation-instructions
+[gnu-sed]: https://www.gnu.org/software/sed/

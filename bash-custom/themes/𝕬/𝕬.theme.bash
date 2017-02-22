@@ -66,9 +66,12 @@ __last_process_exit_status_for_PS() {
   fi
 }
 
+# http://jafrog.com/2013/11/23/colors-in-terminal.html
 __trim_str_color() {
-  local reg='s,\\\[\x1B\[[0-9;]*[a-zA-Z]\\\],,g'
-  echo -en "$1" | sed -r "$reg"
+  # \x1B does not work
+  local ecs=$(echo -e '\033')
+  local reg="s,\\\[${ecs}\[[0-9]*;?[0-9]*m\\\],,g"
+  echo -en "$1" | sed -E "$reg"
 }
 
 __fill_ps1_spaces() {

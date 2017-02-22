@@ -54,7 +54,7 @@ GET_BASH_MAJOR_VERSION() {
   else
     local bsh="$BASH"
   fi
-  "$bsh" --version | sed -r -n 's@.*[(version)|(版本)] ([0-9]{1,})\.[0-9]{1,}\.[0-9]{1,}\(1\)-release.*@\1@p'
+  "$bsh" --version | sed -E -n 's@.*[(version)|(版本)] ([0-9]{1,})\.[0-9]{1,}\.[0-9]{1,}\(1\)-release.*@\1@p'
 }
 
 __no_matched_path() {

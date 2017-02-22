@@ -5,26 +5,26 @@ export CLICOLOR=1
 export LSCOLORS=exgxFxDxcxdgDEHbHDacad   # BSD LSCOLORS
 export LS_COLORS='di=34:ln=36:so=1;35:pi=1;33:ex=32:bd=33;46:cd=1;33;1;44:su=1;37;41:sg=1;37;1;43:tw=30;42:ow=30;43'  # Linux LS_COLORS
 
-BLACK="\[\e[0;30m\]"
-RED="\[\e[0;31m\]"
-GREEN="\[\e[0;32m\]"
-YELLOW="\[\e[0;33m\]"
-BLUE="\[\e[0;34m\]"
-PURPLE="\[\e[0;35m\]"
-CYAN="\[\e[0;36m\]"
-WHITE="\[\e[0;37;1m\]"
+BLACK="\e[0;30m"
+RED="\e[0;31m"
+GREEN="\e[0;32m"
+YELLOW="\e[0;33m"
+BLUE="\e[0;34m"
+PURPLE="\e[0;35m"
+CYAN="\e[0;36m"
+WHITE="\e[0;37;1m"
 
-BOLD_BLACK="\[\e[30;1m\]"
-BOLD_RED="\[\e[31;1m\]"
-BOLD_GREEN="\[\e[32;1m\]"
-BOLD_YELLOW="\[\e[33;1m\]"
-BOLD_BLUE="\[\e[34;1m\]"
-BOLD_PURPLE="\[\e[35;1m\]"
-BOLD_CYAN="\[\e[36;1m\]"
-BOLD_WHITE="\[\e[37;1m\]"
+BOLD_BLACK="\e[30;1m"
+BOLD_RED="\e[31;1m"
+BOLD_GREEN="\e[32;1m"
+BOLD_YELLOW="\e[33;1m"
+BOLD_BLUE="\e[34;1m"
+BOLD_PURPLE="\e[35;1m"
+BOLD_CYAN="\e[36;1m"
+BOLD_WHITE="\e[37;1m"
 
-NORMAL_STYLE="\[\e[0m\]"
-RESET_COLOR="\[\e[39m\]"
+NORMAL_STYLE="\e[0m"
+RESET_COLOR="\e[39m"
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
@@ -45,7 +45,7 @@ __last_process_exit_status_for_PS() {
 }
 
 __trim_str_color() {
-  local reg='s,\\\[\x1B\[[0-9;]*[a-zA-Z]\\\],,g'
+  local reg='s,\x1B\[[0-9;]*[a-zA-Z],,g'
   echo -en "$1" | sed -r "$reg"
 }
 

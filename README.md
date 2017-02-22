@@ -34,17 +34,17 @@ My configurations and shell scripts.
 
 ## Environments
 
-- iTerm2 Build 3.0.14 (Terminal.app also work)
-- GNU bash 4.4.12(1)-release (x86_64-apple-darwin15.6.0) (It also works on GNU bash v3)
-- tmux 2.3 (Not necessary, It also works under Tmux)
+- iTerm2 Build 3.0.14 (Terminal.app compatible)
+- GNU bash 4.4.12(1)-release (x86_64-apple-darwin15.6.0) (GNU bash v3 compatible)
+- Tmux 2.3 (Not necessary. Tmux compatible)
 
 ## Dependencies
 
-- [git][]: **It is required**.
-- [gnu-sed][]: Macos default sed is poor, use [gnu-sed][] instead. **It is required**.
-- [bash-completion][] or bash-completion2. If omitted, git prompt will show nothing.
-- [dotbot][]: To create symbolic links and manage the map via [`install.conf.yaml`][install.conf.yaml].
-- [bash-it][]: To manage all shell scripts in modules: aliases, plugins, completions and shell theme. But this repo uses [my modified version](https://github.com/adoyle-h/bash-it)
+- [git][]: **It is required**. Make sure it available before installation.
+- [gnu-sed][]: Macos default sed is poor, use gnu-sed instead. **It is required**. Make sure it available before installation.
+- [dotbot][]: To create symbolic links and manage the map via [`install.conf.yaml`][install.conf.yaml]. There is no need to install dotbot manually. It is a part of this repo.
+- [bash-it (modified version)][a-bash-it]: To manage all shell scripts in modules: aliases, plugins, completions and shell appearance theme. **It is required**. Make sure it available before installation.
+- [bash-completion][] (for bash 3.x) or [bash-completion2][bash-completion] (for bash 4.x). If omitted, git prompt may show nothing.
 
 ## Features
 
@@ -94,7 +94,7 @@ git clone --depth 1 --recursive https://github.com/adoyle-h/dotfiles.git $DOTFIL
 # Install gnu-sed, if you are using Macos
 brew install gnu-sed --with-default-names
 # Install bash_it framework which is required
-git clone --depth 1 https://github.com/Bash-it/bash-it.git ~/.bash_it
+git clone --depth 1 https://github.com/adoyle-h/bash-it ~/.bash_it
 ~/.bash_it/install.sh --no-modify-config
 ${DOTFILE_DIR}/bash_it/reset.sh
 # Put your classified data in `secrets/` folder
@@ -104,7 +104,7 @@ git clone --depth 1 https://github.com/adoyle-h/my-command-cheat.git ${DOTFILE_D
 # neovim is optional
 git clone --depth 1 --recursive git@github.com:adoyle-h/neovim-config.git ${DOTFILE_DIR}/nvim
 # check `install.conf.yaml` file
-# make soft-links
+# make soft-links for dotfiles
 ./install
 # checkout the output
 ```
@@ -284,6 +284,7 @@ See the [NOTICE][] file distributed with this work for additional information re
 [install.conf.yaml]: ./install.conf.yaml
 [dotbot]: https://github.com/anishathalye/dotbot/
 [bash-it]: https://github.com/Bash-it/bash-it
+[a-bash-it]: https://github.com/adoyle-h/bash-it
 [sub]: https://github.com/basecamp/sub
 [neovim]: https://github.com/neovim/neovim
 [tmux]: https://github.com/tmux/tmux
@@ -293,3 +294,5 @@ See the [NOTICE][] file distributed with this work for additional information re
 [color scheme]: https://github.com/mbadolato/iTerm2-Color-Schemes#deep
 [color scheme - installation]: https://github.com/mbadolato/iTerm2-Color-Schemes#installation-instructions
 [gnu-sed]: https://www.gnu.org/software/sed/
+[git]: https://github.com/git/git
+[bash-completion]: https://github.com/scop/bash-completion

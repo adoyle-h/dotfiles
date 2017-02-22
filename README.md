@@ -52,7 +52,7 @@ My configurations and shell scripts.
 - Manage shell scripts/completions/aliases/plugins by modules via [bash-it][].
   - Most features are implemented in separate plugins, which could be disabled by yourself.
   - All my plugins are put in [`bash-custom/`](./bash-custom/) folder. And some enabled plugins provided by bash-it. Refer to [Bash-it Enables/Disables](#bash-it-enablesdisables).
-  - Compatible with [bash-completion (For bash 3.x) and bash-completion2 (For bash 4.x)](https://github.com/scop/bash-completion). See the [configuration](https://github.com/adoyle-h/dotfiles/blob/master/bash_it/completions.bash)
+  - Compatible with [bash-completion][] (for bash 3.x) and [bash-completion2][bash-completion] (for bash 4.x). See the [configuration](https://github.com/adoyle-h/dotfiles/blob/master/bash_it/completions.bash)
 - Auto-execute specific scripts for different system (ubuntu/macos and so on).
 - Responsive and pretty PS1, and personalized theme `𝕬`. Refer to [Preview](#preview).
 - Collections of shell commands, which locates in [`bin/`](./bin/) directory. Refer to [Binary executables](#binary-executables).
@@ -101,8 +101,10 @@ ${DOTFILE_DIR}/bash_it/reset.sh
 mkdir -p ${DOTFILE_DIR}/secrets
 # cheat is optional
 git clone --depth 1 https://github.com/adoyle-h/my-command-cheat.git ${DOTFILE_DIR}/cheat
-# neovim is optional
-git clone --depth 1 --recursive git@github.com:adoyle-h/neovim-config.git ${DOTFILE_DIR}/nvim
+# neovim-config is optional
+git clone --depth 1 --recursive https://github.com/adoyle-h/neovim-config.git ${DOTFILE_DIR}/nvim
+# spencertipping/cd is optional
+mkdir -p ~/.cd && git clone --depth 1 https://github.com/spencertipping/cd.git ~/.cd/core
 # check `install.conf.yaml` file
 # make soft-links for dotfiles
 ./install
@@ -197,8 +199,6 @@ Run `./install` to create symbolic links.
 ├── install.conf.yaml               # dotbot configuration
 ├── nvim/                           # neovim configuration. It is ignored in git. git clone https://github.com/adoyle-h/neovim-config nvim
 └── secrets/                        # Put your sensitive data here. It is ignored in git. mkdir secrets
-    ├── iterm/
-    ├── keybase-installer/
     └── secrets.env.bash
 ```
 

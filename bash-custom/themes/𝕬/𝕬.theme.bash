@@ -54,15 +54,15 @@ __fill_ps1_spaces() {
   local CHAR='—'
   local PS1_left=$1
   local PS1_right=$2
-  local PS1_left_plant=$(__trim_str_color "$PS1_left")
-  local PS1_right_plant=$(__trim_str_color "$PS1_right")
-  local COLS=$(( $(tput cols) - ${#PS1_left_plant} - ${#PS1_right_plant} ))
+  local PS1_left_plain=$(__trim_str_color "$PS1_left")
+  local PS1_right_plain=$(__trim_str_color "$PS1_right")
+  local COLS=$(( $(tput cols) - ${#PS1_left_plain} - ${#PS1_right_plain} ))
 
   # For debug
   # echo -e PS1_left=$PS1_left >> ~/debug
   # echo -e PS1_right=$PS1_right >> ~/debug
-  # echo -e PS1_left_plant=$PS1_left_plant >> ~/debug
-  # echo -e PS1_right_plant=$PS1_right_plant >> ~/debug
+  # echo -e PS1_left_plain=$PS1_left_plain >> ~/debug
+  # echo -e PS1_right_plain=$PS1_right_plain >> ~/debug
 
   if [[ -n "$TMUX" ]]; then
     COLS=$(( COLS - 1 ))

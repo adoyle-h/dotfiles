@@ -24,6 +24,8 @@ My configurations and shell scripts.
 - [Bash-it Enables/Disables](#bash-it-enablesdisables)
 - [Customize your Bash](#customize-your-bash)
     - [Binary executables](#binary-executables)
+        - [Sub-commands](#sub-commands)
+    - [Secret Data](#secret-data)
 - [Version](#version)
 - [Suggestion, Bug Reporting, Contributing](#suggestion-bug-reporting-contributing)
 - [Copyright and License](#copyright-and-license)
@@ -49,20 +51,21 @@ My configurations and shell scripts.
 - Manage collections of dotfiles via [dotbot][]. See [the configuration][install.conf.yaml].
 - Manage shell scripts/completions/aliases/plugins by modules via [bash-it][].
   - Most features are implemented in separate plugins, which could be disabled by yourself.
-  - All my plugins are put in [`bash-custom/`](./bash-custom/) folder. And some enabled plugins provided by bash-it. Refer to [Enables](#enables).
+  - All my plugins are put in [`bash-custom/`](./bash-custom/) folder. And some enabled plugins provided by bash-it. Refer to [Bash-it Enables/Disables](#bash-it-enablesdisables).
   - Compatible with [bash-completion (For bash 3.x) and bash-completion2 (For bash 4.x)](https://github.com/scop/bash-completion). See the [configuration](https://github.com/adoyle-h/dotfiles/blob/master/bash_it/completions.bash)
 - Auto-execute specific scripts for different system (ubuntu/macos and so on).
-- Responsive and pretty PS1, and personalized theme `𝕬`.
-- Collections of shell commands, which locates in [`bin/`](./bin/) directory.
+- Responsive and pretty PS1, and personalized theme `𝕬`. Refer to [Preview](#preview).
+- Collections of shell commands, which locates in [`bin/`](./bin/) directory. Refer to [Binary executables](#binary-executables).
 - Manage sub commands, which locates in [`bin/sub/`](./bin/sub/) directory. The manage framework is modified from [sub][].
   - Default `SUB_NAME=a`，press `a help` to see help. You can modify the enterpoint (SUB_NAME) in Plugin: [sub.plugin.bash][]
+  - Refer to [Sub-commands](#sub-commands) for more.
 - My best practices for shell (bash).
 - My best practices for [todo.cli](https://github.com/ginatrapani/todo.txt-cli).
 - My best practices for [neovim][]. See [the configuration](https://github.com/adoyle-h/neovim-config).
 - My best practices for [tmux][]. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/configs/tmux.conf).
 - My best practices for git. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/configs/gitconfig).
 - My cheat sheets based on [chrisallenlane/cheat](https://github.com/chrisallenlane/cheat).
-- Maintain your classified data in `secrets/` folder, which is ignored by git.
+- Maintain your classified data in `secrets/` folder, which is ignored by git. Refer to [Secret Data](#secret-data).
 - Integrated with [spencertipping/cd](https://github.com/spencertipping/cd).
 - Integrated with [fzf][]. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/bash-custom/fzf.plugin.bash).
 
@@ -229,6 +232,8 @@ You should leave the [`bash/`](./bash/) folder alone. DO NOT CHANGE ANYTHING IN 
 
 All your own binary executables should be put in [`bin`](./bin/) folder.
 
+#### Sub-commands
+
 These executables could also be put in [`bin/sub/`]('./bin/sub/') which is included in `$PATH`,
 and it could be referred as sub-command. Example:
 
@@ -237,6 +242,16 @@ and it could be referred as sub-command. Example:
 - `a 256color`
 
 All sub-commands are auto-completed. Type `a <Tab>` to see all sub-commands.
+
+### Secret Data
+
+Type `ll bash-custom/secrets.env.bash`, and you will see that:
+
+`bash-custom/secrets.env.bash@ -> ../secrets/secrets.env.bash`
+
+So, you could maintain your classified data in `secrets/secrets.env.bash`.
+
+The `secrets/` folder is ignored by git. You could put anything in this folder.
 
 ## Version
 

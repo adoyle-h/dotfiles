@@ -26,6 +26,27 @@ BOLD_WHITE="\e[37;1m"
 NORMAL_STYLE="\e[0m"
 RESET_COLOR="\e[39m"
 
+E_BLACK="\033[0;30m"
+E_RED="\033[0;31m"
+E_GREEN="\033[0;32m"
+E_YELLOW="\033[0;33m"
+E_BLUE="\033[0;34m"
+E_PURPLE="\033[0;35m"
+E_CYAN="\033[0;36m"
+E_WHITE="\033[0;37;1m"
+
+E_BOLD_BLACK="\033[30;1m"
+E_BOLD_RED="\033[31;1m"
+E_BOLD_GREEN="\033[32;1m"
+E_BOLD_YELLOW="\033[33;1m"
+E_BOLD_BLUE="\033[34;1m"
+E_BOLD_PURPLE="\033[35;1m"
+E_BOLD_CYAN="\033[36;1m"
+E_BOLD_WHITE="\033[37;1m"
+
+E_NORMAL_STYLE="\033[0m"
+E_RESET_COLOR="\033[39m"
+
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
   xterm-color | xterm-256color) color_prompt=yes;;
@@ -40,7 +61,7 @@ fi
 __last_process_exit_status_for_PS() {
   local exit_status=$1
   if [[ $exit_status != 0 ]]; then
-    echo -n "${RED}[😱 $exit_status]"
+    echo -n "${E_RED}[😱 $exit_status]"
   fi
 }
 
@@ -79,7 +100,7 @@ __fill_ps1_spaces() {
     LINE="$LINE$CHAR"
   done
 
-  echo -n "${BOLD_BLACK}${LINE:0:$COLS}"
+  echo -n "${E_BOLD_BLACK}${LINE:0:$COLS}"
 }
 
 __right_ps1() {
@@ -88,20 +109,20 @@ __right_ps1() {
   local stopped=$(jobs -sp | wc -l | tr -d '[:space:]')
   local running=$(jobs -rp | wc -l | tr -d '[:space:]')
   local sC rC job
-  [[ $stopped -gt 0 ]] && sC="$YELLOW"
-  [[ $running -gt 0 ]] && rC="$GREEN"
-  local job="${BOLD_BLACK}[${rC}${running}r${BOLD_BLACK}/${sC}${stopped}s${BOLD_BLACK}]"
+  [[ $stopped -gt 0 ]] && sC="$E_YELLOW"
+  [[ $running -gt 0 ]] && rC="$E_GREEN"
+  local job="${E_BOLD_BLACK}[${rC}${running}r${E_BOLD_BLACK}/${sC}${stopped}s${E_BOLD_BLACK}]"
 
   local last_command=($(history 1))
   local history_num=$(( last_command[0] + 1 ))
   local TIME=$(date +'%H:%M:%S')
-  local PS1_prefix0="${exit_status}${job}${CYAN}[H${history_num}]${YELLOW}[T${TIME}]"
+  local PS1_prefix0="${exit_status}${job}${E_CYAN}[H${history_num}]${E_YELLOW}[T${TIME}]"
   echo -n "$PS1_prefix0"
 }
 
 __PS1_theme_adoyle() {
   local PS1_right="$(__right_ps1)"  # Because __right_ps1 use $?, it should be first
-  local PS1_left="${GREEN}⧉ ${BOLD_BLACK}[ ${GREEN}$(pwd) ${BOLD_BLACK}]"
+  local PS1_left="${E_GREEN}⧉ ${E_BOLD_BLACK}[ ${E_GREEN}$(pwd) ${E_BOLD_BLACK}]"
   local PS1_middle="$(__fill_ps1_spaces "${PS1_left}" "${PS1_right}")"
 
   if command -v __git_ps1 &>/dev/null ; then
@@ -113,12 +134,12 @@ __PS1_theme_adoyle() {
     export GIT_PS1_DESCRIBE_STYLE="branch"
     export GIT_PS1_STATESEPARATOR=" "
     # shellcheck disable=SC2016
-    local PS1_git="${BLUE}$(__git_ps1 " (%s)")"
+    local PS1_git="${E_BLUE}$(__git_ps1 " (%s)")"
   fi
 
   # shellcheck disable=SC2016
-  local PS1_main="${GREEN}𝕬${PS1_git}${NORMAL_STYLE} "
-  local _PS1="$PS1_left${BOLD_BLACK}$PS1_middle$PS1_right\n${PS1_main}"
+  local PS1_main="${E_GREEN}𝕬${PS1_git}${E_NORMAL_STYLE} "
+  local _PS1="$PS1_left${E_BOLD_BLACK}$PS1_middle$PS1_right\n${PS1_main}"
 
   if [[ $color_prompt != yes ]]; then
     _PS1=$(__trim_str_color "$PS1")

@@ -142,7 +142,7 @@ __PS1_theme_adoyle() {
   local _PS1="$PS1_left${E_BOLD_BLACK}$PS1_middle$PS1_right\n${PS1_main}"
 
   if [[ $color_prompt != yes ]]; then
-    _PS1=$(__trim_str_color "$PS1")
+    _PS1=$(__trim_str_color "$_PS1")
   fi
 
   echo -en "$_PS1"

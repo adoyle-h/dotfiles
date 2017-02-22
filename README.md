@@ -41,7 +41,6 @@ My configurations and shell scripts.
 ## Dependencies
 
 - [git][]: **It is required**. Make sure it available before installation.
-- [gnu-sed][]: Macos default sed is poor, use gnu-sed instead. **It is required**. Make sure it available before installation.
 - [dotbot][]: To create symbolic links and manage the map via [`install.conf.yaml`][install.conf.yaml]. There is no need to install dotbot manually. It is a part of this repo.
 - [bash-it (modified version)][a-bash-it]: To manage all shell scripts in modules: aliases, plugins, completions and shell appearance theme. **It is required**. Make sure it available before installation.
 - [bash-completion][] (for bash 3.x) or [bash-completion2][bash-completion] (for bash 4.x). If omitted, git prompt may show nothing.
@@ -91,8 +90,6 @@ Use sub commands:
 # Clone this repo
 DOTFILE_DIR=~/dotfiles
 git clone --depth 1 --recursive https://github.com/adoyle-h/dotfiles.git $DOTFILE_DIR
-# Install gnu-sed, if you are using Macos
-brew install gnu-sed --with-default-names
 # Install bash_it framework which is required
 git clone --depth 1 https://github.com/adoyle-h/bash-it ~/.bash_it
 ~/.bash_it/install.sh --no-modify-config
@@ -156,7 +153,7 @@ Run `./install` to create symbolic links.
 │   ├── aliases.shell.bash          # same to bash_it aliases
 │   ├── available/                  # Custom available bash scripts
 │   │   └── zzz_last_cd.plugin.bash # Ensure the plugin should be loaded at last
-│   ├── bash.plugin.bash
+│   ├── bash_4.plugin.bash
 │   ├── cheat.plugin.bash
 │   ├── completions.shell.bash      # same to bash_it completions
 │   ├── editor.env.bash
@@ -169,25 +166,27 @@ Run `./install` to create symbolic links.
 │   ├── lesspipe.plugin.bash
 │   ├── Macos/                      # bash scripts for Macos
 │   │   └── core.bash
-│   ├── optionals.shell.bash
+│   ├── optionals.shell.bash        # Shell Optional Behavior settings
 │   ├── path.env.bash               # change environment variable PATH
-│   ├── proxy.env.bash
+│   ├── proxy.env.bash              # application proxy settings
 │   ├── secrets.env.bash -> ../secrets/secrets.env.bash
 │   ├── system-detect.shell.bash    # detect system and run its bash scripts
 │   ├── themes/                     # the bash_it theme
 │   │   └── 𝕬/
 │   │       └── 𝕬.theme.bash
 │   ├── tmux.plugin.bash
-│   ├── variables.shell.bash
+│   ├── variables.shell.bash        # Shell Variables settings
 │   └── xcode.plugin.bash
 ├── bash_it/                        # https://github.com/Bash-it/bash-it#your-custom-scripts-aliases-themes-and-functions
 │   ├── aliases.bash
 │   ├── completions.bash
 │   ├── enable.bash                 # bash_it configuration and entrance
 │   ├── lib.bash                    # Reset $PATH and $MANPATH, and set common functions
-│   └── plugins.bash
+│   ├── plugins.bash
+│   └── reset.sh                    # custom reset bash-it aliases/plugins/completions
 ├── bin/                            # link to ~/bin
 │   ├── sub/                        # Collections of sub commands
+│   ├── sub-bin*                    # Sub main file
 │   └── a -> ./sub-bin              # Enterpoint of sub commands
 ├── bootstrap -> ./bootstrap.bash*
 ├── bootstrap.bash*

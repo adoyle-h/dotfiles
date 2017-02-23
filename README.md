@@ -41,9 +41,9 @@ My configurations and shell scripts.
 ## Dependencies
 
 - [git][]: **It is required**. Make sure it available before installation.
+  - [git-prompt][]: If omitted, PS1 will not show git prompt.
 - [dotbot][]: To create symbolic links and manage the map via [`install.conf.yaml`][install.conf.yaml]. There is no need to install dotbot manually. It is a part of this repo.
 - [bash-it (modified version)][a-bash-it]: To manage all shell scripts in modules: aliases, plugins, completions and shell appearance theme. **It is required**. Make sure it available before installation.
-- [bash-completion][] (for bash 3.x) or [bash-completion2][bash-completion] (for bash 4.x). If omitted, git prompt may show nothing.
 
 ## Features
 
@@ -294,4 +294,5 @@ See the [NOTICE][] file distributed with this work for additional information re
 [color scheme - installation]: https://github.com/mbadolato/iTerm2-Color-Schemes#installation-instructions
 [gnu-sed]: https://www.gnu.org/software/sed/
 [git]: https://github.com/git/git
+[git-prompt]: https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh
 [bash-completion]: https://github.com/scop/bash-completion

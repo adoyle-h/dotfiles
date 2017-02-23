@@ -3,6 +3,8 @@
 cite about-plugin
 about-plugin 'Enable fzf'
 
+if has not command fzf; then return; fi
+
 # ---- BASIC ----
 FZF_COLORS='--color=light,hl:196,hl+:196,fg+:255,bg+:238,prompt:33,pointer:255,marker:160,info:252,spinner:237,header:75 --ansi --black'
 FZF_PROMPT="--prompt='> '"

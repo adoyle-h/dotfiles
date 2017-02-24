@@ -12,7 +12,8 @@ CD_FILE="$HOME/.cd/core/cd"
 if [[ -f "$CD_FILE" ]]; then
   source "$CD_FILE"
 else
-  echo "Not found file: $CD_FILE"
+  echo "Not found file: $CD_FILE" >&2
+  return 1
 fi
 
 unset -v CD_EXTENSIONS CD_FILE

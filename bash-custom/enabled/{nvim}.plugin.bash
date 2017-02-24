@@ -1,0 +1,1 @@
+../available/{nvim}.plugin.bash

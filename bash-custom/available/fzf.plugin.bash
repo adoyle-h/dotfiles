@@ -3,7 +3,27 @@
 cite about-plugin
 about-plugin 'Enable fzf'
 
-if has not command fzf; then return; fi
+# Setup fzf
+FZF_MANPATH=$HOME/.fzf/man
+FZF_BIN=$HOME/.fzf/bin
+
+if [[ ! -d $FZF_BIN ]] ; then
+  echo "Not found folder $FZF_BIN" >&2
+  return 1
+fi
+
+if __no_matched_path "$FZF_BIN" "$PATH" ; then
+  export PATH="$PATH:$FZF_BIN"
+fi
+
+if __no_matched_path "$FZF_MANPATH" "$MANPATH"; then
+  export MANPATH="$MANPATH:$FZF_MANPATH"
+fi
+
+if has not command fzf; then
+  echo "Not found fzf in $FZF_BIN" >&2
+  return 1
+fi
 
 # ---- BASIC ----
 FZF_COLORS='--color=light,hl:196,hl+:196,fg+:255,bg+:238,prompt:33,pointer:255,marker:160,info:252,spinner:237,header:75 --ansi --black'
@@ -45,22 +65,12 @@ if [[ -n "$TMUX" ]]; then
   export FZF_TMUX_HEIGHT=50%
 fi
 
-# Setup fzf
-FZF_MANPATH=$HOME/.fzf/man
-FZF_BIN=$HOME/.fzf/bin
-
-if __no_matched_path "$FZF_BIN" "$PATH" ; then
-  export PATH="$PATH:$FZF_BIN"
-fi
-
-if __no_matched_path "$FZF_MANPATH" "$MANPATH"; then
-  export MANPATH="$MANPATH:$FZF_MANPATH"
-fi
-
 # Key bindings
 source "$HOME/.fzf/shell/key-bindings.bash"
 
 # Auto-completion
 source "$HOME/.fzf/shell/completion.bash" 2> /dev/null
+
 ## support neo (nvim) bash-completion
 complete -F _fzf_file_completion -o default -o bashdefault neo
+complete -F _fzf_file_completion -o default -o bashdefault nvim

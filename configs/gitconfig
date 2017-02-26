@@ -9,7 +9,10 @@
     excludesfile = ~/.gitignore
     autocrlf = input
     safecrlf = true
-    pager = less --tabs=4 -RFX
+    pager = less --tabs=4 -RFXM
+[pager]
+    diff = diff-so-fancy | less --tabs=4 -gRFXM
+    show = diff-so-fancy | less --tabs=4 -gRFXM
 [alias]
     lg = log --left-right --graph --format=\"%C(auto)%d %h%Creset% s %C(68)%ar %C(ul 117)%aN|%cN%Creset\"
     lga = log --all --left-right --graph --format=\"%C(auto)%d %h%Creset% s %C(68)%ar %C(ul 117)%aN|%cN%Creset\"
@@ -38,9 +41,8 @@
     conf-fake-user = "!conf_fake_user() { git config user.name \"$1\" && git config user.email \"$1@gmail.com\" ;}; conf_fake_user "
     show-user = config --show-origin --get-regexp \"user.(name)|(email)\"
     au = add -u
-    d = "!f() { [ -z \"$GIT_PREFIX\" ] || cd \"$GIT_PREFIX\" && git diff --color \"$@\" | diff-so-fancy  | less --tabs=4 -RFX; }; f"
-    dc = !"git d --cached"
-    showd = "!f() { [ -z \"$GIT_PREFIX\" ] || cd \"$GIT_PREFIX\" && git show --color \"$@\" | diff-so-fancy  | less --tabs=4 -RFX; }; f"
+    d = diff
+    dc = diff --cached
     co = checkout
     cm = commit -m
     cob = checkout -b

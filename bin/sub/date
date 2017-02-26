@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if [[ $# -gt 0 ]]; then
+  /bin/date -r $(( $1 / 1000 ))
+else
+  /bin/date +"%Y%m%d_%H%M%S"
+fi

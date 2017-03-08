@@ -95,7 +95,7 @@ __fill_ps1_spaces() {
 
   if [[ $COLS -lt 1 ]]; then
     #shellcheck disable=SC2028
-    echo -n '\n'
+    echo -n "\n${E_GREEN} ➥"
     return 0
   fi
 

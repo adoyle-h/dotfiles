@@ -10,7 +10,7 @@
 # echo -e MANPATH=${MANPATH//:/\\n}
 
 # Reset PATH!!! Because /usr/libexec/path_helper is noisy in macos
-MAIN_PATHS="$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+MAIN_PATHS="$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin"
 export PATH="$MAIN_PATHS"
 unset -v MAIN_PATHS
 

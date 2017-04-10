@@ -142,7 +142,7 @@ __PS1_theme_adoyle() {
   fi
 
   # shellcheck disable=SC2016
-  local PS1_main="${E_GREEN}𝕬${PS1_git}${E_NORMAL_STYLE} "
+  local PS1_main="${E_GREEN}𝕽︎${PS1_git}${E_NORMAL_STYLE} "
   local _PS1="$PS1_left${E_BOLD_BLACK}$PS1_middle$PS1_right\n${PS1_main}"
 
   if [[ $color_prompt != yes ]]; then

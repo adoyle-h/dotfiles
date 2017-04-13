@@ -14,6 +14,7 @@ My configurations and shell scripts.
 - [Preview](#preview)
 - [Installation](#installation)
 - [Configuration](#configuration)
+    - [Modifications by yourself](#modifications-by-yourself)
     - [UI](#ui)
     - [Dotfiles](#dotfiles)
 - [Usage](#usage)
@@ -108,7 +109,21 @@ mkdir -p ~/.cd && git clone --depth 1 https://github.com/spencertipping/cd.git ~
 # checkout the output
 ```
 
+And then read the [Configuration - Modifications by yourself](#modifications-by-yourself) section.
+
 ## Configuration
+
+### Modifications by yourself
+
+These parts of below files you should modify:
+
+./configs/gitconfig:
+
+```
+[user]
+    name = <your-username>
+    email = <your-email>
+```
 
 ### UI
 

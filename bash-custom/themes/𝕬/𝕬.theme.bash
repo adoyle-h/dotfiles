@@ -117,7 +117,7 @@ __right_ps1() {
   local sC rC job
   [[ $stopped -gt 0 ]] && sC="$E_YELLOW"
   [[ $running -gt 0 ]] && rC="$E_GREEN"
-  local job="${E_GREY}[${rC}${running}r${E_GRAY}/${sC}${stopped}s${E_GRAY}]"
+  local job="${E_GREY}[${rC}${running}r${E_GREY}/${sC}${stopped}s${E_GREY}]"
 
   local last_command=($(history 1))
   local history_num=$(( last_command[0] + 1 ))
@@ -128,7 +128,7 @@ __right_ps1() {
 
 __PS1_theme_adoyle() {
   local PS1_right="$(__right_ps1)"  # Because __right_ps1 use $?, it should be first
-  local PS1_left="${E_GREEN}⧉ ${E_GREY}[ ${E_GREEN}$(pwd) ${E_GRAY}]"
+  local PS1_left="${E_GREEN}⧉ ${E_GREY}[ ${E_GREEN}$(pwd) ${E_GREY}]"
   local PS1_middle="$(__fill_ps1_spaces "${PS1_left}" "${PS1_right}")"
 
   if command -v __git_ps1 &>/dev/null ; then

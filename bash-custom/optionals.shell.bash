@@ -19,7 +19,8 @@ shopt -s expand_aliases
 
 # the history list is appended to the file named by the value of the HISTFILE
 # variable when the shell exits, rather than overwriting the file.
-shopt -s histappend
+## We have used `history -a` in PROMPT_COMMAND. So close the shopt
+# shopt -s histappend
 
 # If set, and readline is being used, a user is given the opportunity
 # to re-edit a failed history substitution.

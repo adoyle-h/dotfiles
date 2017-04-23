@@ -13,4 +13,8 @@ function tmux-mouse-off() {
   tmux display-message 'Mouse: Off'
 }
 
+function tmux-list-panes() {
+  tmux lsp -F '#{pane_index}: [#{pane_width}x#{pane_height}] paneId=#{pane_id} #{pane_tty} #{?pane_active,(active),} #{?pane_dead,(dead),}'
+}
+
 [[ -z "$TMUX" ]] && export TMUX

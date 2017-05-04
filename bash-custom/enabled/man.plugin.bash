@@ -1,0 +1,1 @@
+../available/man.plugin.bash

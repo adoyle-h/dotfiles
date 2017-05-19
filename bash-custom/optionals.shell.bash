@@ -1,6 +1,6 @@
 #------------------------ shell optional behavior ----------------------------#
 
-#------------------------------- shopt -s ------------------------------------#
+#--------------------------------  shopt -------------------------------------#
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -21,10 +21,18 @@ shopt -s expand_aliases
 # variable when the shell exits, rather than overwriting the file.
 ## We have used `history -a` in PROMPT_COMMAND. So close the shopt
 # shopt -s histappend
+shopt -u histappend
 
 # If set, and readline is being used, a user is given the opportunity
 # to re-edit a failed history substitution.
 shopt -s histreedit
+
+# If  set, and readline is being used, the results of his-
+# tory substitution are  not  immediately  passed  to  the
+# shell  parser.   Instead,  the  resulting line is loaded
+# into the readline editing buffer, allowing further modi-
+# fication.
+shopt -s histverify
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.

@@ -43,6 +43,10 @@ alias edit="nvim"
 alias pager="nvim"
 alias dm='docker-machine'
 
+# GNU File, Shell, and Text utilities for mac
+# depend on: brew install coreutils
+alias date='gdate'
+
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."

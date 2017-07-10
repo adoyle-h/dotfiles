@@ -10,6 +10,7 @@
     autocrlf = input
     safecrlf = true
     pager = less --tabs=4 -RFXM
+    quotepath = false
 [pager]
     diff = diff-so-fancy | less --tabs=4 -gRFXM
     show = diff-so-fancy | less --tabs=4 -gRFXM
@@ -46,6 +47,7 @@
     co = checkout
     cm = commit -m
     cob = checkout -b
+    cp = cherry-pick
     ls = ls-files
     ls-stash = stash list --stat
     workconfig = !"git config user.name \"${GIT_CONFIG_WORK_USERNAME}\" && git config user.email \"${GIT_CONFIG_WORK_EMAIL}\""

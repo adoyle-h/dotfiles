@@ -33,7 +33,7 @@ alias df='df -h'
 alias du='du -h'
 alias suho='sudo -HE'
 alias cp='cp -i'
-alias tree='tree -CF'
+alias tree='tree -CFN'
 
 alias t='todo.sh'
 alias bit='bash-it'

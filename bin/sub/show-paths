@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1090
 
-echo -e ${PATH//:/\\n}
+echo -e "${PATH//:/\\n}"

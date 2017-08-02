@@ -5,8 +5,8 @@ HISTIGNORE='ls:sl:pwd:history:clear'
 # don't put duplicate lines in the history. See bash(1) for more options
 HISTCONTROL=ignoredups
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=10000
-HISTFILESIZE=20000
+HISTSIZE=1000
+HISTFILESIZE=1000
 HISTTIMEFORMAT='%F %T '
 
 # Specifies how often (in seconds)  bash  checks  for  mail.   The

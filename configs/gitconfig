@@ -81,7 +81,7 @@
     conflictstyle = merge  ; default
     ; conflictstyle = diff3
 [mergetool]
-    prompt = true
+	prompt = false
 [mergetool "nvimdiff"]
     cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [mergetool "ksdiff"]

@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1090,SC2155
+set -o errexit
+set -o errtrace
+set -o nounset
+set -o pipefail
+[[ -n "${TRACE+x}" ]] && set -o xtrace
+
+
+main() {
+  path=$1
+  if [[ -e $path ]]; then
+    neo "$path"
+    exit $?
+  fi
+
+  echo "bash" > "$path"
+  chmod +x "$path"
+  neo "$path"
+}
+
+main "$@"

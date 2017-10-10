@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1090,SC2155
+set -o errexit
+set -o errtrace
+set -o nounset
+set -o pipefail
+[[ -n "${TRACE+x}" ]] && set -o xtrace
+
+
+
+usage() {
+cat <<EOF
+Usage: $0 <target>
+
+Options:
+    -h --help               Show help
+
+Parameters:
+    <target>  'ustc' or 'origin'
+EOF
+}
+
+# http://mirrors.ustc.edu.cn/help/brew.git.html
+ustc() {
+  cd "$(brew --repo)"
+  git remote set-url origin https://mirrors.ustc.edu.cn/brew.git
+
+  cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
+  git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git
+
+  cd "$(brew --repo)"/Library/Taps/caskroom/homebrew-cask
+git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-cask.git
+}
+
+origin() {
+  cd "$(brew --repo)"
+  git remote set-url origin https://github.com/Homebrew/brew.git
+
+  cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
+git remote set-url origin https://github.com/Homebrew/homebrew-core.git
+
+  cd "$(brew --repo)"/Library/Taps/caskroom/homebrew-cask
+  git remote set-url origin https://github.com/caskroom/homebrew-cask
+}
+
+main() {
+  target=${1:--h}
+
+  if [[ $target == '-h' ]]; then
+    usage
+    exit 0;
+  fi
+
+  echo "[Todo] change homebrew source to [$target]"
+  $target
+  echo "[Done] change homebrew source to [$target]"
+}
+
+main "$@"

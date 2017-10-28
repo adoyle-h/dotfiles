@@ -4,10 +4,20 @@ set -o errexit
 set -o errtrace
 set -o nounset
 set -o pipefail
-[[ -n "${TRACE+x}" ]] && set -o xtrace
+[[ -n "${XTRACE+x}" ]] && set -o xtrace
 
+usage() {
+cat<<EOF
+Usage: neoscript <path>
+
+Arguments:
+    <path>:       Absolute path for new script
+EOF
+}
 
 main() {
+  [[ -z "${1:-}" ]] && usage && exit 0
+
   path=$1
   if [[ -e $path ]]; then
     neo "$path"

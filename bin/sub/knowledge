@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1090,SC2155
+set -o errexit
+set -o errtrace
+set -o nounset
+set -o pipefail
+[[ -n "${XTRACE+x}" ]] && set -o xtrace
+
+printSettings() {
+  echo "Not found environment variable: KNOWLEDGE_HOME." >&2
+  echo "KNOWLEDGE_HOME=<absolute-path-to-your-folder>" >&2
+}
+
+usage() {
+cat <<EOF
+Usage: a knowledge <pattern>
+
+Arguments:
+  <pattern>:     pattern for searching content
+EOF
+}
+
+main() {
+  if [[ -z "${KNOWLEDGE_HOME:-}" ]]; then
+    printSettings
+    exit 1
+  fi
+
+  local pattern=${1:-}
+
+  if [[ -z "$pattern" ]]; then
+    usage
+    exit 0
+  fi
+
+  IFS=',' read -r -a folders <<< "$KNOWLEDGE_HOME"
+  for folder in "${folders[@]}"; do
+    ag "${pattern}" "$folder"
+  done
+}
+
+main "$@"

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1090,SC2155
+set -o errexit
+set -o errtrace
+set -o nounset
+set -o pipefail
+[[ -n "${XTRACE+x}" ]] && set -o xtrace
+
+readonly length=${1:-10}
+
+< /dev/urandom LC_CTYPE=C tr -dc "a-zA-Z0-9@#*=[]" | head -c "$length"

@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1090,SC2155
+set -o errexit
+set -o errtrace
+set -o nounset
+set -o pipefail
+[[ -n "${XTRACE+x}" ]] && set -o xtrace
+
+# Provide sub completions
+if [ "${1:-}" = "--complete" ]; then
+  ls -A
+  exit 0
+fi
+
+
+# Usage: a rmrf <file>
+# Summary: rm -rf files with prompt
+# Help:
+#   <file> could be related path or absolute path
+
+readonly target="${1:-}"
+
+if [[ -z $target ]]; then
+  echo "Missing target file!" >&2
+  echo "Usage: a rmrf <file>" >&2
+  exit 1
+fi
+
+read -rp "rm -rf $target? [y/n (Default No)]" prompt
+
+if [[ $prompt == y ]]; then
+  rm -rf "$target"
+  echo "Removed: $target"
+else
+  echo "Nothing to remove"
+fi

@@ -27,6 +27,7 @@ My configurations and shell scripts.
     - [Binary executables](#binary-executables)
         - [Sub-commands](#sub-commands)
     - [Secret Data](#secret-data)
+- [Bash Completions](#bash-completions)
 - [Version](#version)
 - [Suggestion, Bug Reporting, Contributing](#suggestion-bug-reporting-contributing)
 - [Copyright and License](#copyright-and-license)
@@ -257,6 +258,16 @@ and it could be referred as sub-command. Example:
 
 All sub-commands are auto-completed. Type `a <Tab>` to see all sub-commands.
 
+**sub-command document**
+
+Your could write usage of sub-command. Enter `a` to get all usages.
+And `a help <sub-command>` for getting "Summary" and "Help" of the sub-command.
+Refer to [Self-documenting subcommands](https://github.com/basecamp/sub#self-documenting-subcommands) for more details.
+
+**sub-command autocompletion**
+
+Refer to https://github.com/basecamp/sub#autocompletion .
+
 ### Secret Data
 
 Type `ll bash-custom/secrets.env.bash`, and you will see that:
@@ -266,6 +277,10 @@ Type `ll bash-custom/secrets.env.bash`, and you will see that:
 So, you could maintain your classified data in `secrets/secrets.env.bash`.
 
 The `secrets/` folder is ignored by git. You could put anything in this folder.
+
+## Bash Completions
+
+Put your completion files under `completions/`.
 
 ## Version
 

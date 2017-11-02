@@ -25,7 +25,9 @@ My configurations and shell scripts.
 - [Bash-it Enables/Disables](#bash-it-enablesdisables)
 - [Customize your Bash](#customize-your-bash)
     - [Binary executables](#binary-executables)
-        - [Sub-commands](#sub-commands)
+    - [Sub-commands](#sub-commands)
+        - [sub-command document](#sub-command-document)
+        - [sub-command completion](#sub-command-completion)
     - [Secret Data](#secret-data)
 - [Bash Completions](#bash-completions)
 - [Version](#version)
@@ -247,7 +249,7 @@ You should leave the [`bash/`](./bash/) folder alone. DO NOT CHANGE ANYTHING IN 
 
 All your own binary executables should be put in [`bin`](./bin/) folder.
 
-#### Sub-commands
+### Sub-commands
 
 These executables could also be put in [`bin/sub/`]('./bin/sub/') which is included in `$PATH`,
 and it could be referred as sub-command. Example:
@@ -258,13 +260,32 @@ and it could be referred as sub-command. Example:
 
 All sub-commands are auto-completed. Type `a <Tab>` to see all sub-commands.
 
-**sub-command document**
+#### sub-command document
 
-Your could write usage of sub-command. Enter `a` to get all usages.
+Your could write Usage/Summary/Help for sub-command.
+Put below text to your `bin/sub/<sub-command>`,
+
+```sh
+# Usage: a who
+# Summary: Check who's logged in
+# Help: This will print out when you run `a help who`.
+```
+
+Enter `a` to get all usages.
 And `a help <sub-command>` for getting "Summary" and "Help" of the sub-command.
+
 Refer to [Self-documenting subcommands](https://github.com/basecamp/sub#self-documenting-subcommands) for more details.
 
-**sub-command autocompletion**
+#### sub-command completion
+
+Put below text to your `bin/sub/<sub-command>`,
+
+```sh
+# Provide sub completions
+if [ "$1" = "--complete" ]; then
+  ls
+fi
+```
 
 Refer to https://github.com/basecamp/sub#autocompletion .
 
@@ -281,6 +302,8 @@ The `secrets/` folder is ignored by git. You could put anything in this folder.
 ## Bash Completions
 
 Put your completion files under `completions/`.
+
+Attention: this directory does not work for your sub-command completion.
 
 ## Version
 

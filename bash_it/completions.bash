@@ -1,6 +1,17 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1090
 
+[[ -z "$PS1" ]] && return 0
+
+
+if [[ -d $HOME/.bash_completions ]]; then
+  completion_files="$HOME/.bash_completions/*.sh $HOME/.bash_completions/*.bash"
+  for file in $completion_files; do
+    source "$file"
+  done
+fi
+
+
 # System completion should be first
 
 GET_BASH_MAJOR_VERSION() {

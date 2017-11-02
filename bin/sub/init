@@ -49,18 +49,14 @@ if [ -z "$print" ]; then
     echo ""
     echo 'export SUB_NAME="a"'
     echo 'export SUB_BIN_DIR="$HOME/bin/sub"'
-    echo 'export SUB_COMPLETION_DIR="$HOME/.completions"'
+    echo 'export SUB_COMPLETION_FILE="$HOME/.bash_completions/others/sub.bash"'
     echo 'eval "$("$SUB_NAME" init -)"'
   } >&2
 
   exit 1
 fi
 
-case "$shell" in
-bash | zsh )
-  echo "source \"${SUB_COMPLETION_DIR}/sub.${shell}\""
-  ;;
-esac
+[[ -n "$SUB_COMPLETION_FILE" ]] && [[ -f "$SUB_COMPLETION_FILE" ]] && echo "source \"${SUB_COMPLETION_FILE}\""
 
 OLD_IFS="$IFS"
 IFS="|"

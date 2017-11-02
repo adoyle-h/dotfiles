@@ -1,4 +1,4 @@
-_sub() {
+_comp_sub() {
   COMPREPLY=()
   local word="${COMP_WORDS[COMP_CWORD]}"
 
@@ -11,5 +11,4 @@ _sub() {
   fi
 }
 
-complete -F _sub "$SUB_NAME"
-
+complete -F _comp_sub "$SUB_NAME"

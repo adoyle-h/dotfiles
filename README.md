@@ -95,17 +95,23 @@ Use sub commands:
 DOTFILE_DIR=~/dotfiles
 git clone --depth 1 --recursive https://github.com/adoyle-h/dotfiles.git $DOTFILE_DIR
 # Install bash_it framework which is required
-git clone --depth 1 https://github.com/adoyle-h/bash-it ~/.bash_it
+git clone --depth 1 https://github.com/adoyle-h/bash-it -b theme/a ~/.bash_it
+
 ~/.bash_it/install.sh --no-modify-config
 ${DOTFILE_DIR}/bash_it/reset.sh
+
 # Put your classified data in `secrets/` folder
 mkdir -p ${DOTFILE_DIR}/secrets
+
 # cheat is optional
 git clone --depth 1 https://github.com/adoyle-h/my-command-cheat.git ${DOTFILE_DIR}/cheat
+
 # neovim-config is optional
 git clone --depth 1 --recursive https://github.com/adoyle-h/neovim-config.git ${DOTFILE_DIR}/nvim
+
 # spencertipping/cd is optional
 mkdir -p ~/.cd && git clone --depth 1 https://github.com/spencertipping/cd.git ~/.cd/core
+
 # check `install.conf.yaml` file
 # make soft-links for dotfiles
 ./install
@@ -209,7 +215,7 @@ Run `./install` to create symbolic links.
 ├── bootstrap -> ./bootstrap.bash*
 ├── bootstrap.bash*
 ├── cheat/                          # It is ignored in git. git clone https://github.com/adoyle-h/my-command-cheat cheat
-├── completions/                    # bash completions
+├── completions/                    # bash command completions. Link to ~/.bash_completions
 ├── configs/                        # application configuration
 ├── dotbot/                         # https://github.com/anishathalye/dotbot
 ├── install*
@@ -226,7 +232,13 @@ It will generally execute these scripts in order:
 1. bash/bashrc
 2. bash_it/enable
 3. bash_it framework
-    1. bash_it/{lib,aliases,completions,plugins}
+    - bash_it/aliases.bash
+    - bash_it/plugins.bash
+    - bash_it/completions.bash
+    - [custom] bash_it/aliases.bash
+    - [custom] bash_it/plugins.bash
+    - [custom] bash_it/completions.bash
+    - bash-custom/theme/**/*.bash
 4. bash-custom/*.bash
     1. system-detect.shell.bash
         - Macos/*.bash
@@ -278,7 +290,7 @@ Refer to [Self-documenting subcommands](https://github.com/basecamp/sub#self-doc
 
 #### sub-command completion
 
-Put below text to your `bin/sub/<sub-command>`,
+Sub-command completion **must be** implemented with below text in your `bin/sub/<sub-command>` file.
 
 ```sh
 # Provide sub completions

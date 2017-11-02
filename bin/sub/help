@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
+# Usage: a help [sub-command]
+# Summary: print help for sub-command
+
 get_sub_command_path() {
   COMMAND_PATH="$SUB_BIN_DIR/$1"
   if [[ ! -x "$COMMAND_PATH" ]]; then
@@ -51,6 +54,9 @@ print_help() {
 
     local help="$(help "$file")"
     [ -n "$help" ] && echo && echo "$help"
+
+    local summary="$(summary "$file")"
+    [ -n "$summary" ] && echo && echo "Summary: $summary"
   else
     echo "Sorry, this command isn't documented yet."
   fi

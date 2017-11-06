@@ -44,6 +44,8 @@ Actions:
     Both arguments are optional. By default 6 colors per line are printed, while
     the first 16 colors are skipped
 
+  ls(0-3) ls0, ls1, ls2, ls3
+
   calc <r> <g> <b>
 
     Calculate the best match for the given rgb color (0-255)
@@ -96,13 +98,13 @@ action-grid() {
     if [ $# -ge 1 ]; then
         WIDTH=$1
     else
-        WIDTH=6
+        WIDTH=8
     fi
 
     if [ $# -ge 2 ]; then
         SKIP=$2
     else
-        SKIP=16
+        SKIP=0
     fi
 
     let colors=256-SKIP
@@ -145,6 +147,18 @@ shift 1
 case "$action" in
     ls)
         action-grid "$@"
+    ;;
+    ls0)
+        action-grid 8 0
+    ;;
+    ls1)
+        action-grid 6 16
+    ;;
+    ls2)
+        action-grid 6 0
+    ;;
+    ls3)
+        action-grid 12 0
     ;;
     calc)
         if [ $# -lt 3 ]; then

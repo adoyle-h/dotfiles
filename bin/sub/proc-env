@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1090,SC2155
+set -o errexit
+set -o errtrace
+set -o nounset
+set -o pipefail
+[[ -n "${XTRACE:+x}" ]] && set -o xtrace
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+
+PID=${1:-}
+
+if [[ -z "$PID" ]]; then
+  echo "Usage: $0 <PID>" >&2
+  exit 1
+fi
+
+linux() {
+  cat /proc/$PID/environ | tr "\0" "\n"
+}
+
+mac() {
+  ps -Eww -o command= $PID
+}
+
+system="$(uname -s)"
+case "${system}" in
+    Linux*)     linux;;
+    Darwin*)    mac;;
+    *)          echo "Unsupported system: ${system}" >&2 ;;
+esac

@@ -94,28 +94,29 @@ Use sub commands:
 # Clone this repo
 DOTFILE_DIR=~/dotfiles
 git clone --depth 1 --recursive https://github.com/adoyle-h/dotfiles.git $DOTFILE_DIR
+cd $DOTFILE_DIR
+# Clone submodules and initialize them
+git submodule update --init
+
 # Install bash_it framework which is required
 git clone --depth 1 https://github.com/adoyle-h/bash-it -b theme/a ~/.bash_it
-
 ~/.bash_it/install.sh --no-modify-config
 ${DOTFILE_DIR}/bash_it/reset.sh
 
-# Put your classified data in `secrets/` folder
+# Create `secrets/` folder. Put your classified data in this folder
 mkdir -p ${DOTFILE_DIR}/secrets
 
-# cheat is optional
-git clone --depth 1 https://github.com/adoyle-h/my-command-cheat.git ${DOTFILE_DIR}/cheat
+## neovim-config is optional
+# cd ${DOTFILE_DIR}/nvim
+# Read README and install dependencies
 
-# neovim-config is optional
-git clone --depth 1 --recursive https://github.com/adoyle-h/neovim-config.git ${DOTFILE_DIR}/nvim
+## spencertipping/cd is optional
+# mkdir -p ~/.cd && git clone --depth 1 https://github.com/spencertipping/cd.git ~/.cd/core
 
-# spencertipping/cd is optional
-mkdir -p ~/.cd && git clone --depth 1 https://github.com/spencertipping/cd.git ~/.cd/core
-
-# check `install.conf.yaml` file
-# make soft-links for dotfiles
+# Check `install.conf.yaml` file
+# Make soft-links for dotfiles
 ./install
-# checkout the output
+# Checkout the output
 ```
 
 And then read the [Configuration - Modifications by yourself](#modifications-by-yourself) section.

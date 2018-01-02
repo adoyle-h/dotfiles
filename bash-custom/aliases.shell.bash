@@ -42,6 +42,7 @@ alias nginx='/etc/init.d/nginx'
 alias edit="nvim"
 alias pager="nvim"
 alias dm='docker-machine'
+alias fpp='fpp -ni'
 
 # GNU File, Shell, and Text utilities for mac
 # depend on: brew install coreutils

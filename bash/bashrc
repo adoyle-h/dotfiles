@@ -11,9 +11,7 @@ if [[ -r "$FAST_BASHRC" ]]; then
   return
 fi
 
-# _DEBUG=on
-
-[[ "$_DEBUG" == "on" ]] && echo "Now executing $HOME/.bashrc | pwd=$(pwd)"
+[[ -r "$HOME/.bashrc.debug" ]] && _DEBUG=on && echo "Now executing $HOME/.bashrc | pwd=$(pwd)"
 
 #--------------------------- XDG Base Directory ------------------------------#
 ## User directories

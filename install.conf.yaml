@@ -23,7 +23,7 @@
     ~/.bash_it/aliases/custom.aliases.bash: bash_it/aliases.bash
     ~/.bash_it/lib/custom.bash: bash_it/lib.bash
     ~/.bash_it/custom/adoyle: bash-custom
-    ~/.bash_it/custom/reset.sh: bash_it/reset.sh
+    ~/.bash_it/custom/reset: bash_it/reset
     ~/.bash_it.bash: bash_it/enable.bash
 
     # configs

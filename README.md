@@ -101,7 +101,7 @@ git submodule update --init
 # Install bash_it framework which is required
 git clone --depth 1 https://github.com/adoyle-h/bash-it -b theme/a ~/.bash_it
 ~/.bash_it/install.sh --no-modify-config
-${DOTFILE_DIR}/bash_it/reset.sh
+${DOTFILE_DIR}/bash_it/reset
 
 # Create `secrets/` folder. Put your classified data in this folder
 mkdir -p ${DOTFILE_DIR}/secrets
@@ -208,7 +208,7 @@ Run `./install` to create symbolic links.
 │   ├── enable.bash                 # bash_it configuration and entrance
 │   ├── lib.bash                    # Reset $PATH and $MANPATH, and set common functions
 │   ├── plugins.bash
-│   └── reset.sh                    # custom reset bash-it aliases/plugins/completions
+│   └── reset*                      # custom reset bash-it aliases/plugins/completions
 ├── bin/                            # link to ~/bin
 │   ├── sub/                        # Collections of sub commands
 │   ├── sub-bin*                    # Sub main file
@@ -248,7 +248,11 @@ It will generally execute these scripts in order:
 
 ## Bash-it Enables/Disables
 
-The aliases/plugins/completions I enabled could be referred in [`bash_it/reset.sh`](./bash_it/reset.sh).
+The aliases/plugins/completions I enabled could be referred in [`bash_it/reset`](./bash_it/reset).
+
+`bash-it-enables` to show all aliases/plugins/completions you enabled.
+
+`bash-it-enables -e` to save all aliases/plugins/completions you enabled.
 
 ## Customize your Bash
 

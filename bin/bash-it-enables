@@ -7,24 +7,25 @@ set -o pipefail
 [[ -n "${XTRACE:+x}" ]] && set -o xtrace
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
+_print_bash-it-enables() {
+  local type=$1
+  local name=$2
+  echo "## [$type]"
+  printf "bash-it enable %s " "$type"
+  (for i in $BASH_IT/enabled/*.${name}.bash; do echo "$i" | awk -F"/" '{print $NF}' | sed -E "s/[[:digit:]]+---([a-zA-Z0-9_-]+).${name}.bash/\\1/"; done) | tr '\n' ' '
+  echo ""
+  echo ""
+}
+
 bash-it-enables() {
-  echo "## [aliases]"
-  printf "bash-it enable alias "
-  (for i in $BASH_IT/aliases/enabled/*.bash; do echo "$i" | awk -F"/" '{print $NF}' | sed 's/.aliases.bash//'; done) | tr '\n' ' '
-  echo ""
-  echo "## [plugins]"
-  printf "bash-it enable plugin "
-  (for i in $BASH_IT/plugins/enabled/*.bash; do echo "$i" | awk -F"/" '{print $NF}' | sed 's/.plugin.bash//'; done) | tr '\n' ' '
-  echo ""
-  echo "## [completions]"
-  printf "bash-it enable completion "
-  (for i in $BASH_IT/completion/enabled/*.bash; do echo "$i" | awk -F"/" '{print $NF}' | sed 's/.completion.bash//'; done) | tr '\n' ' '
-  echo ""
+  _print_bash-it-enables "alias" "aliases"
+  _print_bash-it-enables "plugin" "plugin"
+  _print_bash-it-enables "completion" "completion"
 }
 
 build-bash-it-enables-script() {
   local target=$1
-  cat <<EOF > $target
+  cat <<EOF > "$target"
 #!/usr/bin/env sh
 set -o errexit
 
@@ -33,7 +34,7 @@ bash-it disable plugin all
 bash-it disable completion all
 
 EOF
-  bash-it-enables >> $target
+  bash-it-enables >> "$target"
 }
 
 
@@ -55,7 +56,7 @@ main() {
   fi
 
   if [[ $arg == -e ]]; then
-    build-bash-it-enables-script ~/.bash_it/custom/reset.sh
+    build-bash-it-enables-script ~/.bash_it/custom/reset
   else
     bash-it-enables
   fi

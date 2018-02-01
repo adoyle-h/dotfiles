@@ -23,6 +23,8 @@ My configurations and shell scripts.
 - [File Structure](#file-structure)
 - [Bash initialization process](#bash-initialization-process)
 - [Bash-it Enables/Disables](#bash-it-enablesdisables)
+- [Use ~/.fast_bashrc for rescue](#use-fast_bashrc-for-rescue)
+- [Use ~/.bashrc.debug for debug](#use-bashrcdebug-for-debug)
 - [Customize your Bash](#customize-your-bash)
     - [Binary executables](#binary-executables)
     - [Sub-commands](#sub-commands)
@@ -99,7 +101,7 @@ cd $DOTFILE_DIR
 git submodule update --init
 
 # Install bash_it framework which is required
-git clone --depth 1 https://github.com/adoyle-h/bash-it -b theme/a ~/.bash_it
+git clone --depth 1 https://github.com/adoyle-h/bash-it -b a/1.0.0 ~/.bash_it
 ~/.bash_it/install.sh --no-modify-config
 ${DOTFILE_DIR}/bash_it/reset
 
@@ -253,6 +255,16 @@ The aliases/plugins/completions I enabled could be referred in [`bash_it/reset`]
 `bash-it-enables` to show all aliases/plugins/completions you enabled.
 
 `bash-it-enables -e` to save all aliases/plugins/completions you enabled.
+
+## Use ~/.fast_bashrc for rescue
+
+If `.bashrc` has any critical issue, you could create a `$HOME/.fast_bashrc` file to replace `$HOME/.bashrc`.
+
+## Use ~/.bashrc.debug for debug
+
+`touch ~/.bashrc.debug` to print debug logs.
+
+And remove the file to disable debug.
 
 ## Customize your Bash
 

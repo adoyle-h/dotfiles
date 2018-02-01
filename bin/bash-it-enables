@@ -26,8 +26,9 @@ bash-it-enables() {
 build-bash-it-enables-script() {
   local target=$1
   cat <<EOF > "$target"
-#!/usr/bin/env sh
-set -o errexit
+#!/usr/bin/env bash
+
+source "\$HOME/.bash_it.bash"
 
 bash-it disable alias all
 bash-it disable plugin all
@@ -35,6 +36,7 @@ bash-it disable completion all
 
 EOF
   bash-it-enables >> "$target"
+  echo "echo '[bash_it reset done]'" >> "$target"
 }
 
 

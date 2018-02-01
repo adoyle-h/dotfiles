@@ -26,6 +26,46 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a bootstrap script to get things done by one-click
 - User customized plugin system
 
+## [v0.3.0] - 2018-02-01 21:01:17 +0800
+
+[Full Changelog](https://github.com/adoyle-h/dotfiles/compare/v0.2.0...v0.3.0)
+
+### Breaking Change
+
+- update: bash_it/reset.sh => bash_it/reset, make it executable
+- upgrade bash-it to latest. You should use `-b a/1.0.0` instead of `-b theme/a`
+
+### Add
+
+- add: ranger
+- feat: create $HOME/.bashrc.debug for debug
+- feat: use ~/.fast_bashrc for rescue
+- add(submodule): nvim and cheat
+- add(bin/sub): a find
+- update(bash): add alias fpp -ni
+- update(completion): add adoyle-cli and itmz completion
+- add(bin/sub): proc-env
+
+### Change
+
+- update(tmux): update plugin config
+- update(bin/sub): 256color defaults to print all colors (1~255) && support ls0~3
+- update: modify bash_it/reset.sh && move bash-it-enables to bin
+- update(config): stylelintrc
+- update: move rmrf from bin/sub to bin/
+
+### Documentation
+
+- add description of ~/.fast_bashrc
+- add description of ~/.bashrc.debug
+- modify git address of bash_it, use `-b a/1.0.0` instead of `-b theme/a`
+- update copyright dates
+
+### Fix
+
+- fix: disable GREP_COLOR and alt-numkey modification while in non-login shell
+
+
 ## [v0.2.0] - 2017-11-03 03:32:13 +0800
 
 [Full Changelog](https://github.com/adoyle-h/dotfiles/compare/v0.1.0...v0.2.0)
@@ -65,3 +105,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 [v0.1.0]: https://github.com/adoyle-h/dotfiles/tree/v0.1.0
 [v0.2.0]: https://github.com/adoyle-h/dotfiles/tree/v0.2.0
+[v0.3.0]: https://github.com/adoyle-h/dotfiles/tree/v0.3.0

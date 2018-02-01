@@ -26,6 +26,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a bootstrap script to get things done by one-click
 - User customized plugin system
 
+## [v0.3.1] - 2018-02-01 21:42:08 +0800
+
+[Full Changelog](https://github.com/adoyle-h/dotfiles/compare/v0.3.0...v0.3.1)
+
+### Fix
+
+- fix(bash-custom): env.shell.bash
+- fix: bash_it/reset and bash-it-enables
+
+
 ## [v0.3.0] - 2018-02-01 21:01:17 +0800
 
 [Full Changelog](https://github.com/adoyle-h/dotfiles/compare/v0.2.0...v0.3.0)
@@ -106,3 +116,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [v0.1.0]: https://github.com/adoyle-h/dotfiles/tree/v0.1.0
 [v0.2.0]: https://github.com/adoyle-h/dotfiles/tree/v0.2.0
 [v0.3.0]: https://github.com/adoyle-h/dotfiles/tree/v0.3.0
+[v0.3.1]: https://github.com/adoyle-h/dotfiles/tree/v0.3.1

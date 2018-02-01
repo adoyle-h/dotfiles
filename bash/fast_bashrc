@@ -1,4 +1,1 @@
-#!/usr/bin/env bash
-# shellcheck disable=SC1090
-
-echo In fast_bashrc
+echo "[Use fast_bashrc]"

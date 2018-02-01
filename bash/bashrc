@@ -4,8 +4,10 @@
 
 # If not running interactively, don't do anything
 [[ -z "$PS1" ]] && return
-if [[ -n "$FAST_BASH" ]]; then
-  source ~/.fast_bashrc
+
+FAST_BASHRC="$HOME/.fast_bashrc"
+if [[ -r "$FAST_BASHRC" ]]; then
+  source "$FAST_BASHRC"
   return
 fi
 

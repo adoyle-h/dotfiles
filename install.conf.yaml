@@ -48,6 +48,7 @@
     $XDG_CONFIG_HOME/yamllint/config: configs/yamllint.yml
     ~/.source-highlight/source-highlight.conf: configs/source-highlight.conf
     $XDG_CONFIG_HOME/ranger: configs/ranger
+    ~/.hyper.js: configs/hyper.js
 
     # secrets
     ~/.ssh: secrets/ssh

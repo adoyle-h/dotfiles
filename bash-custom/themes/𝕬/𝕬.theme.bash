@@ -97,7 +97,7 @@ __fill_ps1_spaces() {
 
   if [[ $COLS -lt 1 ]]; then
     #shellcheck disable=SC2028
-    echo -n "\n${E_GREEN} ➥"
+    echo -n "\\n${E_GREEN} ➥"
     return 0
   fi
 
@@ -130,6 +130,7 @@ __PS1_theme_adoyle() {
   local PS1_right="$(__right_ps1)"  # Because __right_ps1 use $?, it should be first
   local PS1_left="${E_GREEN}⧉ ${E_GREY}[ ${E_GREEN}$(pwd) ${E_GREY}]"
   local PS1_middle="$(__fill_ps1_spaces "${PS1_left}" "${PS1_right}")"
+  local PS1_SIGNATURE="${PS1_SIGNATURE:-𝕬}"
 
   if command -v __git_ps1 &>/dev/null ; then
     export GIT_PS1_SHOWDIRTYSTATE=1
@@ -144,8 +145,8 @@ __PS1_theme_adoyle() {
   fi
 
   # shellcheck disable=SC2016
-  local PS1_main="${E_GREEN}𝕬${PS1_git}${E_NORMAL_STYLE} "
-  local _PS1="$PS1_left$PS1_middle$PS1_right\n${PS1_main}"
+  local PS1_main="${E_GREEN}${PS1_SIGNATURE}${PS1_git}${E_NORMAL_STYLE} "
+  local _PS1="$PS1_left$PS1_middle$PS1_right\\n${PS1_main}"
 
   if [[ $color_prompt != yes ]]; then
     _PS1=$(__trim_str_color "$_PS1")

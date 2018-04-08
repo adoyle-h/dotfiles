@@ -1,4 +1,4 @@
-experimental/*
+**/experimental/
 *.orig
 
 # Created by https://www.gitignore.io/api/vim,osx

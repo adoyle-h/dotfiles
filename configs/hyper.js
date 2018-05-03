@@ -1,8 +1,12 @@
 'use strict';
 module.exports = {
     config: {
+        modifierKeys: {altIsMeta: true},
+
+        windowSize: [1000, 600],
+
         // default font size in pixels for all tabs
-        fontSize: 15,
+        fontSize: 16,
 
         // font family with optional fallbacks
         fontFamily: '"ADejaVuSansMonoForPowerline Nerd Font", PingFangSC-Regular, DejaVuSansMono, Consolas',
@@ -38,7 +42,7 @@ module.exports = {
         showWindowControls: '',
 
         // custom padding (css format, i.e.: `top right bottom left`)
-        padding: '6px 10px 0px 10px',
+        padding: '0px 8px 0px 8px',
 
         // the full list. if you're going to provide the full color palette,
         // including the 6 x 6 color cubes and the grayscale map, just provide
@@ -74,7 +78,7 @@ module.exports = {
 
         // for environment variables
         env: {
-            PS1_SIGNATURE: '$',
+            // PS1_SIGNATURE: '$',
         },
 
         // set to false for no bell
@@ -116,7 +120,6 @@ module.exports = {
         // 'react',
         // 'hyperline',  // 依赖 prop-types, react
         'hypergravity',
-        'gitrocket',
         // 'hyper-cat-cursor',
         'hyper-match',
         'hyper-search',
@@ -125,8 +128,6 @@ module.exports = {
         // 'hyper-confirm',
         // 'hyperpower',
     ],
-
-    windowSize: [1200, 800],
 
     npmRegistry: 'https://registry.npm.taobao.org/',
 

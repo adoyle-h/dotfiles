@@ -19,7 +19,7 @@ module.exports = {
         // terminal cursor background color and opacity (hex, rgb, hsl, hsv, hwb or cmyk)
         cursorColor: 'rgba(255, 255, 255, 0.8)',
         foregroundColor: '#cdcdcd',
-        backgroundColor: '#0b0b0c',
+        backgroundColor: '#0b0b0ce6',
 
         // border color (window, tabs)
         borderColor: '#222',
@@ -29,7 +29,7 @@ module.exports = {
 
         // custom css to embed in the terminal window
         // termCSS: '',
-        termCSS: '.wc-node.unicode-node{width: 1em}',
+        // termCSS: '.wc-node.unicode-node{width: 1em}',
 
         // set to `true` if you're using a Linux set up
         // that doesn't shows native menus

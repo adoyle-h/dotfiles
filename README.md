@@ -101,7 +101,7 @@ cd $DOTFILE_DIR
 git submodule update --init
 
 # Install bash_it framework which is required
-git clone --depth 1 https://github.com/adoyle-h/bash-it -b a/1.0.0 ~/.bash_it
+git clone --depth 1 https://github.com/adoyle-h/bash-it -b a/1.0.0-stable ~/.bash_it
 ~/.bash_it/install.sh --no-modify-config
 ${DOTFILE_DIR}/bash_it/reset
 

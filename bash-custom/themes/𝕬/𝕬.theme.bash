@@ -119,10 +119,8 @@ __right_ps1() {
   [[ $running -gt 0 ]] && rC="$E_GREEN"
   local job="${E_GREY}[${rC}${running}r${E_GREY}/${sC}${stopped}s${E_GREY}]"
 
-  local last_command=($(history 1))
-  local history_num=$(( last_command[0] + 1 ))
   local TIME=$(date +'%H:%M:%S')
-  local PS1_prefix0="${exit_status}${job}${E_CYAN}[H${history_num}]${E_YELLOW}[T${TIME}]"
+  local PS1_prefix0="${exit_status}${job}${E_YELLOW}[T${TIME}]"
   echo -n "$PS1_prefix0"
 }
 

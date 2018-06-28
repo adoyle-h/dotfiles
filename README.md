@@ -42,7 +42,7 @@ My configurations and shell scripts.
 
 - iTerm2 Build 3.0.14 (Terminal.app compatible)
 - GNU bash 4.4.12(1)-release (x86_64-apple-darwin15.6.0) (GNU bash v3 compatible)
-- Tmux 2.3 (Not necessary. Tmux compatible)
+- Tmux 2.7 (Not necessary. Tmux compatible)
 
 ## Dependencies
 

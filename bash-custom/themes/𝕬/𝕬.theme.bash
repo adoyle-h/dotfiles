@@ -124,6 +124,14 @@ __right_ps1() {
   echo -n "$PS1_prefix0"
 }
 
+export GIT_PS1_SHOWDIRTYSTATE=1
+export GIT_PS1_SHOWSTASHSTATE=1
+export GIT_PS1_SHOWUNTRACKEDFILES=1
+export GIT_PS1_SHOWCOLORHINTS=true
+export GIT_PS1_SHOWUPSTREAM="git"
+export GIT_PS1_DESCRIBE_STYLE="branch"
+export GIT_PS1_STATESEPARATOR=" "
+
 __PS1_theme_adoyle() {
   local PS1_right="$(__right_ps1)"  # Because __right_ps1 use $?, it should be first
   local PS1_left="${E_GREEN}⧉ ${E_GREY}[ ${E_GREEN}$(pwd) ${E_GREY}]"
@@ -131,13 +139,6 @@ __PS1_theme_adoyle() {
   local PS1_SIGNATURE="${PS1_SIGNATURE:-𝕬}"
 
   if command -v __git_ps1 &>/dev/null ; then
-    export GIT_PS1_SHOWDIRTYSTATE=1
-    export GIT_PS1_SHOWSTASHSTATE=1
-    export GIT_PS1_SHOWUNTRACKEDFILES=1
-    export GIT_PS1_SHOWCOLORHINTS=true
-    export GIT_PS1_SHOWUPSTREAM="git"
-    export GIT_PS1_DESCRIBE_STYLE="branch"
-    export GIT_PS1_STATESEPARATOR=" "
     # shellcheck disable=SC2016
     local PS1_git="${E_BLUE}$(__git_ps1 " (%s)")"
   fi
@@ -153,7 +154,10 @@ __PS1_theme_adoyle() {
   echo -en "$_PS1"
 }
 
+DEFAULT_PS1='\u@\h:\w\$'
+
 __prompt_command() {
+  # PS1=$DEFAULT_PS1
   PS1=$(__PS1_theme_adoyle)
 }
 

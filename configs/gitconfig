@@ -112,7 +112,9 @@
     newHighlight = "green bold 28"
 [gpg]
     program = gpg2
-;[http]
-;    proxy = socks5://127.0.0.1:1080
-;[https]
-;    proxy = socks5://127.0.0.1:1080
+; [http]
+;     proxy = socks5://127.0.0.1:1080
+; [https]
+;     proxy = socks5://127.0.0.1:1080
+[github]
+    user = adoyle-h

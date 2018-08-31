@@ -11,7 +11,19 @@ if [[ -r "$FAST_BASHRC" ]]; then
   return
 fi
 
-[[ -r "$HOME/.bashrc.debug" ]] && _DEBUG=on && echo "Now executing $HOME/.bashrc | pwd=$(pwd)"
+# Only execute bashrc once
+[[ -n "$BASERC" ]] && return
+_BASHRC=1
+
+# Load DOTFILE_DIR
+source "$HOME"/.dotfilerc
+export DOTFILE_DIR=$DOTFILE_DIR
+
+# Whether show debug logger
+if [[ -r "$HOME/.bashrc.debug" ]]; then
+  _DEBUG=on
+  echo "Now executing $HOME/.bashrc | pwd=$(pwd) | DOTFILE_DIR=$DOTFILE_DIR"
+fi
 
 #--------------------------- XDG Base Directory ------------------------------#
 ## User directories

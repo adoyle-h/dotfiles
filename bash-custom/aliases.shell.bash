@@ -10,7 +10,7 @@ if [[ -x /usr/bin/dircolors ]]; then
 fi
 
 if ls --color -d . &> /dev/null ; then
-  alias ls="ls --color=auto"
+  alias ls='ls --color=auto'
 elif ls -G -d . &> /dev/null ; then
   alias ls='ls -G'        # Compact view, show colors
 else
@@ -37,10 +37,10 @@ alias tree='tree -CFN'
 
 alias t='todo.sh'
 alias bit='bash-it'
-alias irc="irssi"
+alias irc='irssi'
 alias nginx='/etc/init.d/nginx'
-alias edit="nvim"
-alias pager="nvim"
+alias edit='nvim'
+alias pager='nvim'
 alias dm='docker-machine'
 alias fpp='fpp -ni'
 
@@ -50,11 +50,11 @@ alias date='gdate'
 alias timeout='gtimeout'
 alias truncate='gtruncate'
 
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
-alias ..2="cd ../.."
-alias ..3="cd ../../.."
-alias ..4="cd ../../../.."
-alias ..5="cd ../../../../.."
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ..2='cd ../..'
+alias ..3='cd ../../..'
+alias ..4='cd ../../../..'
+alias ..5='cd ../../../../..'

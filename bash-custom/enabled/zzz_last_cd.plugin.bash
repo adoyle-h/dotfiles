@@ -1,1 +1,0 @@
-../available/zzz_last_cd.plugin.bash

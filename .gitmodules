@@ -7,3 +7,6 @@
 [submodule "cheat"]
 	path = cheat
 	url = https://github.com/adoyle-h/my-command-cheat
+[submodule "tools/enhancd"]
+	path = tools/enhancd
+	url = https://github.com/b4b4r07/enhancd

@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1090
+
+set -o errexit
+set -o nounset
+set -o pipefail
+[[ -n "${XTRACE:+x}" ]] && set -o xtrace
+[[ -n "${VERBOSE:+x}" ]] && set -o verbose
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+[[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}}()]: '
+
+readonly opt=${1:-}
+
+if [[ "$opt" == '-a' ]]; then
+  find "$DOTFILE_DIR"/bash-custom/available/ -type f -exec basename {} .plugin.bash \; | tr '\n' ' '
+else
+  find "$DOTFILE_DIR"/bash-custom/enabled/ -type l -exec basename {} .plugin.bash \; | tr '\n' ' '
+fi
+
+echo ""

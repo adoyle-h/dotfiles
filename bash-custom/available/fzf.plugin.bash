@@ -9,6 +9,7 @@ FZF_BIN=$HOME/.fzf/bin
 
 if [[ ! -d $FZF_BIN ]] ; then
   echo "Not found folder $FZF_BIN" >&2
+  echo "Invoke 'a disable-plugin fzf' to disable the plugin"
   return 1
 fi
 
@@ -21,7 +22,8 @@ if __no_matched_path "$FZF_MANPATH" "$MANPATH"; then
 fi
 
 if has not command fzf; then
-  echo "Not found fzf in $FZF_BIN" >&2
+  echo "Not found command 'fzf'" >&2
+  echo "Invoke 'a disable-plugin fzf' to disable the plugin"
   return 1
 fi
 

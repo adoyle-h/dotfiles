@@ -1,0 +1,1 @@
+../available/adoyle.plugin.bash

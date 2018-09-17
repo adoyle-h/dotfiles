@@ -1,1 +1,0 @@
-source <(adoyle completion bash)

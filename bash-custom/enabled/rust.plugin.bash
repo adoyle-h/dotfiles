@@ -1,1 +1,0 @@
-../available/rust.plugin.bash

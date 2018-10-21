@@ -1,1 +1,0 @@
-../available/cd.plugin.bash

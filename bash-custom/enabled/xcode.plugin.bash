@@ -1,1 +1,0 @@
-../available/xcode.plugin.bash

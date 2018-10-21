@@ -1,3 +1,6 @@
+cite about-plugin
+about-plugin 'Add alias "g" and "gti" for git'
+
 alias g='git'
 alias gti='git'
 

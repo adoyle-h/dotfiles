@@ -3,7 +3,8 @@ secrets
 configs/ranger/bookmarks
 configs/ranger/history
 configs/ranger/tagged
-
+bash-custom/enabled/*
+!bash-custom/enabled/.gitkeep
 
 # Created by https://www.gitignore.io/api/vim,osx
 

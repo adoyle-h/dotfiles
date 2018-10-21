@@ -1,1 +1,0 @@
-../available/git.plugin.bash

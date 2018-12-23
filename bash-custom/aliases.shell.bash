@@ -36,7 +36,6 @@ alias cp='cp -i'
 alias tree='tree -CFN'
 
 alias t='todo.sh'
-alias bit='bash-it'
 alias irc='irssi'
 alias nginx='/etc/init.d/nginx'
 alias edit='nvim'

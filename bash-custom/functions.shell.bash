@@ -1,4 +1,5 @@
 bashman () { man bash | less -p "^       $1 "; }
+alias manbash=bashman
 
 gitshow() {
   local out shas sha q k

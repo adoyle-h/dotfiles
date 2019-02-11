@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1090
+
 set -o errexit
 set -o nounset
+set -o pipefail
+[[ -n "${XTRACE:+x}" ]] && set -o xtrace
+[[ -n "${VERBOSE:+x}" ]] && set -o verbose
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+[[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}}()]: '
+
 
 has() {
   local condition="$1"
@@ -24,9 +31,13 @@ has() {
 _bootstrap_common() {
   echo '[Bootstrap in common]'
 
-  echo 'To mkdir -p'
-    mkdir -p ~/{Temp,Src,Workspace,Presentations,Design,Doc,Public,Pictures,Downloads}
-    mkdir -p ~/.sshrc.d
+  echo 'To git clone submodules'
+  git submodule init
+  git submodule update
+
+  echo 'To mkdir -p general work directories'
+  mkdir -p ~/{Temp,Src,Workspace,Presentations,Design,Doc,Public,Pictures,Downloads}
+  mkdir -p ~/.sshrc.d
 
   if [[ ! -d ~/.bash_it ]] ; then
     echo 'To download bash_it'
@@ -35,7 +46,7 @@ _bootstrap_common() {
 
   if command -v nvm != 'nvm' ; then
     echo 'To install nvm'
-    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
   fi
 
   if [[ ! -d ~/dotfiles ]] ; then

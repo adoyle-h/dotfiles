@@ -71,8 +71,9 @@ My configurations and shell scripts.
 - My best practices for git. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/configs/gitconfig).
 - My cheat sheets based on [chrisallenlane/cheat](https://github.com/chrisallenlane/cheat).
 - Maintain your classified data in `secrets/` folder, which is ignored by git. Refer to [Secret Data](#secret-data).
-- Integrated with [spencertipping/cd](https://github.com/spencertipping/cd).
-- Integrated with [fzf][]. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/bash-custom/fzf.plugin.bash).
+- Many third integrations
+  - [z.lua](https://github.com/skywind3000/z.lua).
+  - [fzf][]. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/bash-custom/fzf.plugin.bash).
 
 ## Preview
 
@@ -112,14 +113,13 @@ mkdir -p ${DOTFILE_DIR}/secrets
 # cd ${DOTFILE_DIR}/nvim
 # Read README and install dependencies
 
-## spencertipping/cd is optional
-# mkdir -p ~/.cd && git clone --depth 1 https://github.com/spencertipping/cd.git ~/.cd/core
-
 # Check `install.conf.yaml` file
 # Make soft-links for dotfiles
 ./install
 # Checkout the output
 ```
+
+The `install` script will generated a file `$HOME/.dotfilerc`. **Do not modify or remove it.**
 
 And then read the [Configuration - Modifications by yourself](#modifications-by-yourself) section.
 

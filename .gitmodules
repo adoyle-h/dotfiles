@@ -10,3 +10,6 @@
 [submodule "tools/enhancd"]
 	path = tools/enhancd
 	url = https://github.com/b4b4r07/enhancd
+[submodule "pkgs/z.lua"]
+	path = pkgs/z.lua
+	url = https://github.com/skywind3000/z.lua.git

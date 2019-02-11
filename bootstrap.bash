@@ -70,17 +70,15 @@ _bootstrap_common() {
     pip install cheat
   fi
 
-  if [[ ! -d ~/.cd/core ]] ; then
-    echo 'To download https://github.com/spencertipping/cd.git'
-    git clone --depth 1 https://github.com/spencertipping/cd.git ~/.cd/core
-  fi
-
   if has not command grip ; then
     echo 'To install grip'
     pip install grip
   fi
 
   ./install
+
+  echo 'To setup bash-custom plugins'
+  a enable-plugin $(cat ./bootstrap_custom_plugins)
 
   echo '[Done] Bootstrap in common'
 }

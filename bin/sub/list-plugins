@@ -11,6 +11,14 @@ set -o pipefail
 
 readonly opt=${1:-}
 
+if [[ "$opt" == '-h' ]]; then
+cat <<EOF
+$0    : List enabled plugins
+$0 -a : List all plugins
+EOF
+  exit
+fi
+
 if [[ "$opt" == '-a' ]]; then
   find "$DOTFILE_DIR"/bash-custom/available/ -type f -exec basename {} .plugin.bash \; | tr '\n' ' '
 else

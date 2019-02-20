@@ -159,16 +159,13 @@ DEFAULT_PS1='\u@\h:\w\$'
 __prompt_command() {
   # PS1=$DEFAULT_PS1
   PS1=$(__PS1_theme_adoyle)
-}
-
-__prompt_HIST() {
   history -a
 }
 
 if [[ -n "$PROMPT_COMMAND" ]]; then
   if __no_matched_path "__prompt_command" "$PROMPT_COMMAND" ';'; then
-    PROMPT_COMMAND="__prompt_command;$PROMPT_COMMAND;__prompt_HIST"
+    PROMPT_COMMAND="__prompt_command;$PROMPT_COMMAND"
   fi
 else
-  PROMPT_COMMAND="__prompt_command;__prompt_HIST"
+  PROMPT_COMMAND="__prompt_command"
 fi

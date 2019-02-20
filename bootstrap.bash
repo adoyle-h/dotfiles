@@ -9,6 +9,15 @@ set -o pipefail
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 [[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}}()]: '
 
+ask() {
+  local msg=$1
+  read -rp "$msg? ([Y]/N)" answer
+  case $answer in
+    [Yy]* ) return 0;;
+    [Nn]* ) return 1;;
+    *) return 0;;
+  esac
+}
 
 has() {
   local condition="$1"
@@ -28,6 +37,17 @@ has() {
   return 1
 }
 
+check_uninstalled_cmd() {
+  local cmd=$1
+  if has not command "$cmd" ; then
+    echo "command [$cmd] is not installed. ❌"
+    return 0
+  else
+    echo "command [$cmd] is installed. ✅"
+    return 1
+  fi
+}
+
 _bootstrap_common() {
   echo '[Bootstrap in common]'
 
@@ -44,15 +64,31 @@ _bootstrap_common() {
     git clone --depth 1 https://github.com/Bash-it/bash-it.git ~/.bash_it
   fi
 
-  if command -v nvm != 'nvm' ; then
-    echo 'To install nvm'
-    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
-  fi
-
   if [[ ! -d ~/dotfiles ]] ; then
     echo 'To download my dotfiles'
     git clone --depth 1 --recursive git@github.com:adoyle-h/dotfiles.git ~/dotfiles
     # ~/dotfiles/install
+  fi
+
+  if command -v nvm != 'nvm' ; then
+    echo 'To install nvm'
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
+
+    read -rp "To install NodeJS. Which version? (Defaults to node latest)" answer
+    if [[ -z $answer ]]; then
+      answer=node
+    fi
+
+    echo "To install node. nvm install $answer"
+    nvm install $answer
+  fi
+
+  if ask 'To install taskbook'; then
+    npm i -g taskbook
+  else
+    cat <<<EOF
+      You can install taskbook in manually by "npm i -g taskbook"
+    EOF
   fi
 
   if [[ ! -d ~/dotfiles/secrets ]] ; then
@@ -60,30 +96,45 @@ _bootstrap_common() {
     # git clone --depth 1  ~/dotfiles/secrets
   fi
 
+  if check_uninstalled_cmd cheat ; then
+    if ask 'To download my cheatsheet'; then
+      echo 'To install cheat'
+      pip install cheat
+    fi
+  fi
+
   if [[ ! -d ~/dotfiles/cheat ]] ; then
-    echo 'To download my cheatsheet'
-    git clone --depth 1 git@github.com:adoyle-h/my-command-cheat.git ~/dotfiles/cheat
+    if ask 'To download my cheatsheet'; then
+      git clone --depth 1 git@github.com:adoyle-h/my-command-cheat.git ~/dotfiles/cheat
+    fi
   fi
 
   if [[ ! -d ~/dotfiles/nvim ]] ; then
-    echo 'To download my nvim configuration'
-    git clone --depth 1 git@github.com:adoyle-h/neovim-config.git ~/dotfiles/nvim
+    if ask 'To install nvim'; then
+      echo 'To download my nvim configuration'
+      git clone --depth 1 git@github.com:adoyle-h/neovim-config.git ~/dotfiles/nvim
+    fi
   fi
 
-  if has not command fzf ; then
-    echo 'To install fzf'
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    ~/.fzf/install
+  if check_uninstalled_cmd fzf ; then
+    if ask 'To install fzf'; then
+      git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+      ~/.fzf/install
+    else
+      cat <<<EOF
+        You can install fzf in manually by below commands.
+        """
+        git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+        ~/.fzf/install
+        """
+      EOF
+    fi
   fi
 
-  if has not command cheat ; then
-    echo 'To install cheat'
-    pip install cheat
-  fi
-
-  if has not command grip ; then
-    echo 'To install grip'
-    pip install grip
+  if check_uninstalled_cmd grip ; then
+    if ask 'To install grip'; then
+      pip install grip
+    fi
   fi
 
   ./install

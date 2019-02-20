@@ -38,7 +38,9 @@ if [[ -x "$(command -v brew)" ]] ; then
       BASH_COMPLETION_FILE="$BREW_PREFIX"/etc/bash_completion
     fi
   fi
-else
+fi
+
+if [[ -z "$BASH_COMPLETION_FILE" ]]; then
   # Loads the system's Bash completion modules.
   if [[ -f /etc/bash_completion ]]; then
     BASH_COMPLETION_FILE=/etc/bash_completion

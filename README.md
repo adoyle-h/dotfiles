@@ -65,7 +65,6 @@ My configurations and shell scripts.
   - Default `SUB_NAME=a`，press `a help` to see help. You can modify the enterpoint (SUB_NAME) in Plugin: [sub.plugin.bash][]
   - Refer to [Sub-commands](#sub-commands) for more.
 - My best practices for shell (bash).
-- My best practices for [todo.cli](https://github.com/ginatrapani/todo.txt-cli).
 - My best practices for [neovim][]. See [the configuration](https://github.com/adoyle-h/neovim-config).
 - My best practices for [tmux][]. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/configs/tmux.conf).
 - My best practices for git. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/configs/gitconfig).
@@ -74,6 +73,7 @@ My configurations and shell scripts.
 - Many third integrations
   - [z.lua](https://github.com/skywind3000/z.lua).
   - [fzf][]. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/bash-custom/fzf.plugin.bash).
+  - [taskbook](https://github.com/klaussinani/taskbook).
 
 ## Preview
 

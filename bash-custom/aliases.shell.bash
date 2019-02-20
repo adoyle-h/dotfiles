@@ -35,12 +35,12 @@ alias suho='sudo -HE'
 alias cp='cp -i'
 alias tree='tree -CFN'
 
-alias t='todo.sh'
 alias irc='irssi'
 alias nginx='/etc/init.d/nginx'
 alias edit='nvim'
 alias pager='nvim'
 alias dm='docker-machine'
+# fpp is https://github.com/facebook/PathPicker
 alias fpp='fpp -ni'
 
 # GNU File, Shell, and Text utilities for mac

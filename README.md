@@ -22,7 +22,6 @@ My configurations and shell scripts.
     - [Install](#install)
 - [File Structure](#file-structure)
 - [Bash initialization process](#bash-initialization-process)
-- [Bash-it Enables/Disables](#bash-it-enablesdisables)
 - [Use ~/.fast_bashrc for rescue](#use-fast_bashrc-for-rescue)
 - [Use ~/.bashrc.debug for debug](#use-bashrcdebug-for-debug)
 - [Customize your Bash](#customize-your-bash)
@@ -56,7 +55,7 @@ My configurations and shell scripts.
 - Manage collections of dotfiles via [dotbot][]. See [the configuration][install.conf.yaml].
 - Manage shell scripts/completions/aliases/plugins by modules via [bash-it][].
   - Most features are implemented in separate plugins, which could be disabled by yourself.
-  - All my plugins are put in [`bash-custom/`](./bash-custom/) folder. And some enabled plugins provided by bash-it. Refer to [Bash-it Enables/Disables](#bash-it-enablesdisables).
+  - All my plugins are put in [`bash-custom/`](./bash-custom/) folder. And some enabled plugins provided by bash-it. `a list-plugins -a` to print all plugin names.
   - Compatible with [bash-completion][] (for bash 3.x) and [bash-completion2][bash-completion] (for bash 4.x). See the [configuration](https://github.com/adoyle-h/dotfiles/blob/master/bash_it/completions.bash)
 - Auto-execute specific scripts for different system (ubuntu/macos and so on).
 - Responsive and pretty PS1, and personalized theme `𝕬`. Refer to [Preview](#preview).
@@ -248,14 +247,6 @@ It will generally execute these scripts in order:
         - Debian/*.bash
 5. bash-custom/enabled/*.bash
 
-## Bash-it Enables/Disables
-
-The aliases/plugins/completions I enabled could be referred in [`bash_it/reset`](./bash_it/reset).
-
-`bash-it-enables` to show all aliases/plugins/completions you enabled.
-
-`bash-it-enables -e` to save all aliases/plugins/completions you enabled.
-
 ## Use ~/.fast_bashrc for rescue
 
 If `.bashrc` has any critical issue, you could create a `$HOME/.fast_bashrc` file to replace `$HOME/.bashrc`.
@@ -284,8 +275,16 @@ These executables could also be put in [`bin/sub/`]('./bin/sub/') which is inclu
 and it could be referred as sub-command. Example:
 
 - `a help`
-- `a comments`
+- `a bins` to show all commands in `./bin/`
+- `a comments` to show all commands in `./bin/sub/`
 - `a 256color`
+- `a enable-plugin plugin-name1 plugin-name2` to enable plugin in `bash-custom/available/`
+- `a disable-plugin plugin-name1 plugin-name2` to disable plugin in `bash-custom/enabled/`
+- `a list-plugins` to show all enabled plugins in `bash-custom/enabled/`
+- `a list-plugins -a` to show all plugins in `bash-custom/available/`
+- `a bash-it-status` to show all aliases/plugins/completions you enabled.
+- `a bash-it-status -e` to save all aliases/plugins/completions you enabled.
+- `a debug open` and `a debug close` to open/close debug mode
 
 All sub-commands are auto-completed. Type `a <Tab>` to see all sub-commands.
 

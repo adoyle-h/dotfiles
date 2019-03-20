@@ -1,5 +1,5 @@
-#!/usr/bin/env bash
 # shellcheck disable=SC1090
+[[ "$_DEBUG" == "on" ]] && echo "Now executing bash_it/completions.bash"
 
 [[ -z "$PS1" ]] && return 0
 
@@ -57,3 +57,5 @@ if [[ -n "$BASH_COMPLETION_FILE" ]] && [[ -f "$BASH_COMPLETION_FILE" ]]; then
   # echo BASH_COMPLETION_FILE-----$BASH_COMPLETION_FILE
   source "$BASH_COMPLETION_FILE"
 fi
+
+[[ "$_DEBUG" == "on" ]] && echo "Executed bash_it/completions.bash"

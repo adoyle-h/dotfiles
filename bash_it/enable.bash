@@ -1,3 +1,5 @@
+[[ "$_DEBUG" == "on" ]] && echo "Now executing bash_it/enable.bash"
+
 # Path to the bash it configuration
 export BASH_IT="$HOME/.bash_it"
 export BASH_IT_CUSTOM="$BASH_IT/custom/adoyle"

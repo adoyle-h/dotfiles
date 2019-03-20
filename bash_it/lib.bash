@@ -1,5 +1,5 @@
-#!/usr/bin/env bash
 # shellcheck disable=SC1090
+[[ "$_DEBUG" == "on" ]] && echo "Now executing bash_it/lib.bash"
 
 # For system start up
 

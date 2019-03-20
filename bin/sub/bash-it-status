@@ -7,7 +7,7 @@ set -o pipefail
 [[ -n "${XTRACE:+x}" ]] && set -o xtrace
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
-_print_bash-it-enables() {
+_print_bash-it-status() {
   local type=$1
   local name=$2
   echo "## [$type]"
@@ -17,25 +17,36 @@ _print_bash-it-enables() {
   echo ""
 }
 
-bash-it-enables() {
-  _print_bash-it-enables "alias" "aliases"
-  _print_bash-it-enables "plugin" "plugin"
-  _print_bash-it-enables "completion" "completion"
+bash-it-status() {
+  _print_bash-it-status "alias" "aliases"
+  _print_bash-it-status "plugin" "plugin"
+  _print_bash-it-status "completion" "completion"
 }
 
-build-bash-it-enables-script() {
+build-bash-it-status-script() {
   local target=$1
-  cat <<EOF > "$target"
-#!/usr/bin/env bash
 
-source "\$HOME/.bash_it.bash"
+  cat <<'EOF' > "$target"
+#!/usr/bin/env bash
+# shellcheck disable=SC1090
+
+set -o errexit
+set -o nounset
+set -o pipefail
+[[ -n "${XTRACE:+x}" ]] && set -o xtrace
+[[ -n "${VERBOSE:+x}" ]] && set -o verbose
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+[[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}}()]: '
+
+source "$HOME/.bash_it.bash"
 
 bash-it disable alias all
 bash-it disable plugin all
 bash-it disable completion all
 
 EOF
-  bash-it-enables >> "$target"
+
+  bash-it-status >> "$target"
   echo "echo '[bash_it reset done]'" >> "$target"
 }
 
@@ -58,9 +69,9 @@ main() {
   fi
 
   if [[ $arg == -e ]]; then
-    build-bash-it-enables-script ~/.bash_it/custom/reset
+    build-bash-it-status-script ~/.bash_it/custom/reset
   else
-    bash-it-enables
+    bash-it-status
   fi
 }
 

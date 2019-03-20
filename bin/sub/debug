@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1090
+
+set -o errexit
+set -o nounset
+set -o pipefail
+[[ -n "${XTRACE:+x}" ]] && set -o xtrace
+[[ -n "${VERBOSE:+x}" ]] && set -o verbose
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+[[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}}()]: '
+
+flag=${1:-}
+
+if [[ $flag == open ]]; then
+    touch "$HOME"/.bashrc.debug
+    echo "$HOME/.bashrc.debug created"
+elif [[ $flag == close ]]; then
+    rm -f "$HOME"/.bashrc.debug
+    echo "$HOME/.bashrc.debug removed"
+else
+    echo "COMMAND USAGE: a debug open|close"
+fi

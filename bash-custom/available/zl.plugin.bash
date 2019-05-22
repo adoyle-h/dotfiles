@@ -12,7 +12,7 @@ export _ZL_EXCLUDE_DIRS=(.git)
 # export _ZL_CD=cd
 export _ZL_MATCH_MODE=1
 
-eval "$(lua "$DOTFILE_DIR"/pkgs/z.lua/z.lua --init bash)"
+eval "$(lua "$DOTFILE_DIR"/pkgs/z.lua/z.lua --init bash fzf)"
 
 alias ju='j -b'      # cd to the parent directory starting with foo
 alias jl='j -l foo'  # list matches instead of cd

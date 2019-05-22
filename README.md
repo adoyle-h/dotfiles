@@ -25,6 +25,8 @@ My configurations and shell scripts.
 - [Use ~/.fast_bashrc for rescue](#use-fast_bashrc-for-rescue)
 - [Use ~/.bashrc.debug for debug](#use-bashrcdebug-for-debug)
 - [Customize your Bash](#customize-your-bash)
+    - [Custom plugin](#custom-plugin)
+    - [Other modifications](#other-modifications)
     - [Binary executables](#binary-executables)
     - [Sub-commands](#sub-commands)
         - [sub-command document](#sub-command-document)
@@ -174,35 +176,22 @@ Run `./install` to create symbolic links.
 │   ├── inputrc                     # Link to ~/.inputrc
 │   └── profile                     # Link to ~/.profile
 ├── bash-custom/                    # your bash scripts
+│   ├── available/                  # available user custom plugins
+│   ├── enabled/                    # enabled user custom plugins
 │   ├── Debian/                     # bash scripts for Linux Debian
 │   │   └── core.bash
-│   ├── aliases.shell.bash          # same to bash_it aliases
-│   ├── available/                  # Custom available bash scripts
-│   │   └── zzz_last_cd.plugin.bash # Ensure the plugin should be loaded at last
-│   ├── bash_4.plugin.bash
-│   ├── cheat.plugin.bash
-│   ├── completions.shell.bash      # same to bash_it completions
-│   ├── editor.env.bash
-│   ├── enabled/                    # Custom enabled bash scripts
-│   │   └── zzz_last_cd.plugin.bash -> ../available/zzz_last_cd.plugin.bash
-│   ├── env.shell.bash
-│   ├── functions.shell.bash        # same to bash_it lib
-│   ├── fzf.plugin.bash
-│   ├── gvm.plugin.bash
-│   ├── lesspipe.plugin.bash
 │   ├── Macos/                      # bash scripts for Macos
 │   │   └── core.bash
+│   ├── themes/                     # store CLI UI themes
+│   │   └── 𝕬/                      # My custom theme
+│   ├── editor.env.bash
+│   ├── env.shell.bash
+│   ├── functions.shell.bash        # same to bash_it lib
 │   ├── optionals.shell.bash        # Shell Optional Behavior settings
 │   ├── path.env.bash               # change environment variable PATH
 │   ├── proxy.env.bash              # application proxy settings
-│   ├── secrets.env.bash -> ../secrets/secrets.env.bash
 │   ├── system-detect.shell.bash    # detect system and run its bash scripts
-│   ├── themes/                     # the bash_it theme
-│   │   └── 𝕬/
-│   │       └── 𝕬.theme.bash
-│   ├── tmux.plugin.bash
-│   ├── variables.shell.bash        # Shell Variables settings
-│   └── xcode.plugin.bash
+│   └── variables.shell.bash        # Shell Variables settings
 ├── bash_it/                        # https://github.com/Bash-it/bash-it#your-custom-scripts-aliases-themes-and-functions
 │   ├── aliases.bash
 │   ├── completions.bash
@@ -214,17 +203,19 @@ Run `./install` to create symbolic links.
 │   ├── sub/                        # Collections of sub commands
 │   ├── sub-bin*                    # Sub main file
 │   └── a -> ./sub-bin              # Enterpoint of sub commands
+├── bootstraps/                     # Scripts for bootstraping
+│   └── recommends/
+│       └── custom_plugins          # Backup enabled custom plugins
 ├── bootstrap -> ./bootstrap.bash*
 ├── bootstrap.bash*
 ├── cheat/                          # It is ignored in git. git clone https://github.com/adoyle-h/my-command-cheat cheat
 ├── completions/                    # bash command completions. Link to ~/.bash_completions
 ├── configs/                        # application configuration
+├── docs/                           # The documents of this project
 ├── dotbot/                         # https://github.com/anishathalye/dotbot
 ├── install*
 ├── install.conf.yaml               # dotbot configuration
-├── nvim/                           # neovim configuration. It is ignored in git. git clone https://github.com/adoyle-h/neovim-config nvim
-└── secrets/                        # Put your sensitive data here. It is ignored in git. mkdir secrets
-    └── secrets.env.bash
+└── nvim/                           # neovim configuration. It is ignored in git. git clone https://github.com/adoyle-h/neovim-config nvim
 ```
 
 ## Bash initialization process
@@ -259,7 +250,23 @@ And remove the file to disable debug.
 
 ## Customize your Bash
 
-All your own plugins should be put in [`bash-custom/`](./bash-custom/).
+### Custom plugin
+
+You can customize Bash by making a plugin.
+All custom plugins must be put in [`bash-custom/available/`](./bash-custom/available) and filename must be suffixed with `.plugin.bash`.
+
+Below content as template,
+
+```sh
+cite about-plugin
+about-plugin 'Plugin description'
+
+# put your shellscript codes here
+```
+
+Then you can invoke `a enable-plugin <plugin-name>` to enable the plugin.
+
+### Other modifications
 
 Sometimes, you could modify the files in `bash_it/` for prior execution.
 
@@ -319,13 +326,12 @@ Refer to https://github.com/basecamp/sub#autocompletion .
 
 ### Secret Data
 
-Type `ll bash-custom/secrets.env.bash`, and you will see that:
+If you want keep your sensitive data untracked from git.
+Create a `secrets.plugin.bash` and make a soft-link points to it. Such as `ln -s <your-path>/secrets.plugin.bash ./bash-custom/secrets.plugin.bash`.
+All files under `bash-custom/enabled/` are untracked.
+Then type `a enable-plugin secrets` and restart shell to enable it.
 
-`bash-custom/secrets.env.bash@ -> ../secrets/secrets.env.bash`
-
-So, you could maintain your classified data in `secrets/secrets.env.bash`.
-
-The `secrets/` folder is ignored by git. You could put anything in this folder.
+So, you could maintain your classified data in your `secrets.plugin.bash`.
 
 ## Bash Completions
 

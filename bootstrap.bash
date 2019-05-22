@@ -140,7 +140,7 @@ _bootstrap_common() {
   ./install
 
   echo 'To setup bash-custom plugins'
-  a enable-plugin $(cat ./bootstrap_custom_plugins)
+  a enable-plugin $(cat ./bootstraps/recommends/custom_plugins)
 
   echo '[Done] Bootstrap in common'
 }

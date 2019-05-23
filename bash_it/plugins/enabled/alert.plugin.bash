@@ -1,0 +1,1 @@
+../available/alert.plugin.bash

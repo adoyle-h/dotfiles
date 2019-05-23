@@ -69,7 +69,7 @@ main() {
   fi
 
   if [[ $arg == -e ]]; then
-    build-bash-it-status-script ~/.bash_it/custom/reset
+    build-bash-it-status-script "$DOTFILE_DIR"/bin/sub/reset-bash
   else
     bash-it-status
   fi

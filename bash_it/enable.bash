@@ -2,7 +2,8 @@
 
 # Path to the bash it configuration
 export BASH_IT="$HOME/.bash_it"
-export BASH_IT_CUSTOM="$BASH_IT/custom/adoyle"
+export BASH_IT_CUSTOM="$DOTFILE_DIR/bash_it/custom"
+export CUSTOM_THEME_DIR="$DOTFILE_DIR/bash_it/themes"
 
 # Lock and Load a custom theme file
 export BASH_IT_THEME='𝕬'

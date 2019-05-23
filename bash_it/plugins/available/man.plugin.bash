@@ -1,3 +1,7 @@
+cite about-plugin
+about-plugin 'Make manpage colored'
+
+# https://unix.stackexchange.com/questions/108699/documentation-on-less-termcap-variables
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;31m'
 export LESS_TERMCAP_me=$'\E[0m'

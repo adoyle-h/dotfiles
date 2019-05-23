@@ -1,3 +1,6 @@
+cite about-plugin
+about-plugin 'Settings for bash 4'
+
 BASH_4_MANPATH="/usr/local/opt/bash/share/man"
 
 if [[ "$(GET_BASH_MAJOR_VERSION)" == 4 ]] && [[ -d "$BASH_4_MANPATH" ]]; then

@@ -20,9 +20,9 @@ EOF
 fi
 
 if [[ "$opt" == '-a' ]]; then
-  find "$DOTFILE_DIR"/bash-custom/available/ -type f -exec basename {} .plugin.bash \; | tr '\n' ' '
+  find "$DOTFILE_DIR"/bash_it/plugins/available/ -type f -exec basename {} .plugin.bash \; | tr '\n' ' '
 else
-  find "$DOTFILE_DIR"/bash-custom/enabled/ -type l -exec basename {} .plugin.bash \; | tr '\n' ' '
+  find "$DOTFILE_DIR"/bash_it/plugins/enabled/ -type l -exec basename {} .plugin.bash \; | tr '\n' ' '
 fi
 
 echo ""

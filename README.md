@@ -26,6 +26,7 @@ My configurations and shell scripts.
 - [Use ~/.bashrc.debug for debug](#use-bashrcdebug-for-debug)
 - [Customize your Bash](#customize-your-bash)
     - [Custom plugin](#custom-plugin)
+    - [Plugin for specific system](#plugin-for-specific-system)
     - [Other modifications](#other-modifications)
     - [Binary executables](#binary-executables)
     - [Sub-commands](#sub-commands)
@@ -50,7 +51,7 @@ My configurations and shell scripts.
 - [git][]: **It is required**. Make sure it available before installation.
   - [git-prompt][]: If omitted, PS1 will not show git prompt.
 - [dotbot][]: To create symbolic links and manage the map via [`install.conf.yaml`][install.conf.yaml]. There is no need to install dotbot manually. It is a part of this repo.
-- [bash-it (modified version)][a-bash-it]: To manage all shell scripts in modules: aliases, plugins, completions and shell appearance theme. **It is required**. Make sure it available before installation.
+- [bash-it][]: To manage all shell scripts in modules: aliases, plugins, completions and shell appearance theme. **It is required**. Make sure it available before installation.
 
 ## Features
 
@@ -105,10 +106,7 @@ git submodule update --init
 # Install bash_it framework which is required
 git clone --depth 1 https://github.com/adoyle-h/bash-it -b a/1.0.0-stable ~/.bash_it
 ~/.bash_it/install.sh --no-modify-config
-${DOTFILE_DIR}/bash_it/reset
-
-# Create `secrets/` folder. Put your classified data in this folder
-mkdir -p ${DOTFILE_DIR}/secrets
+${DOTFILE_DIR}/bin/sub/reset-bash
 
 ## neovim-config is optional
 # cd ${DOTFILE_DIR}/nvim
@@ -173,32 +171,29 @@ Run `./install` to create symbolic links.
 ├── bash/
 │   ├── bash_profile                # Link to ~/.bash_profile
 │   ├── bashrc                      # Link to ~/.bashrc
+│   ├── fast_bashrc                 # Idle file, just a template
 │   ├── inputrc                     # Link to ~/.inputrc
 │   └── profile                     # Link to ~/.profile
-├── bash-custom/                    # your bash scripts
-│   ├── available/                  # available user custom plugins
-│   ├── enabled/                    # enabled user custom plugins
-│   ├── Debian/                     # bash scripts for Linux Debian
-│   │   └── core.bash
-│   ├── Macos/                      # bash scripts for Macos
-│   │   └── core.bash
-│   ├── themes/                     # store CLI UI themes
-│   │   └── 𝕬/                      # My custom theme
-│   ├── editor.env.bash
-│   ├── env.shell.bash
-│   ├── functions.shell.bash        # same to bash_it lib
-│   ├── optionals.shell.bash        # Shell Optional Behavior settings
-│   ├── path.env.bash               # change environment variable PATH
-│   ├── proxy.env.bash              # application proxy settings
-│   ├── system-detect.shell.bash    # detect system and run its bash scripts
-│   └── variables.shell.bash        # Shell Variables settings
 ├── bash_it/                        # https://github.com/Bash-it/bash-it#your-custom-scripts-aliases-themes-and-functions
-│   ├── aliases.bash
-│   ├── completions.bash
-│   ├── enable.bash                 # bash_it configuration and entrance
-│   ├── lib.bash                    # Reset $PATH and $MANPATH, and set common functions
-│   ├── plugins.bash
-│   └── reset*                      # custom reset bash-it aliases/plugins/completions
+│   ├── aliases.bash
+│   ├── completions.bash
+│   ├── custom/                     # custom the bash by yourself
+│   │   ├── editor.env.bash
+│   │   ├── enable-custom-plugins.bash
+│   │   ├── env.shell.bash
+│   │   ├── functions.shell.bash    # same to bash_it lib
+│   │   ├── optionals.shell.bash    # Shell Optional Behavior settings
+│   │   ├── path.env.bash           # change environment variable PATH
+│   │   ├── proxy.env.bash          # application proxy settings
+│   │   └── variables.shell.bash    # Shell Variables settings
+│   ├── enable.bash                 # bash_it entry and basic settings
+│   ├── lib.bash                    # Reset $PATH and $MANPATH, and set common functions
+│   ├── plugins/
+│   │   ├── available/              # available user custom plugins
+│   │   └── enabled/                # enabled user custom plugins
+│   ├── plugins.bash                # bash_it plugins.bash file
+│   └── themes/                     # store UI themes for bash
+│       └── 𝕬/                      # My custom theme
 ├── bin/                            # link to ~/bin
 │   ├── sub/                        # Collections of sub commands
 │   ├── sub-bin*                    # Sub main file
@@ -223,7 +218,8 @@ Run `./install` to create symbolic links.
 It will generally execute these scripts in order:
 
 1. bash/bashrc
-2. bash_it/enable
+    - Read "$HOME"/.dotfilerc to detect the path of Dotfiles project directory
+2. $HOME/.bash_it.bash => bash_it/enable
 3. bash_it framework
     - bash_it/aliases.bash
     - bash_it/plugins.bash
@@ -232,11 +228,8 @@ It will generally execute these scripts in order:
     - [custom] bash_it/plugins.bash
     - [custom] bash_it/completions.bash
     - bash-custom/theme/**/*.bash
-4. bash-custom/*.bash
-    1. system-detect.shell.bash
-        - Macos/*.bash
-        - Debian/*.bash
-5. bash-custom/enabled/*.bash
+4. bash_it/custom/*.bash
+5. bash_it/plugins/enabled/*.bash
 
 ## Use ~/.fast_bashrc for rescue
 
@@ -265,6 +258,11 @@ about-plugin 'Plugin description'
 ```
 
 Then you can invoke `a enable-plugin <plugin-name>` to enable the plugin.
+
+### Plugin for specific system
+
+- `a enable-plugin macos`
+- `a enable-plugin debian`
 
 ### Other modifications
 
@@ -370,7 +368,6 @@ See the [NOTICE][] file distributed with this work for additional information re
 [install.conf.yaml]: ./install.conf.yaml
 [dotbot]: https://github.com/anishathalye/dotbot/
 [bash-it]: https://github.com/Bash-it/bash-it
-[a-bash-it]: https://github.com/adoyle-h/bash-it
 [sub]: https://github.com/basecamp/sub
 [neovim]: https://github.com/neovim/neovim
 [tmux]: https://github.com/tmux/tmux

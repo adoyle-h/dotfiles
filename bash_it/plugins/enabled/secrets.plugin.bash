@@ -1,0 +1,1 @@
+/Users/adoyle/dotfiles/secrets/secrets.plugin.bash

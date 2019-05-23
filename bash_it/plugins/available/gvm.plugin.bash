@@ -1,5 +1,4 @@
 # shellcheck disable=SC1090
-
 cite about-plugin
 about-plugin 'Enable gvm'
 

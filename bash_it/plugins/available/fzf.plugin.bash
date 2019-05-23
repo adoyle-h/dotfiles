@@ -1,7 +1,6 @@
 # shellcheck disable=SC1090
-
 cite about-plugin
-about-plugin 'Enable fzf'
+about-plugin 'Settings for fzf; https://github.com/junegunn/fzf'
 
 # Setup fzf
 FZF_MANPATH=$HOME/.fzf/man

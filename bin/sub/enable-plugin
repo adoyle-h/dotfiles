@@ -13,14 +13,14 @@ readonly args=("$@")
 
 check_plugin() {
   local name=$1
-  if [[ ! -f "$DOTFILE_DIR"/bash-custom/available/"$name".plugin.bash ]]; then
+  if [[ ! -f "$DOTFILE_DIR"/bash_it/plugins/available/"$name".plugin.bash ]]; then
     echo "No such plugin '$name'" >&2
     exit 1
   fi
 }
 
 enable_plugin() {
-  ln -sf ../available/"$name".plugin.bash "$DOTFILE_DIR"/bash-custom/enabled/"$name".plugin.bash
+  ln -sf ../available/"$name".plugin.bash "$DOTFILE_DIR"/bash_it/plugins/enabled/"$name".plugin.bash
   echo "$name".plugin.bash enabled
 }
 

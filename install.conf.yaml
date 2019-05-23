@@ -54,5 +54,5 @@
     # others
     ~/bin: bin
     ~/.cheat: cheat
-    $XDG_CONFIG_HOME/nvim: nvim
+    $XDG_CONFIG_HOME/nvim: pkgs/nvim
     ~/.editorconfig: .editorconfig

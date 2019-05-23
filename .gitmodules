@@ -1,8 +1,8 @@
 [submodule "dotbot"]
-	path = dotbot
+	path = pkgs/dotbot
 	url = https://github.com/anishathalye/dotbot
 [submodule "nvim"]
-	path = nvim
+	path = pkgs/nvim
 	url = https://github.com/adoyle-h/neovim-config.git
 [submodule "cheat"]
 	path = cheat

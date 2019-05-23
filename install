@@ -11,15 +11,21 @@ set -o pipefail
 
 readonly BASEDIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
+# Copy from dotbot/tools/git-submodule/install
+
 CONFIG="install.conf.yaml"
-DOTBOT_DIR="dotbot"
+DOTBOT_DIR="pkgs/dotbot"
 
 DOTBOT_BIN="bin/dotbot"
+# BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 cd "${BASEDIR}"
+git -C "${DOTBOT_DIR}" submodule sync --quiet --recursive
 git submodule update --init --recursive "${DOTBOT_DIR}"
 
 "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" "${@}"
+
+# ------
 
 echo "DOTFILE_DIR=$BASEDIR" > "$HOME"/.dotfilerc
 echo ""

@@ -207,10 +207,13 @@ Run `./install` to create symbolic links.
 ├── completions/                    # bash command completions. Link to ~/.bash_completions
 ├── configs/                        # application configuration
 ├── docs/                           # The documents of this project
-├── dotbot/                         # https://github.com/anishathalye/dotbot
 ├── install*
-├── install.conf.yaml               # dotbot configuration
-└── nvim/                           # neovim configuration. It is ignored in git. git clone https://github.com/adoyle-h/neovim-config nvim
+├── install.conf.yaml               # dotbot configurations
+└── pkgs/                           # git submodules
+    ├── bash-it/                    # https://github.com/Bash-it/bash-it
+    ├── dotbot/                     # https://github.com/anishathalye/dotbot
+    ├── nvim/                       # My neovim configurations.
+    └── z.lua/                      # https://github.com/skywind3000/z.lua
 ```
 
 ## Bash initialization process

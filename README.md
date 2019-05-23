@@ -58,20 +58,19 @@ My configurations and shell scripts.
 - Manage collections of dotfiles via [dotbot][]. See [the configuration][install.conf.yaml].
 - Manage shell scripts/completions/aliases/plugins by modules via [bash-it][].
   - Most features are implemented in separate plugins, which could be disabled by yourself.
-  - All my plugins are put in [`bash-custom/`](./bash-custom/) folder. And some enabled plugins provided by bash-it. `a list-plugins -a` to print all plugin names.
-  - Compatible with [bash-completion][] (for bash 3.x) and [bash-completion2][bash-completion] (for bash 4.x). See the [configuration](https://github.com/adoyle-h/dotfiles/blob/master/bash_it/completions.bash)
-- Auto-execute specific scripts for different system (ubuntu/macos and so on).
+  - All my plugins are put in [`bash_it/plugins/available/`](./bash_it/plugins/available/). `a list-plugins -a` to print all plugin names.
+  - Some plugins powered by bash-it. `bash-it show plugins` to print all bash-it plugins.
+- Compatible with [bash-completion][] (for bash 3.x) and [bash-completion2][bash-completion] (for bash 4.x). See the [configuration](https://github.com/adoyle-h/dotfiles/blob/master/bash_it/completions.bash)
 - Responsive and pretty PS1, and personalized theme `𝕬`. Refer to [Preview](#preview).
-- Collections of shell commands, which locates in [`bin/`](./bin/) directory. Refer to [Binary executables](#binary-executables).
-- Manage sub commands, which locates in [`bin/sub/`](./bin/sub/) directory. The manage framework is modified from [sub][].
-  - Default `SUB_NAME=a`，press `a help` to see help. You can modify the enterpoint (SUB_NAME) in Plugin: [sub.plugin.bash][]
+- Collections of shell commands, which locates in [`bin/`](./bin/). Refer to [Binary executables](#binary-executables).
+- Manage sub-commands, which locates in [`bin/sub/`](./bin/sub/). The sub-commands framework is modified from [sub][].
+  - Default `SUB_NAME=a`, type `a help` for getting help. You can modify the enterpoint (`SUB_NAME`) in Plugin: [sub.plugin.bash](./bash_it/plugins/available/sub.plugin.bash)
   - Refer to [Sub-commands](#sub-commands) for more.
 - My best practices for shell (bash).
 - My best practices for [neovim][]. See [the configuration](https://github.com/adoyle-h/neovim-config).
 - My best practices for [tmux][]. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/configs/tmux.conf).
 - My best practices for git. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/configs/gitconfig).
 - My cheat sheets based on [chrisallenlane/cheat](https://github.com/chrisallenlane/cheat).
-- Maintain your classified data in `secrets/` folder, which is ignored by git. Refer to [Secret Data](#secret-data).
 - Many third integrations
   - [z.lua](https://github.com/skywind3000/z.lua).
   - [fzf][]. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/bash-custom/fzf.plugin.bash).
@@ -371,7 +370,6 @@ See the [NOTICE][] file distributed with this work for additional information re
 [neovim]: https://github.com/neovim/neovim
 [tmux]: https://github.com/tmux/tmux
 [fzf]: https://github.com/junegunn/fzf
-[sub.plugin.bash]: https://github.com/adoyle-h/dotfiles/blob/master/bash-custom/sub.plugin.bash
 [font]: https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/DejaVuSansMono
 [color scheme]: https://github.com/mbadolato/iTerm2-Color-Schemes#deep
 [color scheme - installation]: https://github.com/mbadolato/iTerm2-Color-Schemes#installation-instructions

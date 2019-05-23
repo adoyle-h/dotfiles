@@ -1,18 +1,20 @@
 [submodule "dotbot"]
 	path = pkgs/dotbot
 	url = https://github.com/anishathalye/dotbot
+	depth = 1
 [submodule "nvim"]
 	path = pkgs/nvim
 	url = https://github.com/adoyle-h/neovim-config.git
+	depth = 1
 [submodule "cheat"]
 	path = cheat
 	url = https://github.com/adoyle-h/my-command-cheat
-[submodule "tools/enhancd"]
-	path = tools/enhancd
-	url = https://github.com/b4b4r07/enhancd
+	depth = 1
 [submodule "pkgs/z.lua"]
 	path = pkgs/z.lua
 	url = https://github.com/skywind3000/z.lua.git
+	depth = 1
 [submodule "pkgs/bash-it"]
 	path = pkgs/bash-it
 	url = https://github.com/Bash-it/bash-it.git
+	depth = 1

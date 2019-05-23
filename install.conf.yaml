@@ -7,6 +7,7 @@
 - shell:
     # dotbot have no sudo permission
     - "[[ ! -f /Library/LaunchAgents/com.adoyle.polipo.plist ]] && sudo ln -s `pwd`/LaunchAgents/com.adoyle.polipo.plist /Library/LaunchAgents/com.adoyle.polipo.plist || echo ok"
+    - "ln -s `pwd`/pkgs/bash-it ~/.bash_it"
 
 - link:
     # bash

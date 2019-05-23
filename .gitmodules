@@ -13,3 +13,6 @@
 [submodule "pkgs/z.lua"]
 	path = pkgs/z.lua
 	url = https://github.com/skywind3000/z.lua.git
+[submodule "pkgs/bash-it"]
+	path = pkgs/bash-it
+	url = https://github.com/Bash-it/bash-it.git

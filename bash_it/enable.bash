@@ -1,7 +1,7 @@
-[[ "$_DEBUG" == "on" ]] && echo "Now executing bash_it/enable.bash"
+[[ "${_DEBUG:-}" == "on" ]] && echo "Now executing bash_it/enable.bash"
 
 # Path to the bash it configuration
-export BASH_IT="$HOME/.bash_it"
+export BASH_IT="$DOTFILE_DIR/pkgs/bash-it"
 export BASH_IT_CUSTOM="$DOTFILE_DIR/bash_it/custom"
 export CUSTOM_THEME_DIR="$DOTFILE_DIR/bash_it/themes"
 

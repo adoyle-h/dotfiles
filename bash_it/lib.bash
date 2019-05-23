@@ -1,5 +1,5 @@
 # shellcheck disable=SC1090
-[[ "$_DEBUG" == "on" ]] && echo "Now executing bash_it/lib.bash"
+[[ "${_DEBUG:-}" == "on" ]] && echo "Now executing bash_it/lib.bash"
 
 # For system start up
 
@@ -20,13 +20,13 @@ export MANPATH="$MAIN_MANPATHS"
 unset -v MAIN_MANPATHS
 
 a_debug() {
-  [[ -z "$_DEBUG" ]] && return 0
+  [[ -z "${_DEBUG:-}" ]] && return 0
   local ts=$(date +"%Y%m%d_%H%M%S")
   echo -e "[$ts] $1"
 }
 
 a_debug_to_file() {
-  [[ -z "$_DEBUG" ]] && return 0
+  [[ -z "${_DEBUG:-}" ]] && return 0
   a_debug "$1" >> ~/debug
 }
 

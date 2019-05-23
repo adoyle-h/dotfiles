@@ -1,1 +1,1 @@
-[[ "$_DEBUG" == "on" ]] && echo "Now executing bash_it/plugins.bash"
+[[ "${_DEBUG:-}" == "on" ]] && echo "Now executing bash_it/plugins.bash"

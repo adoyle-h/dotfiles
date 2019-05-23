@@ -101,19 +101,15 @@ DOTFILE_DIR=~/dotfiles
 git clone --depth 1 --recursive https://github.com/adoyle-h/dotfiles.git $DOTFILE_DIR
 cd $DOTFILE_DIR
 # Clone submodules and initialize them
-git submodule update --init
+git submodule update --init --depth 1 --recursive
 
 # Install bash_it framework which is required
-git clone --depth 1 https://github.com/adoyle-h/bash-it -b a/1.0.0-stable ~/.bash_it
-~/.bash_it/install.sh --no-modify-config
-${DOTFILE_DIR}/bin/sub/reset-bash
+./pkgs/bash-it/install.sh --no-modify-config
+# Reset bash-it
+. ${DOTFILE_DIR}/bootstraps/reset-bash
 
-## neovim-config is optional
-# cd ${DOTFILE_DIR}/nvim
-# Read README and install dependencies
-
-# Check `install.conf.yaml` file
-# Make soft-links for dotfiles
+# You may check the content of `install.conf.yaml` file,
+# Then make soft-links for dotfiles
 ./install
 # Checkout the output
 ```

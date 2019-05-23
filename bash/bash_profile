@@ -7,6 +7,6 @@
 # For OSX, all terminal apps counter intuitively open up as login shells
 # bash will load bashrc, but sh does not.
 
-[[ "$_DEBUG" == "on" ]] && echo "Now executing $HOME/.bash_profile | pwd=$(pwd)"
+[[ "${_DEBUG:-}" == "on" ]] && echo "Now executing $HOME/.bash_profile | pwd=$(pwd)"
 
 [[ -f "$HOME/.bashrc" ]] && . "$HOME/.bashrc"

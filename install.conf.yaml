@@ -7,7 +7,7 @@
 - shell:
     # dotbot have no sudo permission
     - "[[ ! -f /Library/LaunchAgents/com.adoyle.polipo.plist ]] && sudo ln -s `pwd`/LaunchAgents/com.adoyle.polipo.plist /Library/LaunchAgents/com.adoyle.polipo.plist || echo ok"
-    - "ln -s `pwd`/pkgs/bash-it ~/.bash_it"
+    - "ln -fhs `pwd`/pkgs/bash-it ~/.bash_it"
 
 - link:
     # bash
@@ -40,7 +40,6 @@
     ~/.stylelintrc: configs/stylelintrc
     ~/.vintrc.yaml: configs/vintrc.yaml
     ~/.tern-project: configs/tern-project
-    ~/.grip/settings.py: secrets/grip-settings.py
     $XDG_CONFIG_HOME/peco/config.json: configs/peco.json
     $XDG_CONFIG_HOME/yamllint/config: configs/yamllint.yml
     ~/.source-highlight/source-highlight.conf: configs/source-highlight.conf
@@ -51,9 +50,14 @@
     # secrets
     ~/.ssh: secrets/ssh
     ~/.keybase-installer: secrets/keybase-installer
+    ~/.grip/settings.py: secrets/grip-settings.py
+
+    # nvim
+    $XDG_CONFIG_HOME/nvim: pkgs/nvim
+
+    # cheat
+    ~/.cheat: cheat
 
     # others
     ~/bin: bin
-    ~/.cheat: cheat
-    $XDG_CONFIG_HOME/nvim: pkgs/nvim
     ~/.editorconfig: .editorconfig

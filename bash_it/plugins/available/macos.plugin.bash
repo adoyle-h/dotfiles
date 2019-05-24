@@ -2,7 +2,7 @@ cite about-plugin
 about-plugin 'Some settings for MacOS'
 
 if [[ "$(uname -s)" != "Darwin" ]] ; then
-  echo "WARNING: Current system is not MacOS but you have enable macos.plugin.bash."
+  echo "WARNING: Current system is not MacOS but you have enabled macos.plugin.bash."
   return
 fi
 

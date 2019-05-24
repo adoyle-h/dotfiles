@@ -95,8 +95,11 @@ Use sub commands:
 ## Installation
 
 ```sh
-# Clone this repo
+# Set your Dotfile directory path
 DOTFILE_DIR=~/dotfiles
+echo "DOTFILE_DIR=$DOTFILE_DIR" > ~/.dotfilerc
+
+# Clone this repo
 git clone --depth 1 --recursive https://github.com/adoyle-h/dotfiles.git $DOTFILE_DIR
 cd $DOTFILE_DIR
 # Clone submodules and initialize them
@@ -104,13 +107,14 @@ git submodule update --init --depth 1 --recursive
 
 # Install bash_it framework which is required
 ./pkgs/bash-it/install.sh --no-modify-config
-# Reset bash-it
-. ${DOTFILE_DIR}/bootstraps/reset-bash
 
 # You may check the content of `install.conf.yaml` file,
 # Then make soft-links for dotfiles
 ./install
 # Checkout the output
+
+# Reset bash-it
+. ${DOTFILE_DIR}/bootstraps/reset-bash
 ```
 
 The `install` script will generated a file `$HOME/.dotfilerc`. **Do not modify or remove it.**
@@ -204,16 +208,17 @@ Run `./install` to create symbolic links.
 ├── docs/                           # The documents of this project
 ├── install*
 ├── install.conf.yaml               # dotbot configurations
-└── pkgs/                           # git submodules
-    ├── bash-it/                    # https://github.com/Bash-it/bash-it
-    ├── dotbot/                     # https://github.com/anishathalye/dotbot
-    ├── nvim/                       # My neovim configurations.
-    └── z.lua/                      # https://github.com/skywind3000/z.lua
+├── pkgs/                           # git submodules
+│   ├── bash-it/                    # https://github.com/Bash-it/bash-it
+│   ├── dotbot/                     # https://github.com/anishathalye/dotbot
+│   ├── nvim/                       # My neovim configurations.
+│   └── z.lua/                      # https://github.com/skywind3000/z.lua
+└── secrets/                        # This folder is ignored by git, no worry about data leaking
 ```
 
 ## Bash initialization process
 
-It will generally execute these scripts in order:
+It will execute scripts in order:
 
 1. bash/bashrc
     - Read "$HOME"/.dotfilerc to detect the path of Dotfiles project directory

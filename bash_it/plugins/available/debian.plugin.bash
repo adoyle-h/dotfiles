@@ -2,7 +2,7 @@ cite about-plugin
 about-plugin 'Some settings for Debian system'
 
 if [[ "$(uname -s)" != "Linux" ]] or [[ ! -f /etc/debian_version ]]; then
-  echo "WARNING: Current system is not Debian but you have enable debian.plugin.bash."
+  echo "WARNING: Current system is not Debian but you have enabled debian.plugin.bash."
   return
 fi
 

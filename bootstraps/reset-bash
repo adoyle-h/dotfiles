@@ -9,7 +9,7 @@ bash-it disable completion all
 bash-it enable alias osx 
 
 ## [plugin]
-bash-it enable plugin nvm base battery browser docker-compose docker-machine docker explain extract gif java nginx osx-timemachine proxy rvm ssh alias-completion 
+bash-it enable plugin nvm base battery browser docker-compose docker-machine docker explain extract gif java osx-timemachine proxy rvm ssh alias-completion 
 
 ## [completion]
 bash-it enable completion bash-it brew bundler capistrano defaults docker-compose docker-machine docker gem go grunt makefile npm nvm pip projects rake ssh terraform tmux todo virtualbox 

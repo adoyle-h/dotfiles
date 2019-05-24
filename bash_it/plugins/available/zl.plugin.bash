@@ -2,17 +2,21 @@ cite about-plugin
 about-plugin 'Initialize z command. https://github.com/skywind3000/z.lua'
 
 if [[ ! -f $DOTFILE_DIR/pkgs/z.lua/z.lua ]]; then
+  echo 'WARNING: pkgs/z.lua not found. But you have enabled zl.plugin.bash.'
   return 0
 fi
 
 export _ZL_CMD=j
 export _ZL_DATA=$HOME/.z_lua
-# export _ZL_NO_PROMPT_COMMAND=true
+export _ZL_NO_PROMPT_COMMAND=true
 export _ZL_EXCLUDE_DIRS=(.git)
 # export _ZL_CD=cd
 export _ZL_MATCH_MODE=1
 
 eval "$(lua "$DOTFILE_DIR"/pkgs/z.lua/z.lua --init bash fzf)"
+
+# fix ZL_PROMPT_COMMAND
+PROMPT_COMMAND="$PROMPT_COMMAND;(_zlua --add \"\$(command pwd 2>/dev/null)\" &)"
 
 alias ju='j -b'      # cd to the parent directory starting with foo
 alias jl='j -l foo'  # list matches instead of cd

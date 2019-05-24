@@ -12,6 +12,7 @@ My configurations and shell scripts.
 - [Dependencies](#dependencies)
 - [Features](#features)
 - [Preview](#preview)
+- [Version](#version)
 - [Installation](#installation)
 - [Configuration](#configuration)
     - [Modifications by yourself](#modifications-by-yourself)
@@ -20,21 +21,21 @@ My configurations and shell scripts.
 - [Usage](#usage)
     - [Bootstrap](#bootstrap)
     - [Install](#install)
-- [File Structure](#file-structure)
-- [Bash initialization process](#bash-initialization-process)
-- [Use ~/.fast_bashrc for rescue](#use-fast_bashrc-for-rescue)
-- [Use ~/.bashrc.debug for debug](#use-bashrcdebug-for-debug)
-- [Customize your Bash](#customize-your-bash)
-    - [Custom plugin](#custom-plugin)
-    - [Plugin for specific system](#plugin-for-specific-system)
-    - [Other modifications](#other-modifications)
     - [Binary executables](#binary-executables)
     - [Sub-commands](#sub-commands)
+- [File Structure](#file-structure)
+- [Bash initialization process](#bash-initialization-process)
+- [Advanced Usage](#advanced-usage)
+    - [Use ~/.fast_bashrc for rescue](#use-fast_bashrc-for-rescue)
+    - [Use ~/.bashrc.debug for debug](#use-bashrcdebug-for-debug)
+    - [Customize your Bash by plugin](#customize-your-bash-by-plugin)
+    - [Enable plugin for specific system](#enable-plugin-for-specific-system)
+    - [Other modifications](#other-modifications)
+    - [Write a sub-command](#write-a-sub-command)
         - [sub-command document](#sub-command-document)
         - [sub-command completion](#sub-command-completion)
     - [Secret Data](#secret-data)
-- [Bash Completions](#bash-completions)
-- [Version](#version)
+    - [Bash Completions](#bash-completions)
 - [Suggestion, Bug Reporting, Contributing](#suggestion-bug-reporting-contributing)
 - [Copyright and License](#copyright-and-license)
 
@@ -91,6 +92,10 @@ Highlight Backgound jobs:
 Use sub commands:
 
 ![sub-commands.jpeg](./docs/img/sub-commands.jpeg?raw=true)
+
+## Version
+
+No version yet
 
 ## Installation
 
@@ -161,6 +166,29 @@ Run `./bootstrap` to initialize in a new environment.
 Run `./install` to create symbolic links.
 
 **Do not call the script under sudo.**
+
+### Binary executables
+
+All your own binary executables should be put in [`bin`](./bin/) folder.
+
+### Sub-commands
+
+These executables could also be put in [`bin/sub/`]('./bin/sub/') which is included in `$PATH`,
+and it could be referred as sub-command. Example:
+
+- `a help`
+- `a bins` to show all commands in `./bin/`
+- `a comments` to show all commands in `./bin/sub/`
+- `a 256color`
+- `a enable-plugin plugin-name1 plugin-name2` to enable plugin in `bash-custom/available/`
+- `a disable-plugin plugin-name1 plugin-name2` to disable plugin in `bash-custom/enabled/`
+- `a list-plugins` to show all enabled plugins in `bash-custom/enabled/`
+- `a list-plugins -a` to show all plugins in `bash-custom/available/`
+- `a bash-it-status` to show all aliases/plugins/completions you enabled.
+- `a bash-it-status -e` to save all aliases/plugins/completions you enabled.
+- `a debug open` and `a debug close` to open/close debug mode
+
+All sub-commands are auto-completed. Type `a <Tab>` to see all sub-commands.
 
 ## File Structure
 
@@ -234,19 +262,20 @@ It will execute scripts in order:
 4. bash_it/custom/*.bash
 5. bash_it/plugins/enabled/*.bash
 
-## Use ~/.fast_bashrc for rescue
+
+## Advanced Usage
+
+### Use ~/.fast_bashrc for rescue
 
 If `.bashrc` has any critical issue, you could create a `$HOME/.fast_bashrc` file to replace `$HOME/.bashrc`.
 
-## Use ~/.bashrc.debug for debug
+### Use ~/.bashrc.debug for debug
 
 `touch ~/.bashrc.debug` to print debug logs.
 
 And remove the file to disable debug.
 
-## Customize your Bash
-
-### Custom plugin
+### Customize your Bash by plugin
 
 You can customize Bash by making a plugin.
 All custom plugins must be put in [`bash-custom/available/`](./bash-custom/available) and filename must be suffixed with `.plugin.bash`.
@@ -262,7 +291,7 @@ about-plugin 'Plugin description'
 
 Then you can invoke `a enable-plugin <plugin-name>` to enable the plugin.
 
-### Plugin for specific system
+### Enable plugin for specific system
 
 - `a enable-plugin macos`
 - `a enable-plugin debian`
@@ -271,30 +300,12 @@ Then you can invoke `a enable-plugin <plugin-name>` to enable the plugin.
 
 Sometimes, you could modify the files in `bash_it/` for prior execution.
 
-You should leave the [`bash/`](./bash/) folder alone. DO NOT CHANGE ANYTHING IN IT.
+DO NOT CHANGE ANYTHING IN [`bash/`](./bash/) folder.
 
-### Binary executables
-
-All your own binary executables should be put in [`bin`](./bin/) folder.
-
-### Sub-commands
+### Write a sub-command
 
 These executables could also be put in [`bin/sub/`]('./bin/sub/') which is included in `$PATH`,
-and it could be referred as sub-command. Example:
-
-- `a help`
-- `a bins` to show all commands in `./bin/`
-- `a comments` to show all commands in `./bin/sub/`
-- `a 256color`
-- `a enable-plugin plugin-name1 plugin-name2` to enable plugin in `bash-custom/available/`
-- `a disable-plugin plugin-name1 plugin-name2` to disable plugin in `bash-custom/enabled/`
-- `a list-plugins` to show all enabled plugins in `bash-custom/enabled/`
-- `a list-plugins -a` to show all plugins in `bash-custom/available/`
-- `a bash-it-status` to show all aliases/plugins/completions you enabled.
-- `a bash-it-status -e` to save all aliases/plugins/completions you enabled.
-- `a debug open` and `a debug close` to open/close debug mode
-
-All sub-commands are auto-completed. Type `a <Tab>` to see all sub-commands.
+and it could be referred as sub-command.
 
 #### sub-command document
 
@@ -334,15 +345,11 @@ Then type `a enable-plugin secrets` and restart shell to enable it.
 
 So, you could maintain your classified data in your `secrets.plugin.bash`.
 
-## Bash Completions
+### Bash Completions
 
 Put your completion files under `completions/`.
 
 Attention: this directory does not work for your sub-command completion.
-
-## Version
-
-No version yet
 
 ## Suggestion, Bug Reporting, Contributing
 

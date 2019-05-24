@@ -77,19 +77,19 @@ An elegant way to manage dotfiles, shell scripts, auto-completion files, configu
 
 ## Preview
 
-![preview.png](./docs/img/preview.png?raw=true)
+![preview.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/dotfiles/preview.png)
 
 Responsive UI (Adjust with window width). No need to restart Terminal. Only press Enter:
 
-![responsive-ui.png](./docs/img/responsive-ui.png?raw=true)
+![responsive-ui.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/dotfiles/responsive-ui.png)
 
 Highlight Backgound jobs:
 
-![background-jobs.png](./docs/img/background-jobs.png?raw=true)
+![background-jobs.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/dotfiles/background-jobs.png)
 
 Use sub commands:
 
-![sub-commands.jpeg](./docs/img/sub-commands.jpeg?raw=true)
+![sub-commands.jpeg](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/dotfiles/sub-commands.jpeg)
 
 ## Version
 

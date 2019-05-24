@@ -1,6 +1,6 @@
 # dotfiles
 
-My configurations and shell scripts.
+An elegant way to manage dotfiles, shell scripts, auto-completion files, configurations for terminal players.
 
 **Currently, it is only a personal workplace rather than a framework. So you should FORK the REPO first before using it.**
 
@@ -9,20 +9,21 @@ My configurations and shell scripts.
 <!-- MarkdownTOC GFM -->
 
 - [Environments](#environments)
-- [Dependencies](#dependencies)
 - [Features](#features)
 - [Preview](#preview)
 - [Version](#version)
+- [Core Dependencies](#core-dependencies)
 - [Installation](#installation)
+    - [Bootstrap](#bootstrap)
 - [Configuration](#configuration)
     - [Modifications by yourself](#modifications-by-yourself)
     - [UI](#ui)
     - [Dotfiles](#dotfiles)
 - [Usage](#usage)
-    - [Bootstrap](#bootstrap)
-    - [Install](#install)
     - [Binary executables](#binary-executables)
     - [Sub-commands](#sub-commands)
+    - [Enable bash-it plugins/aliases/completion](#enable-bash-it-pluginsaliasescompletion)
+    - [Enable custom plugins](#enable-custom-plugins)
 - [File Structure](#file-structure)
 - [Bash initialization process](#bash-initialization-process)
 - [Advanced Usage](#advanced-usage)
@@ -36,6 +37,7 @@ My configurations and shell scripts.
         - [sub-command completion](#sub-command-completion)
     - [Secret Data](#secret-data)
     - [Bash Completions](#bash-completions)
+    - [Create symbolic links](#create-symbolic-links)
 - [Suggestion, Bug Reporting, Contributing](#suggestion-bug-reporting-contributing)
 - [Copyright and License](#copyright-and-license)
 
@@ -43,20 +45,16 @@ My configurations and shell scripts.
 
 ## Environments
 
-- iTerm2 Build 3.0.14 (Terminal.app compatible)
-- GNU bash 4.4.12(1)-release (x86_64-apple-darwin15.6.0) (GNU bash v3 compatible)
-- Tmux 2.7 (Not necessary. Tmux compatible)
-
-## Dependencies
-
-- [git][]: **It is required**. Make sure it available before installation.
-  - [git-prompt][]: If omitted, PS1 will not show git prompt.
-- [dotbot][]: To create symbolic links and manage the map via [`install.conf.yaml`][install.conf.yaml]. There is no need to install dotbot manually. It is a part of this repo.
-- [bash-it][]: To manage all shell scripts in modules: aliases, plugins, completions and shell appearance theme. **It is required**. Make sure it available before installation.
+- ✅ iTerm2 Build 3.0.14 (Terminal.app compatible)
+- ✅ GNU bash 4.4.12(1)-release (x86_64-apple-darwin15.6.0) (GNU bash v3 compatible)
+- ✅ Tmux 2.7 (Not necessary. Tmux compatible)
+- ✅ MacOS
+- ✅ Linux/Unix system
+- 🚫 Windows system
 
 ## Features
 
-- Manage collections of dotfiles via [dotbot][]. See [the configuration][install.conf.yaml].
+- Manage collections of dotfiles. Create soft-link via [dotbot][]. See [the configuration][install.conf.yaml].
 - Manage shell scripts/completions/aliases/plugins by modules via [bash-it][].
   - Most features are implemented in separate plugins, which could be disabled by yourself.
   - All my plugins are put in [`bash_it/plugins/available/`](./bash_it/plugins/available/). `a list-plugins -a` to print all plugin names.
@@ -97,6 +95,13 @@ Use sub commands:
 
 No version yet
 
+## Core Dependencies
+
+- [git][]: **It is required**. Make sure it available before installation.
+  - [git-prompt][]: If omitted, PS1 will not show git prompt.
+- [dotbot][]: To create symbolic links and manage them by [`install.conf.yaml`][install.conf.yaml]. No need to install it manually. It is a part of this repo.
+- [bash-it][]: To manage all shell scripts in modules: aliases, plugins, completions and shell appearance theme. No need to install it manually. It is a part of this repo.
+
 ## Installation
 
 ```sh
@@ -126,6 +131,14 @@ The `install` script will generated a file `$HOME/.dotfilerc`. **Do not modify o
 
 And then read the [Configuration - Modifications by yourself](#modifications-by-yourself) section.
 
+### Bootstrap
+
+**IT IS UNDER DEVELOPMENT. DO NOT USE!**
+
+Run `./bootstrap` to initialize in a new environment.
+
+**Do not call the script under sudo.**
+
 ## Configuration
 
 ### Modifications by yourself
@@ -153,42 +166,42 @@ Edit the [`install.conf.yaml`][install.conf.yaml] file.
 
 ## Usage
 
-### Bootstrap
-
-**IT IS UNDER DEVELOPMENT. DO NOT USE!**
-
-Run `./bootstrap` to initialize in a new environment.
-
-**Do not call the script under sudo.**
-
-### Install
-
-Run `./install` to create symbolic links.
-
-**Do not call the script under sudo.**
-
 ### Binary executables
 
-All your own binary executables should be put in [`bin`](./bin/) folder.
+All your own binary executables should be put in [`bin`](./bin/) folder, which has been added to `$PATH`.
 
 ### Sub-commands
 
-These executables could also be put in [`bin/sub/`]('./bin/sub/') which is included in `$PATH`,
+These executables could also be put in [`bin/sub/`]('./bin/sub/') which has been added to `$PATH`,
 and it could be referred as sub-command. Example:
 
 - `a help`
 - `a bins` to show all commands in `./bin/`
 - `a comments` to show all commands in `./bin/sub/`
 - `a 256color`
+- `a debug open` and `a debug close` to open/close debug mode
+
+All sub-commands are auto-completed. Type `a <Tab>` to see all sub-commands.
+
+### Enable bash-it plugins/aliases/completion
+
+This framework is based on [bash-it][]. All features supported.
+Type `bash-it` for help.
+
+Two sub-commands provided:
+
+- `a bash-it-status` to show all aliases/plugins/completions you enabled.
+- `a bash-it-status -e` to save all aliases/plugins/completions you enabled.
+
+### Enable custom plugins
+
+Because bash-it not support to private plugins. I write many custom plugins in [bash_it/plugins/](./bash_it/plugins/).
+And provide some sub-commands to enable/disable them.
+
 - `a enable-plugin plugin-name1 plugin-name2` to enable plugin in `bash-custom/available/`
 - `a disable-plugin plugin-name1 plugin-name2` to disable plugin in `bash-custom/enabled/`
 - `a list-plugins` to show all enabled plugins in `bash-custom/enabled/`
 - `a list-plugins -a` to show all plugins in `bash-custom/available/`
-- `a bash-it-status` to show all aliases/plugins/completions you enabled.
-- `a bash-it-status -e` to save all aliases/plugins/completions you enabled.
-- `a debug open` and `a debug close` to open/close debug mode
-
-All sub-commands are auto-completed. Type `a <Tab>` to see all sub-commands.
 
 ## File Structure
 
@@ -267,13 +280,13 @@ It will execute scripts in order:
 
 ### Use ~/.fast_bashrc for rescue
 
-If `.bashrc` has any critical issue, you could create a `$HOME/.fast_bashrc` file to replace `$HOME/.bashrc`.
+If `.bashrc` has any critical issue, you could create a `~/.fast_bashrc` file to replace `~/.bashrc`. Restart your shell to reload `.fast_bashrc`.
 
 ### Use ~/.bashrc.debug for debug
 
-`touch ~/.bashrc.debug` to print debug logs.
+`touch ~/.bashrc.debug` and restart shell. You will see the debug logs from stdout.
 
-And remove the file to disable debug.
+Remove `~/.bashrc.debug` and restart shell will turn off debug logs.
 
 ### Customize your Bash by plugin
 
@@ -350,6 +363,14 @@ So, you could maintain your classified data in your `secrets.plugin.bash`.
 Put your completion files under `completions/`.
 
 Attention: this directory does not work for your sub-command completion.
+
+### Create symbolic links
+
+This feature benefits from [dotbot][].
+Edit `install.conf.yaml`.
+Run `./install` to create symbolic links.
+
+**Do not call the script under sudo.**
 
 ## Suggestion, Bug Reporting, Contributing
 

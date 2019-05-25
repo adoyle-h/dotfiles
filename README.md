@@ -97,6 +97,7 @@ No version yet
 
 ## Core Dependencies
 
+- [python][]: **It is required**. Make sure it available before installation.
 - [git][]: **It is required**. Make sure it available before installation.
   - [git-prompt][]: If omitted, PS1 will not show git prompt.
 - [dotbot][]: To create symbolic links and manage them by [`install.conf.yaml`][install.conf.yaml]. No need to install it manually. It is a part of this repo.
@@ -110,10 +111,10 @@ DOTFILE_DIR=~/dotfiles
 echo "DOTFILE_DIR=$DOTFILE_DIR" > ~/.dotfilerc
 
 # Clone this repo
-git clone --depth 1 --recursive https://github.com/adoyle-h/dotfiles.git $DOTFILE_DIR
+git clone --depth 1 https://github.com/adoyle-h/dotfiles.git $DOTFILE_DIR
 cd $DOTFILE_DIR
 # Clone submodules and initialize them
-git submodule update --init --depth 1 --recursive
+git submodule update --init --recursive
 
 # Install bash_it framework which is required
 ./pkgs/bash-it/install.sh --no-modify-config
@@ -123,6 +124,8 @@ git submodule update --init --depth 1 --recursive
 ./install
 # Checkout the output
 
+# Reload bashrc
+. $HOME/.bashrc
 # Reset bash-it
 . ${DOTFILE_DIR}/bootstraps/reset-bash
 ```

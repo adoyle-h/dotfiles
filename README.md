@@ -1,4 +1,4 @@
-# dotfiles
+# Awesome Bash Dotfiles
 
 An elegant way to manage dotfiles, shell scripts, auto-completion files, configurations for terminal players.
 
@@ -51,6 +51,7 @@ An elegant way to manage dotfiles, shell scripts, auto-completion files, configu
 - ✅ MacOS
 - ✅ Linux/Unix system
 - 🚫 Windows system
+- 🚫 Zsh. Because Zsh is more powerful than Bash, and [Oh My Zsh][] has covered most features. This project is just for Bash players.
 
 ## Features
 
@@ -63,17 +64,18 @@ An elegant way to manage dotfiles, shell scripts, auto-completion files, configu
 - Responsive and pretty PS1, and personalized theme `𝕬`. Refer to [Preview](#preview).
 - Collections of shell commands, which locates in [`bin/`](./bin/). Refer to [Binary executables](#binary-executables).
 - Manage sub-commands, which locates in [`bin/sub/`](./bin/sub/). The sub-commands framework is modified from [sub][].
+  - `a enable-plugin sub` to enable this feature.
   - Default `SUB_NAME=a`, type `a help` for getting help. You can modify the enterpoint (`SUB_NAME`) in Plugin: [sub.plugin.bash](./bash_it/plugins/available/sub.plugin.bash)
   - Refer to [Sub-commands](#sub-commands) for more.
 - My best practices for shell (bash).
-- My best practices for [neovim][]. See [the configuration](https://github.com/adoyle-h/neovim-config).
-- My best practices for [tmux][]. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/configs/tmux.conf).
-- My best practices for git. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/configs/gitconfig).
-- My cheat sheets based on [chrisallenlane/cheat](https://github.com/chrisallenlane/cheat).
 - Many third integrations
   - [z.lua](https://github.com/skywind3000/z.lua).
   - [fzf][]. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/bash-custom/fzf.plugin.bash).
   - [taskbook](https://github.com/klaussinani/taskbook).
+  - My best practices for [neovim][]. See [the configuration](https://github.com/adoyle-h/neovim-config).
+  - My best practices for [tmux][]. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/configs/tmux.conf).
+  - My best practices for git. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/configs/gitconfig).
+  - My cheat sheets based on [chrisallenlane/cheat](https://github.com/chrisallenlane/cheat).
 
 ## Preview
 
@@ -457,3 +459,4 @@ See the [NOTICE][] file distributed with this work for additional information re
 [git]: https://github.com/git/git
 [git-prompt]: https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh
 [bash-completion]: https://github.com/scop/bash-completion
+[Oh My Zsh]: https://github.com/robbyrussell/oh-my-zsh

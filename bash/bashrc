@@ -52,5 +52,5 @@ export XDG_DATA_DIRS="/usr/local/share:/usr/share"
 export XDG_CONFIG_DIRS="/etc/xdg"
 ############################ XDG Base Directory ###############################
 
-[[ "${_DEBUG:-}" == "on" ]] && DOTFILES_DEBUG "Start to load $HOME/.bash_it.bash"
-source "$HOME/.bash_it.bash"
+[[ "${_DEBUG:-}" == "on" ]] && DOTFILES_DEBUG "Start to load $XDG_CONFIG_HOME/.bash_it.bash"
+source "$XDG_CONFIG_HOME/.bash_it.bash"

@@ -24,11 +24,7 @@ fi
 [[ -n "$BASERC" ]] && return
 _BASHRC=1
 
-# Load DOTFILE_DIR
-source "$HOME"/.dotfilerc
-export DOTFILE_DIR=$DOTFILE_DIR
-
-[[ "${_DEBUG:-}" == "on" ]] && DOTFILES_DEBUG "Start to load dotfiles. DOTFILE_DIR=$DOTFILE_DIR"
+[[ "${_DEBUG:-}" == "on" ]] && DOTFILES_DEBUG "Start to load dotfiles."
 
 #--------------------------- XDG Base Directory ------------------------------#
 ## User directories

@@ -106,9 +106,8 @@ No version yet
 ## Installation
 
 ```sh
-# Set your Dotfile directory path
+# Set your Dotfiles directory path
 DOTFILE_DIR=~/dotfiles
-echo "DOTFILE_DIR=$DOTFILE_DIR" > ~/.dotfilerc
 
 # Clone this repo
 git clone --depth 1 https://github.com/adoyle-h/dotfiles.git $DOTFILE_DIR

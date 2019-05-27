@@ -3,7 +3,7 @@ set -e
 
 COMMAND="$1"
 if [ -z "$COMMAND" ]; then
-  echo "usage: "$SUB_NAME" completions COMMAND [arg1 arg2...]" >&2
+  echo "usage: $SUB_NAME completions COMMAND [arg1 arg2...]" >&2
   exit 1
 fi
 
@@ -14,7 +14,7 @@ get_sub_command_path() {
     echo "  - No executable file: $COMMAND_PATH" >&2
     exit 1
   fi
-  echo $COMMAND_PATH
+  echo "$COMMAND_PATH"
 }
 
 COMMAND_PATH="$(get_sub_command_path "$COMMAND")"

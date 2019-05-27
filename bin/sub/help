@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-# Usage: a help [sub-command]
+# Usage: sub help [sub-command]
 # Summary: print help for sub-command
 
 get_sub_command_path() {
@@ -20,7 +20,7 @@ print_summaries() {
   local longest_command=0
   local command
 
-  for command in $("$SUB_NAME" commands); do
+  for command in $("$SUB_BIN_DIR"/commands); do
     local file="$(get_sub_command_path "$command")"
     if [ ! -h "$file" ]; then
       local summary="$(summary "$file")"
@@ -88,8 +88,7 @@ truncate() {
 
 # Provide sub completions
 if [ "$1" = "--complete" ]; then
-  # exec ""$SUB_NAME" commands"   # what's the difference?
-  "$SUB_NAME" commands
+  "$SUB_BIN_DIR"/commands
   exit
 fi
 

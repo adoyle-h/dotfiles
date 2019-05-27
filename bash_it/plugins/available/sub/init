@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -e
+
+shell="$1"
+if [ -z "$shell" ]; then
+  shell="$(basename "$SHELL")"
+fi
+
+[[ -f "$SUB_COMPLETION_FILE" ]] && echo "source \"${SUB_COMPLETION_FILE}\""
+
+OLD_IFS="$IFS"
+IFS="|"
+cat <<EOS
+_sub_framework_wrapper() {
+  local command="\$1"
+  if [ "\$#" -gt 0 ]; then
+    shift
+  fi
+
+  command "\$(dirname "\${BASH_SOURCE[0]}")"/../available/sub/sub-bin "\$command" "\$@"
+}
+EOS
+IFS="$OLD_IFS"
+
+case "$shell" in
+bash )
+  echo "alias $SUB_NAME=_sub_framework_wrapper"
+  ;;
+esac

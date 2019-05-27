@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1090
+
+# set -e
+set -o errexit
+set -o nounset
+set -o pipefail
+[[ -n "${XTRACE:+x}" ]] && set -o xtrace
+[[ -n "${VERBOSE:+x}" ]] && set -o verbose
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+[[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}}()]: '
+
+get_sub_command_path() {
+  COMMAND_PATH="$SUB_BIN_DIR/$1"
+  if [[ ! -x "$COMMAND_PATH" ]]; then
+    echo "$SUB_NAME: No such command: $1" >&2
+    echo "  - No executable file: $COMMAND_PATH" >&2
+    exit 1
+  fi
+  echo "$COMMAND_PATH"
+}
+
+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+
+command="$1"
+case "$command" in
+"" | "-h" | "--help" )
+  "$SUB_BIN_DIR"/help
+  ;;
+* )
+  command_path="$(get_sub_command_path "$command")"
+  shift
+  exec "$command_path" "$@"
+  ;;
+esac

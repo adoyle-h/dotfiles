@@ -9,7 +9,9 @@ set -o pipefail
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 [[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}}()]: '
 
-TARGET="$DOTFILE_DIR"/bootstraps/recommends/custom_plugins
+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+
+TARGET="$SCRIPT_DIR"/../../bootstraps/recommends/custom_plugins
 a list-plugins > "$TARGET"
 
 echo "Updated $TARGET"

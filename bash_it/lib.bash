@@ -1,5 +1,5 @@
 # shellcheck disable=SC1090
-[[ "${_DEBUG:-}" == "on" ]] && echo "Now executing bash_it/lib.bash"
+[[ "${_DEBUG:-}" == "on" ]] && DOTFILES_DEBUG "Start to load"
 
 # For system start up
 
@@ -64,3 +64,5 @@ __no_matched_path() {
     *) return 0;;
   esac
 }
+
+[[ "${_DEBUG:-}" == "on" ]] && DOTFILES_DEBUG "Done loaded"

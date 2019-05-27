@@ -9,8 +9,17 @@ set -o pipefail
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 [[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}}()]: '
 
-readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+# Provide sub completions
+if [[ "${1:-}" == "--complete" ]]; then
+  if [[ $COMP_CWORD -lt 3 ]]; then
+    result=$(compgen -f "$2")
+    if [[ -d $result ]]; then
+      compgen -f "$result/"
+    else
+      echo "${result[@]}"
+    fi
+  fi
+  exit 0
+fi
 
-plugins=( $(cat "$SCRIPT_DIR"/../../bootstraps/recommends/custom_plugins) )
-
-a enable-plugin "${plugins[@]}"
+chmod +x "$1"

@@ -1,5 +1,5 @@
 # shellcheck disable=SC1090
-[[ "${_DEBUG:-}" == "on" ]] && echo "Now executing bash_it/completions.bash"
+[[ "${_DEBUG:-}" == "on" ]] && DOTFILES_DEBUG "Start to load"
 
 [[ -z "$PS1" ]] && return 0
 
@@ -58,4 +58,5 @@ if [[ -n "$BASH_COMPLETION_FILE" ]] && [[ -f "$BASH_COMPLETION_FILE" ]]; then
   source "$BASH_COMPLETION_FILE"
 fi
 
-[[ "${_DEBUG:-}" == "on" ]] && echo "Executed bash_it/completions.bash"
+[[ "${_DEBUG:-}" == "on" ]] && DOTFILES_DEBUG "Done loaded"
+

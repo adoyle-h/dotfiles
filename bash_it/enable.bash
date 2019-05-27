@@ -1,4 +1,4 @@
-[[ "${_DEBUG:-}" == "on" ]] && echo "Now executing bash_it/enable.bash"
+[[ "${_DEBUG:-}" == "on" ]] && DOTFILES_DEBUG "Start to load"
 
 # Path to the bash it configuration
 export BASH_IT="$DOTFILE_DIR/pkgs/bash-it"
@@ -27,3 +27,6 @@ export SCM_CHECK=false
 # Load Bash It
 # shellcheck source=/dev/null
 source "$BASH_IT/bash_it.sh"
+
+# If _DEBUG not defined, the exit code should be 0.
+[[ "${_DEBUG:-}" == "on" ]] && DOTFILES_DEBUG "Done loaded" || true

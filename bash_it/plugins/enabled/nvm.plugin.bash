@@ -1,1 +1,0 @@
-../available/nvm.plugin.bash

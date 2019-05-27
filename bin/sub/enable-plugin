@@ -9,18 +9,34 @@ set -o pipefail
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 [[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}}()]: '
 
+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+readonly PLUGINS_DIR=$SCRIPT_DIR/../../bash_it/plugins
+
 readonly args=("$@")
 
 check_plugin() {
   local name=$1
-  if [[ ! -f "$DOTFILE_DIR"/bash_it/plugins/available/"$name".plugin.bash ]]; then
+  if [[ ! -f "$PLUGINS_DIR/available/$name.plugin.bash" ]]; then
     echo "No such plugin '$name'" >&2
     exit 1
   fi
 }
 
+get_plugin_weight() {
+  local weight
+  weight=$(head "$1" | grep -Eo '^# PLUGIN_WEIGHT: \d{3}$' | grep -Eo '\d{3}')
+  [[ -z "$weight" ]] && weight=300
+
+  echo $weight
+}
+
 enable_plugin() {
-  ln -sf ../available/"$name".plugin.bash "$DOTFILE_DIR"/bash_it/plugins/enabled/"$name".plugin.bash
+  local name=$1
+  local filepath="$PLUGINS_DIR/available/$name.plugin.bash"
+  local weight
+  weight=$(get_plugin_weight "$filepath")
+
+  ln -sf ../available/"$name".plugin.bash "$PLUGINS_DIR/enabled/$weight---$name.plugin.bash"
   echo "$name".plugin.bash enabled
 }
 

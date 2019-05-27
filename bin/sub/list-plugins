@@ -9,6 +9,8 @@ set -o pipefail
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 [[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}}()]: '
 
+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+
 readonly opt=${1:-}
 
 if [[ "$opt" == '-h' ]]; then
@@ -19,10 +21,12 @@ EOF
   exit
 fi
 
+# @TODO sort names
 if [[ "$opt" == '-a' ]]; then
-  find "$DOTFILE_DIR"/bash_it/plugins/available/ -type f -exec basename {} .plugin.bash \; | tr '\n' ' '
+  find "$SCRIPT_DIR"/../../bash_it/plugins/available/ -type f -exec basename {} .plugin.bash \; | tr '\n' ' '
 else
-  find "$DOTFILE_DIR"/bash_it/plugins/enabled/ -type l -exec basename {} .plugin.bash \; | tr '\n' ' '
+  # @TODO trim name prefix
+  find "$SCRIPT_DIR"/../../bash_it/plugins/enabled/ -type l -exec basename {} .plugin.bash \; | tr '\n' ' '
 fi
 
 echo ""

@@ -1,10 +1,15 @@
-CUSTOM_ENABLED="${DOTFILE_DIR}/bash_it/plugins/enabled/*.bash"
+# shellcheck disable=SC1090
+__enable_custom_plugins() {
+  local filepath
+  # read -ra paths < $(sort <(compgen -G "$DOTFILE_DIR/bash_it/plugins/enabled/*.bash"))
+  local paths
+  paths=( $(sort <(compgen -G "$DOTFILE_DIR/bash_it/plugins/enabled/*.bash" || true)) )
 
-for config_file in $CUSTOM_ENABLED; do
-  if [[ -f "${config_file}" ]]; then
-    # shellcheck disable=SC1090
-    source "$config_file"
-  fi
-done
+  for filepath in "${paths[@]}"; do
+    source "$filepath"
+  done
+}
 
-unset config_file CUSTOM_ENABLED
+__enable_custom_plugins
+
+unset __enable_custom_plugins

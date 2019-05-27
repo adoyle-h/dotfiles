@@ -233,14 +233,20 @@ And provide some sub-commands to enable/disable them.
 │   ├── lib.bash                    # Reset $PATH and $MANPATH, and set common functions
 │   ├── plugins/
 │   │   ├── available/              # available user custom plugins
+│   │   │   └── sub.plugin.bash
 │   │   └── enabled/                # enabled user custom plugins
+│   │       └── sub.plugin.bash     # If not enabled, `a` command will not work
 │   ├── plugins.bash                # bash_it plugins.bash file
 │   └── themes/                     # store UI themes for bash
 │       └── 𝕬/                      # My custom theme
 ├── bin/                            # link to ~/bin
+│   ├── a -> ./sub-bin              # Enterpoint of `a` commands
 │   ├── sub/                        # Collections of sub commands
-│   ├── sub-bin*                    # Sub main file
-│   └── a -> ./sub-bin              # Enterpoint of sub commands
+│   │   ├── commands*
+│   │   ├── completions*
+│   │   ├── help*
+│   │   └── init*                   # Sub init file
+│   └── sub-bin*                    # Sub main file
 ├── bootstraps/                     # Scripts for bootstraping
 │   └── recommends/
 │       └── custom_plugins          # Backup enabled custom plugins
@@ -248,6 +254,8 @@ And provide some sub-commands to enable/disable them.
 ├── bootstrap.bash*
 ├── cheat/                          # It is ignored in git. git clone https://github.com/adoyle-h/my-command-cheat cheat
 ├── completions/                    # bash command completions. Link to ~/.bash_completions
+│   └── others/
+│       └── sub.bash                # Loaded by sub.plugin.bash
 ├── configs/                        # application configuration
 ├── docs/                           # The documents of this project
 ├── install*
@@ -264,19 +272,24 @@ And provide some sub-commands to enable/disable them.
 
 It will execute scripts in order:
 
-1. bash/bashrc
+1. [./bash/bashrc](./bash/bashrc)
     - Read "$HOME"/.dotfilerc to detect the path of Dotfiles project directory
-2. $HOME/.bash_it.bash => bash_it/enable
-3. bash_it framework
-    - bash_it/aliases.bash
-    - bash_it/plugins.bash
-    - bash_it/completions.bash
-    - [custom] bash_it/aliases.bash
-    - [custom] bash_it/plugins.bash
-    - [custom] bash_it/completions.bash
-    - bash-custom/theme/**/*.bash
-4. bash_it/custom/*.bash
-5. bash_it/plugins/enabled/*.bash
+2. $HOME/.bash_it.bash => [./bash_it/enable](./bash_it/enable.bash)
+3. pkgs/bash-it/bash_it.sh : Start bash_it framework
+    - bash-it/lib.bash
+    - [./bash_it/lib.bash](./bash_it/lib.bash)
+    - bash-it/scripts/reloader.bash : reloads enabled bash-it plugins
+    - bash-it/aliases.bash
+    - bash-it/completions.bash
+    - bash-it/plugins.bash
+    - [./bash_it/aliases.bash](./bash_it/aliases.bash)
+    - [./bash_it/plugins.bash](./bash_it/plugins.bash)
+    - [./bash_it/completions.bash](./bash_it/completions.bash)
+    - bash-it/lib/appearance.bash
+    - [./bash_it/themes/**/*.theme.bash](./bash_it/themes/𝕬/𝕬.theme.bash)
+4. [./bash_it/custom/*.bash](./bash_it/custom/)
+    - [./bash_it/custom/enable-custom-plugins.bash](./bash_it/custom/enable-custom-plugins.bash)
+    - [./bash_it/plugins/enabled/*.bash](./bash_it/plugins/enabled/)
 
 
 ## Advanced Usage
@@ -345,10 +358,42 @@ Sub-command completion **must be** implemented with below text in your `bin/sub/
 
 ```sh
 # Provide sub completions
-if [ "$1" = "--complete" ]; then
+if [[ "${1:-}" = "--complete" ]]; then
   ls
+  exit 0
 fi
 ```
+
+or
+
+```sh
+# Provide sub completions
+if [[ "${1:-}" = "--complete" ]]; then
+  if [[ $COMP_CWORD -lt 3 ]]; then
+    echo "open close --help"
+  fi
+  exit 0
+fi
+```
+
+or
+
+```sh
+# Provide sub completions
+if [[ "${1:-}" == "--complete" ]]; then
+  if [[ $COMP_CWORD -lt 3 ]]; then
+    result=$(compgen -f "$2")
+    if [[ -d $result ]]; then
+      compgen -f "$result/"
+    else
+      echo "${result[@]}"
+    fi
+  fi
+  exit 0
+fi
+```
+
+The code comments `# Provide sub completions` is required. Otherwise the completion not work.
 
 Refer to https://github.com/basecamp/sub#autocompletion .
 

@@ -1,3 +1,4 @@
+# PLUGIN_WEIGHT: 180
 cite about-plugin
 about-plugin 'My "sub" command entry.'
 

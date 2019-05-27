@@ -47,9 +47,9 @@ if [ -z "$print" ]; then
   { echo "# Load sub automatically by adding"
     echo "# the following to ${profile}:"
     echo ""
-    echo 'export SUB_NAME="a"'
-    echo 'export SUB_BIN_DIR="$HOME/bin/sub"'
-    echo 'export SUB_COMPLETION_FILE="$HOME/.bash_completions/others/sub.bash"'
+    echo "export SUB_NAME=${SUB_NAME:-a}"
+    echo "export SUB_BIN_DIR=${SUB_BIN_DIR:-\$HOME/bin/sub}"
+    echo "export SUB_COMPLETION_FILE=${SUB_COMPLETION_FILE:-\$HOME/.bash_completions/others/sub.bash}"
     echo 'eval "$("$SUB_NAME" init -)"'
   } >&2
 

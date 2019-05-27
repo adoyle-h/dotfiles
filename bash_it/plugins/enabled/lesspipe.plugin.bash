@@ -1,1 +1,0 @@
-../available/lesspipe.plugin.bash

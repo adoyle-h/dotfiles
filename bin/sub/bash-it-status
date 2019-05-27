@@ -7,6 +7,8 @@ set -o pipefail
 [[ -n "${XTRACE:+x}" ]] && set -o xtrace
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+
 _print_bash-it-status() {
   local type=$1
   local name=$2
@@ -69,7 +71,7 @@ main() {
   fi
 
   if [[ $arg == -e ]]; then
-    build-bash-it-status-script "$DOTFILE_DIR"/bin/sub/reset-bash
+    build-bash-it-status-script "$SCRIPT_DIR"/../../bootstraps/reset-bash
   else
     bash-it-status
   fi

@@ -9,6 +9,15 @@ set -o pipefail
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 [[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}}()]: '
 
+# Provide sub completions
+if [ "${1:-}" = "--complete" ]; then
+  if [[ $COMP_CWORD -lt 3 ]]; then
+    echo "open close --help"
+  fi
+
+  exit 0
+fi
+
 flag=${1:-}
 
 if [[ $flag == open ]]; then
@@ -18,5 +27,9 @@ elif [[ $flag == close ]]; then
     rm -f "$HOME"/.bashrc.debug
     echo "$HOME/.bashrc.debug removed"
 else
-    echo "COMMAND USAGE: a debug open|close"
+    cat <<EOF
+USAGE: a debug open
+       a debug close
+       a debug --help
+EOF
 fi

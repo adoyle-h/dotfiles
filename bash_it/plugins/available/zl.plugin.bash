@@ -2,7 +2,7 @@ cite about-plugin
 about-plugin 'Initialize z command. https://github.com/skywind3000/z.lua'
 
 if [[ ! -f $DOTFILE_DIR/pkgs/z.lua/z.lua ]]; then
-  echo 'WARNING: pkgs/z.lua not found. But you have enabled zl.plugin.bash.'
+  echo 'WARNING: pkgs/z.lua not found. But you have enabled zl.plugin.bash.' >&2
   return 0
 fi
 

@@ -1,1 +1,3 @@
-[[ "${_DEBUG:-}" == "on" ]] && echo "Now executing bash_it/plugins.bash"
+[[ "${_DEBUG:-}" == "on" ]] && DOTFILES_DEBUG "Start to load"
+
+[[ "${_DEBUG:-}" == "on" ]] && DOTFILES_DEBUG "Done loaded"

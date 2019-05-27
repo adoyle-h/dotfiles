@@ -1,1 +1,0 @@
-../available/rm.plugin.bash

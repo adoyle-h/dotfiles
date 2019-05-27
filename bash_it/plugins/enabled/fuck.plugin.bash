@@ -1,1 +1,0 @@
-../available/fuck.plugin.bash

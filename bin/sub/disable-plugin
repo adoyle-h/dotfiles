@@ -9,22 +9,29 @@ set -o pipefail
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 [[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}}()]: '
 
+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+readonly PLUGINS_DIR=$SCRIPT_DIR/../../bash_it/plugins
+
 readonly args=("$@")
 
-check_plugin() {
+get_plugin_path() {
   local name=$1
-  if [[ ! -f "$DOTFILE_DIR"/bash_it/plugins/enabled/"$name".plugin.bash ]]; then
-    echo "Not found plugin '$name' enabled" >&2
-    exit 1
-  fi
+  compgen -G "$PLUGINS_DIR/enabled/*---$name.plugin.bash" || true
 }
 
 disable_plugin() {
-    unlink "$DOTFILE_DIR"/bash_it/plugins/enabled/"$name".plugin.bash
+  local name=$1
+  local filepath
+  filepath=$(get_plugin_path "$name")
+
+  if [[ -f "$filepath" ]]; then
+    unlink "$filepath"
     echo "$name".plugin.bash disabled
+  else
+    echo "Warning: Not found enabled plugin '$name'" >&2
+  fi
 }
 
 for name in "${args[@]}"; do
-  check_plugin "$name"
   disable_plugin "$name"
 done

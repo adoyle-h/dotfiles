@@ -1,1 +1,0 @@
-../available/macos.plugin.bash

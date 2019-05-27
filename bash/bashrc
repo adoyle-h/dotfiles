@@ -5,8 +5,17 @@
 # If not running interactively, don't do anything
 [[ -z "$PS1" ]] && return
 
+# Whether show debug logger
+if [[ -r "$HOME/.bashrc.debug" ]]; then
+  _DEBUG=on
+fi
+DOTFILES_DEBUG() {
+  echo "[${BASH_SOURCE[1]}]" "$*"
+}
+
 FAST_BASHRC="$HOME/.fast_bashrc"
 if [[ -r "$FAST_BASHRC" ]]; then
+  [[ "${_DEBUG:-}" == "on" ]] && DOTFILES_DEBUG "Start to load FAST_BASHRC: ${FAST_BASHRC}"
   source "$FAST_BASHRC"
   return
 fi
@@ -19,11 +28,7 @@ _BASHRC=1
 source "$HOME"/.dotfilerc
 export DOTFILE_DIR=$DOTFILE_DIR
 
-# Whether show debug logger
-if [[ -r "$HOME/.bashrc.debug" ]]; then
-  _DEBUG=on
-  echo "Now executing $HOME/.bashrc | pwd=$(pwd) | DOTFILE_DIR=$DOTFILE_DIR"
-fi
+[[ "${_DEBUG:-}" == "on" ]] && DOTFILES_DEBUG "Start to load dotfiles. DOTFILE_DIR=$DOTFILE_DIR"
 
 #--------------------------- XDG Base Directory ------------------------------#
 ## User directories
@@ -47,5 +52,5 @@ export XDG_DATA_DIRS="/usr/local/share:/usr/share"
 export XDG_CONFIG_DIRS="/etc/xdg"
 ############################ XDG Base Directory ###############################
 
-[[ "${_DEBUG:-}" == "on" ]] && echo "Now executing $HOME/.bash_it.bash"
+[[ "${_DEBUG:-}" == "on" ]] && DOTFILES_DEBUG "Start to load $HOME/.bash_it.bash"
 source "$HOME/.bash_it.bash"

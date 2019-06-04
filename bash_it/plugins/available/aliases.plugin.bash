@@ -22,9 +22,3 @@ alias pager='nvim'
 alias dm='docker-machine'
 # fpp is https://github.com/facebook/PathPicker
 alias fpp='fpp -ni'
-
-# GNU File, Shell, and Text utilities for mac
-# depend on: brew install coreutils
-alias date='gdate'
-alias timeout='gtimeout'
-alias truncate='gtruncate'

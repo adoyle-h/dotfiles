@@ -1,4 +1,4 @@
-# PLUGIN_WEIGHT: 200
+# BASH_IT_LOAD_PRIORITY: 200
 cite about-plugin
 about-plugin 'change node source code mirror and enable nvm'
 

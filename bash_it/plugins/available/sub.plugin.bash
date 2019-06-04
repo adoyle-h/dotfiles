@@ -1,4 +1,4 @@
-# PLUGIN_WEIGHT: 180
+# BASH_IT_LOAD_PRIORITY: 180
 cite about-plugin
 about-plugin 'My "sub" command entry.'
 

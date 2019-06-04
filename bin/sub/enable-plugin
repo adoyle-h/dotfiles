@@ -24,7 +24,7 @@ check_plugin() {
 
 get_plugin_weight() {
   local weight
-  weight=$(head "$1" | grep -Eo '^# PLUGIN_WEIGHT: \d{3}$' | grep -Eo '\d{3}')
+  weight=$(head "$1" | grep -Eo '^# BASH_IT_LOAD_PRIORITY: \d{3}$' | grep -Eo '\d{3}')
   [[ -z "$weight" ]] && weight=300
 
   echo $weight

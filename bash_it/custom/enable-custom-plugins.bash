@@ -5,10 +5,10 @@ __enable_custom_plugins() {
   paths=( $(sort <(compgen -G "$SCRIPT_DIR/../plugins/enabled/*.bash" || true)) )
 
   for filepath in "${paths[@]}"; do
+    DOTFILES_DEBUG "Load custom plugin: $filepath"
     source "$filepath"
   done
 }
 
 __enable_custom_plugins
-
-unset __enable_custom_plugins
+unset -f __enable_custom_plugins

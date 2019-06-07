@@ -1,3 +1,4 @@
+# shellcheck disable=SC1090
 # BASH_IT_LOAD_PRIORITY: 200
 cite about-plugin
 about-plugin 'change node source code mirror and enable nvm'
@@ -9,19 +10,16 @@ export NVM_NODEJS_ORG_MIRROR="$NODEJS_ORG_MIRROR"
 brew_nvm_prefix="$(brew --prefix nvm)"
 if has command brew && [[ -s $brew_nvm_prefix/nvm.sh ]]; then
   export NVM_DIR=$brew_nvm_prefix
-  . "$brew_nvm_prefix"/nvm.sh
-  unset brew_nvm_prefix
 elif [[ -s ${NVM_DIR:-$HOME/.nvm} ]]; then
   export NVM_DIR=${NVM_DIR:-$HOME/.nvm}
-  . "$NVM_DIR/nvm.sh"
 fi
+DOTFILES_DEBUG "source $NVM_DIR/nvm.sh"
+. "$NVM_DIR/nvm.sh"
+unset -v brew_nvm_prefix
 
+# Enable nvm completion
 if [[ -n "$NVM_DIR" ]] && [[ -r "$NVM_DIR"/bash_completion ]]; then
   . "$NVM_DIR"/bash_completion
-fi
-
-if has command npm; then
-  eval "$(npm completion)"
 fi
 
 if has not function nvm; then

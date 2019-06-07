@@ -1,4 +1,4 @@
-[[ "${_DEBUG:-}" == "on" ]] && DOTFILES_DEBUG "Start to load"
+DOTFILES_DEBUG "Start to load"
 
 if [[ -h "${BASH_SOURCE[0]}" ]]; then
   DOTFILE_DIR=$(dirname "$(readlink "${BASH_SOURCE[0]}")")/..
@@ -10,7 +10,7 @@ export BASH_IT="$DOTFILE_DIR/pkgs/bash-it"
 export BASH_IT_CUSTOM="$DOTFILE_DIR/bash_it/custom"
 export CUSTOM_THEME_DIR="$DOTFILE_DIR/bash_it/themes"
 
-unset DOTFILE_DIR
+unset -v DOTFILE_DIR
 
 # Lock and Load a custom theme file
 export BASH_IT_THEME='𝕬'
@@ -36,4 +36,4 @@ export SCM_CHECK=false
 source "$BASH_IT/bash_it.sh"
 
 # If _DEBUG not defined, the exit code should be 0.
-[[ "${_DEBUG:-}" == "on" ]] && DOTFILES_DEBUG "Done loaded" || true
+DOTFILES_DEBUG "Done loaded" || true

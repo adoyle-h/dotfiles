@@ -20,6 +20,10 @@ if [[ -n "$NVM_DIR" ]] && [[ -r "$NVM_DIR"/bash_completion ]]; then
   . "$NVM_DIR"/bash_completion
 fi
 
+if has command npm; then
+  eval "$(npm completion)"
+fi
+
 if has not function nvm; then
   echo 'WARNING: Shell function "nvm" not found. But you have enabled nvm.plugin.bash.' >&2
   echo '         You should install nvm by yourself. See https://github.com/creationix/nvm' >&2

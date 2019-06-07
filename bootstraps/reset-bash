@@ -12,6 +12,6 @@ bash-it enable alias osx
 bash-it enable plugin base battery browser docker-compose docker-machine docker explain extract gif java osx-timemachine proxy rvm ssh alias-completion
 
 ## [completion]
-bash-it enable completion bash-it brew bundler capistrano defaults docker-compose docker-machine docker gem go grunt makefile npm pip projects rake ssh terraform tmux todo virtualbox
+bash-it enable completion bash-it brew bundler capistrano defaults docker-compose docker-machine docker gem go grunt makefile pip projects rake ssh terraform tmux todo virtualbox
 
 echo '[bash_it reset done]'

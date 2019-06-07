@@ -12,6 +12,13 @@ set -o pipefail
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 readonly PLUGINS_DIR=$SCRIPT_DIR/../../bash_it/plugins
 
+# Provide sub completions
+if [[ "${1:-}" == "--complete" ]]; then
+  find "$PLUGINS_DIR/available/" -d 1 -type f -name '*.plugin.bash' -print0 | xargs -0 -n1 -I{} basename '{}' .plugin.bash
+  exit 0
+fi
+
+
 readonly args=("$@")
 
 check_plugin() {

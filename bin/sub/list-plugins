@@ -23,10 +23,13 @@ fi
 
 # @TODO sort names
 if [[ "$opt" == '-a' ]]; then
-  find "$SCRIPT_DIR"/../../bash_it/plugins/available/ -type f -exec basename {} .plugin.bash \; | tr '\n' ' '
+  find "$SCRIPT_DIR"/../../bash_it/plugins/available/ -d 1 -type f -exec basename {} .plugin.bash \; | sort | tr '\n' ' '
 else
   # @TODO trim name prefix
-  find "$SCRIPT_DIR"/../../bash_it/plugins/enabled/ -type l -exec basename {} .plugin.bash \; | tr '\n' ' '
+  find "$SCRIPT_DIR"/../../bash_it/plugins/enabled/ -d 1 -type l -exec basename {} .plugin.bash \; \
+    | sed -E 's/^[[:digit:]]{3}---([[:alnum:]]+)$/\1/' \
+    | sort \
+    | tr '\n' ' '
 fi
 
 echo ""

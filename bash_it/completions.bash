@@ -3,6 +3,13 @@ DOTFILES_DEBUG "Start to load"
 
 [[ -z "$PS1" ]] && return 0
 
+# The completion files load order:
+# - bash_completion will load files in order:
+#   - ${BASH_COMPLETION_COMPAT_DIR:-/usr/local/etc/bash_completion.d}
+#   - ${BASH_COMPLETION_USER_FILE:-~/.bash_completion}
+# - this plugin will load
+#   - $HOME/.bash_completions
+
 if [[ -x "$(command -v brew)" ]] ; then
   # If Homebrew is installed, its Bash completion modules are loaded.
   BREW_PREFIX=$(brew --prefix)

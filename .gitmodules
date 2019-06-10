@@ -18,3 +18,7 @@
 	path = pkgs/bash-it
 	url = https://github.com/Bash-it/bash-it.git
 	shallow = true
+[submodule "pkgs/a-bash-prompt"]
+	path = pkgs/a-bash-prompt
+	url = https://github.com/adoyle-h/a-bash-prompt.git
+	shallow = true

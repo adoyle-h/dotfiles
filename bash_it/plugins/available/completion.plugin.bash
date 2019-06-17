@@ -1,8 +1,13 @@
 cite about-plugin
 about-plugin 'Enable tab completion in circle'
 
-# Enable tab completion in circle
+# Press tab to completion in circle
 bind "TAB:menu-complete"
+# Shift+Tab move backward
+bind '"\e[Z":menu-complete-backward'
+# If set to ‘on’, menu completion displays the common prefix of the list of
+# possible completions (which may be empty) before cycling through the list. The default is ‘off’.
+bind "set menu-complete-display-prefix on"
 
 # The completion files load order:
 # - bash_completion will load files in order:

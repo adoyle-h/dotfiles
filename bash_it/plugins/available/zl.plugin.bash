@@ -16,7 +16,7 @@ export _ZL_MATCH_MODE=1
 eval "$(lua "$(dirname "${BASH_SOURCE[0]}")"/../../../pkgs/z.lua/z.lua --init bash fzf)"
 
 # fix ZL_PROMPT_COMMAND
-PROMPT_COMMAND="$PROMPT_COMMAND;(_zlua --add \"\$(command pwd 2>/dev/null)\" &)"
+__prompt_append "(_zlua --add \"\$(command pwd 2>/dev/null)\" &)"
 
 alias ju='j -b'      # cd to the parent directory starting with foo
 alias jl='j -l foo'  # list matches instead of cd

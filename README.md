@@ -27,8 +27,9 @@ An elegant way to manage dotfiles, shell scripts, auto-completion files, configu
 - [File Structure](#file-structure)
 - [Bash initialization process](#bash-initialization-process)
 - [Advanced Usage](#advanced-usage)
+    - [Create symbolic links](#create-symbolic-links)
     - [Use ~/.fast_bashrc for rescue](#use-fast_bashrc-for-rescue)
-    - [Use ~/.bashrc.debug for debug](#use-bashrcdebug-for-debug)
+    - [Debug Dotfiles startup](#debug-dotfiles-startup)
     - [Customize your Bash by plugin](#customize-your-bash-by-plugin)
     - [Enable plugin for specific system](#enable-plugin-for-specific-system)
     - [Other modifications](#other-modifications)
@@ -37,7 +38,6 @@ An elegant way to manage dotfiles, shell scripts, auto-completion files, configu
         - [sub-command completion](#sub-command-completion)
     - [Secret Data](#secret-data)
     - [Bash Completions](#bash-completions)
-    - [Create symbolic links](#create-symbolic-links)
 - [Suggestion, Bug Reporting, Contributing](#suggestion-bug-reporting-contributing)
 - [Copyright and License](#copyright-and-license)
 
@@ -77,6 +77,8 @@ An elegant way to manage dotfiles, shell scripts, auto-completion files, configu
   - Pretty ls command. See [ls.plugin.bash](./bash_it/plugins/available/ls.plugin.bash).
   - Pretty less command. See [lesspipe.plugin.bash](./bash_it/plugins/available/lesspipe.plugin.bash).
   - Safe rm command. See [rm.plugin.bash](./bash_it/plugins/available/rm.plugin.bash).
+  - Support [Secret Data](#secret-data).
+  - Support true color.
 - Many third integrations
   - [z.lua](https://github.com/skywind3000/z.lua). See [zl.plugin.bash](./bash_it/plugins/available/zl.plugin.bash).
   - [fzf][]. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/bash-custom/fzf.plugin.bash) and [fzf.plugin.bash](./bash_it/plugins/available/fzf.plugin.bash).
@@ -148,8 +150,6 @@ git submodule update --init --recursive
 # Reset bash-it
 . ${DOTFILE_DIR}/bootstraps/reset-bash
 ```
-
-The `install` script will generated a file `$HOME/.dotfilerc`. **Do not modify or remove it.**
 
 And then read the [Configuration - Modifications by yourself](#modifications-by-yourself) section.
 
@@ -294,7 +294,6 @@ And provide some sub-commands to enable/disable them.
 It will execute scripts in order:
 
 1. [./bash/bashrc](./bash/bashrc)
-    - Read "$HOME"/.dotfilerc to detect the path of Dotfiles project directory
 2. $HOME/.bash_it.bash => [./bash_it/enable](./bash_it/enable.bash)
 3. pkgs/bash-it/bash_it.sh : Start bash_it framework
     - pkgs/bash-it/lib.bash
@@ -316,15 +315,23 @@ It will execute scripts in order:
 
 ## Advanced Usage
 
+### Create symbolic links
+
+This feature benefits from [dotbot][].
+Edit `install.conf.yaml`.
+Run `./install` to (re)create symbolic links.
+
+**Attention: Do not call the script under sudo.**
+
 ### Use ~/.fast_bashrc for rescue
 
-If `.bashrc` has any critical issue, you could create a `~/.fast_bashrc` file to replace `~/.bashrc`. Restart your shell to reload `.fast_bashrc`.
+If Dotfiles has any critical issue, you could create a `~/.fast_bashrc` file and restart shell to override `~/.bashrc`.
 
-### Use ~/.bashrc.debug for debug
+### Debug Dotfiles startup
 
-`touch ~/.bashrc.debug` and restart shell. You will see the debug logs from stdout.
+Invoke `a debug open` or `touch ~/.bashrc.debug` and restart shell. You will see the debug logs from stdout.
 
-Remove `~/.bashrc.debug` and restart shell will turn off debug logs.
+Invoke `a debug close` or `rm ~/.bashrc.debug` and restart shell will turn off debug logs.
 
 ### Customize your Bash by plugin
 
@@ -334,6 +341,7 @@ All custom plugins must be put in [`bash-custom/available/`](./bash-custom/avail
 Below content as template,
 
 ```sh
+# BASH_IT_LOAD_PRIORITY: 300
 cite about-plugin
 about-plugin 'Plugin description'
 
@@ -430,17 +438,17 @@ So, you could maintain your classified data in your `secrets.plugin.bash`.
 
 ### Bash Completions
 
-Put your completion files under `completions/`.
+Put your completion files under [`completions/`](./completions).
 
-Attention: this directory does not work for your sub-command completion.
+The completion files loaded in order:
 
-### Create symbolic links
+- bash_completion will load files in order:
+  - ${BASH_COMPLETION_COMPAT_DIR:-/usr/local/etc/bash_completion.d}
+  - ${BASH_COMPLETION_USER_FILE:-~/.bash_completion}
+- this plugin will load
+  - $HOME/.bash_completions
 
-This feature benefits from [dotbot][].
-Edit `install.conf.yaml`.
-Run `./install` to create symbolic links.
-
-**Do not call the script under sudo.**
+Notice: this directory does not work for your sub-command completion.
 
 ## Suggestion, Bug Reporting, Contributing
 

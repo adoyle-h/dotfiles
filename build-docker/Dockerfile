@@ -6,7 +6,6 @@ ENV HOME=/adoyle
 ENV DOTFILE_DIR=$HOME/dotfiles
 WORKDIR $HOME
 
-RUN echo "DOTFILE_DIR=$DOTFILE_DIR" > $HOME/.dotfilerc
 RUN git clone --depth 1 --progress https://github.com/adoyle-h/dotfiles.git $DOTFILE_DIR
 RUN cd $DOTFILE_DIR && \
     git submodule update --init --progress

@@ -1,8 +1,10 @@
 # Awesome Bash Dotfiles
 
-An elegant way to manage dotfiles, shell scripts, auto-completion files, configurations for terminal players.
+An elegant way to manage dotfiles, commands, auto-completion files, configurations for terminal players.
 
-**Currently, it is only a personal workplace rather than a framework. So you should FORK the REPO first before using it.**
+**Make Bash Great Again!**
+
+**Currently, it is only a personal workplace rather than a framework. So you should FORK the REPO first before using it. The framework is coming soon.**
 
 ## TOC
 
@@ -97,7 +99,7 @@ An elegant way to manage dotfiles, shell scripts, auto-completion files, configu
 
 ![preview.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/dotfiles/preview.png)
 
-The prompt is implemented by [a-bash-prompt](https://github.com/adoyle-h/a-bash-prompt).
+The prompt is implemented by [a-bash-prompt](https://github.com/adoyle-h/a-bash-prompt). See [prompt.plugin.bash](./bash_it/plugins/available/prompt.plugin.bash).
 
 Responsive prompt. Press Enter to auto adjust with window width.
 

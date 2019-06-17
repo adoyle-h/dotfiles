@@ -46,12 +46,12 @@ An elegant way to manage dotfiles, shell scripts, auto-completion files, configu
 ## Environments
 
 - ✅ iTerm2 Build 3.0.14 (Terminal.app compatible)
-- ✅ GNU bash 4.4.12(1)-release (x86_64-apple-darwin15.6.0) (GNU bash v3 compatible)
+- ✅ GNU bash 4.4.12(1)-release (x86_64-apple-darwin15.6.0) (Not support Bash 4.3 and lower versions)
 - ✅ Tmux 2.7 (Not necessary. Tmux compatible)
 - ✅ MacOS
 - ✅ Linux/Unix system
 - 🚫 Windows system
-- 🚫 Zsh. Because Zsh is more powerful than Bash, and [Oh My Zsh][] has covered most features. This project is just for Bash players.
+- 🚫 Zsh. This project is just for Bash players. Zsh players should use [Oh My Zsh][].
 
 ## Features
 
@@ -61,21 +61,35 @@ An elegant way to manage dotfiles, shell scripts, auto-completion files, configu
   - All my plugins are put in [`bash_it/plugins/available/`](./bash_it/plugins/available/). `a list-plugins -a` to print all plugin names.
   - Some plugins powered by bash-it. `bash-it show plugins` to print all bash-it plugins.
 - Compatible with [bash-completion][] (for bash 3.x) and [bash-completion2][bash-completion] (for bash 4.x). See the [configuration](https://github.com/adoyle-h/dotfiles/blob/master/bash_it/completions.bash)
-- Responsive and pretty PS1, and personalized theme `𝕬`. Refer to [Preview](#preview).
+- Responsive and pretty prompt. Refer to [Preview](#preview).
 - Collections of shell commands, which locates in [`bin/`](./bin/). Refer to [Binary executables](#binary-executables).
-- Manage sub-commands, which locates in [`bin/sub/`](./bin/sub/). The sub-commands framework is modified from [sub][].
+- Managed sub-commands in [`bin/sub/`](./bin/sub/). The sub-commands framework is modified from [sub][].
   - `a enable-plugin sub` to enable this feature.
   - Default `SUB_NAME=a`, type `a help` for getting help. You can modify the enterpoint (`SUB_NAME`) in Plugin: [sub.plugin.bash](./bash_it/plugins/available/sub.plugin.bash)
   - Refer to [Sub-commands](#sub-commands) for more.
-- My best practices for shell (bash).
+- Integrated all my best practices with shell (bash).
+  - Extended keyboard bindings. See [keymap.plugin.bash](./bash_it/plugins/available/keymap.plugin.bash).
+  - Flexible completion. Tab and Shift+Tab to make completion in circle. See [completion.plugin.bash](./bash_it/plugins/available/completion.plugin.bash)
+  - Extended Bash history settings. See [history.plugin.bash](./bash_it/plugins/available/history.plugin.bash).
+  - Extended Bash manpage. See [manpage.plugin.bash](./bash_it/plugins/available/manpage.plugin.bash).
+  - Patch shell for macos. See [macos.plugin.bash](./bash_it/plugins/available/macos.plugin.bash).
+  - Set some mirror hosts for users in China.
+  - Pretty ls command. See [ls.plugin.bash](./bash_it/plugins/available/ls.plugin.bash).
+  - Pretty less command. See [lesspipe.plugin.bash](./bash_it/plugins/available/lesspipe.plugin.bash).
+  - Safe rm command. See [rm.plugin.bash](./bash_it/plugins/available/rm.plugin.bash).
 - Many third integrations
-  - [z.lua](https://github.com/skywind3000/z.lua).
-  - [fzf][]. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/bash-custom/fzf.plugin.bash).
+  - [z.lua](https://github.com/skywind3000/z.lua). See [zl.plugin.bash](./bash_it/plugins/available/zl.plugin.bash).
+  - [fzf][]. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/bash-custom/fzf.plugin.bash) and [fzf.plugin.bash](./bash_it/plugins/available/fzf.plugin.bash).
   - [taskbook](https://github.com/klaussinani/taskbook).
-  - My best practices for [neovim][]. See [the configuration](https://github.com/adoyle-h/neovim-config).
-  - My best practices for [tmux][]. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/configs/tmux.conf).
-  - My best practices for git. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/configs/gitconfig).
+  - [cheat](https://github.com/cheat/cheat). See [cheat.plugin.bash](./bash_it/plugins/available/cheat.plugin.bash)
+  - My best practices with [neovim][]. See [the configuration](https://github.com/adoyle-h/neovim-config) and [nvim.plugin.bash](./bash_it/plugins/available/nvim.plugin.bash).
+  - My best practices with [tmux][]. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/configs/tmux.conf) and [tmux.plugin.bash]((./bash_it/plugins/available/tmux.plugin.bash).
+  - My best practices with git. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/configs/gitconfig) and [git.plugin.bash]((./bash_it/plugins/available/git.plugin.bash).
   - My cheat sheets based on [chrisallenlane/cheat](https://github.com/chrisallenlane/cheat).
+  - Support [bash-preexec][]. It provides preexec and precmd functions for Bash just like Zsh.
+  - Support vscode. See [vscode.plugin.bash]((./bash_it/plugins/available/vscode.plugin.bash).
+  - Support GNU utilities. See [gnu.plugin.bash]((./bash_it/plugins/available/gnu.plugin.bash).
+  - Support programming language related like nvm, rust, gvm.
 
 ## Preview
 
@@ -176,8 +190,8 @@ All your own binary executables should be put in [`bin`](./bin/) folder, which h
 
 ### Sub-commands
 
-These executables could also be put in [`bin/sub/`]('./bin/sub/') which has been added to `$PATH`,
-and it could be referred as sub-command. Example:
+Executable commands could be put in [`bin/sub/`]('./bin/sub/') which has been added to `$PATH`.
+These commands are referred as sub-command. Example:
 
 - `a help`
 - `a bins` to show all commands in `./bin/`
@@ -186,6 +200,8 @@ and it could be referred as sub-command. Example:
 - `a debug open` and `a debug close` to open/close debug mode
 
 All sub-commands are auto-completed. Type `a <Tab>` to see all sub-commands.
+
+You can modify the enterpoint (`SUB_NAME`) in [sub.plugin.bash](./bash_it/plugins/available/sub.plugin.bash).
 
 ### Enable bash-it plugins/aliases/completion
 
@@ -461,3 +477,4 @@ See the [NOTICE][] file distributed with this work for additional information re
 [git-prompt]: https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh
 [bash-completion]: https://github.com/scop/bash-completion
 [Oh My Zsh]: https://github.com/robbyrussell/oh-my-zsh
+[bash-preexec]: https://github.com/rcaloras/bash-preexec

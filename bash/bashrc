@@ -5,6 +5,11 @@
 # If not running interactively, don't do anything
 [[ -z "$PS1" ]] && return
 
+if [[ $BASH_VERSION =~ ^[123] ]]; then
+  echo "Bash $BASH_VERSION is not supported. Upgrade your Bash to 4.4 or higher version." >&2
+  return
+fi
+
 # Whether show debug logger
 if [[ -r "$HOME/.bashrc.debug" ]]; then
   _DEBUG=on

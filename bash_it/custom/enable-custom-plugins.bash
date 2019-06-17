@@ -2,8 +2,10 @@
 __enable_custom_plugins() {
   local filepath paths SCRIPT_DIR
   SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}")
-  paths=( $(sort <(compgen -G "$SCRIPT_DIR/../plugins/enabled/*.bash" || true)) )
 
+  readarray -t paths < <(sort <(compgen -G "$SCRIPT_DIR/../plugins/enabled/*.bash" || true))
+
+  DOTFILES_DEBUG "To load plugins: ${#paths[@]}"
   for filepath in "${paths[@]}"; do
     DOTFILES_DEBUG "Load custom plugin: $filepath"
     source "$filepath"

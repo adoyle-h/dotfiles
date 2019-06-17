@@ -1,6 +1,5 @@
 cite about-plugin
-about-plugin 'Enable acme.sh'
-# https://github.com/Neilpang/acme.sh
+about-plugin 'Enable acme.sh. https://github.com/Neilpang/acme.sh'
 
 [[ ! -f "$HOME/.acme.sh/acme.sh.env" ]] && return;
 

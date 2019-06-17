@@ -1,3 +1,5 @@
+# Set shortcut Key Character Sequence (keyseq)
+
 # Displays possible completions using different colors to indicate their file type with readline v6.3 and later.
 # The color definitions are taken from the value of the LS_COLORS environment variable.
 set colored-stats on

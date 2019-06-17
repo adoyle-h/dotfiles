@@ -22,3 +22,7 @@
 	path = pkgs/a-bash-prompt
 	url = https://github.com/adoyle-h/a-bash-prompt.git
 	shallow = true
+[submodule "pkgs/bash-preexec"]
+	path = pkgs/bash-preexec
+	url = https://github.com/rcaloras/bash-preexec.git
+	shallow = true

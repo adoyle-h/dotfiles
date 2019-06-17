@@ -12,8 +12,9 @@ export CUSTOM_THEME_DIR="$DOTFILE_DIR/bash_it/themes"
 
 unset -v DOTFILE_DIR
 
-# Lock and Load a custom theme file
-export BASH_IT_THEME='𝕬'
+# ~~Lock and Load a custom theme file~~
+# Not set BASH_IT_THEME. Use bash_it/plugins/available/prompt.plugin.bash instead.
+# export BASH_IT_THEME=
 
 # Set this to false to turn off version control status checking within the prompt for all themes
 export SCM_CHECK=false

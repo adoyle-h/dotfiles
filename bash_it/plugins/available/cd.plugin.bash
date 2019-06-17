@@ -1,5 +1,5 @@
 cite about-plugin
-about-plugin 'better cd aliases'
+about-plugin 'Add some cd aliases'
 
 alias ..='cd ..'
 alias ...='cd ../..'

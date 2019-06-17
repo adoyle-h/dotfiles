@@ -1,3 +1,6 @@
+cite about-plugin
+about-plugin 'Set proxy mirror environment variables'
+
 export ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/
 
 ## homebrew 镜像 https://lug.ustc.edu.cn/wiki/mirrors/help/homebrew-bottles

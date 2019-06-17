@@ -9,4 +9,9 @@ set -o pipefail
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 [[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}}()]: '
 
-a disable-plugin $(a list-plugins)
+if (( $# > 0 )); then
+  echo "Are you sure to disable all plugins?" >&2
+  exit 3
+fi
+
+a disable-plugin "$(a list-plugins)"

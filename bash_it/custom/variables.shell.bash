@@ -1,14 +1,5 @@
 #---------------------------- Shell Variables --------------------------------#
 
-## shell history
-HISTIGNORE='ls:sl:pwd:history:clear'
-# don't put duplicate lines in the history. See bash(1) for more options
-HISTCONTROL=ignoredups
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=1000
-HISTTIMEFORMAT='%F %T '
-
 # Specifies how often (in seconds)  bash  checks  for  mail.   The
 # default  is  60 seconds.  When it is time to check for mail, the
 # shell does so before displaying the  primary  prompt.   If  this

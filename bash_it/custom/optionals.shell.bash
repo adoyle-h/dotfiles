@@ -6,33 +6,12 @@
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# bash attempts to save all lines of a multiple-line command in the same
-# history entry. This  allows easy re-editing of multi-line commands.
-shopt -s cmdhist
-
 # aliases are expanded as described above under ALIASES.
 # This option is enabled by default for interactive shells.
 shopt -s expand_aliases
 
 # shell error messages are written in the standard GNU error message format.
 # shopt -s gnu_errfmt
-
-# the history list is appended to the file named by the value of the HISTFILE
-# variable when the shell exits, rather than overwriting the file.
-## We have used `history -a` in PROMPT_COMMAND. So close the shopt
-# shopt -s histappend
-shopt -u histappend
-
-# If set, and readline is being used, a user is given the opportunity
-# to re-edit a failed history substitution.
-shopt -s histreedit
-
-# If  set, and readline is being used, the results of his-
-# tory substitution are  not  immediately  passed  to  the
-# shell  parser.   Instead,  the  resulting line is loaded
-# into the readline editing buffer, allowing further modi-
-# fication.
-shopt -s histverify
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
@@ -79,6 +58,3 @@ IGNOREEOF=5
 
 #-------------------------------- set +o -------------------------------------#
 
-## Refer to https://sanctum.geek.nz/arabesque/bash-history-expansion/
-# disable ! style history substitution
-set +o histexpand

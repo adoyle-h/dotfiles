@@ -6,6 +6,8 @@ if has not command gdate; then
   return 0
 fi
 
+# PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+
 # GNU File, Shell, and Text utilities for mac
 # depend on: brew install coreutils
 alias date='gdate'

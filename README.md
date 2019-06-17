@@ -216,31 +216,31 @@ And provide some sub-commands to enable/disable them.
 │   ├── bash_profile                # Link to ~/.bash_profile
 │   ├── bashrc                      # Link to ~/.bashrc
 │   ├── fast_bashrc                 # Idle file, just a template
-│   ├── inputrc                     # Link to ~/.inputrc
+│   ├── inputrc                     # Set shortcut Key Character Sequence (keyseq). Link to ~/.inputrc
 │   └── profile                     # Link to ~/.profile
 ├── bash_it/                        # https://github.com/Bash-it/bash-it#your-custom-scripts-aliases-themes-and-functions
-│   ├── aliases.bash
-│   ├── completions.bash
-│   ├── custom/                     # custom the bash by yourself
+│   ├── aliases.bash                   # It is useless in normal. Use plugins/available/alias.plugin.bash instead
+│   ├── completions.bash               # It is useless in normal. Use plugins/available/completion.plugin.bash instead
+│   ├── custom/                        # Custom the bash by yourself
 │   │   ├── editor.env.bash
 │   │   ├── enable-custom-plugins.bash
 │   │   ├── env.shell.bash
-│   │   ├── functions.shell.bash    # same to bash_it lib
-│   │   ├── optionals.shell.bash    # Shell Optional Behavior settings
-│   │   ├── path.env.bash           # change environment variable PATH
-│   │   ├── proxy.env.bash          # application proxy settings
-│   │   └── variables.shell.bash    # Shell Variables settings
-│   ├── enable.bash                 # bash_it entry and basic settings
-│   ├── lib.bash                    # Reset $PATH and $MANPATH, and set common functions
+│   │   ├── optionals.shell.bash       # Shell Optional Behavior settings
+│   │   ├── path.env.bash              # Change environment variable PATH
+│   │   ├── proxy.env.bash             # Application proxy settings
+│   │   └── variables.shell.bash       # Shell Variables settings
+│   ├── enable.bash                    # bash_it entry and basic settings
+│   ├── lib.bash                       # Store essential helper functions for all dotfiles modules
 │   ├── plugins/
-│   │   ├── available/              # available user custom plugins
-│   │   │   └── sub.plugin.bash
-│   │   └── enabled/                # enabled user custom plugins
-│   │       └── sub.plugin.bash     # If not enabled, `a` command will not work
-│   ├── plugins.bash                # bash_it plugins.bash file
-│   └── themes/                     # store UI themes for bash
-│       └── 𝕬/                      # My custom theme
-├── bin/                            # link to ~/bin
+│   │   ├── available/                 # Available user custom plugins
+│   │   │   ├── preexec.plugin.bash    # Enable bash-preexec library
+│   │   │   ├── prompt.plugin.bash     # Enable a-bash-prompt
+│   │   │   └── sub.plugin.bash        # If not enabled, `a` command will not work
+│   │   └── enabled/                   # Enabled user custom plugins
+│   │       └── 180---sub.plugin.bash  # soft-link to file in plugins/available/. The prefix is plugin load priority
+│   ├── plugins.bash                   # It is useless in normal.
+│   └── themes/                        # Store UI themes for bash
+├── bin/                            # Link to ~/bin
 │   ├── a -> ./sub-bin              # Enterpoint of `a` commands
 │   ├── sub/                        # Collections of sub commands
 │   │   ├── commands*
@@ -254,14 +254,14 @@ And provide some sub-commands to enable/disable them.
 ├── bootstrap -> ./bootstrap.bash*
 ├── bootstrap.bash*
 ├── cheat/                          # It is ignored in git. git clone https://github.com/adoyle-h/my-command-cheat cheat
-├── completions/                    # bash command completions. Link to ~/.bash_completions
+├── completions/                    # Bash command completions. Link to ~/.bash_completions
 │   └── others/
 │       └── sub.bash                # Loaded by sub.plugin.bash
-├── configs/                        # application configuration
+├── configs/                        # Application configuration
 ├── docs/                           # The documents of this project
 ├── install*
-├── install.conf.yaml               # dotbot configurations
-├── pkgs/                           # git submodules
+├── install.conf.yaml               # Dotbot configurations
+├── pkgs/                           # Git submodules
 │   ├── bash-it/                    # https://github.com/Bash-it/bash-it
 │   ├── dotbot/                     # https://github.com/anishathalye/dotbot
 │   ├── nvim/                       # My neovim configurations.
@@ -277,20 +277,21 @@ It will execute scripts in order:
     - Read "$HOME"/.dotfilerc to detect the path of Dotfiles project directory
 2. $HOME/.bash_it.bash => [./bash_it/enable](./bash_it/enable.bash)
 3. pkgs/bash-it/bash_it.sh : Start bash_it framework
-    - bash-it/lib.bash
+    - pkgs/bash-it/lib.bash
     - [./bash_it/lib.bash](./bash_it/lib.bash)
-    - bash-it/scripts/reloader.bash : reloads enabled bash-it plugins
-    - bash-it/aliases.bash
-    - bash-it/completions.bash
-    - bash-it/plugins.bash
+    - pkgs/bash-it/scripts/reloader.bash : reloads enabled bash-it plugins
+    - pkgs/bash-it/aliases.bash
+    - pkgs/bash-it/completions.bash
+    - pkgs/bash-it/plugins.bash
     - [./bash_it/aliases.bash](./bash_it/aliases.bash)
     - [./bash_it/plugins.bash](./bash_it/plugins.bash)
     - [./bash_it/completions.bash](./bash_it/completions.bash)
-    - bash-it/lib/appearance.bash
-    - [./bash_it/themes/**/*.theme.bash](./bash_it/themes/𝕬/𝕬.theme.bash)
+    - If `BASH_IT_THEME` set
+        - pkgs/bash-it/lib/appearance.bash
+        - [./bash_it/themes/**/*.theme.bash](./bash_it/themes/𝕬/𝕬.theme.bash)
 4. [./bash_it/custom/*.bash](./bash_it/custom/)
     - [./bash_it/custom/enable-custom-plugins.bash](./bash_it/custom/enable-custom-plugins.bash)
-    - [./bash_it/plugins/enabled/*.bash](./bash_it/plugins/enabled/)
+        - [./bash_it/plugins/enabled/*.bash](./bash_it/plugins/enabled/)
 
 
 ## Advanced Usage

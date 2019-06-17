@@ -1,5 +1,5 @@
 cite about-plugin
-about-plugin 'A command for personal usage'
+about-plugin 'A personal command for me (ADoyle). No meanings to other people.'
 
 if has not command adoyle; then
   echo "Not found command 'adoyle'" >&2

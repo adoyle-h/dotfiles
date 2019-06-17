@@ -1,5 +1,5 @@
 cite about-plugin
-about-plugin 'alert command'
+about-plugin 'Add an alert function'
 
 if has command osascript; then
   alert() {

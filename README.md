@@ -85,17 +85,19 @@ An elegant way to manage dotfiles, shell scripts, auto-completion files, configu
   - [taskbook](https://github.com/klaussinani/taskbook).
   - [cheat](https://github.com/cheat/cheat). See [cheat.plugin.bash](./bash_it/plugins/available/cheat.plugin.bash)
   - My best practices with [neovim][]. See [the configuration](https://github.com/adoyle-h/neovim-config) and [nvim.plugin.bash](./bash_it/plugins/available/nvim.plugin.bash).
-  - My best practices with [tmux][]. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/configs/tmux.conf) and [tmux.plugin.bash]((./bash_it/plugins/available/tmux.plugin.bash).
-  - My best practices with git. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/configs/gitconfig) and [git.plugin.bash]((./bash_it/plugins/available/git.plugin.bash).
+  - My best practices with [tmux][]. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/configs/tmux.conf) and [tmux.plugin.bash](./bash_it/plugins/available/tmux.plugin.bash).
+  - My best practices with git. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/configs/gitconfig) and [git.plugin.bash](./bash_it/plugins/available/git.plugin.bash).
   - My cheat sheets based on [chrisallenlane/cheat](https://github.com/chrisallenlane/cheat).
   - Support [bash-preexec][]. It provides preexec and precmd functions for Bash just like Zsh.
-  - Support vscode. See [vscode.plugin.bash]((./bash_it/plugins/available/vscode.plugin.bash).
-  - Support GNU utilities. See [gnu.plugin.bash]((./bash_it/plugins/available/gnu.plugin.bash).
+  - Support vscode. See [vscode.plugin.bash](./bash_it/plugins/available/vscode.plugin.bash).
+  - Support GNU utilities. See [gnu.plugin.bash](./bash_it/plugins/available/gnu.plugin.bash).
   - Support programming language related like nvm, rust, gvm.
 
 ## Preview
 
 ![preview.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/dotfiles/preview.png)
+
+The prompt is implemented by [a-bash-prompt](https://github.com/adoyle-h/a-bash-prompt).
 
 Responsive prompt. Press Enter to auto adjust with window width.
 

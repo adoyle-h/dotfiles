@@ -95,13 +95,17 @@ An elegant way to manage dotfiles, shell scripts, auto-completion files, configu
 
 ![preview.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/dotfiles/preview.png)
 
-Responsive UI (Adjust with window width). No need to restart Terminal. Only press Enter:
+Responsive prompt. Press Enter to auto adjust with window width.
 
-![responsive-ui.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/dotfiles/responsive-ui.png)
+![responsive-prompt.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/a-bash-prompt/responsive-prompt.png)
+
+Show last command exit status
+
+![exit-status.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/a-bash-prompt/exit-status.png)
 
 Highlight Backgound jobs:
 
-![background-jobs.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/dotfiles/background-jobs.png)
+![jobs-labels.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/a-bash-prompt/jobs-labels.png)
 
 Use sub commands:
 
@@ -109,7 +113,7 @@ Use sub commands:
 
 ## Version
 
-No version yet
+See [releases](https://github.com/adoyle-h/dotfiles/releases).
 
 ## Core Dependencies
 

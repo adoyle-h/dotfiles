@@ -5,7 +5,8 @@
 # If not running interactively, don't do anything
 [[ -z "$PS1" ]] && return
 
-if [[ $BASH_VERSION =~ ^[123] ]]; then
+if [[ ${BASH_VERSINFO[0]} -lt 4 ]] \
+  || ([[ ${BASH_VERSINFO[0]} == 4 ]] && [[ ${BASH_VERSINFO[1]} -lt 4 ]]); then
   echo "Bash $BASH_VERSION is not supported. Upgrade your Bash to 4.4 or higher version." >&2
   return
 fi

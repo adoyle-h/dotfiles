@@ -3,7 +3,6 @@ cite about-plugin
 about-plugin 'Settings for fzf; https://github.com/junegunn/fzf'
 
 # Setup fzf
-FZF_MANPATH=$HOME/.fzf/man
 FZF_BIN=$HOME/.fzf/bin
 
 if [[ ! -d $FZF_BIN ]] ; then
@@ -12,19 +11,22 @@ if [[ ! -d $FZF_BIN ]] ; then
   return 1
 fi
 
-if __no_matched_path "$FZF_BIN" "$PATH" ; then
+if [[ $(l.str_include "$PATH" "$FZF_BIN") == false ]]; then
   export PATH="$PATH:$FZF_BIN"
 fi
+unset -v FZF_BIN
 
-if __no_matched_path "$FZF_MANPATH" "$MANPATH"; then
-  export MANPATH="$MANPATH:$FZF_MANPATH"
-fi
-
-if has not command fzf; then
+if l.has not command fzf; then
   echo "Not found command 'fzf'" >&2
   echo "Invoke 'a disable-plugin fzf' to disable the plugin"
   return 1
 fi
+
+FZF_MANPATH=$HOME/.fzf/man
+if [[ $(l.str_include "$MANPATH" "$FZF_MANPATH") == false ]]; then
+  export MANPATH="$MANPATH:$FZF_MANPATH"
+fi
+unset -v FZF_MANPATH
 
 # ---- BASIC ----
 FZF_COLORS='--color=light,hl:196,hl+:196,fg+:255,bg+:238,prompt:33,pointer:255,marker:160,info:252,spinner:237,header:75 --ansi --black'

@@ -243,27 +243,27 @@ And provide some sub-commands to enable/disable them.
 │   ├── inputrc                     # Set shortcut Key Character Sequence (keyseq). Link to ~/.inputrc
 │   └── profile                     # Link to ~/.profile
 ├── bash_it/                        # https://github.com/Bash-it/bash-it#your-custom-scripts-aliases-themes-and-functions
-│   ├── aliases.bash                   # It is useless in normal. Use plugins/available/alias.plugin.bash instead
-│   ├── completions.bash               # It is useless in normal. Use plugins/available/completion.plugin.bash instead
-│   ├── custom/                        # Custom the bash by yourself
+│   ├── custom/                         # Custom the bash by yourself
 │   │   ├── editor.env.bash
 │   │   ├── enable-custom-plugins.bash
 │   │   ├── env.shell.bash
-│   │   ├── optionals.shell.bash       # Shell Optional Behavior settings
-│   │   ├── path.env.bash              # Change environment variable PATH
-│   │   ├── proxy.env.bash             # Application proxy settings
-│   │   └── variables.shell.bash       # Shell Variables settings
-│   ├── enable.bash                    # bash_it entry and basic settings
-│   ├── lib.bash                       # Store essential helper functions for all dotfiles modules
+│   │   ├── optionals.shell.bash        # Shell Optional Behavior settings
+│   │   ├── path.env.bash               # Change environment variable PATH
+│   │   ├── proxy.env.bash              # Application proxy settings
+│   │   └── variables.shell.bash        # Shell Variables settings
+│   ├── enable.bash                     # bash_it entry and basic settings
+│   ├── lib.bash                        # Store essential helper functions for all dotfiles modules
 │   ├── plugins/
-│   │   ├── available/                 # Available user custom plugins
-│   │   │   ├── preexec.plugin.bash    # Enable bash-preexec library
-│   │   │   ├── prompt.plugin.bash     # Enable a-bash-prompt
-│   │   │   └── sub.plugin.bash        # If not enabled, `a` command will not work
-│   │   └── enabled/                   # Enabled user custom plugins
-│   │       └── 180---sub.plugin.bash  # soft-link to file in plugins/available/. The prefix is plugin load priority
-│   ├── plugins.bash                   # It is useless in normal.
-│   └── themes/                        # Store UI themes for bash
+│   │   ├── available/                  # Available user custom plugins
+│   │   │   ├── alias.plugin.bash       # Normal aliases
+│   │   │   ├── completions.plugin.bash # Normal completions and tab complete keymap
+│   │   │   ├── preexec.plugin.bash     # Enable bash-preexec library
+│   │   │   ├── prompt.plugin.bash      # Enable a-bash-prompt
+│   │   │   └── sub.plugin.bash         # If not enabled, `a` command will not work
+│   │   └── enabled/                    # Enabled user custom plugins
+│   │       └── 180---sub.plugin.bash   # soft-link to file in plugins/available/. The prefix is plugin load priority
+│   ├── plugins.bash                    # It is useless in normal.
+│   └── themes/                         # Store UI themes for bash
 ├── bin/                            # Link to ~/bin
 │   ├── a -> ./sub-bin              # Enterpoint of `a` commands
 │   ├── sub/                        # Collections of sub commands
@@ -306,9 +306,6 @@ It will execute scripts in order:
     - pkgs/bash-it/aliases.bash
     - pkgs/bash-it/completions.bash
     - pkgs/bash-it/plugins.bash
-    - [./bash_it/aliases.bash](./bash_it/aliases.bash)
-    - [./bash_it/plugins.bash](./bash_it/plugins.bash)
-    - [./bash_it/completions.bash](./bash_it/completions.bash)
     - If `BASH_IT_THEME` set
         - pkgs/bash-it/lib/appearance.bash
         - [./bash_it/themes/**/*.theme.bash](./bash_it/themes/𝕬/𝕬.theme.bash)

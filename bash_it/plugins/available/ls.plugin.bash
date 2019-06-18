@@ -1,7 +1,7 @@
 cite about-plugin
 about-plugin 'better ls commands. use https://github.com/ogham/exa'
 
-if has command exa; then
+if l.has command exa; then
   alias ls='exa'
   alias ll='exa -lah'
 else

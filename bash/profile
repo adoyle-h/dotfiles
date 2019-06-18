@@ -8,6 +8,7 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-[[ "${_DEBUG:-}" == "on" ]] && echo "Now executing $HOME/.profile | pwd=$(pwd)"
+[ "${_DEBUG:-}" = "on" ] && echo "Now executing $HOME/.profile | pwd=$(pwd)"
 
-[[ -f "$HOME/.bashrc" ]] && . "$HOME/.bashrc"
+# shellcheck source=./bashrc
+[ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc"

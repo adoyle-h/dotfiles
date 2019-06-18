@@ -1,9 +1,14 @@
 cite about-plugin
 about-plugin 'xcode settings'
 
-XCODE_MANPATHS="/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man"
+add_xcode_manpath() {
+  local XCODE_MANPATH=$1
 
-if __no_matched_path "$XCODE_MANPATHS;" "$MANPATH"; then
-  export MANPATH="$MANPATH:$XCODE_MANPATHS"
-fi
-unset -v XCODE_MANPATHS
+  if [[ $(l.str_include "$MANPATH" "$XCODE_MANPATH") == false ]]; then
+    export MANPATH="$MANPATH:$XCODE_MANPATH"
+  fi
+}
+
+add_xcode_manpath "/Applications/Xcode.app/Contents/Developer/usr/share/man"
+add_xcode_manpath "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man"
+unset -f add_xcode_manpath

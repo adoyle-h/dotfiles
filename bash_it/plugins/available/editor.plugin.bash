@@ -2,7 +2,7 @@
 cite about-plugin
 about-plugin 'Set favorite editor in terminal'
 
-if has command nvim; then
+if l.has command nvim; then
   export VISUAL='nvim'
 else
   export VISUAL='vim'

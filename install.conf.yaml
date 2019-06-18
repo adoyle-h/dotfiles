@@ -19,9 +19,9 @@
     # ~/.fast_bashrc: bash/fast_bashrc
 
     # bash_it
-    ~/.bash_it/completion/custom.completion.bash: bash_it/completions.bash
-    ~/.bash_it/plugins/custom.plugins.bash: bash_it/plugins.bash
-    ~/.bash_it/aliases/custom.aliases.bash: bash_it/aliases.bash
+    # ~/.bash_it/completion/custom.completion.bash: bash_it/completions.bash
+    # ~/.bash_it/plugins/custom.plugins.bash: bash_it/plugins.bash
+    # ~/.bash_it/aliases/custom.aliases.bash: bash_it/aliases.bash
     ~/.bash_it/lib/custom.bash: bash_it/lib.bash
     $XDG_CONFIG_HOME/.bash_it.bash: bash_it/enable.bash
 

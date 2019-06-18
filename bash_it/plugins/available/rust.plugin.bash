@@ -10,6 +10,6 @@ else
 fi
 
 # Enable auto completion
-if has command rustup; then
+if l.has command rustup; then
   eval "$(rustup completions bash)"
 fi

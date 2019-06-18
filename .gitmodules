@@ -26,3 +26,6 @@
 	path = pkgs/bash-preexec
 	url = https://github.com/rcaloras/bash-preexec.git
 	shallow = true
+[submodule "pkgs/lobash"]
+	path = pkgs/lobash
+	url = https://github.com/adoyle-h/lobash.git

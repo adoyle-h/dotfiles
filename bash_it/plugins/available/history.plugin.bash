@@ -26,6 +26,8 @@ shopt -u histreedit
 # We have used `history -a` in PROMPT_COMMAND. So close histappend.
 shopt -u histappend
 
+# shopt -s histappend
+
 # If set, and readline is being used, the results of history substitution are
 # not immediately passed to the shell parser. Instead, the resulting line is
 # loaded into the readline editing buffer, allowing further modification.

@@ -27,7 +27,7 @@ if [[ "$opt" == '-a' ]]; then
 else
   # @TODO trim name prefix
   find "$SCRIPT_DIR"/../../bash_it/plugins/enabled/ -d 1 -type l -exec basename {} .plugin.bash \; \
-    | sed -E 's/^[[:digit:]]{3}---([[:alnum:]]+)$/\1/' \
+    | sed -E 's/^[[:digit:]]{3}---([-_a-zA-Z0-9]+)$/\1/' \
     | sort \
     | tr '\n' ' '
 fi

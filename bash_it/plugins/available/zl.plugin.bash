@@ -1,3 +1,4 @@
+# BASH_IT_LOAD_PRIORITY: 311
 cite about-plugin
 about-plugin 'Initialize z command. https://github.com/skywind3000/z.lua'
 

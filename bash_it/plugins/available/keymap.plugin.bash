@@ -17,11 +17,12 @@ __a_keymap_trigger_sudo() {
   READLINE_POINT=$(( READLINE_POINT + ${#t} ))
 }
 
+# Alt+S
 bind -x '"\es": "__a_keymap_trigger_sudo"'
 # bind -x '"\es": " \C-u \C-a\C-k`__a_keymap_trigger_sudo`\e\C-e"'
 # bind '"\es": "\C-asudo \C-e"'
 
-# Press tab to completion in circle
+# Press Tab to completion in circle
 bind "TAB:menu-complete"
 
 # Shift+Tab move backward

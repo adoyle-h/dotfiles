@@ -1,3 +1,4 @@
+# BASH_IT_LOAD_PRIORITY: 310
 cite about-plugin
 about-plugin 'My pretty bash prompt instead of bash-it theme.'
 

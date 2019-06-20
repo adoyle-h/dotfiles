@@ -22,7 +22,7 @@ get_sub_command_path() {
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
-command="$1"
+command="${1:-}"
 case "$command" in
 "" | "-h" | "--help" )
   "$SUB_BIN_DIR"/help

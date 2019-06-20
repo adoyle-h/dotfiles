@@ -38,8 +38,8 @@ if [[ -r "$FAST_BASHRC" ]]; then
 fi
 
 # Only execute bashrc once
-[[ -n "$BASERC" ]] && return
-_BASHRC=1
+[[ -n "$_BASHRC_LOADED" ]] && return
+_BASHRC_LOADED=true
 
 DOTFILES_DEBUG "Start to load dotfiles."
 

@@ -30,10 +30,10 @@ DOTFILES_DEBUG() {
   fi
 }
 
-FAST_BASHRC="$HOME/.fast_bashrc"
-if [[ -r "$FAST_BASHRC" ]]; then
-  DOTFILES_DEBUG "Start to load FAST_BASHRC: ${FAST_BASHRC}"
-  source "$FAST_BASHRC"
+_FAST_BASHRC="$HOME/.fast_bashrc"
+if [[ -r "$_FAST_BASHRC" ]]; then
+  DOTFILES_DEBUG "Start to load _FAST_BASHRC: ${_FAST_BASHRC}"
+  source "$_FAST_BASHRC"
   return
 fi
 
@@ -43,7 +43,11 @@ _BASHRC_LOADED=true
 
 DOTFILES_DEBUG "Start to load dotfiles."
 
-source "$(dirname "$(readlink "${BASH_SOURCE[0]}")")"/xdg.bash
+CUR_DIR="$(dirname "$(readlink "${BASH_SOURCE[0]}")")"
+DOTFILES_DEBUG "Start to load $CUR_DIR/xdg.bash"
+source "$CUR_DIR/xdg.bash"
 
-DOTFILES_DEBUG "Start to load $XDG_CONFIG_HOME/.bash_it.bash"
-source "$XDG_CONFIG_HOME/.bash_it.bash"
+DOTFILES_DEBUG "Start to load $CUR_DIR/../bash_it/enable.bash"
+source "$CUR_DIR/../bash_it/enable.bash"
+
+unset CUR_DIR

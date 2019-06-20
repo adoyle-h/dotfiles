@@ -144,6 +144,9 @@ git submodule update --init --recursive
 # Install bash_it framework which is required
 ./pkgs/bash-it/install.sh --no-modify-config
 
+# Make sure XDG_ variables set
+. bash/xdg.bash
+
 # You may check the content of `install.conf.yaml` file,
 # Then make soft-links for dotfiles
 ./install

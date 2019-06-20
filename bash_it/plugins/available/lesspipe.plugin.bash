@@ -1,8 +1,10 @@
 cite about-plugin
-about-plugin 'Enable highlight in less command'
+about-plugin 'Enable highlight for less command.'
+about-plugin 'Depend on source-highlight.  https://www.gnu.org/software/src-highlite'
+about-plugin 'To install:'
+about-plugin '  for MacOS: brew install source-highlight'
+about-plugin '  for other systems: https://www.gnu.org/software/src-highlite/source-highlight.html#Installation'
 
-# Depend on source-highlight. To install: brew install source-highlight
-# READ: http://liyangliang.me/posts/2013/11/less-with-syntax-highlight-and-line-number/
 # make less more friendly for non-text input files, see lesspipe(1)
 if [[ -x /usr/bin/lesspipe ]]; then
   LESSPIPE_SCRIPT=/usr/bin/lesspipe

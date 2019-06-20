@@ -23,7 +23,6 @@
     # ~/.bash_it/plugins/custom.plugins.bash: bash_it/plugins.bash
     # ~/.bash_it/aliases/custom.aliases.bash: bash_it/aliases.bash
     ~/.bash_it/lib/custom.bash: bash_it/lib.bash
-    $XDG_CONFIG_HOME/.bash_it.bash: bash_it/enable.bash
 
     # configs
     ~/.tmux.conf: configs/tmux.conf
@@ -40,12 +39,11 @@
     ~/.stylelintrc: configs/stylelintrc
     ~/.vintrc.yaml: configs/vintrc.yaml
     ~/.tern-project: configs/tern-project
-    $XDG_CONFIG_HOME/peco/config.json: configs/peco.json
-    $XDG_CONFIG_HOME/yamllint/config: configs/yamllint.yml
-    ~/.source-highlight/source-highlight.conf: configs/source-highlight.conf
-    $XDG_CONFIG_HOME/ranger: configs/ranger
     ~/.hyper.js: configs/hyper.js
     ~/.taskbook.json: configs/taskbook.json
+    $XDG_CONFIG_HOME/ranger: configs/ranger
+    $XDG_CONFIG_HOME/peco/config.json: configs/peco.json
+    $XDG_CONFIG_HOME/yamllint/config: configs/yamllint.yml
 
     # secrets
     ~/.ssh: secrets/ssh

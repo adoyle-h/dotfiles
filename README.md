@@ -18,7 +18,7 @@ An elegant way to manage dotfiles, commands, auto-completion files, configuratio
 - [Installation](#installation)
     - [Bootstrap](#bootstrap)
 - [Configuration](#configuration)
-    - [Modifications by yourself](#modifications-by-yourself)
+    - [User Modifications](#user-modifications)
     - [UI](#ui)
     - [Dotfiles](#dotfiles)
 - [Usage](#usage)
@@ -47,7 +47,7 @@ An elegant way to manage dotfiles, commands, auto-completion files, configuratio
 
 ## Features
 
-- Manage collections of dotfiles. Create soft-link via [dotbot][]. See [the configuration][install.conf.yaml].
+- Manage collections of dotfiles. Create soft-link via [dotbot][]. See [the configuration](./install.conf.yaml).
 - Manage shell scripts/completions/aliases/plugins by modules via [bash-it][].
   - Most features are implemented in separate plugins, which could be disabled by yourself.
   - All my plugins are put in [`bash_it/plugins/available/`](./bash_it/plugins/available/). `a plugins-list -a` to print all plugin names.
@@ -74,11 +74,11 @@ An elegant way to manage dotfiles, commands, auto-completion files, configuratio
   - [fzf][]. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/bash-custom/fzf.plugin.bash) and [fzf.plugin.bash](./bash_it/plugins/available/fzf.plugin.bash).
   - [taskbook](https://github.com/klaussinani/taskbook).
   - [cheat](https://github.com/cheat/cheat). See [cheat.plugin.bash](./bash_it/plugins/available/cheat.plugin.bash)
-  - My best practices with [neovim][]. See [the configuration](https://github.com/adoyle-h/neovim-config) and [nvim.plugin.bash](./bash_it/plugins/available/nvim.plugin.bash).
-  - My best practices with [tmux][]. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/configs/tmux.conf) and [tmux.plugin.bash](./bash_it/plugins/available/tmux.plugin.bash).
-  - My best practices with git. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/configs/gitconfig) and [git.plugin.bash](./bash_it/plugins/available/git.plugin.bash).
+  - My best practices with [neovim][]. See [nvim.plugin.bash](./bash_it/plugins/available/nvim.plugin.bash) and [my neovim configuration][neovim-config].
+  - My best practices with [tmux][]. See [tmux.plugin.bash](./bash_it/plugins/available/tmux.plugin.bash) and [./configs/tmux.conf](./configs/tmux.conf).
+  - My best practices with git. See [git.plugin.bash](./bash_it/plugins/available/git.plugin.bash) and [./configs/gitconfig](./configs/gitconfig).
   - My cheat sheets based on [chrisallenlane/cheat](https://github.com/chrisallenlane/cheat).
-  - Support [bash-preexec][]. It provides preexec and precmd functions for Bash just like Zsh.
+  - Support [bash-preexec][]. It provides preexec and precmd functions for Bash just like Zsh. See [preexec.plugin.bash](./bash_it/plugins/available/preexec.plugin.bash).
   - Support vscode. See [vscode.plugin.bash](./bash_it/plugins/available/vscode.plugin.bash).
   - Support GNU utilities. See [gnu.plugin.bash](./bash_it/plugins/available/gnu.plugin.bash).
   - Support programming language related like nvm, rust, gvm.
@@ -111,11 +111,11 @@ See [releases](https://github.com/adoyle-h/dotfiles/releases).
 
 ## Core Dependencies
 
-- [python][]: **It is required**. Make sure it available before installation.
+- [python][]: **It is required**. Make sure it available before installation. Python 2 and 3 are both supported.
 - [git][]: **It is required**. Make sure it available before installation.
   - [git-prompt][]: If omitted, PS1 will not show git prompt.
-- [dotbot][]: To create symbolic links and manage them by [`install.conf.yaml`][install.conf.yaml]. No need to install it manually. It is a part of this repo.
-- [bash-it][]: To manage all shell scripts in modules: aliases, plugins, completions and shell appearance theme. No need to install it manually. It is a part of this repo.
+- [dotbot][]: To create symbolic links and manage them by [`install.conf.yaml`](./install.conf.yaml). No need to install it manually. It is a submodule of this project.
+- [bash-it][]: To manage all shell scripts in modules: aliases, plugins, completions and shell appearance theme. No need to install it manually. It is a submodule of this project.
 
 ## Installation
 
@@ -136,17 +136,17 @@ git submodule update --init --recursive
 . bash/xdg.bash
 
 # You may check the content of `install.conf.yaml` file,
-# Then make soft-links for dotfiles
+# It creates soft-links based on install.conf.yaml.
 ./install
 # Checkout the output
 
-# Reload bashrc
-. $HOME/.bashrc
+# Restart your shell
+
 # Reset bash-it
 . ${DOTFILE_DIR}/bootstraps/reset-bash
 ```
 
-And then read the [Configuration - Modifications by yourself](#modifications-by-yourself) section.
+And then read the [Configuration - User Modifications](#user-modifications) section.
 
 ### Bootstrap
 
@@ -158,9 +158,9 @@ Run `./bootstrap` to initialize in a new environment.
 
 ## Configuration
 
-### Modifications by yourself
+### User Modifications
 
-These parts of below files you should modify:
+These parts of below files you should modify.
 
 ./configs/gitconfig:
 
@@ -214,13 +214,17 @@ Two sub-commands provided:
 
 ### Enable custom plugins
 
-Because bash-it not support to private plugins. I write many custom plugins in [bash_it/plugins/](./bash_it/plugins/).
-And provide some sub-commands to enable/disable them.
+Because bash-it not support to private plugins.
+The framework provides many custom plugins in [./bash_it/plugins/](./bash_it/plugins/),
+and some sub-commands to manage them.
 
-- `a plugins-enable plugin-name1 plugin-name2` to enable plugin in `bash-custom/available/`
-- `a plugins-disable plugin-name1 plugin-name2` to disable plugin in `bash-custom/enabled/`
+- `a plugins-enable <plugin-name>...` to enable plugins in `bash-custom/available/`
+- `a plugins-disable <plugin-name>...` to disable plugins in `bash-custom/enabled/`
+- `a plugins-disable-all` to disable all plugins in `bash-custom/enabled/`
 - `a plugins-list` to show all enabled plugins in `bash-custom/enabled/`
 - `a plugins-list -a` to show all plugins in `bash-custom/available/`
+- `a plugins-backup` to backup all enabled plugins to [custom_plugins][].
+- `a plugins-recover` to re-enable all plugins saved in [custom_plugins][].
 
 ## File Structure
 
@@ -314,9 +318,15 @@ See the [NOTICE][] file distributed with this work for additional information re
 
 ## Related Projects
 
+- [bash-it][]: A community Bash framework.
+- [dotbot][]: A tool that bootstraps your dotfiles.
+- [sub][]: A delicious way to organize programs created by basecamp. But no more maintained.
 - [lobash](https://github.com/adoyle-h/lobash): A modern, safe, powerful utility library for Bash script development.
 - [a-bash-prompt][]: A Bash prompt written by pure Bash script.
-- [bash-sensible](https://github.com/mrzool/bash-sensible): An attempt at saner Bash defaults
+- [bash-sensible](https://github.com/mrzool/bash-sensible): An attempt at saner Bash defaults.
+- [tmux][]: An awesome terminal multiplexer!
+- [neovim][]: Vim-fork focused on extensibility and usability
+- [neovim-config][]: My neovim config
 
 <!-- links -->
 
@@ -331,6 +341,7 @@ See the [NOTICE][] file distributed with this work for additional information re
 [bash-it]: https://github.com/Bash-it/bash-it
 [sub]: https://github.com/basecamp/sub
 [neovim]: https://github.com/neovim/neovim
+[neovim-config]: https://github.com/adoyle-h/neovim-config
 [tmux]: https://github.com/tmux/tmux
 [fzf]: https://github.com/junegunn/fzf
 [font]: https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/DejaVuSansMono
@@ -343,3 +354,5 @@ See the [NOTICE][] file distributed with this work for additional information re
 [Oh My Zsh]: https://github.com/robbyrussell/oh-my-zsh
 [bash-preexec]: https://github.com/rcaloras/bash-preexec
 [a-bash-prompt]: https://github.com/adoyle-h/a-bash-prompt
+[python]: https://www.python.org/
+[custom_plugins]: ./bootstraps/recommends/custom_plugins

@@ -1,14 +1,14 @@
-[submodule "dotbot"]
-	path = pkgs/dotbot
-	url = https://github.com/anishathalye/dotbot
-	shallow = true
-[submodule "nvim"]
-	path = pkgs/nvim
-	url = https://github.com/adoyle-h/neovim-config.git
-	shallow = true
 [submodule "cheat"]
 	path = cheat
-	url = https://github.com/adoyle-h/my-command-cheat
+	url = https://github.com/adoyle-h/my-command-cheat.git
+	shallow = true
+[submodule "pkgs/dotbot"]
+	path = pkgs/dotbot
+	url = https://github.com/anishathalye/dotbot.git
+	shallow = true
+[submodule "pkgs/nvim"]
+	path = pkgs/nvim
+	url = https://github.com/adoyle-h/neovim-config.git
 	shallow = true
 [submodule "pkgs/z.lua"]
 	path = pkgs/z.lua
@@ -29,3 +29,4 @@
 [submodule "pkgs/lobash"]
 	path = pkgs/lobash
 	url = https://github.com/adoyle-h/lobash.git
+	shallow = true

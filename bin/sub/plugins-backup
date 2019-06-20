@@ -12,6 +12,6 @@ set -o pipefail
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
 TARGET="$SCRIPT_DIR"/../../bootstraps/recommends/custom_plugins
-a list-plugins > "$TARGET"
+a plugins-list | tr ' ' '\n' > "$TARGET"
 
 echo "Updated $TARGET"

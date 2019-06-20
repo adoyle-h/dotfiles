@@ -4,10 +4,8 @@
 set -o errexit
 set -o nounset
 set -o pipefail
-[[ -n "${XTRACE:+x}" ]] && set -o xtrace
 [[ -n "${VERBOSE:+x}" ]] && set -o verbose
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
-[[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}}()]: '
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
@@ -26,7 +24,9 @@ if [[ "$opt" == '-a' ]]; then
   find "$SCRIPT_DIR"/../../bash_it/plugins/available/ -d 1 -type f -exec basename {} .plugin.bash \; | sort | tr '\n' ' '
 else
   # @TODO trim name prefix
-  find "$SCRIPT_DIR"/../../bash_it/plugins/enabled/ -d 1 -type l -exec basename {} .plugin.bash \; \
+  find "$SCRIPT_DIR"/../../bash_it/plugins/enabled/ -d 1 -type l \
+    -name '*---*.plugin.bash' \
+    -exec basename {} .plugin.bash \; \
     | sed -E 's/^[[:digit:]]{3}---([-_a-zA-Z0-9]+)$/\1/' \
     | sort \
     | tr '\n' ' '

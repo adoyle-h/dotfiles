@@ -4,17 +4,17 @@
 set -o errexit
 set -o nounset
 set -o pipefail
-[[ -n "${XTRACE:+x}" ]] && set -o xtrace
 [[ -n "${VERBOSE:+x}" ]] && set -o verbose
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
-[[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}}()]: '
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 readonly PLUGINS_DIR=$SCRIPT_DIR/../../bash_it/plugins
 
 # Provide sub completions
 if [[ "${1:-}" == "--complete" ]]; then
-  find "$PLUGINS_DIR/enabled/" -d 1 -type l -name '*.plugin.bash' -print0 | xargs -0 -n1 -I{} basename '{}' .plugin.bash | sed -E 's/^[[:digit:]]{3}---([-_a-zA-Z0-9]+)$/\1/'
+  find "$PLUGINS_DIR/enabled/" -d 1 -type l -name '*---*.plugin.bash' -print0 \
+    | xargs -0 -n1 -I{} basename '{}' .plugin.bash \
+    | sed -E 's/^[[:digit:]]{3}---([-_a-zA-Z0-9]+)$/\1/'
   exit 0
 fi
 

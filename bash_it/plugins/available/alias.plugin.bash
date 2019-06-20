@@ -1,14 +1,6 @@
 cite about-plugin
 about-plugin 'A sets of normal aliases'
 
-# colored grep
-# Need to check an existing file for a pattern that will be found to ensure
-# that the check works when on an OS that supports the color option
-if echo 'a' | grep --color=auto 'a' &> /dev/null
-then
-  alias grep='grep --color=auto'
-fi
-
 alias df='df -h'
 alias du='du -h'
 alias suho='sudo -HE'

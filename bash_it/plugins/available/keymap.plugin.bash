@@ -1,5 +1,8 @@
+# BASH_IT_LOAD_PRIORITY: 200
 cite about-plugin
 about-plugin 'bind some keymaps for terminal'
+
+#### binding functions ####
 
 __a_keymap_trigger_sudo() {
   local r
@@ -16,6 +19,8 @@ __a_keymap_trigger_sudo() {
   READLINE_LINE="$t"
   READLINE_POINT=$(( READLINE_POINT + ${#t} ))
 }
+
+##### key bindings #####
 
 # Alt+S
 bind -x '"\es": "__a_keymap_trigger_sudo"'
@@ -38,3 +43,12 @@ bind '"\e[3;3~": kill-word'
 
 bind '"\e[5C": forward-word'
 bind '"\e[5D": backward-word'
+
+# Unbind default `alt-numkey` (digit-argument) in shell.
+# Refer to http://superuser.com/a/770902
+for i in "-" {0..9}; do bind -r "\\e$i"; done
+
+# unbind Alt+N (non-incremental-forward-search-history)
+bind -r "\\en"
+# unbind Alt+P (non-incremental-reverse-search-history)
+bind -r "\\ep"

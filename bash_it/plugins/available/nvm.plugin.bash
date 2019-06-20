@@ -7,19 +7,28 @@ about-plugin 'change node source code mirror and enable nvm'
 export NODEJS_ORG_MIRROR="https://npm.taobao.org/mirrors/node"
 export NVM_NODEJS_ORG_MIRROR="$NODEJS_ORG_MIRROR"
 
-brew_nvm_prefix="$(brew --prefix nvm)"
-if l.has command brew && [[ -s $brew_nvm_prefix/nvm.sh ]]; then
-  export NVM_DIR=$brew_nvm_prefix
-elif [[ -s ${NVM_DIR:-$HOME/.nvm} ]]; then
+BREW_PREFIX=$(brew --prefix)
+if l.has command brew && [[ -d "$BREW_PREFIX/Cellar/nvm" ]]; then
+  # brew --prefix <formula> is slow
+  # https://github.com/Homebrew/brew/issues/3097#issuecomment-325206329
+  brew_nvm_prefix="$(brew --prefix nvm)"
+  if [[ -s $brew_nvm_prefix/nvm.sh ]]; then
+    export NVM_DIR=$brew_nvm_prefix
+  fi
+  unset -v brew_nvm_prefix
+fi
+unset -v BREW_PREFIX
+
+if [[ -n $NVM_DIR ]] && [[ -s ${NVM_DIR:-$HOME/.nvm} ]]; then
   export NVM_DIR=${NVM_DIR:-$HOME/.nvm}
 fi
-DOTFILES_DEBUG "source $NVM_DIR/nvm.sh"
-. "$NVM_DIR/nvm.sh"
-unset -v brew_nvm_prefix
 
-# Enable nvm completion
-if [[ -n "$NVM_DIR" ]] && [[ -r "$NVM_DIR"/bash_completion ]]; then
-  . "$NVM_DIR"/bash_completion
+if [[ -n "$NVM_DIR" ]]; then
+  DOTFILES_DEBUG "source $NVM_DIR/nvm.sh"
+  . "$NVM_DIR/nvm.sh"
+
+  # Enable nvm completion
+  [[ -r "$NVM_DIR"/bash_completion ]] && . "$NVM_DIR"/bash_completion
 fi
 
 if l.has not function nvm; then

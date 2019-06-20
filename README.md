@@ -29,19 +29,9 @@ An elegant way to manage dotfiles, commands, auto-completion files, configuratio
 - [File Structure](#file-structure)
 - [Bash initialization process](#bash-initialization-process)
 - [Advanced Usage](#advanced-usage)
-    - [Create symbolic links](#create-symbolic-links)
-    - [Use ~/.fast_bashrc for rescue](#use-fast_bashrc-for-rescue)
-    - [Debug Dotfiles startup](#debug-dotfiles-startup)
-    - [Customize your Bash by plugin](#customize-your-bash-by-plugin)
-    - [Enable plugin for specific system](#enable-plugin-for-specific-system)
-    - [Other modifications](#other-modifications)
-    - [Write a sub-command](#write-a-sub-command)
-        - [sub-command document](#sub-command-document)
-        - [sub-command completion](#sub-command-completion)
-    - [Secret Data](#secret-data)
-    - [Bash Completions](#bash-completions)
 - [Suggestion, Bug Reporting, Contributing](#suggestion-bug-reporting-contributing)
 - [Copyright and License](#copyright-and-license)
+- [Related Projects](#related-projects)
 
 <!-- /MarkdownTOC -->
 
@@ -60,15 +50,13 @@ An elegant way to manage dotfiles, commands, auto-completion files, configuratio
 - Manage collections of dotfiles. Create soft-link via [dotbot][]. See [the configuration][install.conf.yaml].
 - Manage shell scripts/completions/aliases/plugins by modules via [bash-it][].
   - Most features are implemented in separate plugins, which could be disabled by yourself.
-  - All my plugins are put in [`bash_it/plugins/available/`](./bash_it/plugins/available/). `a list-plugins -a` to print all plugin names.
+  - All my plugins are put in [`bash_it/plugins/available/`](./bash_it/plugins/available/). `a plugins-list -a` to print all plugin names.
   - Some plugins powered by bash-it. `bash-it show plugins` to print all bash-it plugins.
 - Compatible with [bash-completion][] (for bash 3.x) and [bash-completion2][bash-completion] (for bash 4.x). See the [configuration](https://github.com/adoyle-h/dotfiles/blob/master/bash_it/completions.bash)
 - Responsive and pretty prompt. Refer to [Preview](#preview).
 - Collections of shell commands, which locates in [`bin/`](./bin/). Refer to [Binary executables](#binary-executables).
 - Managed sub-commands in [`bin/sub/`](./bin/sub/). The sub-commands framework is modified from [sub][].
-  - `a enable-plugin sub` to enable this feature.
-  - Default `SUB_NAME=a`, type `a help` for getting help. You can modify the enterpoint (`SUB_NAME`) in Plugin: [sub.plugin.bash](./bash_it/plugins/available/sub.plugin.bash)
-  - Refer to [Sub-commands](#sub-commands) for more.
+  - Invoke `a plugins-enable sub` to enable this feature. See [Sub-commands](#sub-commands) for more details.
 - Integrated all my best practices with shell (bash).
   - Extended keyboard bindings. See [keymap.plugin.bash](./bash_it/plugins/available/keymap.plugin.bash).
   - Flexible completion. Tab and Shift+Tab to make completion in circle. See [completion.plugin.bash](./bash_it/plugins/available/completion.plugin.bash)
@@ -99,7 +87,7 @@ An elegant way to manage dotfiles, commands, auto-completion files, configuratio
 
 ![preview.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/dotfiles/preview.png)
 
-The prompt is implemented by [a-bash-prompt](https://github.com/adoyle-h/a-bash-prompt). See [prompt.plugin.bash](./bash_it/plugins/available/prompt.plugin.bash).
+The prompt is implemented by [a-bash-prompt][]. See [prompt.plugin.bash](./bash_it/plugins/available/prompt.plugin.bash).
 
 Responsive prompt. Press Enter to auto adjust with window width.
 
@@ -229,10 +217,10 @@ Two sub-commands provided:
 Because bash-it not support to private plugins. I write many custom plugins in [bash_it/plugins/](./bash_it/plugins/).
 And provide some sub-commands to enable/disable them.
 
-- `a enable-plugin plugin-name1 plugin-name2` to enable plugin in `bash-custom/available/`
-- `a disable-plugin plugin-name1 plugin-name2` to disable plugin in `bash-custom/enabled/`
-- `a list-plugins` to show all enabled plugins in `bash-custom/enabled/`
-- `a list-plugins -a` to show all plugins in `bash-custom/available/`
+- `a plugins-enable plugin-name1 plugin-name2` to enable plugin in `bash-custom/available/`
+- `a plugins-disable plugin-name1 plugin-name2` to disable plugin in `bash-custom/enabled/`
+- `a plugins-list` to show all enabled plugins in `bash-custom/enabled/`
+- `a plugins-list -a` to show all plugins in `bash-custom/available/`
 
 ## File Structure
 
@@ -244,20 +232,18 @@ And provide some sub-commands to enable/disable them.
 │   ├── bashrc                      # Link to ~/.bashrc
 │   ├── fast_bashrc                 # Idle file, just a template
 │   ├── inputrc                     # Set shortcut Key Character Sequence (keyseq). Link to ~/.inputrc
-│   └── profile                     # Link to ~/.profile
+│   ├── profile                     # Link to ~/.profile
+│   └── xdg.bash                    # Set XDG_ variables
 ├── bash_it/                        # https://github.com/Bash-it/bash-it#your-custom-scripts-aliases-themes-and-functions
 │   ├── custom/                         # Custom the bash by yourself
-│   │   ├── editor.env.bash
-│   │   ├── enable-custom-plugins.bash
-│   │   ├── env.shell.bash
-│   │   ├── optionals.shell.bash        # Shell Optional Behavior settings
-│   │   ├── path.env.bash               # Change environment variable PATH
-│   │   ├── proxy.env.bash              # Application proxy settings
-│   │   └── variables.shell.bash        # Shell Variables settings
+│   │   └── enable-custom-plugins.bash
 │   ├── enable.bash                     # bash_it entry and basic settings
 │   ├── lib.bash                        # Store essential helper functions for all dotfiles modules
 │   ├── plugins/
 │   │   ├── available/                  # Available user custom plugins
+│   │   │   ├── sub
+│   │   │   │   ├── sub-bin*            # The main entry of `a` command
+│   │   │   │   └── sub.completion.bash # The completion file of `a` command
 │   │   │   ├── alias.plugin.bash       # Normal aliases
 │   │   │   ├── completions.plugin.bash # Normal completions and tab complete keymap
 │   │   │   ├── preexec.plugin.bash     # Enable bash-preexec library
@@ -265,35 +251,27 @@ And provide some sub-commands to enable/disable them.
 │   │   │   └── sub.plugin.bash         # If not enabled, `a` command will not work
 │   │   └── enabled/                    # Enabled user custom plugins
 │   │       └── 180---sub.plugin.bash   # soft-link to file in plugins/available/. The prefix is plugin load priority
-│   ├── plugins.bash                    # It is useless in normal.
 │   └── themes/                         # Store UI themes for bash
 ├── bin/                            # Link to ~/bin
-│   ├── a -> ./sub-bin              # Enterpoint of `a` commands
-│   ├── sub/                        # Collections of sub commands
-│   │   ├── commands*
-│   │   ├── completions*
-│   │   ├── help*
-│   │   └── init*                   # Sub init file
-│   └── sub-bin*                    # Sub main file
+│   └── a* -> ../bash_it/plugins/available/sub/sub-bin
 ├── bootstraps/                     # Scripts for bootstraping
 │   └── recommends/
 │       └── custom_plugins          # Backup enabled custom plugins
-├── bootstrap -> ./bootstrap.bash*
 ├── bootstrap.bash*
 ├── cheat/                          # It is ignored in git. git clone https://github.com/adoyle-h/my-command-cheat cheat
 ├── completions/                    # Bash command completions. Link to ~/.bash_completions
-│   └── others/
-│       └── sub.bash                # Loaded by sub.plugin.bash
 ├── configs/                        # Application configuration
 ├── docs/                           # The documents of this project
 ├── install*
 ├── install.conf.yaml               # Dotbot configurations
 ├── pkgs/                           # Git submodules
+│   ├── a-bash-prompt/              # https://github.com/adoyle-h/a-bash-prompt
 │   ├── bash-it/                    # https://github.com/Bash-it/bash-it
 │   ├── dotbot/                     # https://github.com/anishathalye/dotbot
+│   ├── lobash/                     # https://github.com/adoyle-h/lobash
 │   ├── nvim/                       # My neovim configurations.
 │   └── z.lua/                      # https://github.com/skywind3000/z.lua
-└── secrets/                        # This folder is ignored by git, no worry about data leaking
+└── secrets/                        # This folder is ignored by git. Put your secret data here.
 ```
 
 ## Bash initialization process
@@ -301,163 +279,28 @@ And provide some sub-commands to enable/disable them.
 It will execute scripts in order:
 
 1. [./bash/bashrc](./bash/bashrc)
-2. $HOME/.bash_it.bash => [./bash_it/enable](./bash_it/enable.bash)
-3. pkgs/bash-it/bash_it.sh : Start bash_it framework
+2. [./bash/xdg.bash](./bash/xdg.bash)
+3. [./bash_it/enable](./bash_it/enable.bash)
+4. pkgs/bash-it/bash_it.sh : Start bash_it framework
     - pkgs/bash-it/lib.bash
     - [./bash_it/lib.bash](./bash_it/lib.bash)
     - pkgs/bash-it/scripts/reloader.bash : reloads enabled bash-it plugins
     - pkgs/bash-it/aliases.bash
     - pkgs/bash-it/completions.bash
     - pkgs/bash-it/plugins.bash
-    - If `BASH_IT_THEME` set
+    - If `BASH_IT_THEME` set (`BASH_IT_THEME` is unset by default)
         - pkgs/bash-it/lib/appearance.bash
         - [./bash_it/themes/**/*.theme.bash](./bash_it/themes/𝕬/𝕬.theme.bash)
-4. [./bash_it/custom/*.bash](./bash_it/custom/)
+5. [./bash_it/custom/*.bash](./bash_it/custom/)
     - [./bash_it/custom/enable-custom-plugins.bash](./bash_it/custom/enable-custom-plugins.bash)
         - [./bash_it/plugins/enabled/*.bash](./bash_it/plugins/enabled/)
 
 
 ## Advanced Usage
 
-### Create symbolic links
-
-This feature benefits from [dotbot][].
-Edit `install.conf.yaml`.
-Run `./install` to (re)create symbolic links.
-
-**Attention: Do not call the script under sudo.**
-
-### Use ~/.fast_bashrc for rescue
-
-If Dotfiles has any critical issue, you could create a `~/.fast_bashrc` file and restart shell to override `~/.bashrc`.
-
-### Debug Dotfiles startup
-
-Invoke `a debug open` or `touch ~/.bashrc.debug` and restart shell. You will see the debug logs from stdout.
-
-Invoke `a debug close` or `rm ~/.bashrc.debug` and restart shell will turn off debug logs.
-
-### Customize your Bash by plugin
-
-You can customize Bash by making a plugin.
-All custom plugins must be put in [`bash-custom/available/`](./bash-custom/available) and filename must be suffixed with `.plugin.bash`.
-
-Below content as template,
-
-```sh
-# BASH_IT_LOAD_PRIORITY: 300
-cite about-plugin
-about-plugin 'Plugin description'
-
-# put your shellscript codes here
-```
-
-Then you can invoke `a enable-plugin <plugin-name>` to enable the plugin.
-
-### Enable plugin for specific system
-
-- `a enable-plugin macos`
-- `a enable-plugin debian`
-
-### Other modifications
-
-Sometimes, you could modify the files in `bash_it/` for prior execution.
-
-DO NOT CHANGE ANYTHING IN [`bash/`](./bash/) folder.
-
-### Write a sub-command
-
-These executables could also be put in [`bin/sub/`]('./bin/sub/') which is included in `$PATH`,
-and it could be referred as sub-command.
-
-#### sub-command document
-
-Your could write Usage/Summary/Help for sub-command.
-Put below text to your `bin/sub/<sub-command>`,
-
-```sh
-# Usage: a who
-# Summary: Check who's logged in
-# Help: This will print out when you run `a help who`.
-```
-
-Enter `a` to get all usages.
-And `a help <sub-command>` for getting "Summary" and "Help" of the sub-command.
-
-Refer to [Self-documenting subcommands](https://github.com/basecamp/sub#self-documenting-subcommands) for more details.
-
-#### sub-command completion
-
-Sub-command completion **must be** implemented with below text in your `bin/sub/<sub-command>` file.
-
-```sh
-# Provide sub completions
-if [[ "${1:-}" = "--complete" ]]; then
-  ls
-  exit 0
-fi
-```
-
-or
-
-```sh
-# Provide sub completions
-if [[ "${1:-}" = "--complete" ]]; then
-  if [[ $COMP_CWORD -lt 3 ]]; then
-    echo "open close --help"
-  fi
-  exit 0
-fi
-```
-
-or
-
-```sh
-# Provide sub completions
-if [[ "${1:-}" == "--complete" ]]; then
-  if [[ $COMP_CWORD -lt 3 ]]; then
-    result=$(compgen -f "$2")
-    if [[ -d $result ]]; then
-      compgen -f "$result/"
-    else
-      echo "${result[@]}"
-    fi
-  fi
-  exit 0
-fi
-```
-
-The code comments `# Provide sub completions` is required. Otherwise the completion not work.
-
-Refer to https://github.com/basecamp/sub#autocompletion .
-
-### Secret Data
-
-If you want keep your sensitive data untracked from git.
-Create a `secrets.plugin.bash` and make a soft-link points to it. Such as `ln -s <your-path>/secrets.plugin.bash ./bash-custom/secrets.plugin.bash`.
-All files under `bash-custom/enabled/` are untracked.
-Then type `a enable-plugin secrets` and restart shell to enable it.
-
-So, you could maintain your classified data in your `secrets.plugin.bash`.
-
-### Bash Completions
-
-Put your completion files under [`completions/`](./completions).
-
-The completion files loaded in order:
-
-- bash_completion will load files in order:
-  - ${BASH_COMPLETION_COMPAT_DIR:-/usr/local/etc/bash_completion.d}
-  - ${BASH_COMPLETION_USER_FILE:-~/.bash_completion}
-- this plugin will load
-  - $HOME/.bash_completions
-
-Notice: this directory does not work for your sub-command completion.
+There are many tricks you may be interested. See [this document](./docs/advanced-usages.md).
 
 ## Suggestion, Bug Reporting, Contributing
-
-Sorry, the project is a personal project which do not accept any Pull Requests.
-You could fork the repo to build your own project.
 
 Any comments and suggestions are always welcome. Please open an [issue][] to contact with me.
 
@@ -469,6 +312,11 @@ See the [LICENSE][] file for the specific language governing permissions and lim
 
 See the [NOTICE][] file distributed with this work for additional information regarding copyright ownership.
 
+## Related Projects
+
+- [lobash](https://github.com/adoyle-h/lobash): A modern, safe, powerful utility library for Bash script development.
+- [a-bash-prompt][]: A Bash prompt written by pure Bash script.
+- [bash-sensible](https://github.com/mrzool/bash-sensible): An attempt at saner Bash defaults
 
 <!-- links -->
 
@@ -494,3 +342,4 @@ See the [NOTICE][] file distributed with this work for additional information re
 [bash-completion]: https://github.com/scop/bash-completion
 [Oh My Zsh]: https://github.com/robbyrussell/oh-my-zsh
 [bash-preexec]: https://github.com/rcaloras/bash-preexec
+[a-bash-prompt]: https://github.com/adoyle-h/a-bash-prompt

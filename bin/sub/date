@@ -1,7 +1,30 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC1090
+
+set -o errexit
+set -o nounset
+set -o pipefail
+shopt -s inherit_errexit
+[[ -n "${VERBOSE:+x}" ]] && set -o verbose
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+
+help() {
+  cat <<EOF
+Usage: a date
+       a date [<timestamp>]
+
+Descriptions:
+  If no any arguments, print current time.
+  If timestamp provided, print datetime in local timezone.
+EOF
+}
 
 if [[ $# -gt 0 ]]; then
-  /bin/date -r $(( $1 / 1000 ))
+  if [[ $1 == -h ]] || [[ $1 == --help ]]; then
+    help
+  else
+    /bin/date -r $(( $1 / 1000 ))
+  fi
 else
   /bin/date +"%Y%m%d_%H%M%S"
 fi

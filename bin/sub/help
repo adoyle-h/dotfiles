@@ -1,8 +1,15 @@
 #!/usr/bin/env bash
-set -e
+# shellcheck disable=SC1090
 
 # Usage: sub help [sub-command]
 # Summary: print help for sub-command
+
+set -o errexit
+set -o nounset
+set -o pipefail
+shopt -s inherit_errexit
+[[ -n "${VERBOSE:+x}" ]] && set -o verbose
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
 get_sub_command_path() {
   COMMAND_PATH="$SUB_BIN_DIR/$1"
@@ -11,63 +18,64 @@ get_sub_command_path() {
     echo "  - No executable file: $COMMAND_PATH" >&2
     exit 1
   fi
-  echo $COMMAND_PATH
+  echo "$COMMAND_PATH"
 }
 
 print_summaries() {
   local commands=()
   local summaries=()
   local longest_command=0
-  local command
+  local cmd file summary
 
-  for command in $("$SUB_BIN_DIR"/commands); do
-    local file="$(get_sub_command_path "$command")"
+  for cmd in $("$SUB_BIN_DIR"/commands); do
+    file="$(get_sub_command_path "$cmd")"
     if [ ! -h "$file" ]; then
-      local summary="$(summary "$file")"
+      summary="$(summary "$file")"
       if [ -n "$summary" ]; then
-        commands["${#commands[@]}"]="$command"
+        commands["${#commands[@]}"]="$cmd"
         summaries["${#summaries[@]}"]="$summary"
 
-        if [ "${#command}" -gt "$longest_command" ]; then
-          longest_command="${#command}"
+        if [ "${#cmd}" -gt "$longest_command" ]; then
+          longest_command="${#cmd}"
         fi
       fi
     fi
   done
 
-  local index
-  local columns="$(tput cols)"
-  local summary_length=$(( $columns - $longest_command - 5 ))
+  local index columns
+  columns="$(tput cols)"
+  local summary_length=$(( columns - longest_command - 5 ))
 
   for (( index=0; index < ${#commands[@]}; index++ )); do
-    printf "   %-${longest_command}s  %s\n" "${commands[$index]}" \
+    printf "   %-${longest_command}s  %s\\n" "${commands[$index]}" \
       "$(truncate "$summary_length" "${summaries[$index]}")"
   done
 }
 
 print_help() {
   local file="$1"
-  local usage="$(usage "$file")"
+  local usage h summary
+  usage="$(usage "$file")"
 
   if [ -n "$usage" ]; then
     echo "$usage"
 
-    local help="$(help "$file")"
-    [ -n "$help" ] && echo && echo "$help"
+    h="$(help "$file")"
+    [[ -n "$h" ]] && printf '\n%s\n' "$h"
 
-    local summary="$(summary "$file")"
-    [ -n "$summary" ] && echo && echo "Summary: $summary"
+    summary="$(summary "$file")"
+    [[ -n "$summary" ]] && echo && echo "Summary: $summary"
   else
     echo "Sorry, this command isn't documented yet."
   fi
 }
 
 summary() {
-  sed -n "s/^# Summary: \(.*\)/\1/p" "$1"
+  sed -n "s/^# Summary: \\(.*\\)/\\1/p" "$1"
 }
 
 usage() {
-  sed -n "s/^# \(Usage: .*\)/\1/p" "$1"
+  sed -n "s/^# \\(Usage: .*\\)/\\1/p" "$1"
 }
 
 help() {
@@ -78,33 +86,42 @@ truncate() {
   local max_length="$1"
   local string="$2"
 
-  if [ "${#string}" -gt "$max_length" ]; then
-    local length=$(( $max_length - 3 ))
+  if [[ "${#string}" -gt "$max_length" ]]; then
+    local length=$(( max_length - 3 ))
     echo "${string:0:$length}..."
   else
     echo "$string"
   fi
 }
 
-# Provide sub completions
-if [ "$1" = "--complete" ]; then
-  "$SUB_BIN_DIR"/commands
-  exit
-fi
+main() {
+  local cmd="${1:-}"
 
-command="$1"
-case "$command" in
-"") echo "Usage: $SUB_NAME <command> [<args>]
+  case "$cmd" in
+  "") cat <<EOF
+Usage: $SUB_NAME <command> [<args>]
 
 Some useful sub commands are:
 $(print_summaries)
 
-See '$SUB_NAME help <command>' for information on a specific command."
-;;
-*)
-  file="$(get_sub_command_path "$command")"
+See '$SUB_NAME help <command>' for information on a specific command.
+EOF
+  ;;
 
-  if [ -n "$file" ]; then
-    print_help "$file"
-  fi
-esac
+  *)
+    file="$(get_sub_command_path "$cmd")"
+
+    if [ -n "$file" ]; then
+      print_help "$file"
+    fi
+  esac
+}
+
+# Provide sub completions
+if [ "${1:-}" = "--complete" ]; then
+  # "$SUB_BIN_DIR"/commands
+  $SUB_NAME commands
+  exit
+fi
+
+main "$@"

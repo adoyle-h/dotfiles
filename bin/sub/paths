@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1090
 
-echo -e "${PATH//:/\\n}"
+set -o errexit
+set -o nounset
+set -o pipefail
+shopt -s inherit_errexit
+[[ -n "${VERBOSE:+x}" ]] && set -o verbose
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+
+printf '%s\n' "${PATH//:/\\n}"

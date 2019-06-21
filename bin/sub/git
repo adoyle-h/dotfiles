@@ -1,10 +1,15 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC1090,SC2155
+# shellcheck disable=SC1090
+
 set -o errexit
 set -o nounset
 set -o pipefail
-[[ -n "${TRACE+x}" ]] && set -o xtrace
+shopt -s inherit_errexit
+[[ -n "${VERBOSE:+x}" ]] && set -o verbose
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
-git_command=$1
-
-docker run -it --rm -v "$HOME"/.gitignore:/root/.gitignore -v "$HOME"/.ssh:/root/.ssh -v "$(pwd)":/git alpine/git "$git_command"
+docker run -it --rm \
+  -v "$HOME"/.gitignore:/root/.gitignore \
+  -v "$HOME"/.ssh:/root/.ssh \
+  -v "$(pwd)":/git \
+  alpine/git "$@"

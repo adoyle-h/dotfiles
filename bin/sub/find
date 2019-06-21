@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC1090,SC2155
+# shellcheck disable=SC1090
+
 set -o errexit
-set -o errtrace
 set -o nounset
 set -o pipefail
-[[ -n "${XTRACE:+x}" ]] && set -o xtrace
+shopt -s inherit_errexit
+[[ -n "${VERBOSE:+x}" ]] && set -o verbose
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
-
 
 main() {
   local keyword=$1

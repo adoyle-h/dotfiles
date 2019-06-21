@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC1090,SC2155
+# shellcheck disable=SC1090
+
 set -o errexit
-set -o errtrace
 set -o nounset
 set -o pipefail
-[[ -n "${XTRACE+x}" ]] && set -o xtrace
+shopt -s inherit_errexit
+[[ -n "${VERBOSE:+x}" ]] && set -o verbose
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
-readonly length=${1:-10}
+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
-< /dev/urandom LC_CTYPE=C tr -dc "a-zA-Z0-9@#*=[]" | head -c "$length"
+source "$SCRIPT_DIR/../../deps/lobash/src/import.bash"
+import random
+
+l.random "${1:-}" "${2:-}"

@@ -15,4 +15,6 @@ fi
 if [[ -n "$LESSPIPE_SCRIPT" ]]; then
   export LESSOPEN="| ${LESSPIPE_SCRIPT} %s"
   export LESS=" -R "
+else
+  echo 'WARNING: LESSPIPE_SCRIPT not found. But you have enabled lesspipe.plugin.bash.' >&2
 fi

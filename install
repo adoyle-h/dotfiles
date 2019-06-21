@@ -12,7 +12,7 @@ set -o pipefail
 # Copy from dotbot/tools/git-submodule/install
 
 CONFIG="install.conf.yaml"
-DOTBOT_DIR="pkgs/dotbot"
+DOTBOT_DIR="deps/dotbot"
 
 DOTBOT_BIN="bin/dotbot"
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

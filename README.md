@@ -1,6 +1,6 @@
 # Awesome Bash Dotfiles
 
-An elegant way to manage dotfiles, commands, auto-completion files, configurations for terminal players.
+An elegant way to manage dotfiles, commands, completions, configurations for terminal players.
 
 **Make Bash Great Again!**
 
@@ -130,7 +130,7 @@ cd $DOTFILE_DIR
 git submodule update --init --recursive
 
 # Install bash_it framework which is required
-./pkgs/bash-it/install.sh --no-modify-config
+./deps/bash-it/install.sh --no-modify-config
 
 # Make sure XDG_ variables set
 . bash/xdg.bash
@@ -268,7 +268,7 @@ and some sub-commands to manage them.
 ├── docs/                           # The documents of this project
 ├── install*
 ├── install.conf.yaml               # Dotbot configurations
-├── pkgs/                           # Git submodules
+├── deps/                           # Git submodules
 │   ├── a-bash-prompt/              # https://github.com/adoyle-h/a-bash-prompt
 │   ├── bash-it/                    # https://github.com/Bash-it/bash-it
 │   ├── dotbot/                     # https://github.com/anishathalye/dotbot
@@ -285,15 +285,15 @@ It will execute scripts in order:
 1. [./bash/bashrc](./bash/bashrc)
 2. [./bash/xdg.bash](./bash/xdg.bash)
 3. [./bash_it/enable](./bash_it/enable.bash)
-4. pkgs/bash-it/bash_it.sh : Start bash_it framework
-    - pkgs/bash-it/lib.bash
+4. deps/bash-it/bash_it.sh : Start bash_it framework
+    - deps/bash-it/lib.bash
     - [./bash_it/lib.bash](./bash_it/lib.bash)
-    - pkgs/bash-it/scripts/reloader.bash : reloads enabled bash-it plugins
-    - pkgs/bash-it/aliases.bash
-    - pkgs/bash-it/completions.bash
-    - pkgs/bash-it/plugins.bash
+    - deps/bash-it/scripts/reloader.bash : reloads enabled bash-it plugins
+    - deps/bash-it/aliases.bash
+    - deps/bash-it/completions.bash
+    - deps/bash-it/plugins.bash
     - If `BASH_IT_THEME` set (`BASH_IT_THEME` is unset by default)
-        - pkgs/bash-it/lib/appearance.bash
+        - deps/bash-it/lib/appearance.bash
         - [./bash_it/themes/**/*.theme.bash](./bash_it/themes/𝕬/𝕬.theme.bash)
 5. [./bash_it/custom/*.bash](./bash_it/custom/)
     - [./bash_it/custom/enable-custom-plugins.bash](./bash_it/custom/enable-custom-plugins.bash)

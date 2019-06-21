@@ -10,7 +10,7 @@ RUN git clone --depth 1 --progress https://github.com/adoyle-h/dotfiles.git $DOT
 RUN cd $DOTFILE_DIR && \
     git submodule update --init --progress
 
-RUN $DOTFILE_DIR/pkgs/bash-it/install.sh --no-modify-config
+RUN $DOTFILE_DIR/deps/bash-it/install.sh --no-modify-config
 
 RUN $DOTFILE_DIR/install || echo 'ok'
 

@@ -2,8 +2,8 @@
 cite about-plugin
 about-plugin 'Initialize z command. https://github.com/skywind3000/z.lua'
 
-if [[ ! -f $(dirname "${BASH_SOURCE[0]}")/../../../pkgs/z.lua/z.lua ]]; then
-  echo 'WARNING: pkgs/z.lua not found. But you have enabled zl.plugin.bash.' >&2
+if [[ ! -f $(dirname "${BASH_SOURCE[0]}")/../../../deps/z.lua/z.lua ]]; then
+  echo 'WARNING: deps/z.lua not found. But you have enabled zl.plugin.bash.' >&2
   return 0
 fi
 
@@ -14,7 +14,7 @@ export _ZL_EXCLUDE_DIRS=(.git)
 # export _ZL_CD=cd
 export _ZL_MATCH_MODE=1
 
-eval "$(lua "$(dirname "${BASH_SOURCE[0]}")"/../../../pkgs/z.lua/z.lua --init bash fzf)"
+eval "$(lua "$(dirname "${BASH_SOURCE[0]}")"/../../../deps/z.lua/z.lua --init bash fzf)"
 
 # fix ZL_PROMPT_COMMAND
 __prompt_append "(_zlua --add \"\$(command pwd 2>/dev/null)\" &)"

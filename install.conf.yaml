@@ -7,7 +7,7 @@
 - shell:
     # dotbot have no sudo permission
     - "[[ ! -f /Library/LaunchAgents/com.adoyle.polipo.plist ]] && sudo ln -s `pwd`/LaunchAgents/com.adoyle.polipo.plist /Library/LaunchAgents/com.adoyle.polipo.plist || echo ok"
-    - "ln -fhs `pwd`/pkgs/bash-it ~/.bash_it"
+    - "ln -fhs `pwd`/deps/bash-it ~/.bash_it"
 
 - link:
     # bash
@@ -51,7 +51,7 @@
     ~/.grip/settings.py: secrets/grip-settings.py
 
     # nvim
-    $XDG_CONFIG_HOME/nvim: pkgs/nvim
+    $XDG_CONFIG_HOME/nvim: deps/nvim
 
     # cheat
     ~/.cheat: cheat

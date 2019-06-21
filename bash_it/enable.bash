@@ -6,7 +6,7 @@ else
   DOTFILE_DIR=$(dirname "${BASH_SOURCE[0]}")/..
 fi
 
-export BASH_IT="$DOTFILE_DIR/pkgs/bash-it"
+export BASH_IT="$DOTFILE_DIR/deps/bash-it"
 export BASH_IT_CUSTOM="$DOTFILE_DIR/bash_it/custom"
 export CUSTOM_THEME_DIR="$DOTFILE_DIR/bash_it/themes"
 

@@ -2,31 +2,31 @@
 	path = cheat
 	url = https://github.com/adoyle-h/my-command-cheat.git
 	shallow = true
-[submodule "pkgs/dotbot"]
-	path = pkgs/dotbot
+[submodule "deps/dotbot"]
+	path = deps/dotbot
 	url = https://github.com/anishathalye/dotbot.git
 	shallow = true
-[submodule "pkgs/nvim"]
-	path = pkgs/nvim
+[submodule "deps/nvim"]
+	path = deps/nvim
 	url = https://github.com/adoyle-h/neovim-config.git
 	shallow = true
-[submodule "pkgs/z.lua"]
-	path = pkgs/z.lua
+[submodule "deps/z.lua"]
+	path = deps/z.lua
 	url = https://github.com/skywind3000/z.lua.git
 	shallow = true
-[submodule "pkgs/bash-it"]
-	path = pkgs/bash-it
+[submodule "deps/bash-it"]
+	path = deps/bash-it
 	url = https://github.com/Bash-it/bash-it.git
 	shallow = true
-[submodule "pkgs/a-bash-prompt"]
-	path = pkgs/a-bash-prompt
+[submodule "deps/a-bash-prompt"]
+	path = deps/a-bash-prompt
 	url = https://github.com/adoyle-h/a-bash-prompt.git
 	shallow = true
-[submodule "pkgs/bash-preexec"]
-	path = pkgs/bash-preexec
+[submodule "deps/bash-preexec"]
+	path = deps/bash-preexec
 	url = https://github.com/rcaloras/bash-preexec.git
 	shallow = true
-[submodule "pkgs/lobash"]
-	path = pkgs/lobash
+[submodule "deps/lobash"]
+	path = deps/lobash
 	url = https://github.com/adoyle-h/lobash.git
 	shallow = true

@@ -74,6 +74,29 @@ DO NOT CHANGE ANYTHING IN [`bash/`](../bash/) folder.
 These executables could also be put in [`bin/sub/`]('../bin/sub/') which is included in `$PATH`,
 and it could be referred as sub-command.
 
+Below is sub-command template.
+
+```sh
+#!/usr/bin/env bash
+# shellcheck disable=SC1090
+# Usage:
+# Summary:
+
+set -o errexit
+set -o nounset
+set -o pipefail
+shopt -s inherit_errexit
+[[ -n "${VERBOSE:+x}" ]] && set -o verbose
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+
+# Provide sub completions
+if [ "${1:-}" = "--complete" ]; then
+  exit
+fi
+
+# main command
+```
+
 ### sub-command document
 
 Your could write Usage/Summary/Help for sub-command.

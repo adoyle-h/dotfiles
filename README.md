@@ -302,7 +302,9 @@ It will execute scripts in order:
 
 ## Advanced Usage
 
-There are many tricks you may be interested. See [this document](./docs/advanced-usages.md).
+If you want to extend the framework. See [this document](./docs/advanced-usages.md).
+
+There are many tricks you may be interested.
 
 ## Suggestion, Bug Reporting, Contributing
 

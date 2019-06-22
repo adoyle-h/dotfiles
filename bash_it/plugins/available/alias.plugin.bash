@@ -10,3 +10,7 @@ alias tree='tree -CFN'
 
 alias edit='vim'
 alias pager='vim'
+
+if l.has command massren; then
+  alias rename-files='massren'
+fi

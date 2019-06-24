@@ -7,11 +7,11 @@ about-plugin 'bind some keymaps for terminal'
 __a_keymap_trigger_sudo() {
   local r
 
-  r=$(l.start_with "$READLINE_LINE" "sudo ")
+  r=$(dotfiles_l.start_with "$READLINE_LINE" "sudo ")
 
   local t
   if [[ $r == true ]]; then
-    t="$(l.trim_start "$READLINE_LINE" 'sudo ')"
+    t="$(dotfiles_l.trim_start "$READLINE_LINE" 'sudo ')"
   else
     t="sudo ${READLINE_LINE}"
   fi

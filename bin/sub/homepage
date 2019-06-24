@@ -10,9 +10,7 @@ shopt -s inherit_errexit
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
-source "$SCRIPT_DIR"/../../deps/lobash/src/import.bash
-
-import match
+source "$SCRIPT_DIR"/../../deps/lobash.bash
 
 origin=$(git remote get-url origin)
 

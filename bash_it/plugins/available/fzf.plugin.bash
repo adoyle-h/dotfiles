@@ -11,19 +11,19 @@ if [[ ! -d $FZF_BIN ]] ; then
   return 1
 fi
 
-if [[ $(l.str_include "$PATH" "$FZF_BIN") == false ]]; then
+if [[ $(dotfiles_l.str_include "$PATH" "$FZF_BIN") == false ]]; then
   export PATH="$PATH:$FZF_BIN"
 fi
 unset -v FZF_BIN
 
-if l.has not command fzf; then
+if dotfiles_l.has not command fzf; then
   echo "Not found command 'fzf'" >&2
   echo "Invoke 'a disable-plugin fzf' to disable the plugin"
   return 1
 fi
 
 FZF_MANPATH=$HOME/.fzf/man
-if [[ $(l.str_include "$MANPATH" "$FZF_MANPATH") == false ]]; then
+if [[ $(dotfiles_l.str_include "$MANPATH" "$FZF_MANPATH") == false ]]; then
   export MANPATH="$MANPATH:$FZF_MANPATH"
 fi
 unset -v FZF_MANPATH

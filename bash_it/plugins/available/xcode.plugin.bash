@@ -4,7 +4,7 @@ about-plugin 'xcode settings'
 add_xcode_manpath() {
   local XCODE_MANPATH=$1
 
-  if [[ $(l.str_include "$MANPATH" "$XCODE_MANPATH") == false ]]; then
+  if [[ $(dotfiles_l.str_include "$MANPATH" "$XCODE_MANPATH") == false ]]; then
     export MANPATH="$MANPATH:$XCODE_MANPATH"
   fi
 }

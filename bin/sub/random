@@ -10,7 +10,6 @@ shopt -s inherit_errexit
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
-source "$SCRIPT_DIR/../../deps/lobash/src/import.bash"
-import random
+source "$SCRIPT_DIR/../../deps/lobash.bash"
 
 l.random "${1:-}" "${2:-}"

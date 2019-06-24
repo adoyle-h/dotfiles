@@ -8,7 +8,7 @@ export NODEJS_ORG_MIRROR="https://npm.taobao.org/mirrors/node"
 export NVM_NODEJS_ORG_MIRROR="$NODEJS_ORG_MIRROR"
 
 BREW_PREFIX=$(brew --prefix)
-if l.has command brew && [[ -d "$BREW_PREFIX/Cellar/nvm" ]]; then
+if dotfiles_l.has command brew && [[ -d "$BREW_PREFIX/Cellar/nvm" ]]; then
   # brew --prefix <formula> is slow
   # https://github.com/Homebrew/brew/issues/3097#issuecomment-325206329
   brew_nvm_prefix="$(brew --prefix nvm)"
@@ -31,7 +31,7 @@ if [[ -n "$NVM_DIR" ]]; then
   [[ -r "$NVM_DIR"/bash_completion ]] && . "$NVM_DIR"/bash_completion
 fi
 
-if l.has not function nvm; then
+if dotfiles_l.has not function nvm; then
   echo 'WARNING: Shell function "nvm" not found. But you have enabled nvm.plugin.bash.' >&2
   echo '         You should install nvm by yourself. See https://github.com/creationix/nvm' >&2
   echo '         If you install nvm via brew. Check the path of "brew --prefix nvm".' >&2

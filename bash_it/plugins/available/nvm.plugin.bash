@@ -19,8 +19,8 @@ if l.has command brew && [[ -d "$BREW_PREFIX/Cellar/nvm" ]]; then
 fi
 unset -v BREW_PREFIX
 
-if [[ -n $NVM_DIR ]] && [[ -s ${NVM_DIR:-$HOME/.nvm} ]]; then
-  export NVM_DIR=${NVM_DIR:-$HOME/.nvm}
+if [[ -z $NVM_DIR ]] && [[ -d $HOME/.nvm ]]; then
+  export NVM_DIR=$HOME/.nvm
 fi
 
 if [[ -n "$NVM_DIR" ]]; then

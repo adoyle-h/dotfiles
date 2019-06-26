@@ -6,36 +6,7 @@
 
 ######################## Lobash Internals ########################
 
-_lobash.0_1_0_3105_18178_get_shell_type() {
-  if [[ -n ${BASH_VERSION:-} ]]; then
-    echo bash
-  elif [[ -n ${ZSH_VERSION:-} ]]; then
-    echo zsh
-  else
-    echo 'Lobash only work in Bash and Zsh.' >&2
-    return 5
-  fi
-}
-
-_lobash.0_1_0_3105_18178_check_shell() {
-  if [[ -z ${BASH_VERSION:-} ]] && [[ -z ${ZSH_VERSION:-} ]]; then
-    echo 'Lobash only work in Bash and Zsh.' >&2
-    return 5
-  fi
-}
-
-_lobash.0_1_0_3105_18178_check_shell
-
-_lobash.0_1_0_3105_18178_dirname() {
-  local str=$1
-  [[ $str == '/' ]] && echo '/' && return 0
-  [[ $str =~ ^'../' ]] && echo '.' && return 0
-  [[ ! $str =~ / ]] && echo '.' && return 0
-
-  printf '%s\n' "${str%/*}"
-}
-
-_lobash.0_1_0_3105_18178_detect_os() {
+_lobash.0_1_0_595576_20812_detect_os() {
   local kernel_name
   kernel_name="$(uname -s)"
 
@@ -54,37 +25,236 @@ _lobash.0_1_0_3105_18178_detect_os() {
   esac
 }
 
+_lobash.0_1_0_595576_20812_is_bash() {
+  [[ -n "${BASH_VERSION:-}" ]] && echo true || echo false
+}
+
 # ---
 # Dependent_Internal: detect_os
 # ---
 
+# shellcheck disable=SC2034
+
 # Prevent multiple executions
-[[ -n ${_LOBASH_INTERNAL_FUNC_PREFIX:-} ]] && return
+[[ -n ${_LOBASH_0_1_0_595576_20812_INTERNAL_FUNC_PREFIX:-} ]] && return
 
-readonly _LOBASH_INTERNAL_FUNC_PREFIX=_lobash.
-readonly _LOBASH_INTERNAL_CONST_PREFIX=_lobash_
-readonly _LOBASH_PRIVATE_FUNC_PREFIX=_l.
-readonly _LOBASH_PRIVATE_CONST_PREFIX=_l_
-readonly _LOBASH_PUBLIC_FUNC_PREFIX=l.
-readonly _LOBASH_PUBLIC_CONST_PREFIX=l_
-readonly _LOBASH_DEFAULT_PREFIX=l.
+readonly _LOBASH_0_1_0_595576_20812_INTERNAL_FUNC_PREFIX=_lobash.
+readonly _LOBASH_0_1_0_595576_20812_INTERNAL_CONST_PREFIX=_LOBASH_
+readonly _LOBASH_0_1_0_595576_20812_PRIVATE_FUNC_PREFIX=_l.
+readonly _LOBASH_0_1_0_595576_20812_PRIVATE_CONST_PREFIX=_L_
+readonly _LOBASH_0_1_0_595576_20812_PUBLIC_FUNC_PREFIX=l.
+readonly _LOBASH_0_1_0_595576_20812_PUBLIC_CONST_PREFIX=L_
+# _LOBASH_0_1_0_595576_20812_PREFIX will be reassigned when ./build
+_LOBASH_0_1_0_595576_20812_PREFIX=l.
 
-readonly _lobash_0_1_0_3105_18178_os=$(_lobash.0_1_0_3105_18178_detect_os)
+readonly _LOBASH_0_1_0_595576_20812_OS=$(_lobash.0_1_0_595576_20812_detect_os)
+
+_lobash.0_1_0_595576_20812_check_os() {
+  if [[ ! $_LOBASH_0_1_0_595576_20812_OS =~ ^(Linux|MacOS|BSD)$ ]]; then
+    echo "Not support current system: $_LOBASH_0_1_0_595576_20812_OS" >&2
+    return 5
+  fi
+}
+
+_lobash.0_1_0_595576_20812_check_shell() {
+  if [[ $(_lobash.0_1_0_595576_20812_is_bash) == false ]]; then
+    echo 'Lobash only work in Bash.' >&2
+    return 6
+  fi
+}
+
+_lobash.0_1_0_595576_20812_check_supported_bash_version() {
+  if [[ ${BASH_VERSINFO[0]} -lt 4 ]] \
+    || ([[ ${BASH_VERSINFO[0]} == 4 ]] && [[ ${BASH_VERSINFO[1]} -lt 4 ]]); then
+    echo "Bash $BASH_VERSION is not supported. Upgrade your Bash to 4.4 or higher version." >&2
+    return 7
+  fi
+}
+
+_lobash.0_1_0_595576_20812_check_support() {
+  _lobash.0_1_0_595576_20812_check_os
+  _lobash.0_1_0_595576_20812_check_shell
+  _lobash.0_1_0_595576_20812_check_supported_bash_version
+}
+
+_lobash.0_1_0_595576_20812_check_support
+
+_lobash.0_1_0_595576_20812_dirname() {
+  local str=${1:-}
+  [[ $str == '/' ]] && echo '/' && return 0
+  [[ $str =~ ^'../' ]] && echo '.' && return 0
+  [[ ! $str =~ / ]] && echo '.' && return 0
+
+  printf '%s\n' "${str%/*}"
+}
+
+# Usage: _lobash.0_1_0_595576_20812_debug <message>...
+# Print logs to stdout.
+# If LOBASH_DEBUG set, print Lobash debug logs to stdout
+# If LOBASH_DEBUG_OUTPUT set, logs pipe to $LOBASH_DEBUG_OUTPUT instead of stdout
+#
+# It will not print logs to stdout in below scenario:
+#
+#   LOBASH_DEBUG=1
+#   foo() { debug hello; }
+#   bar=$(foo) # => Not see any log in shell
+#
+# LOBASH_DEBUG_OUTPUT can resolve the problem.
+#
+#   LOBASH_DEBUG=1
+#   LOBASH_DEBUG_OUTPUT=/tmp/log
+#   foo() { debug2 hello; }
+#   bar=$(foo) # => Still not see any log in shell, but logs records in file /tmp/log
+_lobash.0_1_0_595576_20812_debug() {
+  [[ -z ${LOBASH_DEBUG:-} ]] && return
+
+  local func=${FUNCNAME[1]}
+
+  if [[ -z ${LOBASH_DEBUG_OUTPUT:-} ]]; then
+    echo "[DEBUG:LOBASH:$func] $*"
+  else
+    echo "[DEBUG:LOBASH:$func] $*" >> "$LOBASH_DEBUG_OUTPUT"
+  fi
+}
+
+# Usage: _lobash.0_1_0_595576_20812_warn <message>...
+# Print logs to stdrr.
+# If LOBASH_WARN_OUTPUT set, logs pipe to $LOBASH_WARN_OUTPUT instead of stdrr
+#
+# It will not print logs to stdout in below scenario:
+#
+#   foo() { warn hello; }
+#   bar=$(foo) # => Not see any log in shell
+#
+# LOBASH_WARN_OUTPUT can resolve the problem.
+#
+#   LOBASH_WARN_OUTPUT=/tmp/log
+#   foo() { warn2 hello; }
+#   bar=$(foo) # => Still not see any log in shell, but logs records in file /tmp/log
+_lobash.0_1_0_595576_20812_warn() {
+  local func=${FUNCNAME[1]}
+
+  if [[ -z ${LOBASH_WARN_OUTPUT:-} ]]; then
+    echo "[WARN:LOBASH:$func] $*" >&2
+  else
+    echo "[WARN:LOBASH:$func] $*" >> "$LOBASH_WARN_OUTPUT"
+  fi
+}
+
+# Usage: _lobash.0_1_0_595576_20812_error <message>...
+# Print logs to stdrr.
+# If LOBASH_WARN_OUTPUT set, logs pipe to $LOBASH_WARN_OUTPUT instead of stdrr
+#
+# It will not print logs to stdout in below scenario:
+#
+#   foo() { error hello; }
+#   bar=$(foo) # => Not see any log in shell
+#
+# LOBASH_WARN_OUTPUT can resolve the problem.
+#
+#   LOBASH_WARN_OUTPUT=/tmp/log
+#   foo() { warn2 hello; }
+#   bar=$(foo) # => Still not see any log in shell, but logs records in file /tmp/log
+_lobash.0_1_0_595576_20812_error() {
+  if [[ -z ${LOBASH_WARN_OUTPUT:-} ]]; then
+    echo "[ERROR:LOBASH] $*" >&2
+  else
+    echo "[ERROR:LOBASH] $*" >> "$LOBASH_WARN_OUTPUT"
+  fi
+}
+
+# ---
+# Category: Lobash
+# Since: 0.1.0
+# Usage: import [-f|--force] <module_name>... [<prefix>=l.]
+# Description: Import Lobash modules.
+# Description: <prefix> must end with `.`, `-`, `_`
+# Description: -f, --force  To force refresh module codes. Because imported modules will be cached by default.
+# ---
+
+## Usage: _lobash.0_1_0_595576_20812_get_module_path <module_name>
+_lobash.0_1_0_595576_20812_get_module_path() {
+  if [[ -z ${IS_LOBASH_TEST:-} ]]; then
+    printf '%s\n' "$(_lobash.0_1_0_595576_20812_dirname "${BASH_SOURCE[0]}")/../modules/$1.bash"
+  else
+    printf '%s\n' "$LOBASH_ROOT_DIR/src/modules/$1.bash"
+  fi
+}
+
+_lobash.0_1_0_595576_20812_import_deps() {
+  local module_path=$1
+  local deps
+
+  # Get list of dependent modules names
+  read -ra deps <<< "$( grep '^# Dependent:' < "$module_path" \
+    | sed -E 's/^# Dependent: ?(.*)/\1/;s/,/ /g' \
+    || true )"
+
+  _lobash.0_1_0_595576_20812_debug "To load deps modules. deps.size=${#deps[*]}"
+  if [[ ${#deps[@]} -gt 0 ]]; then
+    _lobash.0_1_0_595576_20812_imports "${deps[@]}"
+  fi
+}
+
+_lobash.0_1_0_595576_20812_import() {
+  local module_name=$1
+  local is_force=${2:-false}
+
+  _lobash.0_1_0_595576_20812_debug "S1. To load module. name=${module_name}"
+
+  [[ -z $module_name ]] && _lobash.0_1_0_595576_20812_error "Module name cannot be empty string." && return 3
+
+  # Associative array only allow [a-zA-Z0-9_] for key naming
+  local import_key=_lobash_import_cache_${module_name//[^a-zA-Z0-9]/_}
+  if [[ $is_force == false ]] && [[ "${!import_key:-}" == loaded ]]; then
+    _lobash.0_1_0_595576_20812_debug "import_key=${import_key} is loaded. skip load"
+    return;
+  else
+    # To load module source code
+    local module_path
+    module_path=$(_lobash.0_1_0_595576_20812_get_module_path "$module_name")
+    _lobash.0_1_0_595576_20812_debug "S2. module_name=${module_name} module_path=${module_path}"
+    [[ ! -f $module_path ]] && _lobash.0_1_0_595576_20812_error "Not found module '${module_name}'." && return 4
+
+    _lobash.0_1_0_595576_20812_import_deps "$module_path"
+
+    _lobash.0_1_0_595576_20812_debug "S5. To load the source code of main module. module_path=$module_path"
+    source "$module_path"
+
+    read -r "$import_key" <<< 'loaded'
+  fi
+
+  _lobash.0_1_0_595576_20812_debug "Loaded module. import_key=${import_key}"
+}
+
+_lobash.0_1_0_595576_20812_imports() {
+  local is_force=false
+  if [[ ${1:-} == '-f' ]] || [[ ${1:-} == '--force' ]]; then
+    shift
+    is_force=true
+  fi
+
+  local name
+  for name in "$@"; do
+    _lobash.0_1_0_595576_20812_import "$name" "$is_force"
+  done
+}
+_LOBASH_0_1_0_595576_20812_PREFIX=dotfiles_l.
 
 ######################## Private Methods ########################
 
 # ---
 # Category: Array
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_array_include <array_name> <match>
+# Usage: l.0_1_0_595576_20812_array_include <array_name> <match>
 # ---
 
-l.0_1_0_3105_18178_array_include() {
-  local -n dotfiles_l._array_include_arg_array=$1
+l.0_1_0_595576_20812_array_include() {
+  local -n l_array_include_arg_array=$1
   local match="$2"
   local e
   shift
-  for e in "${dotfiles_l._array_include_arg_array[@]}"; do
+  for e in "${l_array_include_arg_array[@]}"; do
     [[ "$e" == "$match" ]] && echo true && return 0;
   done
 
@@ -94,13 +264,14 @@ l.0_1_0_3105_18178_array_include() {
 # ---
 # Category: Prompt
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_ask <message> [<default>=Y]
+# Usage: l.0_1_0_595576_20812_ask <message> [<default>=Y]
 # Description: Print a message and read Yes/No answer from stdin.
 # Description: when default=Y, if will return YES by default.
 # Description: when default=N, if will return NO by default.
+# Dependent: lower_case
 # ---
 
-l.0_1_0_3105_18178_ask() {
+l.0_1_0_595576_20812_ask() {
   local msg=$1
   local default=${2:-Y}
   local prompt
@@ -115,10 +286,13 @@ l.0_1_0_3105_18178_ask() {
     return 3
   fi
 
+  local answer
   read -rp "$msg $prompt " answer
-  if [[ $answer =~ ^[Yy][Ee]?[Ss]?$ ]]; then
+
+  answer=$(l.0_1_0_595576_20812_lower_case "$answer")
+  if [[ $answer =~ ^ye?s?$ ]]; then
     echo YES
-  elif [[ $answer =~ ^[Nn][Oo]?$ ]]; then
+  elif [[ $answer =~ ^no?$ ]]; then
     echo NO
   elif [[ $answer == '' ]]; then
     echo "$default"
@@ -132,31 +306,39 @@ l.0_1_0_3105_18178_ask() {
 # ---
 # Category: Path
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_basename <path>
-# Usage: echo <path> | l.0_1_0_3105_18178_basename
+# Usage: l.0_1_0_595576_20812_basename <path>
 # Description: Alternative to basename command. It much faster because using shell parameter expansion.
 # ---
 
-l.0_1_0_3105_18178_basename() {
-  local str
-  if [[ -t 0 ]]; then
-    str=$1
-  else
-    IFS='' read -r str
-  fi
+l.0_1_0_595576_20812_basename() {
+  local str=${1:-}
+  str="${str%/}"
+  printf '%s\n' "${str##*/}"
+}
 
-  : "${str%/}"
-  printf '%s\n' "${_##*/}"
+# ---
+# Category: Path
+# Since: 0.1.0
+# Usage: echo <path> | l.0_1_0_595576_20812_basename.p
+# Description: The pipeline version of l.0_1_0_595576_20812_basename
+# Dependent: basename
+# ---
+
+l.0_1_0_595576_20812_basename.p() {
+  local str
+  IFS='' read -r str
+
+  l.0_1_0_595576_20812_basename "$str"
 }
 
 # ---
 # Category: Util
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_benchmark <command> [<repeats>=10]
+# Usage: l.0_1_0_595576_20812_benchmark <command> [<repeats>=10]
 # Description: Run command in repeats to get benchmarks.
 # ---
 
-_l.0_1_0_3105_18178_run_benchmark() {
+_l.0_1_0_595576_20812_run_benchmark() {
   local c=$1
   local repeats=$2
 
@@ -166,7 +348,7 @@ _l.0_1_0_3105_18178_run_benchmark() {
   done;
 }
 
-l.0_1_0_3105_18178_benchmark() {
+l.0_1_0_595576_20812_benchmark() {
   local c=$1
   local repeats=${2:-10}
 
@@ -175,7 +357,7 @@ l.0_1_0_3105_18178_benchmark() {
   type "$c"
   echo "============="
 
-  time _l.0_1_0_3105_18178_run_benchmark "$c" "$repeats"
+  time _l.0_1_0_595576_20812_run_benchmark "$c" "$repeats"
 
   printf '\n--------------------------\n\n'
 }
@@ -184,23 +366,27 @@ l.0_1_0_3105_18178_benchmark() {
 # Category: Prompt
 # Since: 0.1.0
 # Dependent: is_integer
-# Usage: l.0_1_0_3105_18178_choose <item>...
+# Usage: l.0_1_0_595576_20812_choose <item>...
 # Description: Prompt user to choose one item from options. The function will return the value of chosen item.
 # ---
 
-l.0_1_0_3105_18178_choose() {
+l.0_1_0_595576_20812_choose() {
   local items=("$@")
 
-  printf -- '  %s\n' 'No. Item' >/dev/tty
-  local i
-  for i in "${!items[@]}"; do
-    printf -- '- %-2d  %s\n' $(("$i" + 1)) "${items[$i]}" >/dev/tty
-  done
+  # command may invoked in no-login shell
+  if [[ $- =~ i ]]; then
+    printf -- '  %s\n' 'No. Item' >/dev/tty
+    local i
+    for i in "${!items[@]}"; do
+      printf -- '- %-2d  %s\n' $(("$i" + 1)) "${items[$i]}" >/dev/tty
+    done
+  fi
 
+  local num
   read -r -p "Please enter the number to choose: " num
 
   local r
-  r=$(l.0_1_0_3105_18178_is_integer "$num")
+  r=$(l.0_1_0_595576_20812_is_integer "$num")
   [[ $r == false ]] && echo "Must enter an integer. Current: $num">&2 && return 3
 
   if [[ $num -gt ${#items[@]} ]] || [[ $num -lt 1 ]]; then
@@ -214,11 +400,11 @@ l.0_1_0_3105_18178_choose() {
 # ---
 # Category: Util
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_compose [<function_name_or_string>]...
+# Usage: l.0_1_0_595576_20812_compose [<function_name_or_string>]...
 # Description: Function composition
 # ---
 
-l.0_1_0_3105_18178_compose() {
+l.0_1_0_595576_20812_compose() {
   local -a last=()
   for f in "$@"; do
     if [[ $(type -t "$f") == function ]]; then
@@ -233,27 +419,29 @@ l.0_1_0_3105_18178_compose() {
 # ---
 # Category: File
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_count_file_lines <filepath>
+# Usage: l.0_1_0_595576_20812_count_file_lines <filepath>
+# Description: Count lines of file. Similar to `wc -l`.
 # ---
 
 # readarray slow than wc
-# l.0_1_0_3105_18178_count_file_lines() {
+# l.0_1_0_595576_20812_count_file_lines() {
 #   # readarray supported since bash 4.0
 #   readarray -tn 0 lines < "$1"
 #   printf '%s\n' "${#lines[@]}"
 # }
 
-l.0_1_0_3105_18178_count_file_lines() {
+l.0_1_0_595576_20812_count_file_lines() {
   wc -l < "$1" | tr -d ' '
 }
 
 # ---
 # Category: File
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_count_files <directory_path>
+# Usage: l.0_1_0_595576_20812_count_files <directory_path>
+# Description: Count the sum of files under `<directory_path>`.
 # ---
 
-l.0_1_0_3105_18178_count_files() {
+l.0_1_0_595576_20812_count_files() {
   local files
   # compgen will return 1 when no matched files
   files=( $(compgen -f "$1"/ || [[ $? == 1 ]]) )
@@ -263,44 +451,51 @@ l.0_1_0_3105_18178_count_files() {
 # ---
 # Category: String
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_count_lines <string>
-# Usage: echo <string> | l.0_1_0_3105_18178_count_lines
-# Description: The command and process substitution always trim blank line. So l.0_1_0_3105_18178_count_lines do not accept normal parameter passing.
+# Usage: l.0_1_0_595576_20812_count_lines <string>
+# Description: Count lints of string like `wc -l`.
+# Description: The Bash command substitution always trim blank line. So l.0_1_0_595576_20812_count_lines do not accept normal parameter passing.
 # Description: Refer to https://stackoverflow.com/a/37706905
 # ---
 
-l.0_1_0_3105_18178_count_lines() {
+l.0_1_0_595576_20812_count_lines() {
+  printf '%b' "$1" | wc -l | tr -d ' '
+}
+
+# ---
+# Category: String
+# Since: 0.1.0
+# Usage: echo <string> | l.0_1_0_595576_20812_count_lines.p
+# Description: The pipeline version of l.0_1_0_595576_20812_count_lines
+# ---
+
+l.0_1_0_595576_20812_count_lines.p() {
   local count=0
-  if [[ -t 0 ]]; then
-    [[ -z ${1:-} ]] && printf '0\n' && return 0
-    wc -l <<< "$1" | tr -d ' '
-  else
-    while read -r -d $'\n' _; do
-      ((count+=1))
-    done
-    printf '%s\n' "$count"
-  fi
+  while read -r -d $'\n' _; do
+    ((count+=1))
+  done
+  printf '%s\n' "$count"
 }
 
 # ---
 # Category: Variable
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_cur_function_name
+# Usage: l.0_1_0_595576_20812_cur_function_name
+# Description: Return the name of current function where the l.0_1_0_595576_20812_cur_function_name called in.
 # ---
 
-l.0_1_0_3105_18178_cur_function_name() {
+l.0_1_0_595576_20812_cur_function_name() {
   printf '%s\n' "${FUNCNAME[1]}"
 }
 
 # ---
 # Category: Terminal
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_cursor_col
-# Description: get column number of current cursor position
+# Usage: l.0_1_0_595576_20812_cursor_col
+# Description: Get column number of current cursor position.
 # ---
 
 # Refer to https://unix.stackexchange.com/a/183121
-l.0_1_0_3105_18178_cursor_col() {
+l.0_1_0_595576_20812_cursor_col() {
   local COL
   IFS=';' read -rsdR -p $'\E[6n' _ COL
   echo "${COL}"
@@ -309,17 +504,17 @@ l.0_1_0_3105_18178_cursor_col() {
 # ---
 # Category: Terminal
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_cursor_pos
-# Usage: IFS=';' c_pos=( $(l.0_1_0_3105_18178_cursor_pos) )
-# Description: get current cursor position. It will print "row;column" with default IFS.
+# Usage: l.0_1_0_595576_20812_cursor_pos
+# Usage: IFS=';' c_pos=( $(l.0_1_0_595576_20812_cursor_pos) )
+# Description: Get current cursor position. It will print "row;column" with default IFS.
 # ---
 
-# l.0_1_0_3105_18178_cursor_pos() {
+# l.0_1_0_595576_20812_cursor_pos() {
 #   stty size
 # }
 
 # Refer to https://unix.stackexchange.com/a/183121
-l.0_1_0_3105_18178_cursor_pos() {
+l.0_1_0_595576_20812_cursor_pos() {
   local CURPOS
   read -rsdR -p $'\E[6n' CURPOS
   CURPOS=${CURPOS#*[} # Strip decoration characters <ESC>[
@@ -329,12 +524,12 @@ l.0_1_0_3105_18178_cursor_pos() {
 # ---
 # Category: Terminal
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_cursor_row
-# Description: get row number of current cursor position
+# Usage: l.0_1_0_595576_20812_cursor_row
+# Description: Get row number of current cursor position.
 # ---
 
 # Refer to https://unix.stackexchange.com/a/183121
-l.0_1_0_3105_18178_cursor_row() {
+l.0_1_0_595576_20812_cursor_row() {
   local ROW
   IFS=';' read -rsdR -p $'\E[6n' ROW _
   # Strip decoration characters <ESC>[
@@ -344,12 +539,12 @@ l.0_1_0_3105_18178_cursor_row() {
 # ---
 # Category: Time
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_date [<format>=]
-# Description: Refer to 'man strftime' for <format>.
+# Usage: l.0_1_0_595576_20812_date [<format>=]
+# Description: Refer to 'man strftime' for `<format>`.
 # ---
 
 # Reference: https://github.com/dylanaraps/pure-bash-bible#get-the-current-date-using-strftime
-l.0_1_0_3105_18178_date() {
+l.0_1_0_595576_20812_date() {
   # %(datefmt)T : Causes printf to output the date-time string resulting from using datefmt as a
   # format string for strftime(3). The corresponding argument is an integer representing the number
   # of seconds since the epoch. Two special argument values may be used: -1 represents the
@@ -361,111 +556,126 @@ l.0_1_0_3105_18178_date() {
 # ---
 # Category: System
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_detect_os
+# Usage: l.0_1_0_595576_20812_detect_os
+# Description: Return the name of current operator system.
 # ---
 
-l.0_1_0_3105_18178_detect_os() {
-  _lobash_0_1_0_3105_18178_detect_os
+l.0_1_0_595576_20812_detect_os() {
+  _lobash.0_1_0_595576_20812_detect_os
 }
 
 # ---
 # Category: Path
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_dirname <path>
-# Usage: echo <path> | l.0_1_0_3105_18178_dirname
+# Usage: l.0_1_0_595576_20812_dirname <path>
 # Description: Alternative to dirname command. It much faster because using shell parameter expansion.
 # ---
 
-l.0_1_0_3105_18178_dirname() {
-  local str
-  if [[ -t 0 ]]; then
-    str=$1
-  else
-    IFS='' read -r str
-  fi
+l.0_1_0_595576_20812_dirname() {
+  _lobash.0_1_0_595576_20812_dirname "${1:-}"
+}
 
-  _lobash.0_1_0_3105_18178_dirname "$str"
+# ---
+# Category: Path
+# Since: 0.1.0
+# Usage: echo <path> | l.0_1_0_595576_20812_dirname.p
+# Description: The pipeline version of l.0_1_0_595576_20812_dirname
+# ---
+
+l.0_1_0_595576_20812_dirname.p() {
+  local str
+  IFS='' read -r str
+  _lobash.0_1_0_595576_20812_dirname "$str"
 }
 
 # ---
 # Category: Console
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_echo <string>...
-# Description: A safe way to echo string. Not support any options.
+# Usage: l.0_1_0_595576_20812_echo <string>...
+# Description: A easy and safe way to print string. Not support any options.
 # Description: The builtin echo will get unexpected result while execute `b=( -n 123 ); echo "${b[@]}"`.
 # Description: See https://github.com/anordal/shellharden/blob/master/how_to_do_things_safely_in_bash.md#echo--printf
 # ---
 
-l.0_1_0_3105_18178_echo() {
+l.0_1_0_595576_20812_echo() {
   printf -- '%b\n' "$*"
 }
 
 # ---
 # Category: Console
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_echo_array <array_name>
-# Description: print each values of array with newline.
+# Usage: l.0_1_0_595576_20812_echo_array <array_name>
+# Description: Print each values of array with newline.
 # ---
 
-l.0_1_0_3105_18178_echo_array() {
-  local -n dotfiles_l._echo_array_arg1=$1
-  printf '%s\n' "${dotfiles_l._echo_array_arg1[@]}"
+l.0_1_0_595576_20812_echo_array() {
+  local -n l_echo_array_arg1=$1
+  printf '%s\n' "${l_echo_array_arg1[@]}"
 }
 
 # ---
 # Category: String
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_end_with <string> <match>
+# Usage: l.0_1_0_595576_20812_end_with <string> <match>
+# Description: Return `true` or `false`.
 # ---
 
-l.0_1_0_3105_18178_end_with() {
+l.0_1_0_595576_20812_end_with() {
   [[ ${1%%"$2"}$2 == "$1" ]] && echo true || echo false
 }
 
 # ---
 # Category: File
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_extname <string>
-# Usage: echo <string> | l.0_1_0_3105_18178_extname
+# Usage: l.0_1_0_595576_20812_extname <path>
+# Description: Returns the extension of the path, from the last occurrence of the . (period) character to end of string in the last portion of the path. If there is no . in the last portion of the path, or if the first character of the basename of path (see path.basename()) is ., then an empty string is returned.
 # ---
 
-l.0_1_0_3105_18178_extname() {
-  local str
-  if [[ -t 0 ]]; then
-    str=$1
-  else
-    IFS='' read -r str
-  fi
+l.0_1_0_595576_20812_extname() {
+  local path=${1:-}
+  [[ $path =~ ^\. ]] && echo '' && return
+  [[ ! $path =~ \. ]] && echo '' && return
+  echo ".${path##*.}"
+}
 
-  [[ $str =~ ^\. ]] && echo '' && return
-  [[ ! $str =~ \. ]] && echo '' && return
-  echo ".${str##*.}"
+# ---
+# Category: File
+# Since: 0.1.0
+# Usage: echo <path> | l.0_1_0_595576_20812_extname.p
+# Description: The pipeline of l.0_1_0_595576_20812_extname
+# Dependent: extname
+# ---
+
+l.0_1_0_595576_20812_extname.p() {
+  local path
+  IFS='' read -r path
+  l.0_1_0_595576_20812_extname "$path"
 }
 
 # ---
 # Category: Array
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_first <array_name>
-# Description: It will return the value of arg1.
+# Usage: l.0_1_0_595576_20812_first <array_name>
+# Description: Return the first value of array.
 # ---
 
-l.0_1_0_3105_18178_first() {
-  local -n dotfiles_l._first_arg1=$1
-  printf '%s\n' "${dotfiles_l._first_arg1[@]:0:1}"
+l.0_1_0_595576_20812_first() {
+  local -n l_first_arg1=$1
+  printf '%s\n' "${l_first_arg1[@]:0:1}"
 }
 
 # ---
 # Category: Condition
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_has <condition> <what>
-# Usage: l.0_1_0_3105_18178_has not <condition> <what>
+# Usage: l.0_1_0_595576_20812_has <condition> <what>
+# Usage: l.0_1_0_595576_20812_has not <condition> <what>
 # Description: Exit with 0 or 1. Check if command/function/alias/keyword/builtin or anything existed.
-# Description: <condition>  Valid value: `command`, `function`, `alias`, `keyword`, `builtin`, `the`
+# Description: `<condition>` Valid value: `command`, `function`, `alias`, `keyword`, `builtin`, `the`
 # Description: This method is not recommended. Use strict_has instead.
 # ---
 
 # Reference: https://github.com/qzb/is.sh/blob/master/is.sh
-l.0_1_0_3105_18178_has() {
+l.0_1_0_595576_20812_has() {
   local condition="$1"
   local value="$2"
 
@@ -475,7 +685,7 @@ l.0_1_0_3105_18178_has() {
     local e=false
     [[ $- =~ e ]] && e=true
     set +e
-    l.0_1_0_3105_18178_has "${@}"
+    l.0_1_0_595576_20812_has "${@}"
     local result=$?
     [[ $e == true ]] && set -e
 
@@ -513,12 +723,12 @@ l.0_1_0_3105_18178_has() {
 # ---
 # Category: Color
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_hex_to_rgb <HEX>
-# Description: Return a list contains <R> <G> <B>.
+# Usage: l.0_1_0_595576_20812_hex_to_rgb <HEX>
+# Description: Return a list contains `<R> <G> <B>`.
 # ---
 
 # Reference: https://github.com/dylanaraps/pure-bash-bible#convert-a-hex-color-to-rgb
-l.0_1_0_3105_18178_hex_to_rgb() {
+l.0_1_0_595576_20812_hex_to_rgb() {
   local hex r g b
   hex="${1/\#}"
 
@@ -537,24 +747,25 @@ l.0_1_0_3105_18178_hex_to_rgb() {
 # ---
 # Category: System
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_hostname
+# Usage: l.0_1_0_595576_20812_hostname
+# Description: Return current hostname.
 # ---
 
-l.0_1_0_3105_18178_hostname() {
+l.0_1_0_595576_20812_hostname() {
   printf '%s\n' "${HOSTNAME:-$(hostname)}"
 }
 
 # ---
 # Category: Condition
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_if <condition> <then> [<else>]
+# Usage: l.0_1_0_595576_20812_if <condition> <then> [<else>]
 # Description: The difference from shell builtin `if` is when condition function throw exception it will ended immediately.
-# Description: <condition> can be function name, string and number. The function should return `true`/`0` or `false`/`1`.
-# Description: <then> and <else> must be function name. And <else> is optional.
-# Description: When <condition> is true, <then> function will be invoked. Otherwise <else> will be invoked if it passed.
+# Description: `<condition>` can be function name, string and number. The function should return `true`/`0` or `false`/`1`.
+# Description: `<then>` and `<else>` must be function name. And `<else>` is optional.
+# Description: When `<condition>` is true, `<then>` function will be invoked. Otherwise `<else>` will be invoked if it passed.
 # ---
 
-l.0_1_0_3105_18178_if() {
+l.0_1_0_595576_20812_if() {
   local condition
   if [[ $(type -t "$1") == function ]]; then
     condition=$($1)
@@ -575,22 +786,23 @@ l.0_1_0_3105_18178_if() {
 # ---
 # Category: Arithmetic
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_inc <var_name> [<addend>=1]
+# Usage: l.0_1_0_595576_20812_inc <var_name> [<addend>=1]
 # Description: Increase number with addend.
 # ---
 
-l.0_1_0_3105_18178_inc() {
-  local -n dotfiles_l._inc_arg1=$1
-  ((dotfiles_l._inc_arg1+=${2:-1})) || true
+l.0_1_0_595576_20812_inc() {
+  local -n l_inc_arg1=$1
+  ((l_inc_arg1+=${2:-1})) || true
 }
 
 # ---
 # Category: Condition
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_is_array <var_name>
+# Usage: l.0_1_0_595576_20812_is_array <var_name>
+# Description: Return `true` or `false`.
 # ---
 
-l.0_1_0_3105_18178_is_array() {
+l.0_1_0_595576_20812_is_array() {
   [[ -z ${1:-} ]] && echo false && return 0
 
   local str
@@ -604,45 +816,47 @@ l.0_1_0_3105_18178_is_array() {
 # ---
 # Category: Condition
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_is_bash
+# Usage: l.0_1_0_595576_20812_is_bash
+# Description: Return `true` or `false`.
 # ---
 
-l.0_1_0_3105_18178_is_bash() {
-  [[ -n "$BASH_VERSION" ]] && echo true || echo false
+l.0_1_0_595576_20812_is_bash() {
+  _lobash.0_1_0_595576_20812_is_bash
 }
 
 # ---
 # Category: Condition
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_is_dir <var>
+# Usage: l.0_1_0_595576_20812_is_dir <path>
+# Description: Return `true` or `false`.
 # ---
 
-l.0_1_0_3105_18178_is_dir() {
-  [[ -d $1 ]] && echo true || echo false
+l.0_1_0_595576_20812_is_dir() {
+  [[ -d ${1:-} ]] && echo true || echo false
 }
 
 # ---
 # Category: Condition
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_is_executable <var>
+# Usage: l.0_1_0_595576_20812_is_executable <path>
 # Description: Similar to `[[ -x ]]`. Return `true` or `false`.
 # ---
 
-l.0_1_0_3105_18178_is_executable() {
-  [[ -x $1 ]] && echo true || echo false
+l.0_1_0_595576_20812_is_executable() {
+  [[ -x ${1:-} ]] && echo true || echo false
 }
 
 # ---
 # Category: Condition
 # Since: 0.1.0
 # Dependent: is_dir
-# Usage: l.0_1_0_3105_18178_is_executable_file <var>
-# Description: Similar to `l.0_1_0_3105_18178_is_executable`. But directory will return false.
+# Usage: l.0_1_0_595576_20812_is_executable_file <path>
+# Description: Similar to `l.0_1_0_595576_20812_is_executable`. But if `<path>` is directory it will return false.
 # ---
 
-l.0_1_0_3105_18178_is_executable_file() {
+l.0_1_0_595576_20812_is_executable_file() {
   local r
-  r=$(l.0_1_0_3105_18178_is_dir "$1")
+  r=$(l.0_1_0_595576_20812_is_dir "${1:-}")
   if [[ $r == true ]]; then
     # directory is executable
     # https://superuser.com/a/168583
@@ -656,21 +870,22 @@ l.0_1_0_3105_18178_is_executable_file() {
 # Category: Condition
 # Since: 0.1.0
 # Dependent: is_integer
-# Usage: l.0_1_0_3105_18178_is_false <var>
+# Usage: l.0_1_0_595576_20812_is_false <var>
+# Description: Return `true` or `false`.
 # ---
 
-l.0_1_0_3105_18178_is_false() {
+l.0_1_0_595576_20812_is_false() {
   local r
-  r=$(l.0_1_0_3105_18178_is_integer "$1")
+  r=$(l.0_1_0_595576_20812_is_integer "${1:-}")
 
   if [[ $r == true ]]; then
-    if [[ $1 != 0 ]]; then
+    if [[ ${1:-} != 0 ]]; then
       echo true
     else
       echo false
     fi
   else
-    if [[ $1 == false ]]; then
+    if [[ ${1:-} == false ]]; then
       echo true
     else
       echo false
@@ -681,71 +896,78 @@ l.0_1_0_3105_18178_is_false() {
 # ---
 # Category: Condition
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_is_file <var>
+# Usage: l.0_1_0_595576_20812_is_file <path>
+# Description: Return `true` or `false`.
 # ---
 
-l.0_1_0_3105_18178_is_file() {
-  [[ -f $1 ]] && echo true || echo false
+l.0_1_0_595576_20812_is_file() {
+  [[ -f ${1:-} ]] && echo true || echo false
 }
 
 # ---
 # Category: Condition
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_is_float <str>
+# Usage: l.0_1_0_595576_20812_is_float <str>
+# Description: Return `true` or `false`.
 # ---
 
-l.0_1_0_3105_18178_is_float() {
-  [[ $1 =~ ^[-+]?[0-9]+([.][0-9]+)?$ ]] && echo true || echo false
+l.0_1_0_595576_20812_is_float() {
+  [[ ${1:-} =~ ^[-+]?[0-9]+([.][0-9]+)?$ ]] && echo true || echo false
 }
 
 # ---
 # Category: Condition
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_is_integer <str>
+# Usage: l.0_1_0_595576_20812_is_integer <str>
+# Description: Return `true` or `false`.
 # ---
 
-l.0_1_0_3105_18178_is_integer() {
-  [[ $1 =~ ^[-+]?[0-9]+$ ]] && echo true || echo false
+l.0_1_0_595576_20812_is_integer() {
+  [[ ${1:-} =~ ^[-+]?[0-9]+$ ]] && echo true || echo false
 }
 
 # ---
 # Category: Condition
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_is_link <var>
+# Usage: l.0_1_0_595576_20812_is_link <path>
+# Description: Return `true` or `false`.
 # ---
 
-l.0_1_0_3105_18178_is_link() {
-  [[ -L $1 ]] && echo true || echo false
+l.0_1_0_595576_20812_is_link() {
+  [[ -L ${1:-} ]] && echo true || echo false
 }
 
 # ---
 # Category: Condition
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_is_number <str>
+# Usage: l.0_1_0_595576_20812_is_number <str>
+# Description: Return `true` or `false`.
 # ---
 
-l.0_1_0_3105_18178_is_number() {
-  [[ $1 =~ ^[-+]?[0-9]+(.[0-9]+)?$ ]] && echo true || echo false
+l.0_1_0_595576_20812_is_number() {
+  [[ ${1:-} =~ ^[-+]?[0-9]+(.[0-9]+)?$ ]] && echo true || echo false
 }
 
 # ---
 # Category: Condition
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_is_readable <var>
+# Usage: l.0_1_0_595576_20812_is_readable <path>
+# Description: Return `true` or `false`.
 # ---
 
-l.0_1_0_3105_18178_is_readable() {
-  [[ -r $1 ]] && echo true || echo false
+l.0_1_0_595576_20812_is_readable() {
+  [[ -r ${1:-} ]] && echo true || echo false
 }
 
 # ---
 # Category: Condition
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_is_true <var>
+# Usage: l.0_1_0_595576_20812_is_true <str>
+# Description: Return `true` or `false`.
 # ---
 
-l.0_1_0_3105_18178_is_true() {
-  if [[ $1 == true ]] || [[ $1 == 0 ]]; then
+l.0_1_0_595576_20812_is_true() {
+  if [[ ${1:-} == true ]] || [[ ${1:-} == 0 ]]; then
     echo true
   else
     echo false
@@ -755,106 +977,122 @@ l.0_1_0_3105_18178_is_true() {
 # ---
 # Category: Condition
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_is_writeable <var>
+# Usage: l.0_1_0_595576_20812_is_writeable <path>
+# Description: Return `true` or `false`.
 # ---
 
-l.0_1_0_3105_18178_is_writeable() {
-  [[ -w $1 ]] && echo true || echo false
+l.0_1_0_595576_20812_is_writeable() {
+  [[ -w ${1:-} ]] && echo true || echo false
 }
 
 # ---
 # Category: Condition
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_is_zsh
+# Usage: l.0_1_0_595576_20812_is_zsh
+# Description: Return `true` or `false`.
 # ---
 
-l.0_1_0_3105_18178_is_zsh() {
-  [[ -n "$ZSH_VERSION" ]] && echo true || echo false
+l.0_1_0_595576_20812_is_zsh() {
+  [[ -n "${ZSH_VERSION:-}" ]] && echo true || echo false
 }
 
 # ---
 # Category: String
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_join <array_name> [<delimiter>=,]
+# Usage: l.0_1_0_595576_20812_join <array_name> [<delimiter>=,]
 # Description: Convert all elements in array into a string separated by delimiter.
 # ---
 
-l.0_1_0_3105_18178_join() {
-  local -n dotfiles_l._join_arg1=$1
+l.0_1_0_595576_20812_join() {
+  local -n l_join_arg1=$1
   local _IFS=$IFS
   if [[ $# == 1 ]]; then
     IFS=,
   else
     IFS=${2}
   fi
-  printf '%s\n' "${dotfiles_l._join_arg1[*]}"
+  printf '%s\n' "${l_join_arg1[*]}"
   IFS=$_IFS
 }
 
 # ---
 # Category: Array
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_last <array_name>
-# Description: It will return the value of argN.
+# Usage: l.0_1_0_595576_20812_last <array_name>
+# Description: Return the last value of array.
 # ---
 
-l.0_1_0_3105_18178_last() {
-  local -n dotfiles_l._last_arg1=$1
-  printf '%s\n' "${dotfiles_l._last_arg1[@]: -1:1}"
+l.0_1_0_595576_20812_last() {
+  local -n l_last_arg1=$1
+  printf '%s\n' "${l_last_arg1[@]: -1:1}"
 }
 
 # ---
 # Category: String
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_lower_case <string>
-# Usage: echo <string> | l.0_1_0_3105_18178_lower_case
+# Usage: l.0_1_0_595576_20812_lower_case <string>
 # Description: Convert all characters of string to lower case.
 # ---
 
-# l.0_1_0_3105_18178_lower_case() {
+# An alternative for Bash 3.x
+# l.0_1_0_595576_20812_lower_case() {
 #   tr '[:upper:]' '[:lower:]' <<< ${1:-}
 # }
 
-# CAVEAT: Requires bash 4+
-l.0_1_0_3105_18178_lower_case() {
-  local str
-  if [[ -t 0 ]]; then
-    str=$1
-  else
-    IFS='' read -r str
-  fi
-
+l.0_1_0_595576_20812_lower_case() {
+  local str=${1:-}
   printf '%s\n' "${str,,}"
 }
 
 # ---
 # Category: String
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_lower_first <string>
-# Usage: echo <string> | l.0_1_0_3105_18178_lower_first
+# Usage: echo <string> | l.0_1_0_595576_20812_lower_case.p
+# Description: The pipeline version of l.0_1_0_595576_20812_lower_case
+# Dependent: lower_case
+# ---
+
+l.0_1_0_595576_20812_lower_case.p() {
+  local str
+  IFS='' read -r str
+  l.0_1_0_595576_20812_lower_case "$str"
+}
+
+# ---
+# Category: String
+# Since: 0.1.0
+# Usage: l.0_1_0_595576_20812_lower_first <string>
+# Usage: echo <string> | l.0_1_0_595576_20812_lower_first
 # Description: Convert the first character of string to lower case.
 # ---
 
-# CAVEAT: Requires bash 4+
-l.0_1_0_3105_18178_lower_first() {
-  local str
-  if [[ -t 0 ]]; then
-    str=$1
-  else
-    IFS='' read -r str
-  fi
-
+l.0_1_0_595576_20812_lower_first() {
+  local str=${1:-}
   printf '%s\n' "${str,}"
 }
 
 # ---
 # Category: String
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_match "string" "regex" [index=1]
+# Usage: echo <string> | l.0_1_0_595576_20812_lower_first.p
+# Description: The pipeline version of l.0_1_0_595576_20812_lower_first
+# Dependent: lower_first
+# ---
+
+l.0_1_0_595576_20812_lower_first.p() {
+  local str
+  IFS='' read -r str
+  l.0_1_0_595576_20812_lower_first "$str"
+}
+
+# ---
+# Category: String
+# Since: 0.1.0
+# Usage: l.0_1_0_595576_20812_match "string" "regex" [index=1]
 # Description: Return matched part of string. Return empty string if no matched. Support capturing groups.
 # ---
 
-l.0_1_0_3105_18178_match() {
+l.0_1_0_595576_20812_match() {
   [[ ${3:-} == 0 ]] && echo "index cannot be 0" >&2 && return 3
 
   if [[ $1 =~ $2 ]]; then
@@ -871,20 +1109,14 @@ l.0_1_0_3105_18178_match() {
 # ---
 # Category: Path
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_normalize <path>
-# Usage: echo <path> | l.0_1_0_3105_18178_normalize
-# Dependent: split, join
+# Usage: l.0_1_0_595576_20812_normalize <path>
 # Description: Normalize the given path which can be an unexisted path.
 # Description: Trailing `/` always be removed.
+# Dependent: split, join
 # ---
 
-l.0_1_0_3105_18178_normalize() {
-  local path
-  if [[ -t 0 ]]; then
-    path=${1:-}
-  else
-    IFS='' read -r path
-  fi
+l.0_1_0_595576_20812_normalize() {
+  local path=${1:-}
 
   if [[ -z ${path} ]]; then
     echo '.'
@@ -897,7 +1129,7 @@ l.0_1_0_3105_18178_normalize() {
   fi
 
   local -a words
-  l.0_1_0_3105_18178_split "$path" words '/'
+  l.0_1_0_595576_20812_split "$path" words '/'
   local -a list=()
   local -a pre_list=()
   local n=0
@@ -928,22 +1160,32 @@ l.0_1_0_3105_18178_normalize() {
     fi
   done
 
-  printf '%s%s\n' "$(l.0_1_0_3105_18178_join pre_list '/')" "$(l.0_1_0_3105_18178_join list '/')"
+  printf '%s%s\n' "$(l.0_1_0_595576_20812_join pre_list '/')" "$(l.0_1_0_595576_20812_join list '/')"
+}
+
+# ---
+# Category: Path
+# Since: 0.1.0
+# Usage: echo <path> | l.0_1_0_595576_20812_normalize.p
+# Description: The pipeline version of l.0_1_0_595576_20812_normalize
+# Dependent: normalize
+# ---
+
+l.0_1_0_595576_20812_normalize.p() {
+  local path
+  IFS='' read -r path
+  l.0_1_0_595576_20812_normalize "$path"
 }
 
 # ---
 # Category: Condition
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_not <condition>
-# Description: <condition> must be `true` or `false`. This function returns the opposite value.
+# Usage: l.0_1_0_595576_20812_not <condition>
+# Description: `<condition>` must be `true` or `false`. This function returns the opposite value.
 # ---
 
-l.0_1_0_3105_18178_not() {
-  if [[ -t 0 ]]; then
-    local condition="${1:-}"
-  else
-    read -r condition
-  fi
+l.0_1_0_595576_20812_not() {
+  local condition="${1:-}"
 
   if [[ $condition == true ]]; then
     echo false;
@@ -956,76 +1198,106 @@ l.0_1_0_3105_18178_not() {
 }
 
 # ---
-# Category: Time
+# Category: Condition
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_now
-# Description: Print the timestamp of the number of milliseconds that have elapsed since the Unix epoch (1 January 1970 00:00:00 UTC).
+# Usage: echo <condition> | l.0_1_0_595576_20812_not.p
+# Description: The pipeline version of l.0_1_0_595576_20812_not
+# Dependent: not
 # ---
 
-l.0_1_0_3105_18178_now() {
-  # +%N not supported in MacOS.
-  # date '+%s%3N'
-
-  # Perl is ubiquitous.
-  perl -MTime::HiRes=time -e 'printf "%d\n", time * 1000'
+l.0_1_0_595576_20812_not.p() {
+  local condition
+  read -r condition
+  l.0_1_0_595576_20812_not "$condition"
 }
 
 # ---
 # Category: Time
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_now_s
+# Usage: l.0_1_0_595576_20812_now
+# Description: Print the timestamp of the number of milliseconds that have elapsed since the Unix epoch (1 January 1970 00:00:00 UTC).
+# Description: Require Perl 5.8.8 and higher install if run in Alpine/Busybox systems. And most Unix/Linux operating systems have included Perl 5. See the [Perl Binaries](https://www.cpan.org/ports/binaries.html).
+# ---
+
+_l.0_1_0_595576_20812_perl_now() {
+  perl -MTime::HiRes=time -e 'printf "%d\n", time * 1000'
+}
+
+l.0_1_0_595576_20812_now() {
+  local timestamp
+  if [[ $_LOBASH_0_1_0_595576_20812_OS == 'MacOS' ]]; then
+    # date '+%N' not supported in MacOS.
+    _l.0_1_0_595576_20812_perl_now
+  else
+    # Some Linux systems may not install the Perl module "Time::HiRes".
+    # So use date '+%3N' to get milliseconds.
+    timestamp=$(date '+%s%3N')
+
+    if [[ ${#timestamp} == 10 ]]; then
+      # But the date '+%N' is GNU date feature which not supported in Alpine/Busybox systems.
+      _l.0_1_0_595576_20812_perl_now
+    else
+      printf '%s\n' "$timestamp"
+    fi
+  fi
+}
+
+# ---
+# Category: Time
+# Since: 0.1.0
+# Usage: l.0_1_0_595576_20812_now_s
 # Description: Print the timestamp of the number of seconds that have elapsed since the Unix epoch (1 January 1970 00:00:00 UTC).
 # Dependent: date
 # ---
 
-l.0_1_0_3105_18178_now_s() {
-  l.0_1_0_3105_18178_date '%s'
+l.0_1_0_595576_20812_now_s() {
+  l.0_1_0_595576_20812_date '%s'
 }
 
 # ---
 # Category: Path
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_pwd
-# Description: Return the current working directory as set by the cd builtin.
+# Usage: l.0_1_0_595576_20812_pwd
+# Description: Return the current working directory as set by the `cd` builtin command.
 # ---
 
-l.0_1_0_3105_18178_pwd() {
+l.0_1_0_595576_20812_pwd() {
   printf '%s\n' "$PWD"
 }
 
 # ---
-# Category: Util
+# Category: Variable
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_random [<length>=10] [<pattern>=a-zA-Z0-9@#*=[]]
+# Usage: l.0_1_0_595576_20812_random [<length>=10] [<pattern>=a-zA-Z0-9@#*=[]]
 # Description: Return a random string in specific length.
-# Description: The <pattern> is allowed characters in range.
+# Description: The `<pattern>` is allowed characters in range.
 # ---
 
-l.0_1_0_3105_18178_random() {
+l.0_1_0_595576_20812_random() {
   local length=${1:-10}
   local pattern=${2:-a-zA-Z0-9@#*=[]}
-  printf '%s\n' "$(LC_CTYPE=C tr -dc "$pattern" < /dev/urandom | head -c "$length")"
+  printf '%s\n' "$(LC_ALL=C tr -dc "$pattern" < /dev/urandom | head -c "$length" || true)"
 }
 
 # ---
 # Category: Path
 # Since: 0.1.0
 # Dependent: normalize
-# Usage: l.0_1_0_3105_18178_relative <path1> <path2>
+# Usage: l.0_1_0_595576_20812_relative <path1> <path2>
 # ---
 
-l.0_1_0_3105_18178_relative() {
+l.0_1_0_595576_20812_relative() {
   echo 'todo'
 }
 
 # ---
 # Category: Util
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_repeat <N> <command_name> [<command_args>]...
+# Usage: l.0_1_0_595576_20812_repeat <N> <command_name> [<command_args>]...
 # Description: Execute command in N times.
 # ---
 
-l.0_1_0_3105_18178_repeat() {
+l.0_1_0_595576_20812_repeat() {
   local -i n=$1
   (( n == 0 )) && return
   (( n < 0 )) && return
@@ -1039,29 +1311,29 @@ l.0_1_0_3105_18178_repeat() {
 # ---
 # Category: Color
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_rgb_to_hex <R> <G> <B>
+# Usage: l.0_1_0_595576_20812_rgb_to_hex <R> <G> <B>
 # Dependent: is_number
 # Description: Return hex string. Like '#ffffff'
 # ---
 
 # Reference: https://github.com/dylanaraps/pure-bash-bible#convert-an-rgb-color-to-hex
-l.0_1_0_3105_18178_rgb_to_hex() {
+l.0_1_0_595576_20812_rgb_to_hex() {
   if (( $# != 3 )); then
     echo 'The arguments size not equal 3' >&2
     return 3
   fi
 
-  if [[ $(l.0_1_0_3105_18178_is_number "$1") == false ]]; then
+  if [[ $(l.0_1_0_595576_20812_is_number "$1") == false ]]; then
     echo 'The first argument is not a number' >&2
     return 4
   fi
 
-  if [[ $(l.0_1_0_3105_18178_is_number "$2") == false ]]; then
+  if [[ $(l.0_1_0_595576_20812_is_number "$2") == false ]]; then
     echo 'The second argument is not a number' >&2
     return 5
   fi
 
-  if [[ $(l.0_1_0_3105_18178_is_number "$3") == false ]]; then
+  if [[ $(l.0_1_0_595576_20812_is_number "$3") == false ]]; then
     echo 'The third argument is not a number' >&2
     return 6
   fi
@@ -1072,22 +1344,22 @@ l.0_1_0_3105_18178_rgb_to_hex() {
 # ---
 # Category: System
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_sleep <number_or_float>
+# Usage: l.0_1_0_595576_20812_sleep <number_or_float>
 # Description: Same to sleep command but support float.
 # Description: When run it in Linux/Unix System, the precision of sleep time is 1ms. The deviation of sleep time is 1~2ms by actual measurement.
 # Description: When run it in MacOS, the precision of sleep time is 100ms. The deviation of sleep time is 30~40ms by actual measurement.
 # ---
 
 # This way is accurate but has bug. Sleep can be cancelled when stdin get 99999 characters in time.
-# l.0_1_0_3105_18178_sleep() {
+# l.0_1_0_595576_20812_sleep() {
 #   read -rst "${1:-1}" -N 99999 || true
 # }
 
 # MacOS will show shows "/dev/fd/62: Permission denied" on `exec {_sleep_fd}<> <(true)`. So we make a workaround.
 if [[ $OSTYPE =~ darwin ]]; then
-  _l_0_1_0_3105_18178_sleep_temp=$(mktemp -u)
+  _L_0_1_0_595576_20812_SLEEP_TEMP=$(mktemp -u)
   # Create a FIFO special file
-  mkfifo -m 700 "$_l_0_1_0_3105_18178_sleep_temp"
+  mkfifo -m 700 "$_L_0_1_0_595576_20812_SLEEP_TEMP"
 fi
 
 # Refer to below links
@@ -1095,7 +1367,7 @@ fi
 # - https://bash.cyberciti.biz/guide/Opening_the_file_descriptors_for_reading_and_writing
 # - https://bash.cyberciti.biz/guide/Closes_the_file_descriptor_(fd)
 # - https://bash.cyberciti.biz/guide/Reads_from_the_file_descriptor_(fd)
-l.0_1_0_3105_18178_sleep() {
+l.0_1_0_595576_20812_sleep() {
   # Reset IFS in case it’s set to something weird.
   local IFS
   local _sleep_fd
@@ -1103,13 +1375,13 @@ l.0_1_0_3105_18178_sleep() {
   if [[ $OSTYPE =~ darwin ]]; then
     # MacOS will show shows "/dev/fd/62: Permission denied" on `exec {_sleep_fd}<> <(true)`. So we make a workaround.
 
-    # local _l_0_1_0_3105_18178_sleep_temp
+    # local _L_0_1_0_595576_20812_SLEEP_TEMP
     # Get available temp file path
-    # _l_0_1_0_3105_18178_sleep_temp=$(mktemp -u)
+    # _L_0_1_0_595576_20812_SLEEP_TEMP=$(mktemp -u)
     # # Create a FIFO special file
-    # mkfifo -m 700 "$_l_0_1_0_3105_18178_sleep_temp"
-    exec {_sleep_fd}<>"$_l_0_1_0_3105_18178_sleep_temp"
-    # rm -f "$_l_0_1_0_3105_18178_sleep_temp"
+    # mkfifo -m 700 "$_L_0_1_0_595576_20812_SLEEP_TEMP"
+    exec {_sleep_fd}<>"$_L_0_1_0_595576_20812_SLEEP_TEMP"
+    # rm -f "$_L_0_1_0_595576_20812_SLEEP_TEMP"
   else
     exec {_sleep_fd}<> <(true)
   fi
@@ -1123,24 +1395,24 @@ l.0_1_0_3105_18178_sleep() {
 # ---
 # Category: Array
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_sort <array_name> [<sort-opts>]...
-# Description: Sort an array. The <sort-opts> are options of sort command.
+# Usage: l.0_1_0_595576_20812_sort <array_name> [<sort-opts>]...
+# Description: Sort an array. The `<sort-opts>` are options of sort command.
 # ---
 
-l.0_1_0_3105_18178_sort() {
-  local -n dotfiles_l._sort_arg1=$1
+l.0_1_0_595576_20812_sort() {
+  local -n l_sort_arg1=$1
   shift
-  printf '%s\n' "${dotfiles_l._sort_arg1[@]}" | sort "$@"
+  printf '%s\n' "${l_sort_arg1[@]}" | sort "$@"
 }
 
 # ---
 # Category: String
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_split <string> <output_array_name> [<delimiter>=' ']
-# Description: Splits string by delimiter. The result will be assigned to <output_array_name>.
+# Usage: l.0_1_0_595576_20812_split <string> <output_array_name> [<delimiter>=' ']
+# Description: Splits string by delimiter. The result will be assigned to `<output_array_name>`.
 # ---
 
-_l.0_1_0_3105_18178_split() {
+_l.0_1_0_595576_20812_split() {
   local -i i
 
   local dLen=${#delimiter}
@@ -1183,7 +1455,7 @@ _l.0_1_0_3105_18178_split() {
   fi
 }
 
-l.0_1_0_3105_18178_split() {
+l.0_1_0_595576_20812_split() {
   local string=$1
   local output=$2
   local delimiter
@@ -1193,17 +1465,17 @@ l.0_1_0_3105_18178_split() {
     delimiter="${3}"
   fi
 
-  IFS=$'\n' readarray -t "$output" < <(_l.0_1_0_3105_18178_split)
+  IFS=$'\n' readarray -t "$output" < <(_l.0_1_0_595576_20812_split)
 }
 
 # ---
 # Category: String
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_start_with <string> <match>
+# Usage: l.0_1_0_595576_20812_start_with <string> <match>
 # Description: Return `true` or `false`. Check if a string starts with given match string.
 # ---
 
-l.0_1_0_3105_18178_start_with() {
+l.0_1_0_595576_20812_start_with() {
   [[ $2${1##"$2"} == "$1" ]] && echo true || echo false
 }
 
@@ -1216,51 +1488,65 @@ l.0_1_0_3105_18178_start_with() {
 
 # shellcheck disable=SC2076
 
-l.0_1_0_3105_18178_str_include() {
+l.0_1_0_595576_20812_str_include() {
   [[ "$1" =~ "$2" ]] && echo true || echo false;
 }
 
 # ---
 # Category: String
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_str_len <string>
+# Usage: l.0_1_0_595576_20812_str_len <string>
 # Description: Return the byte length of string.
 # ---
 
-l.0_1_0_3105_18178_str_len() {
-  local oLang oLcAll bytlen
-  [[ -n ${LC_ALL:-} ]] && oLcAll=$LC_ALL
-  [[ -n ${LANG:-} ]] && oLang=$LANG
+l.0_1_0_595576_20812_str_len() {
+  [[ -z ${1:-} ]] && echo 0 && return
+
+  local old_lang old_lc_all bytlen
+  [[ -n ${LC_ALL:-} ]] && old_lc_all=$LC_ALL
+  [[ -n ${LANG:-} ]] && old_lang=$LANG
 
   LANG=C LC_ALL=C
   bytlen=${#1}
-
-  [[ -n ${oLang:-} ]] && LANG=$oLang
-  [[ -n ${oLcAll:-} ]] && LC_ALL=$oLcAll
-
   printf -- '%s\n' "$bytlen"
+
+  [[ -n ${old_lang:-} ]] && LANG=$old_lang
+  if [[ -n ${old_lc_all:-} ]]; then
+    LC_ALL=$old_lc_all
+  fi
 }
 
 # ---
 # Category: String
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_str_size <string>
+# Usage: l.0_1_0_595576_20812_str_size <string>
 # Description: Return the sum of string letters.
 # ---
 
-l.0_1_0_3105_18178_str_size() {
-  printf -- '%s\n' "${#1}"
+l.0_1_0_595576_20812_str_size() {
+  [[ -z ${1:-} ]] && echo 0 && return
+
+  # It not work with double-width characters when environment LANG is not UTF-8.
+  local OLD_LANG
+  [[ -n ${LANG:-} ]] && OLD_LANG=$LANG
+
+  LANG=C.UTF-8
+  printf '%s\n' "${#1}"
+
+  if [[ -n ${OLD_LANG:-} ]]; then
+    LANG=$OLD_LANG
+  fi
 }
 
 # ---
 # Category: Condition
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_strict_has <condition> <what>
+# Usage: l.0_1_0_595576_20812_strict_has <condition> <what>
 # Description: Return `true` or `false`. Check if command/function/alias/keyword/builtin or anything existed.
-# Description: <condition>  Valid value: `command`, `function`, `alias`, `keyword`, `builtin`, `the`
+# Description: `<condition>` Valid value: `command`, `function`, `alias`, `keyword`, `builtin`, `the`
 # ---
 
-l.0_1_0_3105_18178_strict_has() {
+l.0_1_0_595576_20812_strict_has() {
   local condition="$1"
   local value="$2"
 
@@ -1291,35 +1577,35 @@ l.0_1_0_3105_18178_strict_has() {
 # Description: Opposite to strict_has.
 # ---
 
-l.0_1_0_3105_18178_strict_has_not() {
+l.0_1_0_595576_20812_strict_has_not() {
   local r
-  r=$(l.0_1_0_3105_18178_strict_has "$@")
-  l.0_1_0_3105_18178_not "$r"
+  r=$(l.0_1_0_595576_20812_strict_has "$@")
+  l.0_1_0_595576_20812_not "$r"
 }
 
 # ---
 # Category: Arithmetic
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_sub <var_name> [<subtrahend>=1]
+# Usage: l.0_1_0_595576_20812_sub <var_name> [<subtrahend>=1]
 # Description: Subtract number with subtrahend.
 # ---
 
-l.0_1_0_3105_18178_sub() {
-  local -n dotfiles_l._sub_arg1=$1
-  ((dotfiles_l._sub_arg1-=${2:-1})) || true
+l.0_1_0_595576_20812_sub() {
+  local -n l_sub_arg1=$1
+  ((l_sub_arg1-=${2:-1})) || true
 }
 
 # ---
 # Category: Debug
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_trace_count [<label>=trace]
+# Usage: l.0_1_0_595576_20812_trace_count [<label>=trace]
 # Description: It prints a count which increased after each called.
-# Description: Attention: l.0_1_0_3105_18178_trace_count should run in same process. It will not work in subprocess such as $(l.0_1_0_3105_18178_trace_count)
+# Description: Attention: l.0_1_0_595576_20812_trace_count should run in same process. It will not work in subprocess such as $(l.0_1_0_595576_20812_trace_count)
 # ---
 
-l.0_1_0_3105_18178_trace_count() {
+l.0_1_0_595576_20812_trace_count() {
   local label=${1:-trace}
-  local key=_LOBASH_trace_count_$label
+  local key=_LOBASH_0_1_0_595576_20812_trace_count_$label
 
   if [[ -z ${!key:-} ]]; then
     declare -g "$key"=0
@@ -1333,23 +1619,23 @@ l.0_1_0_3105_18178_trace_count() {
 # ---
 # Category: Debug
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_trace_end
+# Usage: l.0_1_0_595576_20812_trace_end
 # Description: Close xtrace mode and reset PS4. Cooperated with trace_start.
 # ---
 
-l.0_1_0_3105_18178_trace_end() {
+l.0_1_0_595576_20812_trace_end() {
   set +o xtrace
-  PS4=${_l_0_1_0_3105_18178_trace_start_old_ps4:-$PS4}
+  PS4=${_L_0_1_0_595576_20812_TRACE_OLD_PS4:-$PS4}
 }
 
 # ---
 # Category: Debug
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_trace_stack [label]
+# Usage: l.0_1_0_595576_20812_trace_stack [label]
 # Description: Print current function stack for debug.
 # ---
 
-l.0_1_0_3105_18178_trace_stack() {
+l.0_1_0_595576_20812_trace_stack() {
   printf 'Trace Function Stack:%s\n  # Function (File:Line)\n' "${1:+ $1}"
   for i in $(seq 1 $(( ${#BASH_SOURCE[@]} -1 ))); do
     printf -- '  - %s (%s:%s)\n' "${FUNCNAME[$i]}" "${BASH_SOURCE[$i]}" "${BASH_LINENO[$i]}"
@@ -1359,14 +1645,14 @@ l.0_1_0_3105_18178_trace_stack() {
 # ---
 # Category: Debug
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_trace_start [<PS4_level>=2] [<label>]
+# Usage: l.0_1_0_595576_20812_trace_start [<PS4_level>=2] [<label>]
 # Description: PS4_level  Valid Values: `1`, `2`, `3`. Different level changes different prompt message format.
 # Description: Open xtrace mode and set PS4. It will print each script line with nice prompt for debug.
 # ---
 # shellcheck disable=SC2034
 
-l.0_1_0_3105_18178_trace_start() {
-  _l_0_1_0_3105_18178_trace_start_old_ps4=$PS4
+l.0_1_0_595576_20812_trace_start() {
+  declare -g _L_0_1_0_595576_20812_TRACE_OLD_PS4=$PS4
   local label=${2:-}
   [[ -n "$label" ]] && label="[$label]"
 
@@ -1392,22 +1678,22 @@ l.0_1_0_3105_18178_trace_start() {
 # ---
 # Category: Debug
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_trace_time [label]
+# Usage: l.0_1_0_595576_20812_trace_time [label]
 # Dependent: now
 # Description: Print current timestamp, last timestamp and the elapsed time in millisecond.
 # ---
 
-l.0_1_0_3105_18178_trace_time() {
+l.0_1_0_595576_20812_trace_time() {
   local label=${1:-debug}
-  local key=_LOBASH_TRACE_TIME_$label
+  local key=_LOBASH_0_1_0_595576_20812_TRACE_TIME_$label
   local last_time=${!key:-}
   local current
-  current="$(l.0_1_0_3105_18178_now)"
+  current="$(l.0_1_0_595576_20812_now)"
 
   printf '[%s] Current Timestamp: %s\n' "$label" "$current"
 
   if [[ -n $last_time ]]; then
-    printf '[%s] Last Timestamp: %s\n[%s] Elapsed: %s\n' "$label" "$last_time" "$label" $(( "$(l.0_1_0_3105_18178_now)" - "$last_time" ))
+    printf '[%s] Last Timestamp: %s\n[%s] Elapsed: %s\n' "$label" "$last_time" "$label" $(( "$(l.0_1_0_595576_20812_now)" - "$last_time" ))
     read -r "$key" <<< "$current"
   else
     declare -g "$key"="$current"
@@ -1417,45 +1703,48 @@ l.0_1_0_3105_18178_trace_time() {
 # ---
 # Category: String
 # Since: 0.1.0
-# Dependent: trim_start, trim_end
-# Usage: l.0_1_0_3105_18178_trim <string>
-# Usage: echo <string> | l.0_1_0_3105_18178_trim
+# Usage: l.0_1_0_595576_20812_trim <string>
 # Description: Remove leading and trailing whitespace from string.
+# Dependent: trim_start, trim_end
 # ---
 
-l.0_1_0_3105_18178_trim() {
-  if [[ -t 0 ]]; then
-    l.0_1_0_3105_18178_trim_start "${1:-}" | l.0_1_0_3105_18178_trim_end
-  else
-    read -r str
-    l.0_1_0_3105_18178_trim_start <<< "$str" | l.0_1_0_3105_18178_trim_end
-  fi
+l.0_1_0_595576_20812_trim() {
+  local str=${1:-}
+  str=$(l.0_1_0_595576_20812_trim_start "$str")
+  l.0_1_0_595576_20812_trim_end "$str"
 }
 
 # ---
 # Category: String
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_trim_color <string>
-# Usage: echo <string> | l.0_1_0_3105_18178_trim_color
+# Usage: echo <string> | l.0_1_0_595576_20812_trim.p
+# Description: The pipeline version of l.0_1_0_595576_20812_trim
+# Dependent: trim
+# ---
+
+l.0_1_0_595576_20812_trim.p() {
+  local str
+  read -r str
+  l.0_1_0_595576_20812_trim "$str"
+}
+
+# ---
+# Category: String
+# Since: 0.1.0
+# Usage: l.0_1_0_595576_20812_trim_color <string>
 # Description: Remove color escape code in string
 # ---
 
-l.0_1_0_3105_18178_trim_color() {
+l.0_1_0_595576_20812_trim_color() {
   local ecs=$'\e'
-  local str
+  local str="$1"
 
-  if [[ -t 0 ]]; then
-    str="$1"
-  else
-    read -r str
-  fi
-
-  if [[ $_lobash_0_1_0_3105_18178_os == Linux ]]; then
+  if [[ $_LOBASH_0_1_0_595576_20812_OS == Linux ]]; then
     sed -E "s,${ecs}[[0-9]*(;[0-9]+)*m,,g" <<< "$str"
-  elif [[ $_lobash_0_1_0_3105_18178_os == MacOS ]] || [[ $_lobash_0_1_0_3105_18178_os == BSD ]]; then
+  elif [[ $_LOBASH_0_1_0_595576_20812_OS == MacOS ]] || [[ $_LOBASH_0_1_0_595576_20812_OS == BSD ]]; then
     sed -E "s,\\${ecs}[[0-9]*(;[0-9]+)*m,,g" <<< "$str"
   else
-    echo "Only MacOS/BSD/Linux systems are valid." >&2
+    echo "Unexpected _LOBASH_0_1_0_595576_20812_OS=$_LOBASH_0_1_0_595576_20812_OS" >&2
     return 5
   fi
 }
@@ -1463,203 +1752,256 @@ l.0_1_0_3105_18178_trim_color() {
 # ---
 # Category: String
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_trim_end <string> [chars=[[:space:]]]
-# Usage: echo <string> | l.0_1_0_3105_18178_trim_end [chars=[[:space:]]]
+# Usage: echo <string> | l.0_1_0_595576_20812_trim_color.p
+# Description: The pipeline version of l.0_1_0_595576_20812_trim_color
+# Dependent: trim_color
+# ---
+
+l.0_1_0_595576_20812_trim_color.p() {
+  local str
+  read -r str
+  l.0_1_0_595576_20812_trim_color "$str"
+}
+
+# ---
+# Category: String
+# Since: 0.1.0
+# Usage: l.0_1_0_595576_20812_trim_end <string> [chars=[[:space:]]]
 # Description: Remove trailing whitespace or specified characters from string.
 # ---
 
-l.0_1_0_3105_18178_trim_end() {
-  if [[ -t 0 ]]; then
-    local str=${1:-}
-    if [[ $# == 2 ]]; then
-      printf '%s\n' "${str%%$2}"
-    else
-      # https://stackoverflow.com/a/3352015
-      printf '%s\n' "${str%"${str##*[![:space:]]}"}"
-    fi
+l.0_1_0_595576_20812_trim_end() {
+  local str=${1:-}
+  if (( $# < 2 )); then
+    # https://stackoverflow.com/a/3352015
+    printf '%s\n' "${str%"${str##*[![:space:]]}"}"
   else
-    IFS='' read -r str
-    if [[ $# == 1 ]]; then
-      printf '%s\n' "${str%%$1}"
-    else
-      printf '%s\n' "${str%"${str##*[![:space:]]}"}"
-    fi
+    printf '%s\n' "${str%%$2}"
   fi
 }
 
 # ---
 # Category: String
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_trim_start <string>
-# Usage: echo <string> | l.0_1_0_3105_18178_trim_start
+# Usage: echo <string> | l.0_1_0_595576_20812_trim_end.p [chars=[[:space:]]]
+# Description: The pipeline version l.0_1_0_595576_20812_trim_end
+# Dependent: trim_end
+# ---
+
+l.0_1_0_595576_20812_trim_end.p() {
+  local str
+  IFS='' read -r str
+
+  l.0_1_0_595576_20812_trim_end "$str" "$@"
+}
+
+# ---
+# Category: String
+# Since: 0.1.0
+# Usage: l.0_1_0_595576_20812_trim_start <string> [<chars>=[[:space:]]]
 # Description: Remove leading whitespace or specified characters from string.
 # ---
 
-l.0_1_0_3105_18178_trim_start() {
-  if [[ -t 0 ]]; then
-    local str=${1:-}
-    if [[ $# == 2 ]]; then
-      printf '%s\n' "${str##$2}"
-    else
-      # https://stackoverflow.com/a/3352015
-      printf '%s\n' "${str#"${str%%[![:space:]]*}"}"
-    fi
+l.0_1_0_595576_20812_trim_start() {
+  local str=${1:-}
+  if (( $# < 2 )); then
+    # https://stackoverflow.com/a/3352015
+    printf '%s\n' "${str#"${str%%[![:space:]]*}"}"
   else
-    IFS='' read -r str
-    if [[ $# == 1 ]]; then
-      printf '%s\n' "${str##$1}"
-    else
-      printf '%s\n' "${str#"${str%%[![:space:]]*}"}"
-    fi
+    printf '%s\n' "${str##$2}"
   fi
+}
+
+# ---
+# Category: String
+# Since: 0.1.0
+# Usage: echo <string> | l.0_1_0_595576_20812_trim_start.p [<chars>=[[:space:]]]
+# Description: The pipeline version of l.0_1_0_595576_20812_trim_start
+# Dependent: trim_start
+# ---
+
+l.0_1_0_595576_20812_trim_start.p() {
+  local str
+  IFS='' read -r str
+
+  l.0_1_0_595576_20812_trim_start "$str" "$@"
 }
 
 # ---
 # Category: Array
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_union_array <array_name>...
+# Usage: l.0_1_0_595576_20812_union_array <array_name>...
 # Dependent: echo_array
 # Description: Create an array of unique values from all given arrays.
 # ---
 
-l.0_1_0_3105_18178_union_array() {
-  local -n dotfiles_l._union_array_a=$1
-  local -n dotfiles_l._union_array_b=$2
+l.0_1_0_595576_20812_union_array() {
+  local -n l_union_array_a=$1
+  local -n l_union_array_b=$2
   local -a arr
-  arr=("${dotfiles_l._union_array_a[@]}" "${dotfiles_l._union_array_b[@]}")
-  l.0_1_0_3105_18178_echo_array arr
+  arr=("${l_union_array_a[@]}" "${l_union_array_b[@]}")
+  l.0_1_0_595576_20812_echo_array arr
 }
 
 # ---
 # Category: String
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_upper_case <string>
-# Usage: echo <string> | l.0_1_0_3105_18178_upper_case
+# Usage: l.0_1_0_595576_20812_upper_case <string>
 # Description: Convert all characters of string to upper case.
 # ---
 
-# l.0_1_0_3105_18178_upper_case() {
+# An alternative for Bash 3.x
+# l.0_1_0_595576_20812_upper_case() {
 #   tr '[:lower:]' '[:upper:]' <<< ${1:-}
 # }
 
-# CAVEAT: Requires bash 4+
-l.0_1_0_3105_18178_upper_case() {
-  local str
-  if [[ -t 0 ]]; then
-    str=$1
-  else
-    IFS='' read -r str
-  fi
+l.0_1_0_595576_20812_upper_case() {
+  local str=${1:-}
   printf '%s\n' "${str^^}"
 }
 
 # ---
 # Category: String
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_upper_first <string>
-# Usage: echo <string> | l.0_1_0_3105_18178_upper_first
+# Usage: echo <string> | l.0_1_0_595576_20812_upper_case.p
+# Description: The pipeline version of l.0_1_0_595576_20812_upper_case
+# Dependent: upper_case
+# ---
+
+l.0_1_0_595576_20812_upper_case.p() {
+  local str
+  IFS='' read -r str
+  l.0_1_0_595576_20812_upper_case "$str"
+}
+
+# ---
+# Category: String
+# Since: 0.1.0
+# Usage: l.0_1_0_595576_20812_upper_first <string>
 # Description: Convert the first character of string to upper case.
 # ---
 
 # CAVEAT: Requires bash 4+
-l.0_1_0_3105_18178_upper_first() {
-  local str
-  if [[ -t 0 ]]; then
-    str=$1
-  else
-    IFS='' read -r str
-  fi
-
+l.0_1_0_595576_20812_upper_first() {
+  local str=${1:-}
   printf '%s\n' "${str^}"
 }
 
 # ---
-# Category: System
+# Category: String
 # Since: 0.1.0
-# Usage: l.0_1_0_3105_18178_xdg_config_home
+# Usage: echo <string> | l.0_1_0_595576_20812_upper_first.p
+# Description: The pipeline version of l.0_1_0_595576_20812_upper_first
+# Dependent: upper_first
+# ---
+
+l.0_1_0_595576_20812_upper_first.p() {
+  local str
+  IFS='' read -r str
+  l.0_1_0_595576_20812_upper_first "$str"
+}
+
+# ---
+# Category: Variable
+# Since: 0.1.0
+# Usage: l.0_1_0_595576_20812_xdg_config_home
 # Description: Return XDG_CONFIG_HOME. Return `${HOME}/.config` if XDG_CONFIG_HOME not set.
 # ---
 
-l.0_1_0_3105_18178_xdg_config_home() {
+l.0_1_0_595576_20812_xdg_config_home() {
   printf '%s\n' "${XDG_CONFIG_HOME:-${HOME}/.config}"
 }
 
 ######################## Public Methods ########################
-dotfiles_l.end_with() { l.0_1_0_3105_18178_end_with "$@"; }
-dotfiles_l.trim_color() { l.0_1_0_3105_18178_trim_color "$@"; }
-dotfiles_l.lower_first() { l.0_1_0_3105_18178_lower_first "$@"; }
-dotfiles_l.has() { l.0_1_0_3105_18178_has "$@"; }
-dotfiles_l.is_integer() { l.0_1_0_3105_18178_is_integer "$@"; }
-dotfiles_l.sort() { l.0_1_0_3105_18178_sort "$@"; }
-dotfiles_l.join() { l.0_1_0_3105_18178_join "$@"; }
-dotfiles_l.is_number() { l.0_1_0_3105_18178_is_number "$@"; }
-dotfiles_l.is_link() { l.0_1_0_3105_18178_is_link "$@"; }
-dotfiles_l.echo_array() { l.0_1_0_3105_18178_echo_array "$@"; }
-dotfiles_l.now() { l.0_1_0_3105_18178_now "$@"; }
-dotfiles_l.is_false() { l.0_1_0_3105_18178_is_false "$@"; }
-dotfiles_l.trim_end() { l.0_1_0_3105_18178_trim_end "$@"; }
-dotfiles_l.split() { l.0_1_0_3105_18178_split "$@"; }
-dotfiles_l.is_bash() { l.0_1_0_3105_18178_is_bash "$@"; }
-dotfiles_l.last() { l.0_1_0_3105_18178_last "$@"; }
-dotfiles_l.union_array() { l.0_1_0_3105_18178_union_array "$@"; }
-dotfiles_l.dirname() { l.0_1_0_3105_18178_dirname "$@"; }
-dotfiles_l.basename() { l.0_1_0_3105_18178_basename "$@"; }
-dotfiles_l.xdg() { l.0_1_0_3105_18178_xdg "$@"; }
-dotfiles_l.trace_end() { l.0_1_0_3105_18178_trace_end "$@"; }
-dotfiles_l.ask() { l.0_1_0_3105_18178_ask "$@"; }
-dotfiles_l.count_lines() { l.0_1_0_3105_18178_count_lines "$@"; }
-dotfiles_l.str_size() { l.0_1_0_3105_18178_str_size "$@"; }
-dotfiles_l.strict_has() { l.0_1_0_3105_18178_strict_has "$@"; }
-dotfiles_l.is_float() { l.0_1_0_3105_18178_is_float "$@"; }
-dotfiles_l.hostname() { l.0_1_0_3105_18178_hostname "$@"; }
-dotfiles_l.extname() { l.0_1_0_3105_18178_extname "$@"; }
-dotfiles_l.is_dir() { l.0_1_0_3105_18178_is_dir "$@"; }
-dotfiles_l.is_executable() { l.0_1_0_3105_18178_is_executable "$@"; }
-dotfiles_l.cursor_col() { l.0_1_0_3105_18178_cursor_col "$@"; }
-dotfiles_l.str_len() { l.0_1_0_3105_18178_str_len "$@"; }
-dotfiles_l.repeat() { l.0_1_0_3105_18178_repeat "$@"; }
-dotfiles_l.pwd() { l.0_1_0_3105_18178_pwd "$@"; }
-dotfiles_l.count_files() { l.0_1_0_3105_18178_count_files "$@"; }
-dotfiles_l.trim() { l.0_1_0_3105_18178_trim "$@"; }
-dotfiles_l.str_include() { l.0_1_0_3105_18178_str_include "$@"; }
-dotfiles_l.cursor_row() { l.0_1_0_3105_18178_cursor_row "$@"; }
-dotfiles_l.is_executable_file() { l.0_1_0_3105_18178_is_executable_file "$@"; }
-dotfiles_l.trace_stack() { l.0_1_0_3105_18178_trace_stack "$@"; }
-dotfiles_l.compose() { l.0_1_0_3105_18178_compose "$@"; }
-dotfiles_l.hex_to_rgb() { l.0_1_0_3105_18178_hex_to_rgb "$@"; }
-dotfiles_l.trace_time() { l.0_1_0_3105_18178_trace_time "$@"; }
-dotfiles_l.sub() { l.0_1_0_3105_18178_sub "$@"; }
-dotfiles_l.inc() { l.0_1_0_3105_18178_inc "$@"; }
-dotfiles_l.benchmark() { l.0_1_0_3105_18178_benchmark "$@"; }
-dotfiles_l.relative() { l.0_1_0_3105_18178_relative "$@"; }
-dotfiles_l.is_readable() { l.0_1_0_3105_18178_is_readable "$@"; }
-dotfiles_l.is_array() { l.0_1_0_3105_18178_is_array "$@"; }
-dotfiles_l.choose() { l.0_1_0_3105_18178_choose "$@"; }
-dotfiles_l.is_file() { l.0_1_0_3105_18178_is_file "$@"; }
-dotfiles_l.trim_start() { l.0_1_0_3105_18178_trim_start "$@"; }
-dotfiles_l.now_s() { l.0_1_0_3105_18178_now_s "$@"; }
-dotfiles_l.random() { l.0_1_0_3105_18178_random "$@"; }
-dotfiles_l.upper_case() { l.0_1_0_3105_18178_upper_case "$@"; }
-dotfiles_l.count_file_lines() { l.0_1_0_3105_18178_count_file_lines "$@"; }
-dotfiles_l.sleep() { l.0_1_0_3105_18178_sleep "$@"; }
-dotfiles_l.is_writeable() { l.0_1_0_3105_18178_is_writeable "$@"; }
-dotfiles_l.match() { l.0_1_0_3105_18178_match "$@"; }
-dotfiles_l.cur_function_name() { l.0_1_0_3105_18178_cur_function_name "$@"; }
-dotfiles_l.is_zsh() { l.0_1_0_3105_18178_is_zsh "$@"; }
-dotfiles_l.is_true() { l.0_1_0_3105_18178_is_true "$@"; }
-dotfiles_l.echo() { l.0_1_0_3105_18178_echo "$@"; }
-dotfiles_l.strict_has_not() { l.0_1_0_3105_18178_strict_has_not "$@"; }
-dotfiles_l.detect_os() { l.0_1_0_3105_18178_detect_os "$@"; }
-dotfiles_l.normalize() { l.0_1_0_3105_18178_normalize "$@"; }
-dotfiles_l.not() { l.0_1_0_3105_18178_not "$@"; }
-dotfiles_l.cursor_pos() { l.0_1_0_3105_18178_cursor_pos "$@"; }
-dotfiles_l.trace_count() { l.0_1_0_3105_18178_trace_count "$@"; }
-dotfiles_l.first() { l.0_1_0_3105_18178_first "$@"; }
-dotfiles_l.rgb_to_hex() { l.0_1_0_3105_18178_rgb_to_hex "$@"; }
-dotfiles_l.array_include() { l.0_1_0_3105_18178_array_include "$@"; }
-dotfiles_l.trace_start() { l.0_1_0_3105_18178_trace_start "$@"; }
-dotfiles_l.lower_case() { l.0_1_0_3105_18178_lower_case "$@"; }
-dotfiles_l.if() { l.0_1_0_3105_18178_if "$@"; }
-dotfiles_l.start_with() { l.0_1_0_3105_18178_start_with "$@"; }
-dotfiles_l.date() { l.0_1_0_3105_18178_date "$@"; }
-dotfiles_l.upper_first() { l.0_1_0_3105_18178_upper_first "$@"; }
+dotfiles_l.end_with() { l.0_1_0_595576_20812_end_with "$@"; }
+dotfiles_l.trim_color() { l.0_1_0_595576_20812_trim_color "$@"; }
+dotfiles_l.lower_first() { l.0_1_0_595576_20812_lower_first "$@"; }
+dotfiles_l.has() { l.0_1_0_595576_20812_has "$@"; }
+dotfiles_l.is_integer() { l.0_1_0_595576_20812_is_integer "$@"; }
+dotfiles_l.sort() { l.0_1_0_595576_20812_sort "$@"; }
+dotfiles_l.join() { l.0_1_0_595576_20812_join "$@"; }
+dotfiles_l.is_number() { l.0_1_0_595576_20812_is_number "$@"; }
+dotfiles_l.is_link() { l.0_1_0_595576_20812_is_link "$@"; }
+dotfiles_l.echo_array() { l.0_1_0_595576_20812_echo_array "$@"; }
+dotfiles_l.now() { l.0_1_0_595576_20812_now "$@"; }
+dotfiles_l.is_false() { l.0_1_0_595576_20812_is_false "$@"; }
+dotfiles_l.trim_end() { l.0_1_0_595576_20812_trim_end "$@"; }
+dotfiles_l.count_lines.p() { l.0_1_0_595576_20812_count_lines.p "$@"; }
+dotfiles_l.split() { l.0_1_0_595576_20812_split "$@"; }
+dotfiles_l.is_bash() { l.0_1_0_595576_20812_is_bash "$@"; }
+dotfiles_l.last() { l.0_1_0_595576_20812_last "$@"; }
+dotfiles_l.union_array() { l.0_1_0_595576_20812_union_array "$@"; }
+dotfiles_l.dirname() { l.0_1_0_595576_20812_dirname "$@"; }
+dotfiles_l.basename() { l.0_1_0_595576_20812_basename "$@"; }
+dotfiles_l.not.p() { l.0_1_0_595576_20812_not.p "$@"; }
+dotfiles_l.trace_end() { l.0_1_0_595576_20812_trace_end "$@"; }
+dotfiles_l.ask() { l.0_1_0_595576_20812_ask "$@"; }
+dotfiles_l.count_lines() { l.0_1_0_595576_20812_count_lines "$@"; }
+dotfiles_l.str_size() { l.0_1_0_595576_20812_str_size "$@"; }
+dotfiles_l.trim_start.p() { l.0_1_0_595576_20812_trim_start.p "$@"; }
+dotfiles_l.strict_has() { l.0_1_0_595576_20812_strict_has "$@"; }
+dotfiles_l.is_float() { l.0_1_0_595576_20812_is_float "$@"; }
+dotfiles_l.hostname() { l.0_1_0_595576_20812_hostname "$@"; }
+dotfiles_l.extname() { l.0_1_0_595576_20812_extname "$@"; }
+dotfiles_l.is_dir() { l.0_1_0_595576_20812_is_dir "$@"; }
+dotfiles_l.is_executable() { l.0_1_0_595576_20812_is_executable "$@"; }
+dotfiles_l.cursor_col() { l.0_1_0_595576_20812_cursor_col "$@"; }
+dotfiles_l.str_len() { l.0_1_0_595576_20812_str_len "$@"; }
+dotfiles_l.repeat() { l.0_1_0_595576_20812_repeat "$@"; }
+dotfiles_l.pwd() { l.0_1_0_595576_20812_pwd "$@"; }
+dotfiles_l.count_files() { l.0_1_0_595576_20812_count_files "$@"; }
+dotfiles_l.trim_color.p() { l.0_1_0_595576_20812_trim_color.p "$@"; }
+dotfiles_l.trim() { l.0_1_0_595576_20812_trim "$@"; }
+dotfiles_l.str_include() { l.0_1_0_595576_20812_str_include "$@"; }
+dotfiles_l.cursor_row() { l.0_1_0_595576_20812_cursor_row "$@"; }
+dotfiles_l.is_executable_file() { l.0_1_0_595576_20812_is_executable_file "$@"; }
+dotfiles_l.trace_stack() { l.0_1_0_595576_20812_trace_stack "$@"; }
+dotfiles_l.compose() { l.0_1_0_595576_20812_compose "$@"; }
+dotfiles_l.hex_to_rgb() { l.0_1_0_595576_20812_hex_to_rgb "$@"; }
+dotfiles_l.trace_time() { l.0_1_0_595576_20812_trace_time "$@"; }
+dotfiles_l.trim.p() { l.0_1_0_595576_20812_trim.p "$@"; }
+dotfiles_l.basename.p() { l.0_1_0_595576_20812_basename.p "$@"; }
+dotfiles_l.sub() { l.0_1_0_595576_20812_sub "$@"; }
+dotfiles_l.inc() { l.0_1_0_595576_20812_inc "$@"; }
+dotfiles_l.dirname.p() { l.0_1_0_595576_20812_dirname.p "$@"; }
+dotfiles_l.benchmark() { l.0_1_0_595576_20812_benchmark "$@"; }
+dotfiles_l.relative() { l.0_1_0_595576_20812_relative "$@"; }
+dotfiles_l.is_readable() { l.0_1_0_595576_20812_is_readable "$@"; }
+dotfiles_l.is_array() { l.0_1_0_595576_20812_is_array "$@"; }
+dotfiles_l.normalize.p() { l.0_1_0_595576_20812_normalize.p "$@"; }
+dotfiles_l.choose() { l.0_1_0_595576_20812_choose "$@"; }
+dotfiles_l.is_file() { l.0_1_0_595576_20812_is_file "$@"; }
+dotfiles_l.trim_start() { l.0_1_0_595576_20812_trim_start "$@"; }
+dotfiles_l.now_s() { l.0_1_0_595576_20812_now_s "$@"; }
+dotfiles_l.random() { l.0_1_0_595576_20812_random "$@"; }
+dotfiles_l.extname.p() { l.0_1_0_595576_20812_extname.p "$@"; }
+dotfiles_l.trim_end.p() { l.0_1_0_595576_20812_trim_end.p "$@"; }
+dotfiles_l.upper_case() { l.0_1_0_595576_20812_upper_case "$@"; }
+dotfiles_l.count_file_lines() { l.0_1_0_595576_20812_count_file_lines "$@"; }
+dotfiles_l.sleep() { l.0_1_0_595576_20812_sleep "$@"; }
+dotfiles_l.is_writeable() { l.0_1_0_595576_20812_is_writeable "$@"; }
+dotfiles_l.match() { l.0_1_0_595576_20812_match "$@"; }
+dotfiles_l.cur_function_name() { l.0_1_0_595576_20812_cur_function_name "$@"; }
+dotfiles_l.lower_first.p() { l.0_1_0_595576_20812_lower_first.p "$@"; }
+dotfiles_l.is_zsh() { l.0_1_0_595576_20812_is_zsh "$@"; }
+dotfiles_l.is_true() { l.0_1_0_595576_20812_is_true "$@"; }
+dotfiles_l.echo() { l.0_1_0_595576_20812_echo "$@"; }
+dotfiles_l.strict_has_not() { l.0_1_0_595576_20812_strict_has_not "$@"; }
+dotfiles_l.detect_os() { l.0_1_0_595576_20812_detect_os "$@"; }
+dotfiles_l.normalize() { l.0_1_0_595576_20812_normalize "$@"; }
+dotfiles_l.not() { l.0_1_0_595576_20812_not "$@"; }
+dotfiles_l.lower_case.p() { l.0_1_0_595576_20812_lower_case.p "$@"; }
+dotfiles_l.cursor_pos() { l.0_1_0_595576_20812_cursor_pos "$@"; }
+dotfiles_l.trace_count() { l.0_1_0_595576_20812_trace_count "$@"; }
+dotfiles_l.first() { l.0_1_0_595576_20812_first "$@"; }
+dotfiles_l.rgb_to_hex() { l.0_1_0_595576_20812_rgb_to_hex "$@"; }
+dotfiles_l.array_include() { l.0_1_0_595576_20812_array_include "$@"; }
+dotfiles_l.xdg_config_home() { l.0_1_0_595576_20812_xdg_config_home "$@"; }
+dotfiles_l.trace_start() { l.0_1_0_595576_20812_trace_start "$@"; }
+dotfiles_l.upper_case.p() { l.0_1_0_595576_20812_upper_case.p "$@"; }
+dotfiles_l.lower_case() { l.0_1_0_595576_20812_lower_case "$@"; }
+dotfiles_l.if() { l.0_1_0_595576_20812_if "$@"; }
+dotfiles_l.start_with() { l.0_1_0_595576_20812_start_with "$@"; }
+dotfiles_l.upper_first.p() { l.0_1_0_595576_20812_upper_first.p "$@"; }
+dotfiles_l.date() { l.0_1_0_595576_20812_date "$@"; }
+dotfiles_l.upper_first() { l.0_1_0_595576_20812_upper_first "$@"; }

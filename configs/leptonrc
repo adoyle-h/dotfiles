@@ -1,0 +1,28 @@
+{
+  "theme": "dark",
+  "snippet": {
+    "expanded": true,
+    "newSnippetPrivate": false,
+    "sorting": "updated_at",
+    "sortingReverse": true
+  },
+  "editor" : {
+    "tabSize": 4
+  },
+  "userPanel": {
+    "hideProfilePhoto": false
+  },
+  "logger": {
+    "level": "debug"
+  },
+  "proxy": {
+    "enable": false,
+    "address": "socks://localhost:1080"
+  },
+  "enterprise": {
+    "enable": false,
+    "host": "github_enterprise_host",
+    "token": "token_with_gist_enabled",
+    "avatarUrl": "optional_avatar_url"
+  }
+}

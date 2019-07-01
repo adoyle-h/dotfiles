@@ -41,6 +41,7 @@
     ~/.tern-project: configs/tern-project
     ~/.hyper.js: configs/hyper.js
     ~/.taskbook.json: configs/taskbook.json
+    ~/.leptonrc: configs/leptonrc
     $XDG_CONFIG_HOME/ranger: configs/ranger
     $XDG_CONFIG_HOME/peco/config.json: configs/peco.json
     $XDG_CONFIG_HOME/yamllint/config: configs/yamllint.yml

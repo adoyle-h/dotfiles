@@ -1,6 +1,13 @@
 [user]
     name = ADoyle
     email = adoyle.h@gmail.com
+    signingkey = 574796902D885CD0
+[github]
+    user = adoyle-h
+[gpg]
+    program = gpg
+[commit]
+    gpgsign = true
 [color]
     ui = true
 [core]
@@ -81,7 +88,7 @@
     conflictstyle = merge  ; default
     ; conflictstyle = diff3
 [mergetool]
-	prompt = false
+    prompt = false
 [mergetool "nvimdiff"]
     cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [mergetool "ksdiff"]
@@ -95,10 +102,10 @@
     stat = true
     autoSquash = true
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
     required = true
-	process = git-lfs filter-process
+    process = git-lfs filter-process
 [status]
     submoduleSummary = true
 [color "diff"]
@@ -111,11 +118,7 @@
     oldNormal = "red bold"
     newNormal = "green bold"
     newHighlight = "green bold 28"
-[gpg]
-    program = gpg2
 ; [http]
 ;     proxy = socks5://127.0.0.1:1080
 ; [https]
 ;     proxy = socks5://127.0.0.1:1080
-[github]
-    user = adoyle-h

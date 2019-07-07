@@ -50,6 +50,7 @@
     ~/.ssh: secrets/ssh
     ~/.keybase-installer: secrets/keybase-installer
     ~/.grip/settings.py: secrets/grip-settings.py
+    ~/.gnupg: secrets/gnupg
 
     # nvim
     $XDG_CONFIG_HOME/nvim: deps/nvim

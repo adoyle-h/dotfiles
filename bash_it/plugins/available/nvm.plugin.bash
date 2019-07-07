@@ -31,7 +31,7 @@ if [[ -n "$NVM_DIR" ]]; then
   [[ -r "$NVM_DIR"/bash_completion ]] && . "$NVM_DIR"/bash_completion
 fi
 
-if dotfiles_l.has not function nvm; then
+if dotfiles_l.has_not function nvm; then
   echo 'WARNING: Shell function "nvm" not found. But you have enabled nvm.plugin.bash.' >&2
   echo '         You should install nvm by yourself. See https://github.com/creationix/nvm' >&2
   echo '         If you install nvm via brew. Check the path of "brew --prefix nvm".' >&2

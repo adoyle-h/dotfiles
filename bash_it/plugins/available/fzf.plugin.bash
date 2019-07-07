@@ -16,7 +16,7 @@ if [[ $(dotfiles_l.str_include "$PATH" "$FZF_BIN") == false ]]; then
 fi
 unset -v FZF_BIN
 
-if dotfiles_l.has not command fzf; then
+if dotfiles_l.has_not command fzf; then
   echo "Not found command 'fzf'" >&2
   echo "Invoke 'a disable-plugin fzf' to disable the plugin"
   return 1

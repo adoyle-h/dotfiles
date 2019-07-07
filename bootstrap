@@ -15,7 +15,7 @@ import l.ask l.has
 
 check_uninstalled_cmd() {
   local cmd=$1
-  if l.has not command "$cmd" ; then
+  if l.has_not command "$cmd" ; then
     echo "command [$cmd] is not installed. ❌"
     return 0
   else
@@ -124,7 +124,7 @@ _bootstrap_common() {
 _bootstrap_macos() {
   echo '[Bootstrap in macos]'
 
-  if l.has not command brew ; then
+  if l.has_not command brew ; then
     echo 'To install homebrew'
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi

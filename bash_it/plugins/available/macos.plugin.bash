@@ -34,7 +34,7 @@ unset -v MAIN_MANPATHS MAIN_PATHS
 # Add bash 4 manpage path
 BASH_4_MANPATH="/usr/local/opt/bash/share/man"
 if [[ -d "$BASH_4_MANPATH" ]] \
-  && [[ $(dotfiles_l.str_include "$MANPATH" "$BASH_4_MANPATH") == false ]]; then
+  && ( ! dotfiles_l.str_include "$MANPATH" "$BASH_4_MANPATH" ); then
   export MANPATH="$BASH_4_MANPATH:$MANPATH"
 fi
 unset -v BASH_4_MANPATH

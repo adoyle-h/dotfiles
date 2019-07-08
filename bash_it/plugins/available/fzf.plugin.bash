@@ -11,7 +11,7 @@ if [[ ! -d $FZF_BIN ]] ; then
   return 1
 fi
 
-if [[ $(dotfiles_l.str_include "$PATH" "$FZF_BIN") == false ]]; then
+if ! dotfiles_l.str_include "$PATH" "$FZF_BIN"; then
   export PATH="$PATH:$FZF_BIN"
 fi
 unset -v FZF_BIN
@@ -23,7 +23,7 @@ if dotfiles_l.has_not command fzf; then
 fi
 
 FZF_MANPATH=$HOME/.fzf/man
-if [[ $(dotfiles_l.str_include "$MANPATH" "$FZF_MANPATH") == false ]]; then
+if ! dotfiles_l.str_include "$MANPATH" "$FZF_MANPATH"; then
   export MANPATH="$MANPATH:$FZF_MANPATH"
 fi
 unset -v FZF_MANPATH

@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1090
+
+set -o errexit
+set -o nounset
+set -o pipefail
+shopt -s inherit_errexit
+[[ -n "${VERBOSE:-}" ]] && set -o verbose
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+
+declare -A map=(
+  [alpine]=3.10
+  [bash]=5
+  [ubuntu]=19.10
+  [prolog]=stable
+)
+
+declare -A image_map=(
+  [prolog]=swipl
+)
+
+# Provide sub completions
+if [[ "${1:-}" == "--complete" ]]; then
+  echo "${!map[@]}"
+  exit 0
+fi
+
+readonly name=$1
+shift
+
+VERSION=${VERSION:-${map[$name]}}
+IMAGE=${image_map[$name]:-$name}
+
+echo "Run docker: $IMAGE:$VERSION"
+docker run --rm -it "$@" "$IMAGE":"$VERSION"

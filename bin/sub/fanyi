@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1090
+
+set -o errexit
+set -o nounset
+set -o pipefail
+shopt -s inherit_errexit
+[[ -n "${VERBOSE:-}" ]] && set -o verbose
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+
+v2() {
+  declare q="$*"
+  curl --user-agent curl "https://v2en.co/${q// /%20}"
+}
+
+v2-sh() {
+  while printf '%s' "Input: "
+    read -r input
+      [[ -n "$input" ]]
+    do v2 "$input"
+  done
+}
+
+if [[ $# == 0 ]]; then
+  v2-sh
+else
+  v2 "$1"
+fi

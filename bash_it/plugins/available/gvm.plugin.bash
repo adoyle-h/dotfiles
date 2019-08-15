@@ -2,7 +2,8 @@
 cite about-plugin
 about-plugin 'Enable gvm'
 
-GVM_SCRIPT="${HOME}/.gvm/scripts/gvm"
+GVM_ROOT=${HOME}/.gvm
+GVM_SCRIPT=${GVM_ROOT}/scripts/gvm
 
 [[ -f "$GVM_SCRIPT" ]] && source "$GVM_SCRIPT"
 

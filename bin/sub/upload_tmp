@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+[[ -n "${VERBOSE:-}" ]] && set -o verbose
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+
+# Provide sub completions
+if [[ "${1:-}" == "--complete" ]]; then
+  if [[ $COMP_CWORD -lt 3 ]]; then
+    result=$(compgen -f "$2")
+    if [[ -d $result ]]; then
+      compgen -f "$result/"
+    else
+      echo "${result[@]}"
+    fi
+  fi
+  exit 0
+fi
+
+
+readonly URL=https://sm.ms/api/upload
+
+main() {
+  local results code url
+  results=$(curl -s -X POST -F "smfile=@$1" $URL)
+
+  if [[ $# == 1 ]]; then
+    echo "$results" | jq
+    return 0
+  fi
+
+  code=$(echo "$results" | jq -r '.code')
+
+  if [[ $code != success ]]; then
+    echo "Upload Failed" >&2
+    echo "$results" | jq
+    return 4
+  fi
+
+  url=$(echo "$results" | jq -r '.data.url')
+
+  if [[ -z $url ]]; then
+    echo "url is empty!" >&2
+    echo "$results" | jq
+    return 5
+  fi
+
+  if [[ ${2} == -u ]]; then
+    echo "$url"
+  elif [[ ${2} == -s ]]; then
+    echo "$url"
+  fi
+}
+
+main "$@"

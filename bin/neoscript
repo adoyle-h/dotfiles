@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC1090
 
 set -o errexit
 set -o nounset
 set -o pipefail
-shopt -s inherit_errexit
-[[ -n "${VERBOSE:+x}" ]] && set -o verbose
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+[[ -n "${VERBOSE:-}" ]] && set -o verbose
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
 usage() {
@@ -22,13 +21,13 @@ main() {
 
   path=$1
   if [[ -e $path ]]; then
-    neo "$path"
+    nvim "$path"
     exit $?
   fi
 
   echo "bash" > "$path"
   chmod +x "$path"
-  neo "$path"
+  nvim "$path"
 }
 
 main "$@"

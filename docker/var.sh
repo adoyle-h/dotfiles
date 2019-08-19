@@ -1,0 +1,2 @@
+IMAGE_NAME=adoyle/workspace
+IMAGE_VERSION=latest

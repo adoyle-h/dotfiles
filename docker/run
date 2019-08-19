@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+
+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+
+# shellcheck source=var.sh
+source "$SCRIPT_DIR"/var.sh
+
+main() {
+  docker run -h docker --network=host --rm -it "$IMAGE_NAME:$IMAGE_VERSION" "$@"
+}
+
+main "$@"

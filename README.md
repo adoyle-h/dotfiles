@@ -154,21 +154,10 @@ These integrations are not required for the project. It will improve the experie
 # Set your Dotfiles directory path
 DOTFILES_DIR=~/dotfiles
 
-# Clone this repo
-git clone --depth 1 https://github.com/adoyle-h/dotfiles.git $DOTFILES_DIR
-cd $DOTFILES_DIR
-# Clone submodules and initialize them
-git submodule update --init --recursive
+git clone --depth 1 https://github.com/adoyle-h/dotfiles.git $DOTFILE_DIR
 
-# You may check the content of `dotbot.conf.yaml` file,
-# It creates soft-links based on dotbot.conf.yaml.
-./dotbot
-# Checkout the output
-
-# Restart your shell
-
-# Enable recommend plugs
-. ${DOTFILES_DIR}/bootstraps/recommends/plugs
+cd $DOTFILE_DIR
+./install $DOTFILE_DIR
 ```
 
 And then read the [Configuration - User Modifications](#user-modifications) section.
@@ -251,13 +240,11 @@ The path `bin/sub/` is not included in `$PATH`. So you cannot invoke sub-command
 The framework provides many custom [plugins](./plugins/), [aliases](./aliases/), [completions](./completions/).
 and some sub-commands to manage them.
 
-- `a enable <type> <name>...` to enable plugins in `bash-custom/available/`
-- `a disable <type> <plugin-name>...` to disable plugins in `bash-custom/enabled/`
-- `a disable-all <type>` to disable all plugins in `bash-custom/enabled/`
-- `a list <type>` to show all enabled plugins in `bash-custom/enabled/`
-- `a list <type> -a` to show all plugins in `bash-custom/available/`
-- `a backup <type>` to backup all enabled plugins to [custom_plugins][].
-- `a recover <type>` to re-enable all plugins saved in [custom_plugins][].
+- `a enable <type> <name>...` to enable plugins in `plugins/`
+- `a disable <type> <plugin-name>...` to disable plugins in `enabled/`
+- `a disable-all <type>` to disable all plugins in `enabled/`
+- `a list <type>` to show all enabled plugins in `enabled/`
+- `a list <type> -a` to show all plugins in `plugins/`
 
 ### Plugin Load Priority
 
@@ -294,9 +281,9 @@ General priorities of plugs:
 │   └── xdg.bash                    # Set XDG_ variables
 ├── bin/                            # Link to ~/bin
 ├── bootstraps/                     # Scripts for bootstraping
-│   └── recommends/
-│       └── plugs                   # Enabled recommended plugins/completions/aliaes
-├── bootstrap.bash*
+│   └── recommended_plugs*          # Enabled recommended plugins/completions/aliaes
+├── bootstrap*                      # To install dotfiles framework and system tools from bare system
+├── install*                        # To install dotfiles framework
 ├── cheat/                          # It is ignored in git. git clone https://github.com/adoyle-h/my-command-cheat cheat
 ├── completions/                    # Available completions
 ├── configs/                        # Application configuration
@@ -373,5 +360,4 @@ See the [NOTICE][] file distributed with this work for additional information re
 [bash-preexec]: https://github.com/rcaloras/bash-preexec
 [a-bash-prompt]: https://github.com/adoyle-h/a-bash-prompt
 [python]: https://www.python.org/
-[custom_plugins]: ./bootstraps/recommends/custom_plugins
 [z.lua]: https://github.com/skywind3000/z.lua

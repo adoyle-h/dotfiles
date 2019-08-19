@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Usage: ./bootstrap
+# Description: To install dotfiles framework and system tools from bare system
 
 set -o errexit
 set -o nounset
@@ -6,10 +8,54 @@ set -o pipefail
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+readonly TZ=${TZ:-Asia/Shanghai}
+readonly DOTFILES_GIT_REPO=git@github.com:adoyle-h/dotfiles.git
 
-source "$SCRIPT_DIR/pkgs/lobash/src/import.bash"
+source "$SCRIPT_DIR/bash/xdg.bash"
+source "$SCRIPT_DIR/deps/lobash.bash"
+source "$SCRIPT_DIR/check.bash"
 
-import l.ask l.has
+install_java() {
+    sudo ln -sfn /opt/homebrew/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
+}
+
+bootstrap_MacOS() {
+}
+
+bootstrap_linux() {
+  echo '[Bootstrap in linux]'
+  echo '[Done] Bootstrap in linux'
+}
+
+install_golang() {
+  local go_version=go1.17.4
+
+  if l.has command go; then
+    local cur_version=$(go version | awk '{print $3}')
+    if [[ $cur_version == $go_version ]]; then
+      echo "golang \"${go_version}\" installed"
+      return
+    else
+      # continue
+    fi
+  else
+    brew install go
+    brew_install=true
+  fi
+
+  local GVM_SCRIPT=${HOME}/.gvm/scripts/gvm
+  if [[ ! -f $GVM_SCRIPT ]]; then
+    bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+  fi
+  source "$GVM_SCRIPT"
+
+  gvm install $go_version
+  gvm use $go_version --default
+
+  if [[ $brew_install == true ]]; then
+    brew uninstall go
+  fi
+}
 
 check_uninstalled_cmd() {
   local cmd=$1
@@ -22,25 +68,91 @@ check_uninstalled_cmd() {
   fi
 }
 
-_bootstrap_common() {
-  echo '[Bootstrap in common]'
+_install_build_essential() {
+  echo "[_install_build_essential_${SYSTEM}]"
+  _install_build_essential_${SYSTEM}
 
-  echo 'To git clone submodules'
-  git submodule init
-  git submodule update
+  if has not command curl ; then
+    echo 'To install curl'
+    _install_curl
+  fi
+
+  if has not command rvm ; then
+    echo 'To install rvm and ruby'
+    _install_rvm
+  fi
+
+  if has not command python ; then
+    echo 'To install python'
+    _install__python_${SYSTEM}
+  fi
+
+  # special command nvm
+  if command -v nvm != 'nvm' ; then
+    echo 'To install nvm and node'
+  fi
+}
+
+_install_git_Macos() {
+  brew install git
+}
+
+_install_rvm() {
+  gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+  curl -sSL https://get.rvm.io | bash -s stable --ruby
+
+  rvm install 2 --verify-downloads
+  rvm --default use 2
+}
+
+_install_nvm() {
+  export NVM_DIR="$HOME/.nvm"
+  git clone --depth 1 -b v0.37.2 https://github.com/creationix/nvm.git "$NVM_DIR"
+  . "$NVM_DIR/nvm.sh"
+
+  nvm install 12
+  npm alias default 12
+  nvm use --delete-prefix default
+}
+
+ensure_dirs() {
+  local dirnames=(
+    Documents
+    Downloads
+    Movies
+    Pictures
+    Music
+    Workspace
+    Presentations
+    Design
+    .config
+    .cache
+    temp
+    src
+    others
+  )
+
+  cd "$HOME"
+  mkdir -p "${dirnames[@]}"
+  cd -
+}
+
+bootstrap_common() {
+  echo "[Bootstrap common settings]"
 
   echo 'To mkdir -p general work directories'
-  mkdir -p ~/{Temp,Src,Workspace,Presentations,Design,Doc,Public,Pictures,Downloads}
   mkdir -p ~/.sshrc.d
+  _install_build_essential
 
-  if [[ ! -d ~/.bash_it ]] ; then
-    echo 'To download bash_it'
-    git clone --depth 1 https://github.com/Bash-it/bash-it.git ~/.bash_it
-  fi
+  _install_ruby
+  _install_python
+  _install_node
 
   if [[ ! -d ~/dotfiles ]] ; then
     echo 'To download my dotfiles'
-    git clone --depth 1 --recursive git@github.com:adoyle-h/dotfiles.git ~/dotfiles
+    git clone "$DOTFILES_GIT_REPO" ~/dotfiles
+    git -C "$DOTFILES_GIT_REPO" submodule update --init
+    git -C "$DOTFILES_GIT_REPO"/deps/dotbot submodule update --init
     # ~/dotfiles/install
   fi
 
@@ -48,7 +160,7 @@ _bootstrap_common() {
     echo 'To install nvm'
     curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 
-    read -rp "To install NodeJS. Which version? (Defaults to node latest)" answer
+    local answer=$(l.ask_input "To install NodeJS. Which version? (Defaults to node latest)")
     if [[ -z $answer ]]; then
       answer=node
     fi
@@ -111,36 +223,29 @@ _bootstrap_common() {
     fi
   fi
 
-  ./install
+  ./dotbot
 
-  echo 'To setup bash-custom plugins'
-  a enable-plugin $(cat ./bootstraps/recommends/custom_plugins)
+  # Restart your shell
 
   echo '[Done] Bootstrap in common'
 }
 
-_bootstrap_macos() {
-  echo '[Bootstrap in macos]'
+bootstrap() {
+  return 0
+}
 
-  if l.has_not command brew ; then
-    echo 'To install homebrew'
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+main() {
+  check_support
+
+  if l.is_ubuntu; then
+    # shellcheck source=bootstraps/ubuntu.bash
+    . "$SCRIPT_DIR"/bootstraps/ubuntu.bash
   fi
 
-  brew bundle install
+  bootstrap
+  bootstrap_common
 
-  echo '[Done] Bootstrap in macos'
+  # @TODO clone my secret folders
 }
 
-_bootstrap_linux() {
-  echo '[Bootstrap in linux]'
-  echo '[Done] Bootstrap in linux'
-}
-
-if l.has command brew ; then
-  _bootstrap_common
-  _bootstrap_macos
-else
-  _bootstrap_common
-  _bootstrap_linux
-fi
+main "$@"

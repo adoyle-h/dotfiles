@@ -1,17 +1,15 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC1090
 
 set -o errexit
 set -o nounset
 set -o pipefail
-[[ -n "${XTRACE:+x}" ]] && set -o xtrace
-[[ -n "${VERBOSE:+x}" ]] && set -o verbose
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+[[ -n "${VERBOSE:-}" ]] && set -o verbose
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
-[[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}}()]: '
 
 # Copy from dotbot/tools/git-submodule/install
 
-CONFIG="install.conf.yaml"
+CONFIG="dotbot.conf.yaml"
 DOTBOT_DIR="deps/dotbot"
 
 DOTBOT_BIN="bin/dotbot"

@@ -47,7 +47,7 @@ An elegant way to manage dotfiles, commands, completions, configurations for ter
 
 ## Features
 
-- Manage collections of dotfiles. Create soft-link via [dotbot][]. See [the configuration](./install.conf.yaml).
+- Manage collections of dotfiles. Create soft-link via [dotbot][]. See [the configuration](./dotbot.conf.yaml).
 - Manage shell scripts/completions/aliases/plugins by modules via [bash-it][].
   - Most features are implemented in separate plugins, which could be disabled by yourself.
   - All my plugins are put in [`bash_it/plugins/available/`](./bash_it/plugins/available/). `a plugins-list -a` to print all plugin names.
@@ -114,7 +114,7 @@ See [releases](https://github.com/adoyle-h/dotfiles/releases).
 - [python][]: **It is required**. Make sure it available before installation. Python 2 and 3 are both supported.
 - [git][]: **It is required**. Make sure it available before installation.
   - [git-prompt][]: If omitted, PS1 will not show git prompt.
-- [dotbot][]: To create symbolic links and manage them by [`install.conf.yaml`](./install.conf.yaml). No need to install it manually. It is a submodule of this project.
+- [dotbot][]: To create symbolic links and manage them by [`dotbot.conf.yaml`](./dotbot.conf.yaml). No need to install it manually. It is a submodule of this project.
 - [bash-it][]: To manage all shell scripts in modules: aliases, plugins, completions and shell appearance theme. No need to install it manually. It is a submodule of this project.
 
 ## Installation
@@ -135,9 +135,9 @@ git submodule update --init --recursive
 # Make sure XDG_ variables set
 . bash/xdg.bash
 
-# You may check the content of `install.conf.yaml` file,
-# It creates soft-links based on install.conf.yaml.
-./install
+# You may check the content of `dotbot.conf.yaml` file,
+# It creates soft-links based on dotbot.conf.yaml.
+./dotbot
 # Checkout the output
 
 # Restart your shell
@@ -179,7 +179,7 @@ These parts of below files you should modify.
 
 ### Dotfiles
 
-Edit the [`install.conf.yaml`][install.conf.yaml] file.
+Edit the [`dotbot.conf.yaml`][dotbot.conf.yaml] file.
 
 ## Usage
 
@@ -266,8 +266,8 @@ and some sub-commands to manage them.
 ├── completions/                    # Bash command completions. Link to ~/.bash_completions
 ├── configs/                        # Application configuration
 ├── docs/                           # The documents of this project
-├── install*
-├── install.conf.yaml               # Dotbot configurations
+├── dotbot*                         # Create soft-links based on dotbot.conf.yaml
+├── dotbot.conf.yaml                # Dotbot configurations
 ├── deps/                           # Git submodules
 │   ├── a-bash-prompt/              # https://github.com/adoyle-h/a-bash-prompt
 │   ├── bash-it/                    # https://github.com/Bash-it/bash-it
@@ -338,7 +338,7 @@ See the [NOTICE][] file distributed with this work for additional information re
 
 <!-- links -->
 
-[install.conf.yaml]: ./install.conf.yaml
+[dotbot.conf.yaml]: ./dotbot.conf.yaml
 [dotbot]: https://github.com/anishathalye/dotbot/
 [bash-it]: https://github.com/Bash-it/bash-it
 [sub]: https://github.com/basecamp/sub

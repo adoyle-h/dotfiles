@@ -6,7 +6,6 @@
 
 - shell:
     # dotbot have no sudo permission
-    - "[[ ! -f /Library/LaunchAgents/com.adoyle.polipo.plist ]] && sudo ln -s `pwd`/LaunchAgents/com.adoyle.polipo.plist /Library/LaunchAgents/com.adoyle.polipo.plist || echo ok"
     - "ln -fhs `pwd`/deps/bash-it ~/.bash_it"
 
 - link:
@@ -33,7 +32,6 @@
     ~/.czrc: configs/czrc
     ~/.sshrc: configs/sshrc
     ~/.mdlrc: configs/mdlrc
-    ~/.polipo: configs/polipo
     ~/.jshintrc: configs/jshintrc
     ~/.htmlhintrc: configs/htmlhintrc
     ~/.stylelintrc: configs/stylelintrc

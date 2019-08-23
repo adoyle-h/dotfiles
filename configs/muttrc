@@ -1,0 +1,78 @@
+# vim: ft=neomuttrc
+
+source ~/.mutt/configs/keys
+source ~/.mutt/configs/colors
+
+
+# --------------------------------------------------------------------------
+# VARIABLES ? shown with their default values
+# --------------------------------------------------------------------------
+# Set the command you want NeoMutt to execute upon the receipt of a new email
+# set new_mail_command = ""
+# Linux example:
+# set new_command="notify-send --icon='/home/santiago/Pictures/neomutt.png' \
+#   'New Email in %f' '%n new messages, %u unread.' &"
+# OS X example:
+# set new_mail_command="notify -s -t '%v' -st 'New Mail in %f' \
+#   -m '%n new messages, %u unread.' -activate 'com.apple.Terminal'"
+set new_mail_command="osascript -e \'display notification \"%n new messages, %u unread.\" with title \"Mutt 收到新邮件\" subtitle \"in %f\" sound name \"Submarine\"\'"
+# --------------------------------------------------------------------------
+
+hdr_order Subject: From: To: Cc: From Date:
+# this is cool, dual text/html mails have only the text part shown
+alternative_order text/plain text/html *<Paste>
+
+set mail_check_stats = yes
+set mail_check_stats_interval = 180
+
+# Minimal configuration for Neomutt/Mutt and Gmail/G Suite
+
+# Decrypts passwords quietly
+# see: https://wiki.archlinux.org/index.php/Mutt#Passwords_management
+# source "gpg -dq $HOME/.my-pwds.gpg |"
+set my_mail = "adoyle.h@gmail.com"
+set my_pass = "tejaosacdffivhic"
+
+# Username and password for your Gmail/G Suite account
+set imap_user = $my_mail
+# Password assigned from decrypted file
+set imap_pass = $my_pass
+
+# Specifies the default location of your mailboxes
+set folder = "imaps://imap.gmail.com:993"
+
+# Configure Simple Mail Transfer Protocol for sending mail
+set from = $my_mail
+set realname = 'ADoyle'
+set ssl_starttls = no
+set smtp_authenticators = 'gssapi:login'
+
+# for Gmail
+# SSL 端口：465
+# TLS/STARTTLS 端口：587
+set smtp_url = "smtps://adoyle.h@gmail.com@smtp.gmail.com:465"
+# for G Suite with own domain
+#set smtp_url = "smtps://yourusername@yourdomain.ext@smtp.gmail.com:587"
+set smtp_pass = $my_pass
+
+# Location of inbox
+set spoolfile = "+INBOX"
+# Location of drafts
+set postponed = "+[GMail]/Drafts"
+set trash = '+[Mutt]/Trash'
+
+
+# Activate caching, as it can greatly improve speed
+set header_cache = "~/.mutt/cache/headers"
+set message_cachedir = "~/.mutt/cache/bodies"
+
+# Disable saving outgoing mail since Gmail saves them by default.
+set record = ""
+
+set sort = 'reverse-date'
+set index_format = '%4C %Z %{%Y/%m/%d %H:%M} %-10.10L⎮ %s'
+
+set sidebar_visible = no
+set sidebar_width = 20
+set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
+set mail_check_stats = yes

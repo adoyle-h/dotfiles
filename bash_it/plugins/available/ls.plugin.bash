@@ -2,8 +2,8 @@ cite about-plugin
 about-plugin 'better ls commands. use https://github.com/ogham/exa'
 
 if dotfiles_l.has command exa; then
-  alias ls='exa'
-  alias ll='exa -lah'
+  alias ls='exa -x'
+  alias ll='exa -lahG --icons'
 else
   if ls --color -d . &> /dev/null ; then
     alias ls='ls --color=auto'

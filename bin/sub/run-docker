@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC1090
 
 set -o errexit
 set -o nounset
 set -o pipefail
-shopt -s inherit_errexit
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 [[ -n "${VERBOSE:-}" ]] && set -o verbose
-[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
 declare -A map=(
   [alpine]=3.10
@@ -23,6 +21,20 @@ declare -A image_map=(
 if [[ "${1:-}" == "--complete" ]]; then
   echo "${!map[@]}"
   exit 0
+fi
+
+if [[ $# == 0 ]]; then
+  cat <<EOF
+Usage: a run-docker [-v <version>] <image> [image-options]
+
+Available Images: ${!map[@]}
+EOF
+  exit 0
+fi
+
+if [[ ${1:-} == '-v' ]]; then
+  VERSION=$2
+  shift 2
 fi
 
 readonly name=$1

@@ -23,7 +23,7 @@ __a_keymap_trigger_sudo() {
 ##### key bindings #####
 
 # Alt+S
-bind -x '"\es": "__a_keymap_trigger_sudo"'
+# bind -x '"\es": "__a_keymap_trigger_sudo"'
 # bind -x '"\es": " \C-u \C-a\C-k`__a_keymap_trigger_sudo`\e\C-e"'
 # bind '"\es": "\C-asudo \C-e"'
 

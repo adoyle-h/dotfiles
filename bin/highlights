@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+# set -o errexit
+# set -o nounset
+# set -o pipefail
+
+# Reset
+Color_Off='\e[0m'       # Text Reset
+# Regular Colors
+Black='0;30'        # Black
+Red='0;31'          # Red
+Green='0;32'        # Green
+Yellow='0;33'       # Yellow
+Blue='0;34'         # Blue
+Purple='0;35'       # Purple
+Cyan='0;36'         # Cyan
+White='0;37'        # White
+# Bold on Background
+On_Black='4;30'       # Black
+On_Red='4;31'         # Red
+On_Green='4;32'       # Green
+On_Yellow='4;33'      # Yellow
+On_Blue='4;34'        # Blue
+On_Purple='4;35'      # Purple
+On_Cyan='4;36'        # Cyan
+On_White='4;37'       # White
+
+_COLORS=( "$Red" "$Green" "$Yellow" "$Blue" "$Purple" "$Cyan" "$On_Red" "$On_Green" "$On_Yellow" "$On_Blue" "$On_Purple" "$On_Cyan" )
+
+h() {
+  _usage() {
+    echo "usage: YOUR_COMMAND | h [-idn] args...
+    -i : ignore case
+    -n : invert colors"
+  }
+
+  # detect pipe or tty
+  if [[ -t 0 ]]; then
+    _usage
+    return
+  fi
+
+  shift $(($OPTIND - 1))
+
+  local _i=0
+
+  local WHICH="type -P"
+  local searcher=$($WHICH ag)
+  if [[ -z $searcher ]]; then
+    echo "ERROR: Could not find the 'ag' commands"
+    return 1
+  fi
+
+
+  # build the filtering command
+  for keyword in "$@"
+  do
+    local _COMMAND=$_COMMAND"$searcher --passthru --color --color-match=\"${_COLORS[$_i]}\" '$keyword' |"
+    _i=$_i+1
+  done
+  #trim ending pipe
+  _COMMAND=${_COMMAND%?}
+  #echo "$_COMMAND"
+  cat - | eval "$_COMMAND"
+
+}
+
+h "$@"

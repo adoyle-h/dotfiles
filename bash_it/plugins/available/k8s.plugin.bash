@@ -1,8 +1,8 @@
 cite about-plugin
 about-plugin 'k8s settings'
 
-alias k=kubectl
-complete -F __start_kubectl k
+alias kc=kubectl
+complete -F __start_kubectl kc
 
 # https://kubernetes.io/docs/reference/kubectl/cheatsheet/#kubectl-context-and-configuration
 export KUBECONFIG=~/.kube/config:~/.kube/work-dev.config:~/.kube/work-test.config

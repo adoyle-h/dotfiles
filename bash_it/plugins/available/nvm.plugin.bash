@@ -6,6 +6,7 @@ about-plugin 'change node source code mirror and enable nvm'
 # NVM_NODEJS_ORG_MIRROR is deprecated and will be removed in node-gyp v4, please use NODEJS_ORG_MIRROR
 export NODEJS_ORG_MIRROR="https://npm.taobao.org/mirrors/node"
 export NVM_NODEJS_ORG_MIRROR="$NODEJS_ORG_MIRROR"
+DEFAULT_NODE_VERSION=v10.15.0
 
 BREW_PREFIX=$(brew --prefix)
 if dotfiles_l.has command brew && [[ -d "$BREW_PREFIX/Cellar/nvm" ]]; then
@@ -23,15 +24,26 @@ if [[ -z $NVM_DIR ]] && [[ -d $HOME/.nvm ]]; then
   export NVM_DIR=$HOME/.nvm
 fi
 
+my_nvm() {
+  unalias nvm
+  . "$NVM_DIR/nvm.sh"
+  nvm "$@"
+}
+
 if [[ -n "$NVM_DIR" ]]; then
   DOTFILES_DEBUG "source $NVM_DIR/nvm.sh"
-  . "$NVM_DIR/nvm.sh"
+  # . "$NVM_DIR/nvm.sh"
+
+  # add our default nvm node (`nvm alias default 10.16.0`) to path without loading nvm
+  export PATH="$NVM_DIR/versions/node/$DEFAULT_NODE_VERSION/bin:$PATH"
+  # alias `nvm` to this one liner lazy load of the normal nvm script
+  alias nvm=my_nvm
 
   # Enable nvm completion
   [[ -r "$NVM_DIR"/bash_completion ]] && . "$NVM_DIR"/bash_completion
 fi
 
-if dotfiles_l.has_not function nvm; then
+if dotfiles_l.has_not the nvm; then
   echo 'WARNING: Shell function "nvm" not found. But you have enabled nvm.plugin.bash.' >&2
   echo '         You should install nvm by yourself. See https://github.com/creationix/nvm' >&2
   echo '         If you install nvm via brew. Check the path of "brew --prefix nvm".' >&2

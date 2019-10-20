@@ -22,10 +22,10 @@
     diff = diff-so-fancy | less --tabs=4 -gRFXM
     show = diff-so-fancy | less --tabs=4 -gRFXM
 [alias]
-    lg = log --left-right --graph --format=\"%C(auto)%d %h%Creset% s %C(68)%ar %C(ul 117)%aN|%cN%Creset\"
-    lga = log --all --left-right --graph --format=\"%C(auto)%d %h%Creset% s %C(68)%ar %C(ul 117)%aN|%cN%Creset\"
-    lgas = log --simplify-by-decoration --all --left-right --graph --format=\"%C(auto)%d %h%Creset% s %C(68)%ar %C(ul 117)%aN|%cN%Creset\"
-    lgs = log --simplify-by-decoration --left-right --graph --format=\"%C(auto)%d %h%Creset% s %C(68)%ar %C(ul 117)%aN|%cN%Creset\"
+    lg = log --graph --abbrev=8 --format=\"%C(white) %s%n%C(68)%h%C(auto)%d %C(243)%ai (%ar) %aN|%cN\"
+    lga = lg --all
+    lgas = lg --all --simplify-by-decoration
+    lgs = lg --simplify-by-decoration
     f = fetch --prune
     b = branch -vv
     find = grep -n --heading --break
@@ -122,3 +122,5 @@
 ;     proxy = socks5://127.0.0.1:1080
 ; [https]
 ;     proxy = socks5://127.0.0.1:1080
+[log]
+    date = local

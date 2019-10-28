@@ -30,6 +30,10 @@ __a_keymap_trigger_sudo() {
 # Press Tab to completion in circle
 bind "TAB:menu-complete"
 
+# \e equals both ESC and ALT. It is a bad design!
+# Press ESC and wait 1 second to abort
+bind '"\e": abort'
+
 # Shift+Tab move backward
 bind '"\e[Z":menu-complete-backward'
 

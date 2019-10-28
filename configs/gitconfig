@@ -126,3 +126,5 @@
 ;     proxy = socks5://127.0.0.1:1080
 [log]
     date = local
+[includeIf "gitdir:~/Workspace/Ali/"]
+    path = .gitconfig.work

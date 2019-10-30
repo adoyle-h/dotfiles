@@ -1,14 +1,16 @@
----
 extends: default
 
 rules:
-    line-length: disable
-    indentation:
-        spaces: consistent
-        indent-sequences: consistent
-        check-multi-line-strings: true
-    empty-lines:
-        level: warning
-        max: 2
-        max-start: 1
-    new-line-at-end-of-file: enable
+  braces:
+    min-spaces-inside: 0
+    max-spaces-inside: 1
+    min-spaces-inside-empty: 0
+    max-spaces-inside-empty: 0
+  indentation:
+    spaces: consistent
+    check-multi-line-strings: true
+  document-start: disable
+  empty-values:
+    level: warning
+    forbid-in-block-mappings: true
+    forbid-in-flow-mappings: true

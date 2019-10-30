@@ -22,7 +22,8 @@
     diff = diff-so-fancy | less --tabs=4 -gRFXM
     show = diff-so-fancy | less --tabs=4 -gRFXM
 [alias]
-    lg = log --graph --abbrev=8 --format=\"%C(237)┬─%C(auto)%D%C(237)────────────────────────────────────────────────────────────%n%C(237)│ %C(68)%h %C(white)%s%n%C(237)╰───────── %C(240)%ai (%ar) %aN|%cN\"
+    lg = log --graph --abbrev=8 --format=\"%C(237)╮ %C(auto)%D%C(237)%n%C(237)│ %C(68)%h %C(white)%s%n%C(237)╰ %C(240)%ai (%ar) %aN|%cN\"
+    lg4 = log --graph --abbrev=8 --format=\"%C(237)┬─%C(auto)%D%C(237)────────────────────────────────────────────────────────────%n%C(237)│ %C(68)%h %C(white)%s%n%C(237)╰───────── %C(240)%ai (%ar) %aN|%cN\"
     lg3 = log --graph --abbrev=8 --format=\"%C(237)─%C(auto)%D%C(237)────────────────────────────────────────────────────────────%n  %C(68)[%h] %C(242)%ai (%ar) %aN|%cN%n  %C(white)%s\"
     lg2 = log --graph --abbrev=8 --format=\"%C(white) %s%n  %C(68)%h%C(auto)%d %C(243)%ai (%ar) %aN|%cN\"
     lga = lg --all

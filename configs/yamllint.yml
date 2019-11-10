@@ -8,9 +8,10 @@ rules:
     max-spaces-inside-empty: 0
   indentation:
     spaces: consistent
-    check-multi-line-strings: true
+    check-multi-line-strings: false
   document-start: disable
   empty-values:
     level: warning
     forbid-in-block-mappings: true
     forbid-in-flow-mappings: true
+  truthy: disable

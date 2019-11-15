@@ -55,6 +55,7 @@
     ~/.grip/settings.py: secrets/grip-settings.py
     ~/.gnupg: secrets/gnupg
     ~/.gitconfig.work: secrets/gitconfig.work
+    ~/Library/Gas Mask: secrets/gas_mask
 
     # nvim
     $XDG_CONFIG_HOME/nvim: deps/nvim

@@ -1,28 +1,21 @@
 [submodule "cheat"]
 	path = cheat
 	url = https://github.com/adoyle-h/my-command-cheat.git
-	shallow = true
 [submodule "deps/dotbot"]
 	path = deps/dotbot
 	url = https://github.com/anishathalye/dotbot.git
-	shallow = true
 [submodule "deps/nvim"]
 	path = deps/nvim
 	url = https://github.com/adoyle-h/neovim-config.git
-	shallow = true
 [submodule "deps/z.lua"]
 	path = deps/z.lua
 	url = https://github.com/skywind3000/z.lua.git
-	shallow = true
 [submodule "deps/bash-it"]
 	path = deps/bash-it
 	url = https://github.com/Bash-it/bash-it.git
-	shallow = true
 [submodule "deps/a-bash-prompt"]
 	path = deps/a-bash-prompt
 	url = https://github.com/adoyle-h/a-bash-prompt.git
-	shallow = true
 [submodule "deps/bash-preexec"]
 	path = deps/bash-preexec
 	url = https://github.com/rcaloras/bash-preexec.git
-	shallow = true

@@ -1,6 +1,6 @@
 # BASH_IT_LOAD_PRIORITY: 311
 cite about-plugin
-about-plugin 'Initialize z command. https://github.com/skywind3000/z.lua'
+about-plugin 'Initialize z command. https://github.com/skywind3000/z.lua.'
 
 if [[ ! -f $(dirname "${BASH_SOURCE[0]}")/../../../deps/z.lua/z.lua ]]; then
   echo 'WARNING: deps/z.lua not found. But you have enabled zl.plugin.bash.' >&2
@@ -14,7 +14,13 @@ export _ZL_EXCLUDE_DIRS=(.git)
 # export _ZL_CD=cd
 export _ZL_MATCH_MODE=1
 
-eval "$(lua "$(dirname "${BASH_SOURCE[0]}")"/../../../deps/z.lua/z.lua --init bash fzf)"
+
+z_lua_init_options=(bash)
+if dotfiles_l.has command fzf; then
+  z_lua_init_options+=(fzf)
+fi
+
+eval "$(lua "$(dirname "${BASH_SOURCE[0]}")"/../../../deps/z.lua/z.lua --init "${z_lua_init_options[@]}")"
 
 _z_lua_add_path() {
   (_zlua --add "$(command pwd 2>/dev/null)" &)

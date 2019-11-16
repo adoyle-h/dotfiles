@@ -2,31 +2,33 @@
 cite about-plugin
 about-plugin 'Settings for fzf; https://github.com/junegunn/fzf'
 
-# Setup fzf
-FZF_BIN=$HOME/.fzf/bin
-
-if [[ ! -d $FZF_BIN ]] ; then
-  echo "Not found folder $FZF_BIN" >&2
+if [[ -d /usr/local/opt/fzf ]]; then
+  FZF_DIR=/usr/local/opt/fzf
+  FZF_BIN=$FZF_DIR/bin
+  FZF_MANPATH=$FZF_DIR/share/man
+elif [[ -d $HOME/.fzf/bin ]]; then
+  FZF_DIR=$HOME/.fzf
+  FZF_BIN=$FZF_DIR/bin
+  FZF_MANPATH=$FZF_DIR/man
+else
+  echo "Not found fzf directory. Please install fzf by git or homebrew, see https://github.com/junegunn/fzf#installation" >&2
   echo "Invoke 'a disable-plugin fzf' to disable the plugin"
   return 1
 fi
 
-if ! dotfiles_l.str_include "$PATH" "$FZF_BIN"; then
+if dotfiles_l.has_not command fzf; then
   export PATH="$PATH:$FZF_BIN"
 fi
-unset -v FZF_BIN
+
+if ! man -w fzf >/dev/null; then
+  export MANPATH="$MANPATH:$FZF_MANPATH"
+fi
 
 if dotfiles_l.has_not command fzf; then
   echo "Not found command 'fzf'" >&2
   echo "Invoke 'a disable-plugin fzf' to disable the plugin"
   return 1
 fi
-
-FZF_MANPATH=$HOME/.fzf/man
-if ! dotfiles_l.str_include "$MANPATH" "$FZF_MANPATH"; then
-  export MANPATH="$MANPATH:$FZF_MANPATH"
-fi
-unset -v FZF_MANPATH
 
 # ---- BASIC ----
 FZF_COLORS='--color=light,hl:196,hl+:196,fg+:255,bg+:238,prompt:33,pointer:255,marker:160,info:252,spinner:237,header:75 --ansi --black'
@@ -69,10 +71,11 @@ if [[ -n "$TMUX" ]]; then
 fi
 
 # Key bindings
-source "$HOME/.fzf/shell/key-bindings.bash"
-
+source "$FZF_DIR/shell/key-bindings.bash"
 # Auto-completion
-source "$HOME/.fzf/shell/completion.bash" 2> /dev/null
+source "$FZF_DIR/shell/completion.bash" 2> /dev/null
+
+unset -v FZF_DIR FZF_MANPATH FZF_BIN
 
 ## support neo (nvim) bash-completion
 complete -F _fzf_file_completion -o default -o bashdefault neo

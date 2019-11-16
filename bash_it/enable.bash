@@ -1,14 +1,8 @@
 DOTFILES_DEBUG "Start to load"
 
-if [[ -h "${BASH_SOURCE[0]}" ]]; then
-  DOTFILE_DIR=$(dirname "$(readlink "${BASH_SOURCE[0]}")")/..
-else
-  DOTFILE_DIR=$(dirname "${BASH_SOURCE[0]}")/..
-fi
-
-export BASH_IT="$DOTFILE_DIR/deps/bash-it"
-export BASH_IT_CUSTOM="$DOTFILE_DIR/bash_it/custom"
-export CUSTOM_THEME_DIR="$DOTFILE_DIR/bash_it/themes"
+export BASH_IT="$DOTFILES_DIR/deps/bash-it"
+export BASH_IT_CUSTOM="$DOTFILES_DIR/bash_it/custom"
+export CUSTOM_THEME_DIR="$DOTFILES_DIR/bash_it/themes"
 
 unset -v DOTFILE_DIR
 
@@ -36,5 +30,4 @@ export SCM_CHECK=false
 # shellcheck source=/dev/null
 source "$BASH_IT/bash_it.sh"
 
-# If _DEBUG not defined, the exit code should be 0.
-DOTFILES_DEBUG "Done loaded" || true
+DOTFILES_DEBUG "Done loaded"

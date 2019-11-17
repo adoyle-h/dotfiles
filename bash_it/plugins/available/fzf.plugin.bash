@@ -12,7 +12,7 @@ elif [[ -d $HOME/.fzf/bin ]]; then
   FZF_MANPATH=$FZF_DIR/man
 else
   echo "Not found fzf directory. Please install fzf by git or homebrew, see https://github.com/junegunn/fzf#installation" >&2
-  echo "Invoke 'a disable-plugin fzf' to disable the plugin"
+  echo "Invoke 'a plugins-disable fzf' to disable the plugin"
   return 1
 fi
 
@@ -26,7 +26,7 @@ fi
 
 if dotfiles_l.has_not command fzf; then
   echo "Not found command 'fzf'" >&2
-  echo "Invoke 'a disable-plugin fzf' to disable the plugin"
+  echo "Invoke 'a plugins-disable fzf' to disable the plugin"
   return 1
 fi
 

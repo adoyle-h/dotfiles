@@ -6,12 +6,11 @@ echo "bash-it disable completion all"
 bash-it disable completion all
 
 ## [alias]
-bash-it enable alias general
 
 ## [plugin]
 bash-it enable plugin base alias-completion
 
 ## [completion]
-bash-it enable completion bash-it system
+bash-it enable completion bash-it
 
 echo '[bash_it reset done]'

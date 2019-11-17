@@ -1,8 +1,0 @@
-# Load user completion files
-if [[ -d $HOME/.bash_completions ]]; then
-  completion_files="$HOME/.bash_completions/*.sh $HOME/.bash_completions/*.bash"
-  for file in $completion_files; do
-    source "$file"
-  done
-  unset -v completion_files file
-fi

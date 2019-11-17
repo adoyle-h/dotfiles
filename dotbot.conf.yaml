@@ -15,7 +15,6 @@
     ~/.bashrc: bash/bashrc
     ~/.bash_profile: bash/bash_profile
     ~/.bash_completions: completions
-    ~/.bash_completion: bash/bash_completion
     # ~/.fast_bashrc: bash/fast_bashrc
 
     # bash_it

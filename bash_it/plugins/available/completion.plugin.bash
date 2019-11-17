@@ -48,13 +48,13 @@ bind "set skip-completed-text on"
 # - /etc/bash_completion
 # - /etc/profile.d/bash_completion.sh
 # - /usr/share/bash-completion/bash_completion
-# - bash_completion if it installed. bash_completion will load files in order:
+# - if bash_completion installed. It will load files in order:
 #   - ${BASH_COMPLETION_COMPAT_DIR:-/usr/local/etc/bash_completion.d}
 #   - ${BASH_COMPLETION_USER_FILE:-~/.bash_completion}
-#     - $HOME/.bash_completions
-# -  if bash_completion not installed
-#   - $HOME/.bash_completions
+# - $HOME/.bash_completions
 
+# bash_completion.sh will use $BASH_COMPLETION_COMPAT_DIR and $BASH_COMPLETION_USER_FILE
+BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
 
 BASH_COMPLETION_DIRS=(
   # Loads the system's Bash completion modules.
@@ -71,30 +71,32 @@ for BASH_COMPLETION_FILE in "${BASH_COMPLETION_DIRS[@]}"; do
   fi
 done
 
-unset -v BASH_COMPLETION_FILE BASH_COMPLETION_DIRS
+load_user_completion() {
+  DOTFILES_DEBUG "Loading $HOME/.bash_completion"
+
+  local completion_files file
+  # Load user completion files
+  if [[ -d $HOME/.bash_completions ]]; then
+    completion_files="$HOME/.bash_completions/*.sh $HOME/.bash_completions/*.bash"
+    for file in $completion_files; do
+      DOTFILES_DEBUG "To load completion file $file"
+      source "$file"
+    done
+  fi
+}
 
 if [[ $(uname) = "Darwin" ]] && dotfiles_l.has command brew; then
-  # If Homebrew is installed, its Bash completion modules are loaded.
-  BREW_PREFIX=$(brew --prefix)
-
-  if [[ -n "$BREW_PREFIX" ]]; then
-    # To enable bash_completion in macos
-    if [[ -f "$BREW_PREFIX"/share/bash-completion/bash_completion ]] && [[ "${BASH_VERSINFO[0]}" =~ [45] ]]; then
-      DOTFILES_DEBUG "To load bash-completion2: $BREW_PREFIX/share/bash-completion/bash_completion"
-      source "$BREW_PREFIX"/share/bash-completion/bash_completion
-    elif [[ -f "$BREW_PREFIX"/etc/bash_completion ]]; then
-      DOTFILES_DEBUG "To load bash-completion: $BREW_PREFIX/etc/bash_completion"
-      source "$BREW_PREFIX"/etc/bash_completion
-    else
-      DOTFILES_DEBUG "To load $HOME/.bash_completion"
-      source "$HOME"/.bash_completion
-    fi
-  else
-    DOTFILES_DEBUG "To load $HOME/.bash_completion"
-    source "$HOME"/.bash_completion
+  # To enable bash_completion in macos
+  BASH_COMPLETION_FILE=/usr/local/etc/profile.d/bash_completion.sh
+  if [[ -r "$BASH_COMPLETION_FILE" ]]; then
+    DOTFILES_DEBUG "To load bash-completion: $BASH_COMPLETION_FILE"
+    source "$BASH_COMPLETION_FILE"
   fi
-  unset -v BREW_PREFIX
+
+  load_user_completion
 else
-  DOTFILES_DEBUG "To load $HOME/.bash_completion"
-  source "$HOME"/.bash_completion
+  load_user_completion
 fi
+
+unset -v BASH_COMPLETION_FILE BASH_COMPLETION_DIRS BASH_COMPLETION_COMPAT_DIR
+unset load_user_completion

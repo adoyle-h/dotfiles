@@ -33,3 +33,19 @@ if [[ -d "$BASH_4_MANPATH" ]] \
   export MANPATH="$BASH_4_MANPATH:$MANPATH"
 fi
 unset -v BASH_4_MANPATH
+
+if dotfiles_l.has command gdate; then
+  # GNU File, Shell, and Text utilities for mac. Depend on "brew install coreutils"
+  alias date='gdate'
+  alias timeout='gtimeout'
+  alias truncate='gtruncate'
+else
+  echo "WARNING: Not found gdate. You should install coreutils before enable gnu.plugin.bash. Try brew install coreutils." >&2
+fi
+
+gnu_sed_bin=/usr/local/opt/gnu-sed/libexec/gnubin
+if [[ -d $gnu_sed_bin ]] && ( ! dotfiles_l.str_include "$PATH" "$gnu_sed_bin" ); then
+  export PATH="$gnu_sed_bin:$PATH"
+  export MANPATH="$BASH_4_MANPATH:$MANPATH:/usr/local/opt/gnu-sed/libexec/gnuman"
+fi
+unset -v gnu_sed_bin

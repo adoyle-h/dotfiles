@@ -7,6 +7,8 @@ if [[ "$(uname -s)" != "Darwin" ]] ; then
   return 0
 fi
 
+# Set aliases -----------------------------------------------------------------
+
 alias finder='open -a Finder '
 
 # Flush your dns cache
@@ -18,6 +20,8 @@ alias quicklook='qlmanage -p 2>/dev/null'
 # Mute/Unmute the system volume. Plays nice with all other volume settings.
 alias mute="osascript -e 'set volume output muted true'"
 alias unmute="osascript -e 'set volume output muted false'"
+
+# Fix PATH and MANPATH --------------------------------------------------------
 
 # Fix PATH and MANPATH problems caused by /usr/libexec/path_helper in MacOS.
 # Refer to https://scriptingosx.com/2017/05/where-paths-come-from/'
@@ -34,18 +38,4 @@ if [[ -d "$BASH_4_MANPATH" ]] \
 fi
 unset -v BASH_4_MANPATH
 
-if dotfiles_l.has command gdate; then
-  # GNU File, Shell, and Text utilities for mac. Depend on "brew install coreutils"
-  alias date='gdate'
-  alias timeout='gtimeout'
-  alias truncate='gtruncate'
-else
-  echo "WARNING: Not found gdate. You should install coreutils before enable gnu.plugin.bash. Try brew install coreutils." >&2
-fi
-
-gnu_sed_bin=/usr/local/opt/gnu-sed/libexec/gnubin
-if [[ -d $gnu_sed_bin ]] && ( ! dotfiles_l.str_include "$PATH" "$gnu_sed_bin" ); then
-  export PATH="$gnu_sed_bin:$PATH"
-  export MANPATH="$BASH_4_MANPATH:$MANPATH:/usr/local/opt/gnu-sed/libexec/gnuman"
-fi
-unset -v gnu_sed_bin
+# -----------------------------------------------------------------------------

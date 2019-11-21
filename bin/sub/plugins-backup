@@ -1,16 +1,17 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC1090
 
 set -o errexit
 set -o nounset
 set -o pipefail
-shopt -s inherit_errexit
-[[ -n "${VERBOSE:+x}" ]] && set -o verbose
-[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+readonly TARGET="$SCRIPT_DIR"/../../bootstraps/recommends/custom_plugins
 
-TARGET="$SCRIPT_DIR"/../../bootstraps/recommends/custom_plugins
-a plugins-list | tr ' ' '\n' > "$TARGET"
-
-echo "Updated $TARGET"
+if [[ ${1:-} == '-d' ]] || [[ ${1:-} == '--dry-run' ]]; then
+  echo "Installed plugins:"
+  a plugins-list | tr ' ' '\n'
+else
+  a plugins-list | tr ' ' '\n' > "$TARGET"
+  echo "Updated file: $TARGET"
+fi

@@ -1,5 +1,4 @@
 acme
-adoyle
 alert
 alias
 auto-suggestion
@@ -11,11 +10,11 @@ fuck
 fzf
 gettext
 git
+gnutools-for-mac
 gpg
 grep
 gvm
 history
-itmz
 keymap
 lesspipe
 ls
@@ -29,7 +28,7 @@ preexec
 prompt
 proxy
 rm
-rust
+sed-for-mac
 shell
 sub
 tmux

@@ -13,23 +13,23 @@ if dotfiles_l.has command brew && [[ -d "$BREW_PREFIX/Cellar/nvm" ]]; then
   # https://github.com/Homebrew/brew/issues/3097#issuecomment-325206329
   brew_nvm_prefix="$(brew --prefix nvm)"
   if [[ -s $brew_nvm_prefix/nvm.sh ]]; then
-    export NVM_DIR=$brew_nvm_prefix
+    NVM_SOURCE=$brew_nvm_prefix
   fi
   unset -v brew_nvm_prefix
 fi
 unset -v BREW_PREFIX
 
-if [[ -z $NVM_DIR ]] && [[ -d $HOME/.nvm ]]; then
-  export NVM_DIR=$HOME/.nvm
-fi
+export NVM_DIR="$HOME/.nvm"
 
-if [[ -n "$NVM_DIR" ]]; then
-  DOTFILES_DEBUG "source $NVM_DIR/nvm.sh"
-  . "$NVM_DIR/nvm.sh"
+if [[ -n "$NVM_SOURCE" ]]; then
+  DOTFILES_DEBUG "source $NVM_SOURCE/nvm.sh"
+  . "$NVM_SOURCE/nvm.sh"
 
   # Enable nvm completion
-  [[ -r "$NVM_DIR"/bash_completion ]] && . "$NVM_DIR"/bash_completion
+  [[ -r "$NVM_SOURCE"/bash_completion ]] && . "$NVM_SOURCE"/bash_completion
 fi
+
+unset -v NVM_SOURCE
 
 if dotfiles_l.has_not function nvm; then
   echo 'WARNING: Shell function "nvm" not found. But you have enabled nvm.plugin.bash.' >&2

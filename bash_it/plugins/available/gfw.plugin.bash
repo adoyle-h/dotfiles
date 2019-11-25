@@ -1,5 +1,5 @@
 cite about-plugin
-about-plugin 'Set proxy mirror environment variables'
+about-plugin 'Settings for GFW'
 
 export ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/
 

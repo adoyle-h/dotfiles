@@ -9,6 +9,7 @@ editor
 fuck
 fzf
 gettext
+gfw
 git
 gnutools-for-mac
 gpg
@@ -26,7 +27,6 @@ nvim
 nvm
 preexec
 prompt
-proxy
 rm
 sed-for-mac
 shell

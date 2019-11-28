@@ -19,3 +19,6 @@
 [submodule "deps/bash-preexec"]
 	path = deps/bash-preexec
 	url = https://github.com/rcaloras/bash-preexec.git
+[submodule "deps/cheatsheets"]
+	path = deps/cheatsheets
+	url = https://github.com/cheat/cheatsheets.git

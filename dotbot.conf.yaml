@@ -41,6 +41,7 @@
     $XDG_CONFIG_HOME/peco/config.json: configs/peco.json
     ~/.mutt/muttrc: configs/muttrc
     ~/.mutt/configs: configs/mutt
+    $XDG_CONFIG_HOME/cheat/conf.yml: configs/cheat.conf.yml
 
     ## lint configs
     # Vim script Language Lint. https://github.com/Kuniwak/vint
@@ -59,9 +60,6 @@
 
     # nvim
     $XDG_CONFIG_HOME/nvim: deps/nvim
-
-    # cheat
-    ~/.cheat: cheat
 
     # others
     ~/bin: bin

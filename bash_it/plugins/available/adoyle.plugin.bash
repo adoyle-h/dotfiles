@@ -1,5 +1,5 @@
 cite about-plugin
-about-plugin 'A personal command for me (ADoyle). No meanings to other people.'
+about-plugin 'A personal settings for myself (ADoyle). No meanings to other people.'
 
 if dotfiles_l.has_not command adoyle; then
   echo "Not found command 'adoyle'" >&2
@@ -8,3 +8,7 @@ if dotfiles_l.has_not command adoyle; then
 fi
 
 source <(adoyle completion bash)
+
+# 1 day
+export HOMEBREW_AUTO_UPDATE_SECS=86400
+# export HOMEBREW_NO_AUTO_UPDATE=true

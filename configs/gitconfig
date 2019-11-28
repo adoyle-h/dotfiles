@@ -31,6 +31,7 @@
     lgs = lg --simplify-by-decoration
     f = fetch --prune
     b = branch -vv
+    p = pull
     find = grep -n --heading --break
     findn = grep -n
     grepn = grep -n

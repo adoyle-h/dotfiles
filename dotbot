@@ -7,15 +7,6 @@ set -o pipefail
 
 # Copy from dotbot/tools/git-submodule/install
 
-CONFIG="dotbot.conf.yaml"
-DOTBOT_DIR="deps/dotbot"
+readonly BASEDIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
-DOTBOT_BIN="bin/dotbot"
-BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-# readonly BASEDIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
-
-cd "${BASEDIR}"
-git -C "${DOTBOT_DIR}" submodule sync --quiet --recursive
-git submodule update --progress --init --depth 1 --recursive "${DOTBOT_DIR}"
-
-"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" "$@"
+"${BASEDIR}/deps/dotbot/bin/dotbot" -d "${BASEDIR}" -c dotbot.conf.yaml

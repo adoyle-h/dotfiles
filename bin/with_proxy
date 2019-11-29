@@ -3,8 +3,14 @@
 set -o errexit
 set -o nounset
 set -o pipefail
-shopt -s inherit_errexit
-[[ -n "${VERBOSE:-}" ]] && set -o verbose
-[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
-ALL_PROXY=socks5://127.0.0.1:1080 "$@"
+http_proxy="http://127.0.0.1:8001"
+socket_proxy="socks5://127.0.0.1:1080"
+export http_proxy="$http_proxy"
+export HTTP_PROXY="$http_proxy"
+export https_proxy="$http_proxy"
+export HTTPS_PROXY="$http_proxy"
+export ALL_PROXY="$socket_proxy"
+
+"$@"

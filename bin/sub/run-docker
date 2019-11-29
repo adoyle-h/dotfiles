@@ -4,7 +4,6 @@ set -o errexit
 set -o nounset
 set -o pipefail
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
-[[ -n "${VERBOSE:-}" ]] && set -o verbose
 
 declare -A map=(
   [alpine]=3.10

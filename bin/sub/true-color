@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #  Source codes: https://github.com/gnachman/iTerm2/blob/master/tests/24-bit-color.sh
 #
 #   This file echoes four gradients with 24-bit color codes

@@ -1,15 +1,12 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC1090
-
-# Usage: sub help [sub-command]
-# Summary: print help for sub-command
 
 set -o errexit
 set -o nounset
 set -o pipefail
-shopt -s inherit_errexit
-[[ -n "${VERBOSE:+x}" ]] && set -o verbose
-[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+
+# Usage: sub help [sub-command]
+# Summary: print help for sub-command
 
 get_sub_command_path() {
   COMMAND_PATH="$SUB_BIN_DIR/$1"

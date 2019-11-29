@@ -1,14 +1,9 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC1090
 
-# set -e
 set -o errexit
 set -o nounset
 set -o pipefail
-[[ -n "${XTRACE:+x}" ]] && set -o xtrace
-[[ -n "${VERBOSE:+x}" ]] && set -o verbose
-[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
-[[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}}()]: '
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
 get_sub_command_path() {
   COMMAND_PATH="$SUB_BIN_DIR/$1"
@@ -20,16 +15,20 @@ get_sub_command_path() {
   echo "$COMMAND_PATH"
 }
 
-readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+main() {
+  local command="${1:-}"
+  local command_path
 
-command="${1:-}"
-case "$command" in
-"" | "-h" | "--help" )
-  "$SUB_BIN_DIR"/help
-  ;;
-* )
-  command_path="$(get_sub_command_path "$command")"
-  shift
-  exec "$command_path" "$@"
-  ;;
-esac
+  case "$command" in
+    "" | "-h" | "--help" )
+      "$SUB_BIN_DIR"/help
+      ;;
+    * )
+      command_path="$(get_sub_command_path "$command")"
+      shift
+      exec "$command_path" "$@"
+      ;;
+  esac
+}
+
+main "$@"

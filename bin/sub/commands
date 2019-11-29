@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC1090
 # Usage: sub commands
 # Summary: List all sub commands
 # Help: This command is mostly used for autocompletion in various shells, and for `sub help`.
@@ -8,9 +7,7 @@
 set -o errexit
 set -o nounset
 set -o pipefail
-shopt -s inherit_errexit
-[[ -n "${VERBOSE:+x}" ]] && set -o verbose
-[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
 # Provide sub completions
 if [ "${1:-}" = "--complete" ]; then
@@ -19,7 +16,7 @@ fi
 
 shopt -s nullglob
 
-{ for path in ${SUB_BIN_DIR}/*; do
+{ for path in "${SUB_BIN_DIR}"/*; do
     for command in ${path##${SUB_BIN_DIR}/}; do
       echo "$command"
     done

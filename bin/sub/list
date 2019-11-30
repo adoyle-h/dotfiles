@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+
+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+readonly ENABLED_DIR=$SCRIPT_DIR/../../enabled
+
+# shellcheck source=../../bash/plugable.bash
+. "$SCRIPT_DIR/../../bash/plugable.bash"
+
+# Provide sub completions
+if [[ "${1:-}" == "--complete" ]]; then
+  if (( $# < 3 )); then
+    echo "${!t_map[@]}"
+  fi
+  exit 0
+fi
+
+readonly t=$1
+readonly ts=${t_map[$t]}
+shift 1
+list "$@"

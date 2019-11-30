@@ -5,6 +5,8 @@ configs/ranger/history
 configs/ranger/tagged
 bash_it/plugins/enabled/*
 !bash_it/plugins/enabled/.gitkeep
+enabled/*
+!enabled/.gitkeep
 
 # Created by https://www.gitignore.io/api/vim,osx
 

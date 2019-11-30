@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+
+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+readonly ENABLED_DIR=$SCRIPT_DIR/../../enabled
+
+# shellcheck source=../../bash/plugable.bash
+. "$SCRIPT_DIR/../../bash/plugable.bash"
+
+# Provide sub completions
+if [[ "${1:-}" == "--complete" ]]; then
+  if (( $# < 3 )); then
+    echo "${!t_map[@]}"
+  else
+    readonly t=$2
+    readonly ts=${t_map[$t]}
+
+    find "$ENABLED_DIR" -d 1 -type l -name "*---*.$t.bash" -print0 \
+      | xargs -0 -n1 -I{} basename '{}' ".$t.bash" \
+      | sed -E 's/^[[:digit:]]{3}---(.+)$/\1/'
+  fi
+
+  exit 0
+fi
+
+readonly t=$1
+readonly ts=${t_map[$t]}
+shift 1
+disable_it "$@"

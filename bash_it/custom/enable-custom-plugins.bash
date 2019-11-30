@@ -12,5 +12,18 @@ __enable_custom_plugins() {
   done
 }
 
+load_enabled() {
+  local filepath paths SCRIPT_DIR
+  SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}")
+
+  readarray -t paths < <(sort <(compgen -G "$SCRIPT_DIR/../../enabled/*.bash" || true))
+
+  for filepath in "${paths[@]}"; do
+    DOTFILES_DEBUG "To load file: $filepath"
+    source "$filepath"
+  done
+}
+
 __enable_custom_plugins
-unset -f __enable_custom_plugins
+load_enabled
+unset -f __enable_custom_plugins load_enabled

@@ -5,11 +5,19 @@ set -o nounset
 set -o pipefail
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
-readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
-readonly ENABLED_DIR=$SCRIPT_DIR/../../enabled
+if (( $# == 0 )); then
+  cat <<EOF
+Usage: $SUB_NAME enable <type> <name>...
 
-# shellcheck source=../../bash/plugable.bash
-. "$SCRIPT_DIR/../../bash/plugable.bash"
+Description: Enable matched <name> of <type>
+EOF
+  exit 0
+fi
+
+readonly ENABLED_DIR=$DOTFILES_DIR/enabled
+
+# shellcheck source=./plugable.bash
+. "$DOTFILES_DIR/bin/sub/plugable.bash"
 
 # Provide sub completions
 if [[ "${1:-}" == "--complete" ]]; then
@@ -18,7 +26,7 @@ if [[ "${1:-}" == "--complete" ]]; then
   else
     readonly t=$2
     readonly ts=${t_map[$t]}
-    find "$SCRIPT_DIR/../../$ts" -d 1 -type f -name "*.bash" -print0 \
+    find "$DOTFILES_DIR/$ts" -d 1 -type f -name "*.bash" -print0 \
       | xargs -0 -n1 -I{} basename '{}' ".bash"
   fi
   exit 0
@@ -27,4 +35,4 @@ fi
 readonly t=$1
 readonly ts=${t_map[$t]}
 shift 1
-enable_it 600 "$@"
+enable_it "$@"

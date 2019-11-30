@@ -5,11 +5,22 @@ set -o nounset
 set -o pipefail
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
-readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
-readonly ENABLED_DIR=$SCRIPT_DIR/../../enabled
+if (( $# == 0 )); then
+  cat <<EOF
+Usage: $SUB_NAME list <type> [-a]
 
-# shellcheck source=../../bash/plugable.bash
-. "$SCRIPT_DIR/../../bash/plugable.bash"
+Description: Show enabled <type>
+
+Options:
+  -a    Show all availables of <type>
+EOF
+  exit 0
+fi
+
+readonly ENABLED_DIR=$DOTFILES_DIR/enabled
+
+# shellcheck source=./plugable.bash
+. "$DOTFILES_DIR/bin/sub/plugable.bash"
 
 # Provide sub completions
 if [[ "${1:-}" == "--complete" ]]; then

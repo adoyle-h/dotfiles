@@ -10,9 +10,6 @@
 [submodule "deps/z.lua"]
 	path = deps/z.lua
 	url = https://github.com/skywind3000/z.lua.git
-[submodule "deps/bash-it"]
-	path = deps/bash-it
-	url = https://github.com/Bash-it/bash-it.git
 [submodule "deps/a-bash-prompt"]
 	path = deps/a-bash-prompt
 	url = https://github.com/adoyle-h/a-bash-prompt.git

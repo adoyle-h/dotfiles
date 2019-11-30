@@ -1,6 +1,6 @@
 # Copy from https://github.com/Bash-it/bash-it/blob/master/plugins/available/alias-completion.plugin.bash
 # Load after the other completions to understand what needs to be completed
-# BASH_IT_LOAD_PRIORITY: 365
+# BASH_IT_LOAD_PRIORITY: 801
 
 cite about-plugin
 about-plugin 'Automatic completion of aliases'

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Usage: sub commands
+# Usage: $0 commands
 # Summary: List all sub commands
 # Help: This command is mostly used for autocompletion in various shells, and for `sub help`.
 # Also, this command helps find commands that are named the same as potentially builtin shell commands (which, cd, etc)
@@ -9,16 +9,13 @@ set -o nounset
 set -o pipefail
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
-# Provide sub completions
-if [ "${1:-}" = "--complete" ]; then
-  exit
-fi
-
 shopt -s nullglob
 
 { for path in "${SUB_BIN_DIR}"/*; do
-    for command in ${path##${SUB_BIN_DIR}/}; do
-      echo "$command"
-    done
+    if [[ -x $path ]]; then
+      for command in ${path##${SUB_BIN_DIR}/}; do
+        echo "$command"
+      done
+    fi
   done
 } | sort | uniq

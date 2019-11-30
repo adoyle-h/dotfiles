@@ -15,6 +15,8 @@ An elegant way to manage dotfiles, commands, completions, configurations for ter
 - [Preview](#preview)
 - [Version](#version)
 - [Core Dependencies](#core-dependencies)
+- [Related Projects](#related-projects)
+- [Inspired By](#inspired-by)
 - [Installation](#installation)
     - [Bootstrap](#bootstrap)
 - [Configuration](#configuration)
@@ -24,22 +26,21 @@ An elegant way to manage dotfiles, commands, completions, configurations for ter
 - [Usage](#usage)
     - [Binary executables](#binary-executables)
     - [Sub-commands](#sub-commands)
-    - [Enable bash-it plugins/aliases/completion](#enable-bash-it-pluginsaliasescompletion)
     - [Enable custom plugins](#enable-custom-plugins)
+    - [Plugin Load Priority](#plugin-load-priority)
 - [File Structure](#file-structure)
 - [Bash initialization process](#bash-initialization-process)
 - [Advanced Usage](#advanced-usage)
 - [Suggestion, Bug Reporting, Contributing](#suggestion-bug-reporting-contributing)
 - [Copyright and License](#copyright-and-license)
-- [Related Projects](#related-projects)
 
 <!-- /MarkdownTOC -->
 
 ## Environments
 
 - ✅ iTerm2 Build 3.0.14 (Terminal.app compatible)
-- ✅ GNU bash 4.4.12(1)-release (x86_64-apple-darwin15.6.0) (Not support Bash 4.3 and lower versions)
-- ✅ Tmux 2.7 (Not necessary. Tmux compatible)
+- ✅ GNU bash 4.4+ and 5.0+ (Not support Bash 4.3 and lower versions)
+- ✅ Tmux 2.7+ (Not necessary. Tmux compatible)
 - ✅ MacOS
 - ✅ Linux/Unix system
 - 🚫 Windows system
@@ -48,10 +49,9 @@ An elegant way to manage dotfiles, commands, completions, configurations for ter
 ## Features
 
 - Manage collections of dotfiles. Create soft-link via [dotbot][]. See [the configuration](./dotbot.conf.yaml).
-- Manage shell scripts/completions/aliases/plugins by modules via [bash-it][].
+- Manage shell scripts/completions/aliases/plugins by modules.
   - Most features are implemented in separate plugins, which could be disabled by yourself.
   - All my plugins are put in [`bash_it/plugins/available/`](./bash_it/plugins/available/). `a plugins-list -a` to print all plugin names.
-  - Some plugins powered by bash-it. `bash-it show plugins` to print all bash-it plugins.
 - Compatible with [bash-completion][] (for bash 3.x) and [bash-completion2][bash-completion] (for bash 4.x). See the [configuration](https://github.com/adoyle-h/dotfiles/blob/master/bash_it/completions.bash)
 - Responsive and pretty prompt. Refer to [Preview](#preview).
 - Collections of shell commands, which locates in [`bin/`](./bin/). Refer to [Binary executables](#binary-executables).
@@ -114,26 +114,34 @@ See [releases](https://github.com/adoyle-h/dotfiles/releases).
 - [python][]: **It is required**. Make sure it available before installation. Python 2 and 3 are both supported.
 - [git][]: **It is required**. Make sure it available before installation.
   - [git-prompt][]: If omitted, PS1 will not show git prompt.
-- [dotbot][]: To create symbolic links and manage them by [`dotbot.conf.yaml`](./dotbot.conf.yaml). No need to install it manually. It is a submodule of this project.
-- [bash-it][]: To manage all shell scripts in modules: aliases, plugins, completions and shell appearance theme. No need to install it manually. It is a submodule of this project.
+- [dotbot][]: To create symbolic links and manage them by [`dotbot.conf.yaml`](./dotbot.conf.yaml). No need to install it manually. It is a submodule of project.
+
+## Related Projects
+
+- [dotbot][]: A tool that bootstraps your dotfiles.
+- [lobash](https://github.com/adoyle-h/lobash): A modern, safe, powerful utility library for Bash script development.
+- [a-bash-prompt][]: A Bash prompt written by pure Bash script.
+- [bash-sensible](https://github.com/mrzool/bash-sensible): An attempt at saner Bash defaults.
+- [tmux][]: An awesome terminal multiplexer!
+- [neovim][]: Vim-fork focused on extensibility and usability
+- [neovim-config][]: My neovim config
+
+## Inspired By
+
+- [sub][]: A delicious way to organize programs created by basecamp. But no more maintained.
+- [bash-it][]: A community Bash framework.
 
 ## Installation
 
 ```sh
 # Set your Dotfiles directory path
-DOTFILE_DIR=~/dotfiles
+DOTFILES_DIR=~/dotfiles
 
 # Clone this repo
-git clone --depth 1 https://github.com/adoyle-h/dotfiles.git $DOTFILE_DIR
-cd $DOTFILE_DIR
+git clone --depth 1 https://github.com/adoyle-h/dotfiles.git $DOTFILES_DIR
+cd $DOTFILES_DIR
 # Clone submodules and initialize them
 git submodule update --init --recursive
-
-# Install bash_it framework which is required
-./deps/bash-it/install.sh --no-modify-config
-
-# Make sure XDG_ variables set
-. bash/xdg.bash
 
 # You may check the content of `dotbot.conf.yaml` file,
 # It creates soft-links based on dotbot.conf.yaml.
@@ -142,8 +150,8 @@ git submodule update --init --recursive
 
 # Restart your shell
 
-# Reset bash-it
-. ${DOTFILE_DIR}/bootstraps/reset-bash
+# Enable recommend plugins
+. ${DOTFILES_DIR}/bootstraps/recommends/plugs
 ```
 
 And then read the [Configuration - User Modifications](#user-modifications) section.
@@ -202,79 +210,75 @@ All sub-commands are auto-completed. Type `a <Tab>` to see all sub-commands.
 
 You can modify the enterpoint (`SUB_NAME`) in [sub.plugin.bash](./bash_it/plugins/available/sub.plugin.bash).
 
-### Enable bash-it plugins/aliases/completion
-
-This framework is based on [bash-it][]. All features supported.
-Type `bash-it` for help.
-
-Two sub-commands provided:
-
-- `a bash-it-status` to show all aliases/plugins/completions you enabled.
-- `a bash-it-status -e` to save all aliases/plugins/completions you enabled.
-
 ### Enable custom plugins
 
-Because bash-it not support to private plugins.
-The framework provides many custom plugins in [./bash_it/plugins/](./bash_it/plugins/),
+The framework provides many custom [plugins](./plugins/), [aliases](./aliases/), [completions](./completions/).
 and some sub-commands to manage them.
 
-- `a plugins-enable <plugin-name>...` to enable plugins in `bash-custom/available/`
-- `a plugins-disable <plugin-name>...` to disable plugins in `bash-custom/enabled/`
-- `a plugins-disable-all` to disable all plugins in `bash-custom/enabled/`
-- `a plugins-list` to show all enabled plugins in `bash-custom/enabled/`
-- `a plugins-list -a` to show all plugins in `bash-custom/available/`
-- `a plugins-backup` to backup all enabled plugins to [custom_plugins][].
-- `a plugins-recover` to re-enable all plugins saved in [custom_plugins][].
+- `a enable <type> <name>...` to enable plugins in `bash-custom/available/`
+- `a disable <type> <plugin-name>...` to disable plugins in `bash-custom/enabled/`
+- `a disable-all <type>` to disable all plugins in `bash-custom/enabled/`
+- `a list <type>` to show all enabled plugins in `bash-custom/enabled/`
+- `a list <type> -a` to show all plugins in `bash-custom/available/`
+- `a backup <type>` to backup all enabled plugins to [custom_plugins][].
+- `a recover <type>` to re-enable all plugins saved in [custom_plugins][].
+
+### Plugin Load Priority
+
+Use `# BASH_IT_LOAD_PRIORITY: 500` to set load priority. Defaults to 500.
+
+- Plugin: 300~499, default 400
+- Completion: 500~699, default 600
+- Alias: 700~899, default 800
 
 ## File Structure
 
 ```
 .
 ├── README.md
+├── aliases/                        # Available aliases
 ├── bash/
+│   ├── inputrc                     # Set shortcut Key Character Sequence (keyseq). Link to ~/.inputrc
+├── bash/
+│   ├── bash_it.lib.bash            # Store essential helper functions for all dotfiles modules
 │   ├── bash_profile                # Link to ~/.bash_profile
 │   ├── bashrc                      # Link to ~/.bashrc
-│   ├── fast_bashrc                 # Idle file, just a template
-│   ├── inputrc                     # Set shortcut Key Character Sequence (keyseq). Link to ~/.inputrc
+│   ├── bashrc.failover.bash        # failover for ~/.bashrc
+│   ├── check-environment.bash
+│   ├── debug.bash
+│   ├── enable-plugs.bash
+│   ├── entry.bash                  # The entrypoint of dotfiles
+│   ├── failover.bash
+│   ├── inputrc                     # Link to ~/.inputrc
+│   ├── plugable.bash
 │   ├── profile                     # Link to ~/.profile
+│   ├── sub.bash                    # The entrypoint of SUB command
 │   └── xdg.bash                    # Set XDG_ variables
-├── bash_it/                        # https://github.com/Bash-it/bash-it#your-custom-scripts-aliases-themes-and-functions
-│   ├── custom/                         # Custom the bash by yourself
-│   │   └── enable-custom-plugins.bash
-│   ├── enable.bash                     # bash_it entry and basic settings
-│   ├── lib.bash                        # Store essential helper functions for all dotfiles modules
-│   ├── plugins/
-│   │   ├── available/                  # Available user custom plugins
-│   │   │   ├── sub
-│   │   │   │   ├── sub-bin*            # The main entry of `a` command
-│   │   │   │   └── sub.completion.bash # The completion file of `a` command
-│   │   │   ├── alias.plugin.bash       # Normal aliases
-│   │   │   ├── completions.plugin.bash # Normal completions and tab complete keymap
-│   │   │   ├── preexec.plugin.bash     # Enable bash-preexec library
-│   │   │   ├── prompt.plugin.bash      # Enable a-bash-prompt
-│   │   │   └── sub.plugin.bash         # If not enabled, `a` command will not work
-│   │   └── enabled/                    # Enabled user custom plugins
-│   │       └── 180---sub.plugin.bash   # soft-link to file in plugins/available/. The prefix is plugin load priority
-│   └── themes/                         # Store UI themes for bash
 ├── bin/                            # Link to ~/bin
-│   └── a* -> ../bash_it/plugins/available/sub/sub-bin
 ├── bootstraps/                     # Scripts for bootstraping
 │   └── recommends/
-│       └── custom_plugins          # Backup enabled custom plugins
+│       └── plugs                   # Enabled recommended plugins/completions/aliaes
 ├── bootstrap.bash*
 ├── cheat/                          # It is ignored in git. git clone https://github.com/adoyle-h/my-command-cheat cheat
-├── completions/                    # Bash command completions. Link to ~/.bash_completions
+├── completions/                    # Available completions
 ├── configs/                        # Application configuration
 ├── docs/                           # The documents of this project
 ├── dotbot*                         # Create soft-links based on dotbot.conf.yaml
 ├── dotbot.conf.yaml                # Dotbot configurations
 ├── deps/                           # Git submodules
 │   ├── a-bash-prompt/              # https://github.com/adoyle-h/a-bash-prompt
-│   ├── bash-it/                    # https://github.com/Bash-it/bash-it
 │   ├── dotbot/                     # https://github.com/anishathalye/dotbot
-│   ├── lobash/                     # https://github.com/adoyle-h/lobash
 │   ├── nvim/                       # My neovim configurations.
-│   └── z.lua/                      # https://github.com/skywind3000/z.lua
+│   ├── z.lua/                      # https://github.com/skywind3000/z.lua
+│   ├── colors.bash
+│   ├── dotfiles_l.bash             # Similar to lobash.bash. Work for dotfiles scripts.
+│   └── lobash.bash                 # https://github.com/adoyle-h/lobash
+├── enabled/                        # Enabled plugins/completions/aliases. soft-link files
+│   └── 140---shell.plugin.bash -> ../plugins/shell.bash
+├── plugins/                        # Available plugins
+│   ├── completions.bash            # General completions and tab complete keymap
+│   ├── preexec.bash                # Enable bash-preexec library
+│   └── prompt.bash                 # Enable a-bash-prompt
 └── secrets/                        # This folder is ignored by git. Put your secret data here.
 ```
 
@@ -283,22 +287,8 @@ and some sub-commands to manage them.
 It will execute scripts in order:
 
 1. [./bash/bashrc](./bash/bashrc)
-2. [./bash/xdg.bash](./bash/xdg.bash)
-3. [./bash_it/enable](./bash_it/enable.bash)
-4. deps/bash-it/bash_it.sh : Start bash_it framework
-    - deps/bash-it/lib.bash
-    - [./bash_it/lib.bash](./bash_it/lib.bash)
-    - deps/bash-it/scripts/reloader.bash : reloads enabled bash-it plugins
-    - deps/bash-it/aliases.bash
-    - deps/bash-it/completions.bash
-    - deps/bash-it/plugins.bash
-    - If `BASH_IT_THEME` set (`BASH_IT_THEME` is unset by default)
-        - deps/bash-it/lib/appearance.bash
-        - [./bash_it/themes/**/*.theme.bash](./bash_it/themes/𝕬/𝕬.theme.bash)
-5. [./bash_it/custom/*.bash](./bash_it/custom/)
-    - [./bash_it/custom/enable-custom-plugins.bash](./bash_it/custom/enable-custom-plugins.bash)
-        - [./bash_it/plugins/enabled/*.bash](./bash_it/plugins/enabled/)
-
+2. [./bash/entry.bash](./bash/entry.bash)
+3. [./enabled/*.bash](./enabled/)
 
 ## Advanced Usage
 
@@ -317,18 +307,6 @@ Copyright (c) 2017-2019 ADoyle. The project is licensed under the **BSD 3-clause
 See the [LICENSE][] file for the specific language governing permissions and limitations under the License.
 
 See the [NOTICE][] file distributed with this work for additional information regarding copyright ownership.
-
-## Related Projects
-
-- [bash-it][]: A community Bash framework.
-- [dotbot][]: A tool that bootstraps your dotfiles.
-- [sub][]: A delicious way to organize programs created by basecamp. But no more maintained.
-- [lobash](https://github.com/adoyle-h/lobash): A modern, safe, powerful utility library for Bash script development.
-- [a-bash-prompt][]: A Bash prompt written by pure Bash script.
-- [bash-sensible](https://github.com/mrzool/bash-sensible): An attempt at saner Bash defaults.
-- [tmux][]: An awesome terminal multiplexer!
-- [neovim][]: Vim-fork focused on extensibility and usability
-- [neovim-config][]: My neovim config
 
 <!-- links -->
 

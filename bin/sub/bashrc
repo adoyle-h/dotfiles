@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+
+# Provide sub completions
+if [ "${1:-}" = "--complete" ]; then
+  if [[ $COMP_CWORD -lt 3 ]]; then
+    echo "failover off use --help"
+  fi
+
+  exit 0
+fi
+
+readonly flag=${1:-}
+readonly file=$HOME/.bashrc.override
+
+if [[ $flag == failover ]]; then
+  echo "$DOTFILES_BASHRC_FAILOVER" > "$file"
+  echo "$file created. Remove it to recover."
+elif [[ $flag == off ]]; then
+  rm -f "$file"
+  echo "$file removed"
+elif [[ $flag == use ]]; then
+  echo "$2" > "$file"
+  echo "$file created. Remove it to recover."
+else
+  cat <<EOF
+USAGE: $SUB_NAME bashrc failover
+       $SUB_NAME bashrc off
+       $SUB_NAME bashrc use
+       $SUB_NAME bashrc --help
+EOF
+fi

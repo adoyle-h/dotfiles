@@ -14,14 +14,15 @@ if [ "${1:-}" = "--complete" ]; then
   exit 0
 fi
 
-flag=${1:-}
+readonly flag=${1:-}
+readonly debug_file="$DOTFILES_DEBUG_FILE"
 
 if [[ $flag == open ]]; then
-    touch "$HOME"/.bashrc.debug
-    echo "$HOME/.bashrc.debug created"
+    touch "$debug_file"
+    echo "$debug_file created"
 elif [[ $flag == close ]]; then
-    rm -f "$HOME"/.bashrc.debug
-    echo "$HOME/.bashrc.debug removed"
+    rm -f "$debug_file"
+    echo "$debug_file removed"
 else
     cat <<EOF
 USAGE: a debug open

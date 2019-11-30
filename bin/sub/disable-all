@@ -7,14 +7,12 @@ set -o pipefail
 
 if (( $# == 0 )); then
   cat <<EOF
-Usage: $SUB_NAME disable <type> <name>...
+Usage: $SUB_NAME disable-all <type>
 
-Description: Disable matched enabled  <name> of <type>
+Description: Disable all enabled of <type>
 EOF
   exit 0
 fi
-
-readonly ENABLED_DIR=$DOTFILES_DIR/enabled
 
 # shellcheck source=./plugable.bash
 . "$DOTFILES_DIR/bin/sub/plugable.bash"
@@ -23,19 +21,18 @@ readonly ENABLED_DIR=$DOTFILES_DIR/enabled
 if [[ "${1:-}" == "--complete" ]]; then
   if (( $# < 3 )); then
     echo "${!t_map[@]}"
-  else
-    readonly t=$2
-    readonly ts=${t_map[$t]}
-
-    find "$ENABLED_DIR" -d 1 -type l -name "*---*.$t.bash" -print0 \
-      | xargs -0 -n1 -I{} basename '{}' ".$t.bash" \
-      | sed -E 's/^[[:digit:]]{3}---(.+)$/\1/'
   fi
-
   exit 0
 fi
 
 readonly t=$1
 readonly ts=${t_map[$t]}
 shift 1
-disable_it "$@"
+
+if (( $# > 0 )); then
+  echo "Are you sure to disable all plugins?" >&2
+  exit 3
+fi
+
+plugins=( $(sub-bin list "$t") )
+sub-bin disable "$t" "${plugins[@]}"

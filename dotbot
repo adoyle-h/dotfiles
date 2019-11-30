@@ -9,4 +9,7 @@ set -o pipefail
 
 readonly BASEDIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
+# shellcheck source=bash/xdg.bash
+. "${BASEDIR}/bash/xdg.bash"
+
 "${BASEDIR}/deps/dotbot/bin/dotbot" -d "${BASEDIR}" -c dotbot.conf.yaml

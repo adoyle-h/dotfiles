@@ -22,8 +22,9 @@ An elegant way to manage dotfiles, commands, completions, configurations for ter
 - [Configuration](#configuration)
     - [User Modifications](#user-modifications)
     - [UI](#ui)
-    - [Dotfiles](#dotfiles)
+    - [Soft-links](#soft-links)
 - [Usage](#usage)
+    - [bashrc](#bashrc)
     - [Binary executables](#binary-executables)
     - [Sub-commands](#sub-commands)
     - [Enable custom plugins](#enable-custom-plugins)
@@ -49,45 +50,49 @@ An elegant way to manage dotfiles, commands, completions, configurations for ter
 ## Features
 
 - Manage collections of dotfiles. Create soft-link via [dotbot][]. See [the configuration](./dotbot.conf.yaml).
-- Manage shell scripts/completions/aliases/plugins by modules.
+- Manage shell scripts by modules.
   - Most features are implemented in separate plugins, which could be disabled by yourself.
-  - All my plugins are put in [`bash_it/plugins/available/`](./bash_it/plugins/available/). `a plugins-list -a` to print all plugin names.
+  - All plugins are put in [`plugins/`](./plugins/). `a list plugin -a` to print all available names.
+  - All completions are put in [`completions/`](./completions/). `a list completion -a` to print all available names.
+  - All aliases are put in [`aliases/`](./aliases/). `a list alias -a` to print all available names.
+  - All enabled plugins/completions/aliases are put in `enabled/` directory.
+  - You can extend new types.
 - Compatible with [bash-completion][] (for bash 3.x) and [bash-completion2][bash-completion] (for bash 4.x). See the [configuration](https://github.com/adoyle-h/dotfiles/blob/master/bash_it/completions.bash)
 - Responsive and pretty prompt. Refer to [Preview](#preview).
 - Collections of shell commands, which locates in [`bin/`](./bin/). Refer to [Binary executables](#binary-executables).
 - Managed sub-commands in [`bin/sub/`](./bin/sub/). The sub-commands framework is modified from [sub][].
-  - Invoke `a plugins-enable sub` to enable this feature. See [Sub-commands](#sub-commands) for more details.
+- Define XDG Environment variables which follow [XDG Base Directory Specification](https://wiki.archlinux.org/index.php/XDG_Base_Directory). See [./bash/xdg.bash](./bash/xdg.bash).
 - Integrated all my best practices with shell (bash).
-  - Extended keyboard bindings. See [keymap.plugin.bash](./bash_it/plugins/available/keymap.plugin.bash).
-  - Flexible completion. Tab and Shift+Tab to make completion in circle. See [completion.plugin.bash](./bash_it/plugins/available/completion.plugin.bash)
-  - Extended Bash history settings. See [history.plugin.bash](./bash_it/plugins/available/history.plugin.bash).
-  - Extended Bash manpage. See [manpage.plugin.bash](./bash_it/plugins/available/manpage.plugin.bash).
-  - Patch shell for macos. See [macos.plugin.bash](./bash_it/plugins/available/macos.plugin.bash).
+  - Extended keyboard bindings. See [./plugins/keymap.bash](./plugins/keymap.bash).
+  - Flexible completion. Tab and Shift+Tab to make completion in circle. See [./plugins/completion.bash](./plugins/completion.bash)
+  - Extended Bash history settings. See [./plugins/history.bash](./plugins/history.bash).
+  - Extended Bash manpage. See [./plugins/manpage.bash](./plugins/manpage.bash).
+  - Patch shell for macos. See [./plugins/macos.bash](./plugins/macos.bash).
   - Set some mirror hosts for users in China.
-  - Pretty ls command. See [ls.plugin.bash](./bash_it/plugins/available/ls.plugin.bash).
-  - Pretty less command. See [lesspipe.plugin.bash](./bash_it/plugins/available/lesspipe.plugin.bash).
-  - Safe rm command. See [rm.plugin.bash](./bash_it/plugins/available/rm.plugin.bash).
+  - Pretty ls command. See [./plugins/ls.bash](./plugins/ls.bash).
+  - Pretty less command. See [./plugins/lesspipe.bash](./plugins/lesspipe.bash).
+  - Safe rm command. See [./plugins/rm.bash](./plugins/rm.bash).
   - Support [Secret Data](#secret-data).
   - Support true color.
 - Many third integrations
-  - [z.lua](https://github.com/skywind3000/z.lua). See [zl.plugin.bash](./bash_it/plugins/available/zl.plugin.bash).
-  - [fzf][]. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/bash-custom/fzf.plugin.bash) and [fzf.plugin.bash](./bash_it/plugins/available/fzf.plugin.bash).
+  - [z.lua](https://github.com/skywind3000/z.lua). See [./plugins/zl.bash](./plugins/zl.bash).
+  - [fzf][]. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/bash-custom/fzf.plugin.bash) and [./plugins/fzf.bash](./plugins/fzf.bash).
   - [taskbook](https://github.com/klaussinani/taskbook).
-  - [cheat](https://github.com/cheat/cheat). See [cheat.plugin.bash](./bash_it/plugins/available/cheat.plugin.bash)
-  - My best practices with [neovim][]. See [nvim.plugin.bash](./bash_it/plugins/available/nvim.plugin.bash) and [my neovim configuration][neovim-config].
-  - My best practices with [tmux][]. See [tmux.plugin.bash](./bash_it/plugins/available/tmux.plugin.bash) and [./configs/tmux.conf](./configs/tmux.conf).
-  - My best practices with git. See [git.plugin.bash](./bash_it/plugins/available/git.plugin.bash) and [./configs/gitconfig](./configs/gitconfig).
+  - [cheat](https://github.com/cheat/cheat). See [./plugins/cheat.bash](./plugins/cheat.bash)
+  - My best practices with [neovim][]. See [./plugins/nvim.bash](./plugins/nvim.bash) and [my neovim configuration][neovim-config].
+  - My best practices with [tmux][]. See [./plugins/tmux.bash](./plugins/tmux.bash) and [./configs/tmux.conf](./configs/tmux.conf).
+  - My best practices with git. See [./plugins/git.bash](./plugins/git.bash) and [./configs/gitconfig](./configs/gitconfig).
   - My cheat sheets based on [chrisallenlane/cheat](https://github.com/chrisallenlane/cheat).
-  - Support [bash-preexec][]. It provides preexec and precmd functions for Bash just like Zsh. See [preexec.plugin.bash](./bash_it/plugins/available/preexec.plugin.bash).
-  - Support vscode. See [vscode.plugin.bash](./bash_it/plugins/available/vscode.plugin.bash).
-  - Support GNU utilities. See [gnu.plugin.bash](./bash_it/plugins/available/gnu.plugin.bash).
+  - Support [bash-preexec][]. It provides preexec and precmd functions for Bash just like Zsh. See [./plugins/preexec.bash](./plugins/preexec.bash).
+  - Support vscode. See [./plugins/vscode.bash](./plugins/vscode.bash).
+  - Support GNU utilities for mac. See [./plugins/gnutools-for-mac.bash](./plugins/gnutools-for-mac.bash) and [./plugins/sed-for-mac.bash](./plugins/sed-for-mac.bash).
   - Support programming language related like nvm, rust, gvm.
 
 ## Preview
 
 ![preview.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/dotfiles/preview.png)
 
-The prompt is implemented by [a-bash-prompt][]. See [prompt.plugin.bash](./bash_it/plugins/available/prompt.plugin.bash).
+The prompt is implemented by [a-bash-prompt][]. See [./plugins/prompt.bash](./plugins/prompt.bash).
 
 Responsive prompt. Press Enter to auto adjust with window width.
 
@@ -150,7 +155,7 @@ git submodule update --init --recursive
 
 # Restart your shell
 
-# Enable recommend plugins
+# Enable recommend plugs
 . ${DOTFILES_DIR}/bootstraps/recommends/plugs
 ```
 
@@ -185,11 +190,29 @@ These parts of below files you should modify.
 - Font: [DejaVuSansMonoForPowerline Nerd Font Book][font]
 - Color Scheme: [Deep][color scheme]. [Installation Instructions][color scheme - installation]
 
-### Dotfiles
+### Soft-links
 
 Edit the [`dotbot.conf.yaml`][dotbot.conf.yaml] file.
 
 ## Usage
+
+### bashrc
+
+The bashrc file is managed by yourself. You must `export DOTFILES_DIR` points to dotfiles directory.
+
+For example,
+
+```sh
+# ~/.bashrc: executed by bash(1) for non-login shells.
+
+# Only execute this file once
+[[ -n "${_BASHRC_LOADED:-}" ]] && return
+_BASHRC_LOADED=true
+
+export DOTFILES_DIR=$HOME/dotfiles
+readonly DOTFILES_SUB=a
+source "$DOTFILES_DIR/bash/entry.bash"
+```
 
 ### Binary executables
 
@@ -197,18 +220,20 @@ All your own binary executables should be put in [`bin`](./bin/) folder, which h
 
 ### Sub-commands
 
-Executable commands could be put in [`bin/sub/`]('./bin/sub/') which has been added to `$PATH`.
+Executable commands could be put in [`bin/sub/`]('./bin/sub/') .
 These commands are referred as sub-command. Example:
 
-- `a help`
-- `a bins` to show all commands in `./bin/`
-- `a comments` to show all commands in `./bin/sub/`
-- `a 256color`
-- `a debug open` and `a debug close` to open/close debug mode
+- `$SUB_NAME help`
+- `$SUB_NAME bins` to show all commands in `./bin/`
+- `$SUB_NAME comments` to show all commands in `./bin/sub/`
+- `$SUB_NAME 256color`
+- `$SUB_NAME debug open` and `a debug close` to open/close debug mode
 
 All sub-commands are auto-completed. Type `a <Tab>` to see all sub-commands.
 
-You can modify the enterpoint (`SUB_NAME`) in [sub.plugin.bash](./bash_it/plugins/available/sub.plugin.bash).
+You can modify `SUB_NAME` in bashrc. Suck like `readonly DOTFILES_SUB=b`. If `DOTFILES_SUB` not set, default to `SUB_NAME=sub-bin`.
+
+The path 'bin/sub/' is not included in `$PATH`.
 
 ### Enable custom plugins
 

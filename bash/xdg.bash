@@ -6,8 +6,7 @@
 [[ -z ${XDG_CACHE_HOME:-} ]] && export XDG_CACHE_HOME="$HOME/.cache"
 [[ -z ${XDG_DATA_HOME:-} ]] && export XDG_DATA_HOME="$HOME/.local/share"
 if [[ -z ${XDG_RUNTIME_DIR:-} ]]; then
-  XDG_RUNTIME_DIR="$TMPDIR/xdg-$USER"
-  export XDG_RUNTIME_DIR
+  export XDG_RUNTIME_DIR="$TMPDIR/xdg-$USER"
   [[ ! -d $XDG_RUNTIME_DIR ]] && mkdir -p "$XDG_RUNTIME_DIR"
 fi
 
@@ -26,3 +25,6 @@ fi
 [[ -z ${XDG_DATA_DIRS:-} ]] && export XDG_DATA_DIRS="/usr/local/share:/usr/share"
 # a set of preference ordered base directories relative to which configuration files should be searched
 [[ -z ${XDG_CONFIG_DIRS:-} ]] && export XDG_CONFIG_DIRS="/etc/xdg"
+
+# If previous condition fail, "source script" will return 1. So use "true" to make this script return 0
+true

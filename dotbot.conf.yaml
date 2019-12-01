@@ -36,6 +36,10 @@
     ~/.mutt/configs: configs/mutt
     $XDG_CONFIG_HOME/cheat/conf.yml: configs/cheat.conf.yml
 
+    # GnuPG
+    ~/.gnupg/gpg.conf: configs/gpg.conf
+    ~/.gnupg/gpg-agent.conf: configs/gpg-agent.conf
+
     ## lint configs
     # Vim script Language Lint. https://github.com/Kuniwak/vint
     ~/.vintrc.yaml: configs/vintrc.yaml
@@ -47,7 +51,6 @@
     ~/.ssh: secrets/ssh
     ~/.keybase-installer: secrets/keybase-installer
     ~/.grip/settings.py: secrets/grip-settings.py
-    ~/.gnupg: secrets/gnupg
     ~/.gitconfig.work: secrets/gitconfig.work
     ~/Library/Gas Mask: secrets/gas_mask
 

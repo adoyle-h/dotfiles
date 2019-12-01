@@ -5,10 +5,10 @@ set -o nounset
 set -o pipefail
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
-sub-bin enable plugin acme adoyle alert auto-suggestion completion editor fuck fzf gettext gfw git gnutools-for-mac gpg grep gvm history keymap lesspipe ls macos manbash manpage npm nvim nvm preexec prompt rm sed-for-mac shell tmux vscode xcode zl
+sub-bin enable plugin acme adoyle alert auto-suggestion completion editor fuck fzf gettext gfw git gnutools-for-mac gpg grep gvm history keymap lesspipe ls macos manbash manpage npm nvim nvm preexec prompt rm sed-for-mac shell tmux vscode welcome xcode zl
 
 sub-bin enable alias adoyle cd general
 
-sub-bin enable completion cheat cheat_sh docker-compose.v1.24.1 docker.v19.03.5 gulp gvm keybase minikube yarn
+sub-bin enable completion alias_completion cheat cheat_sh docker-compose.v1.24.1 docker.v19.03.5 gulp gvm keybase minikube yarn
 
 echo "[All Done]"

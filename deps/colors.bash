@@ -10,6 +10,7 @@ GREEN='\e[32m'
 YELLOW='\e[33m'
 YELLOW_ESC=$'\e'[33m
 BLUE='\e[34m'
+BLUE_ESC=$'\e[34m'
 PURPLE='\e[35m'
 CYAN='\e[36m'
 WHITE='\e[37m'

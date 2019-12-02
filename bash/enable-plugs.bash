@@ -20,16 +20,23 @@ EOF
 load_enabled() {
   DOTFILES_DEBUG "To load enabled plugs"
   local filepath
+  local -a paths
 
+  # Because "<" make it in pipeline, and tty is missing in pipeline. So separate it into two iterations.
+  while read -r filepath ; do
+    paths+=("$filepath")
+  done < <(sort <(compgen -G "$DOTFILES_DIR/enabled/*.bash" || true))
+
+  # Open strict mode
   # set -o errexit
   # set -o nounset
   # set -o pipefail
   # (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
-  while read -r filepath ; do
+  for filepath in "${paths[@]}" ; do
     DOTFILES_DEBUG "To load file: $filepath"
     source "$filepath" || printf "%bFailed to load file '%s', exit code=%s\n%b" "$YELLOW" "$filepath" "$?" "$RESET_ALL"
-  done < <(sort <(compgen -G "$DOTFILES_DIR/enabled/*.bash" || true))
+  done
 
   # set +o errexit
   # set +o nounset

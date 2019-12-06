@@ -36,6 +36,11 @@ if [[ ${1:-} == '-v' ]]; then
   shift 2
 fi
 
+if [[ ${1:-} == '-c' ]]; then
+  COMMAND=$2
+  shift 2
+fi
+
 readonly name=$1
 shift
 
@@ -43,4 +48,8 @@ VERSION=${VERSION:-${map[$name]}}
 IMAGE=${image_map[$name]:-$name}
 
 echo "Run docker: $IMAGE:$VERSION"
-docker run --rm -it "$@" "$IMAGE":"$VERSION"
+if [[ -n ${COMMAND:-} ]]; then
+  docker run --rm -it "$@" "$IMAGE":"$VERSION" "$COMMAND"
+else
+  docker run --rm -it "$@" "$IMAGE":"$VERSION"
+fi

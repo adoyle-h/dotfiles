@@ -7,4 +7,7 @@ if dotfiles_l.has_not command itmz; then
   return 1
 fi
 
+export ITMZ_DIR=~/Dropbox/My/knowledge-library
+export ITMZ_HOME=~/.itmz
+
 source <(itmz --completion)

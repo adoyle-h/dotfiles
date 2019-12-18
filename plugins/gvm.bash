@@ -1,10 +1,11 @@
-# shellcheck disable=SC1090
+# BASH_IT_LOAD_PRIORITY: 399
+# gvm plugin should be loaded before go plugin
 cite about-plugin
-about-plugin 'Enable gvm'
+about-plugin 'To load gvm script if installed'
 
-GVM_ROOT=${HOME}/.gvm
-GVM_SCRIPT=${GVM_ROOT}/scripts/gvm
+GVM_SCRIPT=${HOME}/.gvm/scripts/gvm
 
+# shellcheck disable=SC1090
 [[ -f "$GVM_SCRIPT" ]] && source "$GVM_SCRIPT"
 
 unset -v GVM_SCRIPT

@@ -3,7 +3,7 @@ about-plugin 'better ls commands. use https://github.com/ogham/exa'
 
 if dotfiles_l.has command exa; then
   alias ls='exa -x'
-  alias ll='exa -lah --icons'
+  alias ll='exa -lahg --icons'
 else
   if ls --color -d . &> /dev/null ; then
     alias ls='ls --color=auto'

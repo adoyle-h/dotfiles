@@ -187,7 +187,7 @@ These parts of below files you should modify.
 
 `$TERM` should be `xterm-256color` or `screen-256color` for best appearance.
 
-- Font: [DejaVuSansMonoForPowerline Nerd Font Book][font]
+- Font: [DejaVuSansMonoForPowerline Nerd Font][font]
 - Color Scheme: [Deep][color scheme]. [Installation Instructions][color scheme - installation]
 
 ### Soft-links

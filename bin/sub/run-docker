@@ -19,10 +19,11 @@ declare -A image_map=(
 # Provide sub completions
 if [[ "${1:-}" == "--complete" ]]; then
   echo "${!map[@]}"
+  echo "--help"
   exit 0
 fi
 
-if [[ $# == 0 ]]; then
+if [[ $# == 0 ]] || [[ $1 == '--help' ]]; then
   cat <<EOF
 Usage: a run-docker [-v <version>] <image> [image-options]
 

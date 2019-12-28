@@ -8,7 +8,7 @@ set -o pipefail
 # Provide sub completions
 if [ "${1:-}" = "--complete" ]; then
   if [[ $COMP_CWORD -lt 3 ]]; then
-    echo "failover off use --help"
+    echo "failover default use --help"
   fi
 
   exit 0
@@ -20,7 +20,7 @@ readonly file=$HOME/.bashrc.override
 if [[ $flag == failover ]]; then
   echo "$DOTFILES_BASHRC_FAILOVER" > "$file"
   echo "$file created. Remove it to recover."
-elif [[ $flag == off ]]; then
+elif [[ $flag == default ]]; then
   rm -f "$file"
   echo "$file removed"
 elif [[ $flag == use ]]; then
@@ -28,9 +28,17 @@ elif [[ $flag == use ]]; then
   echo "$file created. Remove it to recover."
 else
   cat <<EOF
-USAGE: $SUB_NAME bashrc failover
-       $SUB_NAME bashrc off
-       $SUB_NAME bashrc use
-       $SUB_NAME bashrc --help
+USAGES:
+  $SUB_NAME bashrc-switch failover
+  # Use $DOTFILES_BASHRC_FAILOVER as bashrc
+
+  $SUB_NAME bashrc-switch default
+  # Use dotfiles bashrc
+
+  $SUB_NAME bashrc-switch use <filepath>
+  # Use <filepath> as bashrc
+
+  $SUB_NAME bashrc-switch --help
+  # Show Usages
 EOF
 fi

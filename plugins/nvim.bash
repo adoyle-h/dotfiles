@@ -7,7 +7,6 @@ if dotfiles_l.has_not command nvim; then
   return
 fi
 
-export NVIM_HOME="$XDG_CONFIG_HOME/nvim"
 export VISUAL='nvim'
 export EDITOR="$VISUAL"
 

@@ -72,6 +72,11 @@ fi
 
 # Key bindings
 source "$FZF_DIR/shell/key-bindings.bash"
+# bind __fzf_cd__ from ALT-C to ALT-T
+bind -m emacs-standard '"\et": " \C-e\C-u`__fzf_cd__`\e\C-e\er\C-m"'
+# bind ALT-C to capitalize-word (follow emacs bindings style)
+bind -m emacs-standard '"\ec": capitalize-word'
+
 # Auto-completion
 source "$FZF_DIR/shell/completion.bash" 2> /dev/null
 

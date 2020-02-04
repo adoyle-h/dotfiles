@@ -35,6 +35,7 @@
     ~/.mutt/muttrc: configs/muttrc
     ~/.mutt/configs: configs/mutt
     $XDG_CONFIG_HOME/cheat/conf.yml: configs/cheat.conf.yml
+    ~/style_checks.xml: configs/java_style_checks.xml
 
     # GnuPG
     ~/.gnupg/gpg.conf: configs/gpg.conf

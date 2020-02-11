@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+cat <<EOF
+Try these in shell:
+
+GIT_PS1_SHOWSTASHSTATE=
+GIT_PS1_SHOWUNTRACKEDFILES=
+EOF

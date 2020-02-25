@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+
+declare -A map=(
+  [close-all]=close_all_windows
+  [help]=help
+)
+
+# Provide sub completions
+if [[ "${1:-}" == "--complete" ]]; then
+  echo "${!map[@]}"
+  exit 0
+fi
+
+if (( $# == 0 )) || [[ $1 == help ]] || [[ $1 == -h ]]; then
+  cat <<EOF
+Usage: a chrome <command>
+
+Commands:
+close-all      Close all windows
+help           Show help
+EOF
+
+  exit 0
+fi
+
+close_all_windows() {
+  chrome-cli list windows | awk '{print $1}' | sed -E 's/\[(.*)\]/\1/g' | xargs -n1 chrome-cli close -w
+  echo "[Done]"
+}
+
+readonly name=$1
+shift
+
+${map[$name]} "$@"

@@ -64,6 +64,10 @@ DOTFILES_DEBUG "To load deps/dotfiles_l.bash"
 # shellcheck source=../deps/dotfiles_l.bash
 source "$DOTFILES_DIR/deps/dotfiles_l.bash"
 
+DOTFILES_DEBUG "To load bash/helper.bash"
+# shellcheck source=../bash/helper.bash
+source "$DOTFILES_DIR/bash/helper.bash"
+
 DOTFILES_DEBUG "To load enable-plugs.bash"
 # shellcheck source=./enable-plugs.bash
 source "$DOTFILES_DIR/bash/enable-plugs.bash"

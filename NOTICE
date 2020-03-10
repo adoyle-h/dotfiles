@@ -1,13 +1,11 @@
 -------------------------------------------------------------------------------
 Files are modified from the source code of https://github.com/basecamp/sub :
 
-completion/sub.bash
-completion/sub.zsh
+bash/sub.bash
 bin/sub-bin
+bin/sub-completions
 bin/sub/commands
-bin/sub/completions
 bin/sub/help
-bin/sub/init
 
 
 Copyright (c) 2012 Sam Stephenson, Nick Quaranto, 37signals

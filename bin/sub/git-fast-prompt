@@ -5,4 +5,8 @@ Try these in shell:
 
 GIT_PS1_SHOWSTASHSTATE=
 GIT_PS1_SHOWUNTRACKEDFILES=
+
+Or disable git prompt:
+
+unset unset __git_ps1
 EOF

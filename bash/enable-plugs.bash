@@ -17,6 +17,25 @@ EOF
   fi
 }
 
+_load_enabled() {
+  local filepath=$1
+  source "$filepath" || printf "%bFailed to load file '%s', exit code=%s\n%b" "$YELLOW" "$filepath" "$?" "$RESET_ALL"
+}
+
+_load_enabled_with_debug() {
+  local filepath=$1
+  DOTFILES_DEBUG "To load file: $filepath"
+  local before=$(date +%s)
+  _load_enabled "$filepath"
+  local now=$(date +%s)
+  local elapsed=$(( now - before ))
+  if (( elapsed > 0 )); then
+    DOTFILES_DEBUG "$(printf "%bLoaded in %ss%b" "$YELLOW" $(( now - before )) "$RESET_ALL")"
+  else
+    DOTFILES_DEBUG "Loaded in $(( now - before ))s"
+  fi
+}
+
 load_enabled() {
   DOTFILES_DEBUG "To load enabled plugs"
   local filepath
@@ -33,9 +52,15 @@ load_enabled() {
   # set -o pipefail
   # (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
+  local load
+  if [[ $DOTFILES_DEBUG_FLAG == off ]]; then
+    load=_load_enabled
+  else
+    load=_load_enabled_with_debug
+  fi
+
   for filepath in "${paths[@]}" ; do
-    DOTFILES_DEBUG "To load file: $filepath"
-    source "$filepath" || printf "%bFailed to load file '%s', exit code=%s\n%b" "$YELLOW" "$filepath" "$?" "$RESET_ALL"
+    $load "$filepath"
   done
 
   # set +o errexit

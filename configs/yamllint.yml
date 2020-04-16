@@ -8,6 +8,7 @@ rules:
     max-spaces-inside-empty: 0
   indentation:
     spaces: consistent
+    indent-sequences: consistent
     check-multi-line-strings: false
   document-start: disable
   empty-values:

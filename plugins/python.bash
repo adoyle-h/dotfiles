@@ -25,6 +25,10 @@ _init_python_paths() {
     export PATH="$PATH:$PIPX_BIN_DIR"
     eval "$(register-python-argcomplete pipx)"
   fi
+
+  if dotfiles_l.has command pyenv; then
+    eval "$(pyenv init -)"
+  fi
 }
 
 _init_python_paths

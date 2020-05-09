@@ -48,6 +48,7 @@
     ~/.htmlhintrc: configs/htmlhintrc
     ~/.stylelintrc: configs/stylelintrc
     $XDG_CONFIG_HOME/yamllint/config: configs/yamllint.yml
+    ~/.eslintrc: configs/eslintrc
 
     # secrets
     ~/.ssh: secrets/ssh

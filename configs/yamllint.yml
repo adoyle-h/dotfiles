@@ -16,3 +16,7 @@ rules:
     forbid-in-block-mappings: true
     forbid-in-flow-mappings: true
   truthy: disable
+  line-length:
+    max: 100
+    allow-non-breakable-words: true
+    allow-non-breakable-inline-mappings: true

@@ -15,6 +15,7 @@ An elegant way to manage dotfiles, commands, completions, configurations for ter
 - [Preview](#preview)
 - [Version](#version)
 - [Core Dependencies](#core-dependencies)
+- [Optional Integrations](#optional-integrations)
 - [Related Projects](#related-projects)
 - [Inspired By](#inspired-by)
 - [Installation](#installation)
@@ -71,11 +72,11 @@ An elegant way to manage dotfiles, commands, completions, configurations for ter
   - Pretty ls command. See [./plugins/ls.bash](./plugins/ls.bash).
   - Pretty less command. See [./plugins/lesspipe.bash](./plugins/lesspipe.bash).
   - Safe rm command. See [./plugins/rm.bash](./plugins/rm.bash).
-  - Support [Secret Data](#secret-data).
+  - Support [Secret Data](./docs/advanced-usages.md#secret-data).
   - Support true color.
   - Set some mirror hosts for users in China.
 - Many third integrations
-  - [z.lua](https://github.com/skywind3000/z.lua). See [./plugins/zl.bash](./plugins/zl.bash).
+  - [z.lua][]. See [./plugins/zl.bash](./plugins/zl.bash).
   - [fzf][]. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/bash-custom/fzf.plugin.bash) and [./plugins/fzf.bash](./plugins/fzf.bash).
   - [taskbook](https://github.com/klaussinani/taskbook).
   - [cheat](https://github.com/cheat/cheat). See [./plugins/cheat.bash](./plugins/cheat.bash)
@@ -121,13 +122,24 @@ See [releases](https://github.com/adoyle-h/dotfiles/releases).
   - [git-prompt][]: If omitted, PS1 will not show git prompt.
 - [dotbot][]: To create symbolic links and manage them by [`dotbot.conf.yaml`](./dotbot.conf.yaml). No need to install it manually. It is a submodule of project.
 
+## Optional Integrations
+
+These integrations are not required for the project. It will improve the experience of terminal. Install them by yourself.
+
+- [exa](https://github.com/ogham/exa)
+- [cheat](https://github.com/cheat/cheat)
+- [fzf][]
+- [ag](https://github.com/ggreer/the_silver_searcher)
+- [tmux][]: An awesome terminal multiplexer!
+- [trash](https://github.com/sindresorhus/trash-cli)
+- [z.lua][]
+
 ## Related Projects
 
 - [dotbot][]: A tool that bootstraps your dotfiles.
 - [lobash](https://github.com/adoyle-h/lobash): A modern, safe, powerful utility library for Bash script development.
 - [a-bash-prompt][]: A Bash prompt written by pure Bash script.
 - [bash-sensible](https://github.com/mrzool/bash-sensible): An attempt at saner Bash defaults.
-- [tmux][]: An awesome terminal multiplexer!
 - [neovim][]: Vim-fork focused on extensibility and usability
 - [neovim-config][]: My neovim config
 
@@ -221,19 +233,18 @@ All your own binary executables should be put in [`bin`](./bin/) folder, which h
 ### Sub-commands
 
 Executable commands could be put in [`bin/sub/`]('./bin/sub/') .
-These commands are referred as sub-command. Example:
+These commands are referred as sub-commands. For example,
 
-- `$SUB_NAME help`
-- `$SUB_NAME bins` to show all commands in `./bin/`
-- `$SUB_NAME comments` to show all commands in `./bin/sub/`
-- `$SUB_NAME 256color`
-- `$SUB_NAME debug open` and `a debug close` to open/close debug mode
+- `a help` to show help information
+- `a bins` to show all commands in `./bin/`
+- `a comments` to show all commands in `./bin/sub/`
+- `a debug open` and `a debug close` to open/close debug mode
 
 All sub-commands are auto-completed. Type `a <Tab>` to see all sub-commands.
 
-You can modify `SUB_NAME` in bashrc. Suck like `readonly DOTFILES_SUB=b`. If `DOTFILES_SUB` not set, default to `SUB_NAME=sub-bin`.
+You can change the trigger word `a` to other word by setting `readonly DOTFILES_SUB=<trigger_word>` in bashrc. If `DOTFILES_SUB` not set, it defaults to `DOTFILES_SUB=sub-bin`.
 
-The path 'bin/sub/' is not included in `$PATH`.
+The path `bin/sub/` is not included in `$PATH`. So you cannot invoke sub-commands directly.
 
 ### Enable custom plugins
 
@@ -250,7 +261,9 @@ and some sub-commands to manage them.
 
 ### Plugin Load Priority
 
-Use `# BASH_IT_LOAD_PRIORITY: 500` to set load priority. Defaults to 500.
+Put `# BASH_IT_LOAD_PRIORITY: <PRIORITY>` at the head of script to set loading priority. The priority defaults to `500`.
+
+General priorities of plugs:
 
 - Plugin: 300~499, default 400
 - Completion: 500~699, default 600
@@ -361,3 +374,4 @@ See the [NOTICE][] file distributed with this work for additional information re
 [a-bash-prompt]: https://github.com/adoyle-h/a-bash-prompt
 [python]: https://www.python.org/
 [custom_plugins]: ./bootstraps/recommends/custom_plugins
+[z.lua]: https://github.com/skywind3000/z.lua

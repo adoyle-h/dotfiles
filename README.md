@@ -57,7 +57,7 @@ An elegant way to manage dotfiles, commands, completions, configurations for ter
   - All aliases are put in [`aliases/`](./aliases/). `a list alias -a` to print all available names.
   - All enabled plugins/completions/aliases are put in `enabled/` directory.
   - You can extend new types.
-- Compatible with [bash-completion][] (for bash 3.x) and [bash-completion2][bash-completion] (for bash 4.x). See the [configuration](https://github.com/adoyle-h/dotfiles/blob/master/bash_it/completions.bash)
+- Compatible with [bash-completion][] (for bash 3.x) and [bash-completion2][bash-completion] (for bash 4.x).
 - Responsive and pretty prompt. Refer to [Preview](#preview).
 - Collections of shell commands, which locates in [`bin/`](./bin/). Refer to [Binary executables](#binary-executables).
 - Managed sub-commands in [`bin/sub/`](./bin/sub/). The sub-commands framework is modified from [sub][].
@@ -68,12 +68,12 @@ An elegant way to manage dotfiles, commands, completions, configurations for ter
   - Extended Bash history settings. See [./plugins/history.bash](./plugins/history.bash).
   - Extended Bash manpage. See [./plugins/manpage.bash](./plugins/manpage.bash).
   - Patch shell for macos. See [./plugins/macos.bash](./plugins/macos.bash).
-  - Set some mirror hosts for users in China.
   - Pretty ls command. See [./plugins/ls.bash](./plugins/ls.bash).
   - Pretty less command. See [./plugins/lesspipe.bash](./plugins/lesspipe.bash).
   - Safe rm command. See [./plugins/rm.bash](./plugins/rm.bash).
   - Support [Secret Data](#secret-data).
   - Support true color.
+  - Set some mirror hosts for users in China.
 - Many third integrations
   - [z.lua](https://github.com/skywind3000/z.lua). See [./plugins/zl.bash](./plugins/zl.bash).
   - [fzf][]. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/bash-custom/fzf.plugin.bash) and [./plugins/fzf.bash](./plugins/fzf.bash).

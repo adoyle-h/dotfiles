@@ -55,4 +55,9 @@ kubebuilder_status() {
   echo "Kubebuilder Version: $KUBEBUILDER_VER"
 }
 
+
+if dotfiles_l.has command kustomize; then
+  complete -C kustomize kustomize
+fi
+
 kubebuilder_use 2 > /dev/null

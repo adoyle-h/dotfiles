@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Usage: command | trim_color
+# Description: trim the color of strings.
+
+trim_color() {
+  local line
+  local IFS=
+  while read -r line; do
+    echo "$line" | sed -E "s/[[:cntrl:]]\[[0-9]{1,3}(;[0-9]{1,2})?(;[0-9]{1,3})?[mGK]//g"
+  done
+}
+
+trim_color

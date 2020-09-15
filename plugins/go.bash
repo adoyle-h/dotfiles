@@ -9,7 +9,8 @@ else
   export GOPATH=$MY_GOPATH
 fi
 
-PATH=$PATH:$MY_GOPATH/bin
+# GVM has set global GOPATH in PATH. See plugins/gvm.bash. MY_GOPATH must before global GOPATH.
+PATH=$MY_GOPATH/bin:$PATH
 
 # export GOPROXY=https://goproxy.io,direct
 export GOPROXY=https://goproxy.cn,direct

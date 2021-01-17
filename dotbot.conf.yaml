@@ -63,3 +63,4 @@
     # others
     ~/bin: bin
     ~/.editorconfig: .editorconfig
+    ~/.config/procs/config.toml: configs/procs.config.toml

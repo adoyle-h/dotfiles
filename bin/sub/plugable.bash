@@ -52,7 +52,7 @@ disable_plugin() {
 
   if [[ -f "$filepath" ]]; then
     unlink "$filepath"
-    echo "$t '$name' disabled"
+    echo "$t '$name' disabled. Please restart shell to take effect."
   else
     echo "Warning: Not found enabled $t '$name'" >&2
   fi
@@ -90,10 +90,11 @@ enable_file() {
   weight=$(get_weight "$t_dir/$name.bash")
 
   ln -sf "../$ts/$name.bash" "$ENABLED_DIR/$weight---$name.$t.bash"
-  echo "$t '$name' enabled. weight=$weight"
+  echo "$t '$name' enabled, with weight $weight. Please restart shell to take effect."
 }
 
 enable_it() {
+  # $ts and $t are defined in bin/sub/enable
   readonly t_dir="$DOTFILES_DIR/$ts"
 
   local name

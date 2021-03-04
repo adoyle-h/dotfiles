@@ -79,4 +79,4 @@ if [[ $(uname) = "Darwin" ]] && dotfiles_l.has command brew; then
   fi
 fi
 
-unset -v BASH_COMPLETION_FILE BASH_COMPLETION_DIRS BASH_COMPLETION_COMPAT_DIR
+unset -v BASH_COMPLETION_FILE

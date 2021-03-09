@@ -281,7 +281,7 @@ fi
 ##### keymaps #####
 
 # Ctrl+E Ctrl+E to toggle key wrap
-bind -x '"\C-e\C-e": "_p_keymap_toggle_wrapped_keys"'
+# bind -x '"\C-e\C-e": "_p_keymap_toggle_wrapped_keys"'
 # bind -x '"\e0": "_p_keymap_toggle_wrapped_keys"'
 
 # Alt+Tab to complete

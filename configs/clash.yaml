@@ -1,0 +1,43 @@
+#---------------------------------------------------#
+## 配置文件需要放置在 $HOME/.config/clash/*.yaml
+
+## 这份文件是clashX的基础配置文件，请尽量新建配置文件进行修改。
+## ！！！只有这份文件的端口设置会随ClashX启动生效
+
+## 如果您不知道如何操作，请参阅 官方Github文档 https://github.com/Dreamacro/clash/blob/dev/README.md
+#---------------------------------------------------#
+
+# (HTTP and SOCKS5 in one port)
+mixed-port: 7890
+# port of HTTP
+port: 17890
+# port of Socks5
+socks-port: 1081
+# RESTful API for clash
+external-controller: 127.0.0.1:9090
+allow-lan: false
+mode: rule
+log-level: warning
+
+dns:
+  enable: true
+  listen: 0.0.0.0:55553
+  default-nameserver:
+    - 8.8.8.8
+    - 1.1.1.1
+
+  nameserver:
+    - 8.8.8.8 # default value
+    - https://1.1.1.1/dns-query # DNS over HTTPS
+
+proxies:
+
+proxy-groups:
+
+rules:
+  - DOMAIN-SUFFIX,google.com,DIRECT
+  - DOMAIN-KEYWORD,google,DIRECT
+  - DOMAIN,google.com,DIRECT
+  - DOMAIN-SUFFIX,ad.com,REJECT
+  - GEOIP,CN,DIRECT
+  - MATCH,DIRECT

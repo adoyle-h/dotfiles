@@ -37,6 +37,7 @@
     $XDG_CONFIG_HOME/cheat/conf.yml: configs/cheat.conf.yml
     ~/style_checks.xml: configs/java_style_checks.xml
     $XDG_CONFIG_HOME/starship.toml: configs/starship.toml
+    $XDG_CONFIG_HOME/clash/config.yaml: configs/clash.yaml
 
     # GnuPG
     ~/.gnupg/gpg.conf: configs/gpg.conf

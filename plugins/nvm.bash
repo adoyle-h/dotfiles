@@ -4,20 +4,27 @@ about-plugin 'change node source code mirror and enable nvm'
 
 export NODEJS_ORG_MIRROR="https://npm.taobao.org/mirrors/node"
 export NVM_NODEJS_ORG_MIRROR="$NODEJS_ORG_MIRROR"
-
-BREW_PREFIX=$(brew --prefix)
-if dotfiles_l.has command brew && [[ -d "$BREW_PREFIX/Cellar/nvm" ]]; then
-  # brew --prefix <formula> is slow
-  # https://github.com/Homebrew/brew/issues/3097#issuecomment-325206329
-  brew_nvm_prefix="$(brew --prefix nvm)"
-  if [[ -s $brew_nvm_prefix/nvm.sh ]]; then
-    NVM_SOURCE=$brew_nvm_prefix
-  fi
-  unset -v brew_nvm_prefix
-fi
-unset -v BREW_PREFIX
-
 export NVM_DIR="$HOME/.nvm"
+
+if dotfiles_l.has command brew; then
+  BREW_PREFIX=$(brew --prefix)
+
+  if [[ -d "$BREW_PREFIX/Cellar/nvm" ]]; then
+    # brew --prefix <formula> is slow
+    # https://github.com/Homebrew/brew/issues/3097#issuecomment-325206329
+    brew_nvm_prefix="$(brew --prefix nvm)"
+    if [[ -s $brew_nvm_prefix/nvm.sh ]]; then
+      NVM_SOURCE=$brew_nvm_prefix
+    fi
+    unset -v brew_nvm_prefix
+  fi
+
+  unset -v BREW_PREFIX
+fi
+
+if [[ -z ${NVM_SOURCE:-} ]] && [[ -s $NVM_DIR/nvm.sh ]]; then
+    NVM_SOURCE=$NVM_DIR
+fi
 
 if [[ -n "$NVM_SOURCE" ]]; then
   DOTFILES_DEBUG "source $NVM_SOURCE/nvm.sh"

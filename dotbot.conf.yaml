@@ -17,8 +17,7 @@
     # ~/.bash_completions:
 
     # configs
-    ~/.tmux.conf: configs/tmux.conf
-    ~/.tmux.conf.local: configs/tmux.conf.local
+    ~/.tmux.conf: configs/tmux/macos.conf
     ~/.gitconfig: configs/gitconfig
     ~/.gitignore: configs/gitignore
     ~/.gitattributes: configs/gitattributes

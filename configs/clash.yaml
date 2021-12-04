@@ -46,7 +46,7 @@ log-level: info
 ipv6: false
 
 # RESTful web API listening address
-# external-controller: 127.0.0.1:9090
+external-controller: 127.0.0.1:9090
 
 # A relative path to the configuration directory or an absolute path to a
 # directory in which you put some static web resource. Clash core will then
@@ -74,3 +74,5 @@ dns:
   nameserver:
     - 8.8.8.8 # default value
     - https://1.1.1.1/dns-query # DNS over HTTPS
+    # - tls://dns.rubyfish.cn:853 # DNS over TLS
+    # - dhcp://en0 # dns from dhcp

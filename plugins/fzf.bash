@@ -6,6 +6,10 @@ if [[ -d /usr/local/opt/fzf ]]; then
   FZF_DIR=/usr/local/opt/fzf
   FZF_BIN=$FZF_DIR/bin
   FZF_MANPATH=$FZF_DIR/share/man
+elif [[ -d /opt/homebrew/opt/fzf ]]; then
+  FZF_DIR=/opt/homebrew/opt/fzf
+  FZF_BIN=$FZF_DIR/bin
+  FZF_MANPATH=$FZF_DIR/share/man
 elif [[ -d $HOME/.fzf/bin ]]; then
   FZF_DIR=$HOME/.fzf
   FZF_BIN=$FZF_DIR/bin
@@ -20,7 +24,7 @@ if dotfiles_l.has_not command fzf; then
   export PATH="$PATH:$FZF_BIN"
 fi
 
-if ! man -w fzf >/dev/null; then
+if ! man -w fzf &>/dev/null; then
   export MANPATH="$MANPATH:$FZF_MANPATH"
 fi
 

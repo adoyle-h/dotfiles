@@ -3,6 +3,10 @@ about-plugin 'Golang settings'
 
 MY_GOPATH=~/Workspace/go
 
+if [[ ! -e $MY_GOPATH ]]; then
+  mkdir -p "$MY_GOPATH"
+fi
+
 if [[ -n $GOPATH ]]; then
   export GOPATH=$MY_GOPATH:$GOPATH
 else

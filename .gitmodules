@@ -19,3 +19,5 @@
 [submodule "deps/cheatsheets"]
 	path = deps/cheatsheets
 	url = https://github.com/cheat/cheatsheets.git
+[submodule "dotbot"]
+	ignore = dirty

@@ -44,16 +44,14 @@ bind "set skip-completed-text on"
 
 ###############################################################################
 
-# The completion files load order if file existed:
+# The completion files loaded if file existed:
 # - /etc/bash_completion
 # - /etc/profile.d/bash_completion.sh
 # - /usr/share/bash-completion/bash_completion
-# - if bash_completion installed. It will load files in order, if file existed:
-#   - ${BASH_COMPLETION_COMPAT_DIR:-/usr/local/etc/bash_completion.d}
+# - If bash-completion installed. It will load files in order when file existed:
+#   - ${XDG_CONFIG_HOME:-$HOME/.config}/bash_completion
+#   - ${BASH_COMPLETION_COMPAT_DIR:-/usr/local/etc/bash_completion.d} (It is an option for backwards compatibility. https://github.com/scop/bash-completion/blob/2.11/doc/bash_completion.txt#L22)
 #   - ${BASH_COMPLETION_USER_FILE:-~/.bash_completion}
-
-# bash_completion.sh will use $BASH_COMPLETION_COMPAT_DIR and $BASH_COMPLETION_USER_FILE
-BASH_COMPLETION_COMPAT_DIR="${BASH_COMPLETION_COMPAT_DIR:-/usr/local/etc/bash_completion.d}"
 
 BASH_COMPLETION_DIRS=(
   # Loads the system's Bash completion modules.
@@ -61,22 +59,17 @@ BASH_COMPLETION_DIRS=(
   # Some distribution makes use of a profile.d script to import completion.
   /etc/profile.d/bash_completion.sh
   /usr/share/bash-completion/bash_completion
+  # bash-completion
+  /usr/local/etc/profile.d/bash_completion.sh
+  # bash-completion (MacOS Apple Silicon)
+  /opt/homebrew/etc/profile.d/bash_completion.sh
 )
 
 for BASH_COMPLETION_FILE in "${BASH_COMPLETION_DIRS[@]}"; do
-  if [[ -f  BASH_COMPLETION_FILE ]]; then
+  if [[ -f $BASH_COMPLETION_FILE ]]; then
     DOTFILES_DEBUG "To load completion file: $BASH_COMPLETION_FILE"
     source "$BASH_COMPLETION_FILE"
   fi
 done
 
-if [[ $(uname) = "Darwin" ]] && dotfiles_l.has command brew; then
-  # To enable bash_completion in macos
-  BASH_COMPLETION_FILE=/usr/local/etc/profile.d/bash_completion.sh
-  if [[ -r "$BASH_COMPLETION_FILE" ]]; then
-    DOTFILES_DEBUG "To load bash-completion: $BASH_COMPLETION_FILE"
-    source "$BASH_COMPLETION_FILE"
-  fi
-fi
-
-unset -v BASH_COMPLETION_FILE
+unset -v BASH_COMPLETION_FILE BASH_COMPLETION_DIRS

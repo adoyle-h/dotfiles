@@ -3,9 +3,10 @@
 set -o errexit
 set -o nounset
 set -o pipefail
+set -o errtrace
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
-# Usage: sub help [sub-command]
+# Usage: $SUB_NAME help [sub-command]
 # Summary: print help for sub-command
 
 get_sub_command_path() {
@@ -68,11 +69,11 @@ print_help() {
 }
 
 summary() {
-  sed -n "s/^# Summary: \\(.*\\)/\\1/p" "$1"
+  sed -n -E 's/^# (Summary|Description): (.*)/\2/p' "$1"
 }
 
 usage() {
-  sed -n "s/^# \\(Usage: .*\\)/\\1/p" "$1"
+  sed -n -E 's/^# (Usage: .*)/\1/p' "$1" | envsubst
 }
 
 help() {

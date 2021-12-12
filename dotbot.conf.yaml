@@ -14,10 +14,9 @@
     ~/.profile: bash/profile
     ~/.bashrc: bash/bashrc
     ~/.bash_profile: bash/bash_profile
-    # ~/.bash_completions:
 
     # configs
-    ~/.tmux.conf: configs/tmux/macos.conf
+    ~/.tmux.conf: configs/tmux/macos-arm64.conf
     ~/.gitconfig: configs/gitconfig
     ~/.gitignore: configs/gitignore
     ~/.gitattributes: configs/gitattributes

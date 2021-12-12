@@ -1,13 +1,12 @@
 [user]
     name = ADoyle
     email = adoyle.h@gmail.com
-    signingkey = A69278629C85DF1D
 [github]
     user = adoyle-h
 [gpg]
     program = gpg
 [commit]
-    gpgsign = true
+    gpgsign = false
 [color]
     ui = true
 [core]

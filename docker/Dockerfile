@@ -30,7 +30,7 @@ ENV NODEJS_ORG_MIRROR=$NODEJS_ORG_MIRROR \
 RUN . ~/.nvm/nvm.sh && \
     NVM_NODEJS_ORG_MIRROR="$NODEJS_ORG_MIRROR" nvm install $NODE_VERSION
 
-RUN mkdir -p ~/{Temp,Src,Workspace,Presentations,Design,Doc,Public,Pictures,Downloads}
+RUN mkdir -p ~/{temp,src,Workspace,Presentations,Design,Documents,Public,Pictures,Downloads}
 
 ENV DOTFILE_DIR=$HOME/dotfiles
 

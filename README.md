@@ -43,7 +43,8 @@ An elegant way to manage dotfiles, commands, completions, configurations for ter
 - ✅ iTerm2 Build 3.0.14 (Terminal.app compatible)
 - ✅ GNU bash 4.4+ and 5.0+ (Not support Bash 4.3 and lower versions)
 - ✅ Tmux 2.7+ (Not necessary. Tmux compatible)
-- ✅ MacOS
+- ✅ MacOS Intel Arch
+- ✅ MacOS ARM Arch
 - ✅ Linux/Unix system
 - 🚫 Windows system
 - 🚫 Zsh. This project is just for Bash players. Zsh players should use [Oh My Zsh][].

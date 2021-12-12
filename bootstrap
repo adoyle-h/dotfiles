@@ -73,6 +73,28 @@ _install_nvm() {
   nvm use --delete-prefix default
 }
 
+ensure_dirs() {
+  local dirnames=(
+    Documents
+    Downloads
+    Movies
+    Pictures
+    Music
+    Workspace
+    Presentations
+    Design
+    .config
+    .cache
+    temp
+    src
+    others
+  )
+
+  cd "$HOME"
+  mkdir -p "${dirnames[@]}"
+  cd -
+}
+
 bootstrap_common() {
   echo "[Bootstrap common settings]"
 
@@ -86,7 +108,9 @@ bootstrap_common() {
 
   if [[ ! -d ~/dotfiles ]] ; then
     echo 'To download my dotfiles'
-    git clone --depth 1 --recursive $DOTFILES_GIT_REPO ~/dotfiles
+    git clone "$DOTFILES_GIT_REPO" ~/dotfiles
+    git -C "$DOTFILES_GIT_REPO" submodule update --init
+    git -C "$DOTFILES_GIT_REPO"/deps/dotbot submodule update --init
     # ~/dotfiles/install
   fi
 

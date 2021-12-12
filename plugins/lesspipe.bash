@@ -9,7 +9,7 @@ about-plugin '  for other systems: https://www.gnu.org/software/src-highlite/sou
 if [[ -x /usr/bin/lesspipe ]]; then
   LESSPIPE_SCRIPT=/usr/bin/lesspipe
 else
-  LESSPIPE_SCRIPT=$(which src-hilite-lesspipe.sh)
+  LESSPIPE_SCRIPT=$(which src-hilite-lesspipe.sh || true)
 fi
 
 if [[ -n "$LESSPIPE_SCRIPT" ]]; then

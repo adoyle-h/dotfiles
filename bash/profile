@@ -12,3 +12,5 @@
 
 # shellcheck source=./bashrc
 [ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc"
+
+[[ -s "/Users/adoyle/.gvm/scripts/gvm" ]] && source "/Users/adoyle/.gvm/scripts/gvm"

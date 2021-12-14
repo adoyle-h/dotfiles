@@ -8,8 +8,8 @@ about-plugin '  for other systems: https://www.gnu.org/software/src-highlite/sou
 # make less more friendly for non-text input files, see lesspipe(1)
 if [[ -x /usr/bin/lesspipe ]]; then
   LESSPIPE_SCRIPT=/usr/bin/lesspipe
-elif [[ -x /usr/local/bin/src-hilite-lesspipe.sh ]]; then
-  LESSPIPE_SCRIPT=/usr/local/bin/src-hilite-lesspipe.sh
+else
+  LESSPIPE_SCRIPT=$(which src-hilite-lesspipe.sh)
 fi
 
 if [[ -n "$LESSPIPE_SCRIPT" ]]; then

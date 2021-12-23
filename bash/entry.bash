@@ -19,17 +19,31 @@ source "$DOTFILES_DIR/bash/path.bash"
 # shellcheck source=debug.bash
 . "$DOTFILES_DIR/bash/debug.bash"
 
-DOTFILES_DEBUG "To load $DOTFILES_DIR/bash/xdg.bash"
+_df_load() {
+  DOTFILES_DEBUG "To load $DOTFILES_DIR/$1"
+  local before=$(date +%s)
+
+  # shellcheck disable=SC1090
+  source "$DOTFILES_DIR/$1"
+
+  local now=$(date +%s)
+  local elapsed=$(( now - before ))
+
+  if (( elapsed > 0 )); then
+    DOTFILES_DEBUG "$(printf "%bLoaded %s in %ss%b" '\e[33m' "$DOTFILES_DIR/$1" $elapsed '\e[0m')"
+  else
+    DOTFILES_DEBUG "Loaded $DOTFILES_DIR/$1 in ${elapsed}s"
+  fi
+}
+
 # shellcheck source=./xdg.bash
-source "$DOTFILES_DIR/bash/xdg.bash"
+_df_load "bash/xdg.bash"
 
-DOTFILES_DEBUG "To load failover.bash"
 # shellcheck source=failover.bash
-. "$DOTFILES_DIR/bash/failover.bash"
+_df_load "bash/failover.bash"
 
-DOTFILES_DEBUG "To load deps/colors.bash"
 # shellcheck source=../deps/colors.bash
-source "$DOTFILES_DIR/deps/colors.bash"
+_df_load "deps/colors.bash"
 
 # ----------------------- All Basic Variables Put Above -----------------------
 
@@ -50,29 +64,23 @@ fi
 
 # -------------------------- All Functions Put Below --------------------------
 
-DOTFILES_DEBUG "To load sub.bash"
 # shellcheck source=./sub.bash
-source "$DOTFILES_DIR/bash/sub.bash"
+_df_load "bash/sub.bash"
 
-DOTFILES_DEBUG "To load bash_it.lib.bash"
 # shellcheck source=bash_it.lib.bash
-source "$DOTFILES_DIR/bash/bash_it.lib.bash"
+_df_load "bash/bash_it.lib.bash"
 
-DOTFILES_DEBUG "To load deps/dotfiles_l.bash"
 # shellcheck source=../deps/dotfiles_l.bash
-source "$DOTFILES_DIR/deps/dotfiles_l.bash"
+_df_load "deps/dotfiles_l.bash"
 
-DOTFILES_DEBUG "To load bash/helper.bash"
-# shellcheck source=../bash/helper.bash
-source "$DOTFILES_DIR/bash/helper.bash"
+# shellcheck source=./helper.bash
+_df_load "bash/helper.bash"
 
-DOTFILES_DEBUG "To load os-settings.bash"
 # shellcheck source=./os-settings.bash
-source "$DOTFILES_DIR/bash/os-settings.bash"
+_df_load "bash/os-settings.bash"
 
-DOTFILES_DEBUG "To load enable-plugs.bash"
 # shellcheck source=./enable-plugs.bash
-source "$DOTFILES_DIR/bash/enable-plugs.bash"
+_df_load "bash/enable-plugs.bash"
 
 DOTFILES_DEBUG "DOTFILES LOADED"
 DOTFILES_LOADED=loaded

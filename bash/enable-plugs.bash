@@ -29,10 +29,11 @@ _load_enabled_with_debug() {
   _load_enabled "$filepath"
   local now=$(date +%s)
   local elapsed=$(( now - before ))
+
   if (( elapsed > 0 )); then
-    DOTFILES_DEBUG "$(printf "%bLoaded in %ss%b" "$YELLOW" $(( now - before )) "$RESET_ALL")"
+    DOTFILES_DEBUG "$(printf "%bLoaded in %ss%b" "$YELLOW" $elapsed "$RESET_ALL")"
   else
-    DOTFILES_DEBUG "Loaded in $(( now - before ))s"
+    DOTFILES_DEBUG "Loaded in ${elapsed}s"
   fi
 }
 

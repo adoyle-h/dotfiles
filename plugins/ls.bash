@@ -9,11 +9,11 @@ else
   if ls --color -d . &> /dev/null ; then
     alias ls='ls --color=auto'
   elif ls -G -d . &> /dev/null ; then
-    alias ls='ls -G'        # Compact view, show colors
+    alias ls='ls --color=auto -G'        # Compact view, show colors
   else
-    alias ls='ls -F'
+    alias ls='ls --color=auto -F'
   fi
 
-  alias ll='ls -lahFT'
-  alias llm='ll -tr'
+  alias ll='ls --color=auto -lahFT'
+  alias llm='ll --color=auto -tr'
 fi

@@ -13,11 +13,8 @@ else
   DOTFILES_LOADED=loading
 fi
 
-# Fix PATH and MANPATH problems caused by /usr/libexec/path_helper in MacOS.
-# Refer to https://scriptingosx.com/2017/05/where-paths-come-from/'
-# Secondly, Homebrew install Bash at /usr/local/bin/bash, and MacOS default bash 3 at /bin/bash,
-# make sure /usr/local/bin before /bin in PATH
-export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/bin"
+# shellcheck source=./path.bash
+source "$DOTFILES_DIR/bash/path.bash"
 
 # shellcheck source=debug.bash
 . "$DOTFILES_DIR/bash/debug.bash"
@@ -44,6 +41,7 @@ if ! . "$DOTFILES_DIR/bash/check-environment.bash"; then
 fi
 
 if [[ -f $HOME/.bashrc.override ]]; then
+  DOTFILES_DEBUG "To load .bashrc.override"
   # See "$DOTFILES_SUB bashrc" for usage
   # shellcheck disable=SC1090
   . "$(cat "$HOME"/.bashrc.override)"

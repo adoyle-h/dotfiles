@@ -21,21 +21,4 @@ alias quicklook='qlmanage -p 2>/dev/null'
 alias mute="osascript -e 'set volume output muted true'"
 alias unmute="osascript -e 'set volume output muted false'"
 
-# Fix MANPATH --------------------------------------------------------
-
-# Fix PATH and MANPATH problems caused by /usr/libexec/path_helper in MacOS.
-# Refer to https://scriptingosx.com/2017/05/where-paths-come-from/'
-
-MAIN_MANPATHS="/usr/local/share/man:/usr/share/man"
-export MANPATH="$MAIN_MANPATHS"
-unset -v MAIN_MANPATHS
-
-# Add bash 4 manpage path
-BASH_4_MANPATH="/usr/local/opt/bash/share/man"
-if [[ -d "$BASH_4_MANPATH" ]] \
-  && ( ! dotfiles_l.str_include "$MANPATH" "$BASH_4_MANPATH" ); then
-  export MANPATH="$BASH_4_MANPATH:$MANPATH"
-fi
-unset -v BASH_4_MANPATH
-
 # -----------------------------------------------------------------------------

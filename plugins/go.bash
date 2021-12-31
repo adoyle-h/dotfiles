@@ -22,10 +22,16 @@ export GOPROXY=https://goproxy.cn,direct
 # 设置不走 proxy 的私有仓库，多个用逗号相隔
 # export GOPRIVATE=*.corp.example.com
 
-go_use_local() {
-  gvm pkgset use --local
-}
-
-[[ -f $MY_GOPATH/bin/gocomplete ]] && complete -C $MY_GOPATH/bin/gocomplete go
+# https://github.com/posener/complete/tree/master
+if [[ -f $MY_GOPATH/bin/gocomplete ]]; then
+  complete -C $MY_GOPATH/bin/gocomplete go
+else
+  cat <<EOF
+[plugins/go.bash]
+Not found gocomplete.
+Try to install gocomplete by "go get -u github.com/posener/complete/v2/gocomplete"
+Then restart shell.
+EOF
+fi
 
 unset -v MY_GOPATH

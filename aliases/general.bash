@@ -5,6 +5,3 @@ alias df='df -h'
 alias du='du -h'
 alias suho='sudo -HE'
 alias tree='tree -CFN'
-
-alias edit='vim'
-alias pager='vim'

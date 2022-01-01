@@ -16,6 +16,7 @@ fi
 
 search_manpaths=(
   /opt/homebrew/opt/bash/share/man
+  /opt/homebrew/share/man/
   /usr/local/opt/bash/share/man
   /usr/local/share/man
   /usr/share/man

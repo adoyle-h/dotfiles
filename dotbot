@@ -3,13 +3,12 @@
 set -o errexit
 set -o nounset
 set -o pipefail
+set -o errtrace
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
-
-# Copy from dotbot/tools/git-submodule/install
 
 readonly BASEDIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
 # shellcheck source=bash/xdg.bash
 . "${BASEDIR}/bash/xdg.bash"
 
-"${BASEDIR}/deps/dotbot/bin/dotbot" -d "${BASEDIR}" -c dotbot.conf.yaml
+"${BASEDIR}/deps/dotbot/bin/dotbot" -d "${BASEDIR}" -c "${1:-dotbot.conf.yaml}"

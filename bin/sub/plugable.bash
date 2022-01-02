@@ -25,9 +25,9 @@ EOF
   fi
 
   if [[ "$opt" == '-a' ]]; then
-    find "$DOTFILES_DIR/$ts/" -d 1 -type f -exec basename {} ".bash" \; | sort | tr '\n' ' '
+    find "$DOTFILES_DIR/$ts/" -depth 1 -type f -exec basename {} ".bash" \; | sort | tr '\n' ' '
   else
-    find "$ENABLED_DIR" -d 1 -type l \
+    find "$ENABLED_DIR" -depth 1 -type l \
       -name "*---*.$t.bash" \
       -exec basename {} ".$t.bash" \; \
       | sed -E 's/^[[:digit:]]{3}---(.+)$/\1/' \

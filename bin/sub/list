@@ -11,8 +11,11 @@ Usage: $SUB_NAME list <type> [-a]
 
 Description: Show enabled <type>
 
+Arguments:
+  type       Available values: alias, completion, plugin
+
 Options:
-  -a    Show all availables of <type>
+  -a         Show all availables of <type>
 EOF
   exit 0
 fi

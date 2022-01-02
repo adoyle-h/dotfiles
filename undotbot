@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+
+from __future__ import print_function
+
+import yaml
+import os
+import sys
+
+if len(sys.argv) > 1:
+  CONFIG = sys.argv[1]
+else:
+  sys.exit("""
+Usage: undotbot <path>
+Description: Cleanup soft-links created by dotbot
+Example: undotbot ./dotbot.conf/macos.yaml
+""")
+
+print("Config: ", CONFIG)
+
+stream = open(CONFIG, "r")
+conf = yaml.load(stream, yaml.FullLoader)
+
+for section in conf:
+  if 'link' in section:
+    for target in section['link']:
+      realpath = os.path.expanduser(target)
+      if os.path.islink(realpath):
+        print("Removing ", realpath)
+        os.unlink(realpath)

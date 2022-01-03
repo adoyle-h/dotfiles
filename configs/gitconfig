@@ -1,13 +1,12 @@
-[user]
-    name = ADoyle
-    email = adoyle.h@gmail.com
-    signingkey = A69278629C85DF1D
-[github]
-    user = adoyle-h
+; [user]
+;     name = ADoyle
+;     email = adoyle.h@gmail.com
+; [github]
+;     user = adoyle-h
 [gpg]
     program = gpg
 [commit]
-    gpgsign = true
+    gpgsign = false
 [color]
     ui = true
 [core]
@@ -128,5 +127,5 @@
 ;     proxy = socks5://127.0.0.1:1080
 [log]
     date = local
-[includeIf "gitdir:~/Workspace/Ali/"]
-    path = .gitconfig.work
+[include]
+    path = .gitconfig.user

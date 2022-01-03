@@ -55,6 +55,7 @@
     ~/.keybase-installer: secrets/keybase-installer
     ~/.grip/settings.py: secrets/grip-settings.py
     ~/.gitconfig.work: secrets/gitconfig.work
+    ~/.gitconfig.user: secrets/gitconfig.user
     ~/Library/Gas Mask: secrets/gas_mask
 
     # nvim

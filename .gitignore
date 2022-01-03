@@ -7,6 +7,8 @@ bash_it/plugins/enabled/*
 !bash_it/plugins/enabled/.gitkeep
 enabled/*
 !enabled/.gitkeep
+runtime/*
+!runtime/.gitkeep
 
 # Created by https://www.gitignore.io/api/vim,osx
 

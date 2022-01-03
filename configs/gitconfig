@@ -128,4 +128,4 @@
 [log]
     date = local
 [include]
-    path = .gitconfig.user
+    path = config.user

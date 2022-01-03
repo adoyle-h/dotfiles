@@ -18,9 +18,6 @@
 
     # configs
     ~/.tmux.conf: configs/tmux/macos.conf
-    ~/.gitconfig: configs/gitconfig
-    ~/.gitignore: configs/gitignore
-    ~/.gitattributes: configs/gitattributes
     ~/.czrc: configs/czrc
     ~/.sshrc: configs/sshrc
     ~/.mdlrc: configs/mdlrc
@@ -50,12 +47,18 @@
     $XDG_CONFIG_HOME/yamllint/config: configs/yamllint.yml
     ~/.eslintrc: configs/eslintrc
 
+    # git
+    # https://git-scm.com/docs/git-config#FILES
+    $XDG_CONFIG_HOME/git/config: configs/gitconfig
+    $XDG_CONFIG_HOME/git/config.user: secrets/gitconfig.user
+    $XDG_CONFIG_HOME/git/config.work: secrets/gitconfig.work
+    $XDG_CONFIG_HOME/git/ignore: configs/gitignore
+    $XDG_CONFIG_HOME/git/attributes: configs/gitattributes
+
     # secrets
     ~/.ssh: secrets/ssh
     ~/.keybase-installer: secrets/keybase-installer
     ~/.grip/settings.py: secrets/grip-settings.py
-    ~/.gitconfig.work: secrets/gitconfig.work
-    ~/.gitconfig.user: secrets/gitconfig.user
     ~/Library/Gas Mask: secrets/gas_mask
 
     # nvim

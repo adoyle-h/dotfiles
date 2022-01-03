@@ -3,7 +3,7 @@ export DOTFILES_BASHRC_FAILOVER=${DOTFILES_BASHRC_FAILOVER:-"$DOTFILES_DIR/bash/
 
 dotfiles_failover() {
   if [[ -r "$DOTFILES_BASHRC_FAILOVER" ]]; then
-    DOTFILES_DEBUG "To load DOTFILES_BASHRC_FAILOVER: ${DOTFILES_BASHRC_FAILOVER}"
+    dotfiles_debug "To load DOTFILES_BASHRC_FAILOVER: ${DOTFILES_BASHRC_FAILOVER}"
     # shellcheck source=./bashrc.failover
     source "$DOTFILES_BASHRC_FAILOVER"
   fi

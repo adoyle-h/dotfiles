@@ -19,26 +19,27 @@ EOF
 
 _load_enabled() {
   local filepath=$1
+  # shellcheck disable=SC1090
   source "$filepath" || printf "%bFailed to load file '%s', exit code=%s\n%b" "$YELLOW" "$filepath" "$?" "$RESET_ALL"
 }
 
 _load_enabled_with_debug() {
   local filepath=$1
-  DOTFILES_DEBUG "To load file: $filepath"
+  dotfiles_debug "To load file: $filepath"
   local before=$(date +%s)
   _load_enabled "$filepath"
   local now=$(date +%s)
   local elapsed=$(( now - before ))
 
   if (( elapsed > 0 )); then
-    DOTFILES_DEBUG "$(printf "%bLoaded in %ss%b" "$YELLOW" $elapsed "$RESET_ALL")"
+    dotfiles_debug "$(printf "%bLoaded in %ss%b" "$YELLOW" $elapsed "$RESET_ALL")"
   else
-    DOTFILES_DEBUG "Loaded in ${elapsed}s"
+    dotfiles_debug "Loaded in ${elapsed}s"
   fi
 }
 
 load_enabled() {
-  DOTFILES_DEBUG "To load enabled plugs"
+  dotfiles_debug "To load enabled plugs"
   local filepath
   local -a paths
 
@@ -54,10 +55,10 @@ load_enabled() {
   # (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
   local load
-  if [[ $DOTFILES_DEBUG_FLAG == off ]]; then
-    load=_load_enabled
-  else
+  if [[ $DOTFILES_DEBUG == on ]]; then
     load=_load_enabled_with_debug
+  else
+    load=_load_enabled
   fi
 
   for filepath in "${paths[@]}" ; do
@@ -71,4 +72,4 @@ load_enabled() {
 }
 
 load_enabled
-unset -f load_enabled
+unset -f load_enabled _load_enabled _load_enabled_with_debug

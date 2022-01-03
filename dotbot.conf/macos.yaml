@@ -4,9 +4,9 @@
       # relink: true
       create: true
 
+# dotbot have no sudo permission
 - shell:
-    # dotbot have no sudo permission
-    - "echo ''"
+    - cp ./bash_config_example.bash ./runtime/bash_config.bash
 
 - link:
     # bash

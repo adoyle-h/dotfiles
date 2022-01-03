@@ -27,7 +27,7 @@ if [[ -z ${NVM_SOURCE:-} ]] && [[ -s $NVM_DIR/nvm.sh ]]; then
 fi
 
 if [[ -n "$NVM_SOURCE" ]]; then
-  DOTFILES_DEBUG "source $NVM_SOURCE/nvm.sh"
+  dotfiles_debug "source $NVM_SOURCE/nvm.sh"
   # shellcheck disable=SC1090
   . "$NVM_SOURCE/nvm.sh"
 

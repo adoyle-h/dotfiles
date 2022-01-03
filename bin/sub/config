@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+
+# Provide sub completions
+if [ "${1:-}" = "--complete" ]; then
+  if [[ $COMP_CWORD -lt 3 ]]; then
+    echo "--help"
+  fi
+
+  exit 0
+fi
+
+readonly flag=${1:-}
+
+if [[ $flag == set ]]; then
+else
+    cat <<EOF
+USAGE: a config [set] [--help]
+EOF
+fi

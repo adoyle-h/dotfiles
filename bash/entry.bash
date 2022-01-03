@@ -13,26 +13,44 @@ else
   DOTFILES_LOADED=loading
 fi
 
+# --------------------- Load Basic Variables and Functions --------------------
+
 # shellcheck source=./path.bash
-source "$DOTFILES_DIR/bash/path.bash"
+. "$DOTFILES_DIR/bash/path.bash"
+
+# shellcheck source=../deps/colors.bash
+. "$DOTFILES_DIR/deps/colors.bash"
+
+# shellcheck source=../runtime/bash_config.bash
+. "$DOTFILES_DIR/runtime/bash_config.bash"
 
 # shellcheck source=debug.bash
 . "$DOTFILES_DIR/bash/debug.bash"
 
 _df_load() {
-  DOTFILES_DEBUG "To load $DOTFILES_DIR/$1"
-  local before=$(date +%s)
+  local key before now
+
+  # Skip loading if skip_comps defined in runtime/bash_config.bash
+  for key in "${DOTFILES_SKIP_COMPS[@]}"; do
+    if [[ bash/$key.bash == "$1" ]]; then
+      dotfiles_debug "$YELLOW%s$RESET_ALL" "(Skip) To load $DOTFILES_DIR/$1"
+      return
+    fi
+  done
+
+  dotfiles_debug "To load $DOTFILES_DIR/$1"
+  before=$(date +%s)
 
   # shellcheck disable=SC1090
-  source "$DOTFILES_DIR/$1"
+  . "$DOTFILES_DIR/$1"
 
-  local now=$(date +%s)
+  now=$(date +%s)
   local elapsed=$(( now - before ))
 
   if (( elapsed > 0 )); then
-    DOTFILES_DEBUG "$(printf "%bLoaded %s in %ss%b" '\e[33m' "$DOTFILES_DIR/$1" $elapsed '\e[0m')"
+    dotfiles_debug "%bLoaded %s in %ss%b" "$YELLOW" "$DOTFILES_DIR/$1" $elapsed "$RESET_ALL"
   else
-    DOTFILES_DEBUG "Loaded $DOTFILES_DIR/$1 in ${elapsed}s"
+    dotfiles_debug "Loaded $DOTFILES_DIR/$1 in ${elapsed}s"
   fi
 }
 
@@ -42,12 +60,8 @@ _df_load "bash/xdg.bash"
 # shellcheck source=failover.bash
 _df_load "bash/failover.bash"
 
-# shellcheck source=../deps/colors.bash
-_df_load "deps/colors.bash"
 
-# ----------------------- All Basic Variables Put Above -----------------------
-
-DOTFILES_DEBUG "To load check-environment.bash"
+dotfiles_debug "To load check-environment.bash"
 # shellcheck source=check-environment.bash
 if ! . "$DOTFILES_DIR/bash/check-environment.bash"; then
   dotfiles_failover
@@ -55,14 +69,14 @@ if ! . "$DOTFILES_DIR/bash/check-environment.bash"; then
 fi
 
 if [[ -f $HOME/.bashrc.override ]]; then
-  DOTFILES_DEBUG "To load .bashrc.override"
+  dotfiles_debug "To load .bashrc.override"
   # See "$DOTFILES_SUB bashrc" for usage
   # shellcheck disable=SC1090
   . "$(cat "$HOME"/.bashrc.override)"
   return
 fi
 
-# -------------------------- All Functions Put Below --------------------------
+# ---------------------- Load Optional Functions Below ------------------------
 
 # shellcheck source=bash_it.lib.bash
 _df_load "bash/bash_it.lib.bash"
@@ -82,5 +96,5 @@ _df_load "bash/enable-plugs.bash"
 # shellcheck source=./sub.bash
 _df_load "bash/sub.bash"
 
-DOTFILES_DEBUG "DOTFILES LOADED"
+dotfiles_debug "${GREEN}%s${RESET_ALL}" "[DOTFILES LOADED DONE]"
 DOTFILES_LOADED=loaded

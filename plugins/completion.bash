@@ -68,7 +68,7 @@ BASH_COMPLETION_DIRS=(
 
 for BASH_COMPLETION_FILE in "${BASH_COMPLETION_DIRS[@]}"; do
   if [[ -f $BASH_COMPLETION_FILE ]]; then
-    DOTFILES_DEBUG "To load completion file: $BASH_COMPLETION_FILE"
+    dotfiles_debug "To load completion file: $BASH_COMPLETION_FILE"
     source "$BASH_COMPLETION_FILE"
   fi
 done

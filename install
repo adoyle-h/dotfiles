@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+# Description: initialize all configs, plugins and bash.
+
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+
+readonly DOTFILES_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+readonly SCRIPT_BASENAME="$(basename "$0")"
+
+# shellcheck source=deps/colors.bash
+. "$DOTFILES_DIR"/deps/colors.bash
+
+# shellcheck source=deps/lobash.bash
+. "$DOTFILES_DIR"/deps/lobash.bash
+
+check_support() {
+  # todo
+  return 0
+}
+
+main() {
+  check_support
+
+  echo "Which your current OS?"
+  system=$(l.choose macos debian debian-server)
+
+  # Clone submodules and initialize them
+  git -C "$DOTFILES_DIR" submodule update --init --recursive
+
+  # Make sure XDG_ variables set
+  . "$DOTFILES_DIR"/bash/xdg.bash
+
+  # You may check the content of `dotbot.conf.yaml` file,
+  # It creates soft-links based on dotbot.conf.yaml.
+  "$DOTFILES_DIR"/dotbot "$DOTFILES_DIR/dotbot.conf/$system.yaml"
+  # Checkout the output
+
+  # shellcheck source=bash/bashrc
+  . "$HOME/.bashrc"
+
+  # Enable recommend plugs
+  # shellcheck source=./bootstraps/recommended_plugs
+  . "$DOTFILES_DIR"/bootstraps/recommended_plugs
+
+  case $system in
+    macos)
+      a enable plugin macos gnutools-for-mac sed-for-mac
+      ;;
+    debian|debian-server)
+      a enable plugin linux
+      ;;
+  esac
+
+  echo "Last step: Please restart your shell. Enjoy yourself."
+}
+
+main "$@"

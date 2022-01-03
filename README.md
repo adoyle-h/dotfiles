@@ -43,14 +43,15 @@ An elegant way to manage dotfiles, commands, completions, configurations for ter
 - ✅ iTerm2 Build 3.0.14 (Terminal.app compatible)
 - ✅ GNU bash 4.4+ and 5.0+ (Not support Bash 4.3 and lower versions)
 - ✅ Tmux 2.7+ (Not necessary. Tmux compatible)
-- ✅ MacOS
+- ✅ MacOS Intel Arch
+- ✅ MacOS ARM Arch
 - ✅ Linux/Unix system
 - 🚫 Windows system
 - 🚫 Zsh. This project is just for Bash players. Zsh players should use [Oh My Zsh][].
 
 ## Features
 
-- Manage collections of dotfiles. Create soft-link via [dotbot][]. See [the configuration](./dotbot.conf.yaml).
+- Manage collections of dotfiles. Create soft-link via [dotbot][]. See the files in [./dotbot.conf/](./dotbot.conf/).
 - Manage shell scripts by modules.
   - Most features are implemented in separate plugins, which could be disabled by yourself.
   - All plugins are put in [`plugins/`](./plugins/). `a list plugin -a` to print all available names.
@@ -154,21 +155,9 @@ These integrations are not required for the project. It will improve the experie
 # Set your Dotfiles directory path
 DOTFILES_DIR=~/dotfiles
 
-# Clone this repo
 git clone --depth 1 https://github.com/adoyle-h/dotfiles.git $DOTFILES_DIR
-cd $DOTFILES_DIR
-# Clone submodules and initialize them
-git submodule update --init --recursive
 
-# You may check the content of `dotbot.conf.yaml` file,
-# It creates soft-links based on dotbot.conf.yaml.
-./dotbot
-# Checkout the output
-
-# Restart your shell
-
-# Enable recommend plugs
-. ${DOTFILES_DIR}/bootstraps/recommends/plugs
+$DOTFILES_DIR/install
 ```
 
 And then read the [Configuration - User Modifications](#user-modifications) section.
@@ -189,22 +178,25 @@ These parts of below files you should modify.
 
 ./configs/gitconfig:
 
-```
+```sh
+cd $DOTFILES_DIR
+mkdir ./secrets
+cat <<EOF >./secrets/gitconfig.user
 [user]
-    name = <your-username>
-    email = <your-email>
+    name = your name
+    email = your email
+EOF
 ```
 
 ### UI
 
 `$TERM` should be `xterm-256color` or `screen-256color` for best appearance.
 
-- Font: [DejaVuSansMonoForPowerline Nerd Font][font]
-- Color Scheme: [Deep][color scheme]. [Installation Instructions][color scheme - installation]
+Install the font [DejaVuSansMonoForPowerline Nerd Font][font] and color scheme [Deep][color scheme] ([color scheme - installation][]) by yourself.
 
 ### Soft-links
 
-Edit the [`dotbot.conf.yaml`][dotbot.conf.yaml] file.
+Edit the files in [`dotbot.conf/`](./dotbot.conf/).
 
 ## Usage
 
@@ -237,8 +229,8 @@ These commands are referred as sub-commands. For example,
 
 - `a help` to show help information
 - `a bins` to show all commands in `./bin/`
-- `a comments` to show all commands in `./bin/sub/`
-- `a debug open` and `a debug close` to open/close debug mode
+- `a commands` to show all commands in `./bin/sub/`
+- `a config DEBUG=on` and `a config DEBUG=off` to open/close debug mode
 
 All sub-commands are auto-completed. Type `a <Tab>` to see all sub-commands.
 
@@ -251,13 +243,11 @@ The path `bin/sub/` is not included in `$PATH`. So you cannot invoke sub-command
 The framework provides many custom [plugins](./plugins/), [aliases](./aliases/), [completions](./completions/).
 and some sub-commands to manage them.
 
-- `a enable <type> <name>...` to enable plugins in `bash-custom/available/`
-- `a disable <type> <plugin-name>...` to disable plugins in `bash-custom/enabled/`
-- `a disable-all <type>` to disable all plugins in `bash-custom/enabled/`
-- `a list <type>` to show all enabled plugins in `bash-custom/enabled/`
-- `a list <type> -a` to show all plugins in `bash-custom/available/`
-- `a backup <type>` to backup all enabled plugins to [custom_plugins][].
-- `a recover <type>` to re-enable all plugins saved in [custom_plugins][].
+- `a enable <type> <name>...` to enable plugins in `plugins/`
+- `a disable <type> <plugin-name>...` to disable plugins in `enabled/`
+- `a disable-all <type>` to disable all plugins in `enabled/`
+- `a list <type>` to show all enabled plugins in `enabled/`
+- `a list <type> -a` to show all plugins in `plugins/`
 
 ### Plugin Load Priority
 
@@ -294,15 +284,18 @@ General priorities of plugs:
 │   └── xdg.bash                    # Set XDG_ variables
 ├── bin/                            # Link to ~/bin
 ├── bootstraps/                     # Scripts for bootstraping
-│   └── recommends/
-│       └── plugs                   # Enabled recommended plugins/completions/aliaes
-├── bootstrap.bash*
+│   └── recommended_plugs*          # Enabled recommended plugins/completions/aliaes
+├── bootstrap*                      # (WIP) To install dotfiles framework and system tools from bare system
+├── install*                        # To install dotfiles framework
 ├── cheat/                          # It is ignored in git. git clone https://github.com/adoyle-h/my-command-cheat cheat
 ├── completions/                    # Available completions
 ├── configs/                        # Application configuration
 ├── docs/                           # The documents of this project
 ├── dotbot*                         # Create soft-links based on dotbot.conf.yaml
-├── dotbot.conf.yaml                # Dotbot configurations
+├── dotbot.conf                     # Dotbot configurations
+│   ├── debian-server.yaml          # For Debian Server
+│   ├── debian.yaml                 # For general Linux system
+│   └── macos.yaml                  # For MacOS system
 ├── deps/                           # Git submodules
 │   ├── a-bash-prompt/              # https://github.com/adoyle-h/a-bash-prompt
 │   ├── dotbot/                     # https://github.com/anishathalye/dotbot
@@ -317,6 +310,8 @@ General priorities of plugs:
 │   ├── completions.bash            # General completions and tab complete keymap
 │   ├── preexec.bash                # Enable bash-preexec library
 │   └── prompt.bash                 # Enable a-bash-prompt
+├── runtime/                        # Available plugins
+│   └── bash_config.bash            # Dotfiles runtime config
 └── secrets/                        # This folder is ignored by git. Put your secret data here.
 ```
 
@@ -354,7 +349,6 @@ See the [NOTICE][] file distributed with this work for additional information re
 
 <!-- links -->
 
-[dotbot.conf.yaml]: ./dotbot.conf.yaml
 [dotbot]: https://github.com/anishathalye/dotbot/
 [bash-it]: https://github.com/Bash-it/bash-it
 [sub]: https://github.com/basecamp/sub
@@ -373,5 +367,4 @@ See the [NOTICE][] file distributed with this work for additional information re
 [bash-preexec]: https://github.com/rcaloras/bash-preexec
 [a-bash-prompt]: https://github.com/adoyle-h/a-bash-prompt
 [python]: https://www.python.org/
-[custom_plugins]: ./bootstraps/recommends/custom_plugins
 [z.lua]: https://github.com/skywind3000/z.lua

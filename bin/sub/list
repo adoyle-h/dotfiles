@@ -3,19 +3,21 @@
 set -o errexit
 set -o nounset
 set -o pipefail
+set -o errtrace
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
-if (( $# == 0 )); then
+if (( $# == 0 )) || [[ $1 == -h ]]; then
   cat <<EOF
-Usage: $SUB_NAME list <type> [-a]
+Usage: $SUB_NAME list <type> [-ah]
 
-Description: Show enabled <type>
+Description: List enableds of <type>
 
 Arguments:
   type       Available values: alias, completion, plugin
 
 Options:
   -a         Show all availables of <type>
+  -h         Show help
 EOF
   exit 0
 fi

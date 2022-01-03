@@ -16,18 +16,10 @@ readonly -A default_weight_map=(
 list() {
   readonly opt=${1:-}
 
-  if [[ "$opt" == '-h' ]]; then
-    cat <<EOF
-    $0    : List enabled $ts
-$0 -a : List all $ts
-EOF
-  exit
-  fi
-
   if [[ "$opt" == '-a' ]]; then
-    find "$DOTFILES_DIR/$ts/" -depth 1 -type f -exec basename {} ".bash" \; | sort | tr '\n' ' '
+    find "$DOTFILES_DIR/$ts/" -maxdepth 1 -type f -exec basename {} ".bash" \; | sort | tr '\n' ' '
   else
-    find "$ENABLED_DIR" -depth 1 -type l \
+    find "$ENABLED_DIR" -maxdepth 1 -type l \
       -name "*---*.$t.bash" \
       -exec basename {} ".$t.bash" \; \
       | sed -E 's/^[[:digit:]]{3}---(.+)$/\1/' \

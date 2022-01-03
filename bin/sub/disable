@@ -3,6 +3,7 @@
 set -o errexit
 set -o nounset
 set -o pipefail
+set -o errtrace
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
 if (( $# == 0 )); then
@@ -27,7 +28,7 @@ if [[ "${1:-}" == "--complete" ]]; then
     readonly t=$2
     readonly ts=${t_map[$t]}
 
-    find "$ENABLED_DIR" -depth 1 -type l -name "*---*.$t.bash" -print0 \
+    find "$ENABLED_DIR" -maxdepth 1 -type l -name "*---*.$t.bash" -print0 \
       | xargs -0 -n1 -I{} basename '{}' ".$t.bash" \
       | sed -E 's/^[[:digit:]]{3}---(.+)$/\1/'
   fi

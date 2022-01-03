@@ -64,9 +64,6 @@ fi
 
 # -------------------------- All Functions Put Below --------------------------
 
-# shellcheck source=./sub.bash
-_df_load "bash/sub.bash"
-
 # shellcheck source=bash_it.lib.bash
 _df_load "bash/bash_it.lib.bash"
 
@@ -81,6 +78,9 @@ _df_load "bash/os-settings.bash"
 
 # shellcheck source=./enable-plugs.bash
 _df_load "bash/enable-plugs.bash"
+
+# shellcheck source=./sub.bash
+_df_load "bash/sub.bash"
 
 DOTFILES_DEBUG "DOTFILES LOADED"
 DOTFILES_LOADED=loaded

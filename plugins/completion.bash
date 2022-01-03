@@ -1,3 +1,4 @@
+# BASH_IT_LOAD_PRIORITY: 202
 # shellcheck disable=SC1090
 
 cite about-plugin

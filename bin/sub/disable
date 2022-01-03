@@ -29,7 +29,7 @@ if [[ "${1:-}" == "--complete" ]]; then
     readonly ts=${t_map[$t]}
 
     find "$ENABLED_DIR" -maxdepth 1 -type l -name "*---*.$t.bash" -print0 \
-      | xargs -0 -n1 -I{} basename '{}' ".$t.bash" \
+      | xargs -0 -I{} basename '{}' ".$t.bash" \
       | sed -E 's/^[[:digit:]]{3}---(.+)$/\1/'
   fi
 

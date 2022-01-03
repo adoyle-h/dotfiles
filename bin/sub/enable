@@ -27,8 +27,7 @@ if [[ "${1:-}" == "--complete" ]]; then
   else
     readonly t=$2
     readonly ts=${t_map[$t]}
-    find "$DOTFILES_DIR/$ts" -maxdepth 1 -type f -name "*.bash" -print0 \
-      | xargs -0 -n1 -I{} basename '{}' ".bash"
+    find "$DOTFILES_DIR/$ts" -maxdepth 1 -type f -name "*.bash" -exec basename {} ".bash" \;
   fi
   exit 0
 fi

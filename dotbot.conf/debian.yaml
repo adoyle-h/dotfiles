@@ -1,0 +1,51 @@
+# - clean: ['~']
+- defaults:
+    link:
+      # relink: true
+      create: true
+
+- shell:
+    # dotbot have no sudo permission
+    - "echo ''"
+
+- link:
+    # bash
+    ~/.inputrc: bash/inputrc
+#   ~/.profile: bash/profile
+    ~/.bashrc: bash/bashrc
+#   ~/.bash_profile: bash/bash_profile
+    # ~/.bash_completions:
+
+    # configs
+    ~/.tmux.conf: configs/tmux/debian.conf
+    ~/.gitconfig: configs/gitconfig
+    ~/.gitignore: configs/gitignore
+    ~/.gitattributes: configs/gitattributes
+#   ~/.sshrc: configs/sshrc
+    $XDG_CONFIG_HOME/ranger: configs/ranger
+    $XDG_CONFIG_HOME/peco/config.json: configs/peco.json
+    # ~/style_checks.xml: configs/java_style_checks.xml
+    # $XDG_CONFIG_HOME/clash/config.yaml: configs/clash.yaml
+
+    # GnuPG
+    # ~/.gnupg/gpg.conf: configs/gpg.conf
+    # ~/.gnupg/gpg-agent.conf: configs/gpg-agent.conf
+
+    ## lint configs
+    # Vim script Language Lint. https://github.com/Kuniwak/vint
+    # ~/.vintrc.yaml: configs/vintrc.yaml
+    # ~/.htmlhintrc: configs/htmlhintrc
+    # ~/.stylelintrc: configs/stylelintrc
+    # $XDG_CONFIG_HOME/yamllint/config: configs/yamllint.yml
+    # ~/.eslintrc: configs/eslintrc
+
+    # secrets
+    # ~/.ssh: secrets/ssh
+
+    # nvim
+    # $XDG_CONFIG_HOME/nvim: deps/nvim
+
+    # others
+    ~/bin: bin
+    ~/.editorconfig: .editorconfig
+    ~/.config/procs/config.toml: configs/procs.config.toml

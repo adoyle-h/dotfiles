@@ -3,21 +3,18 @@
 # License: BSD 3-clause License
 # Attentions: GREY may not work in some shells
 
-case "$TERM" in
+case "${TERM:-}" in
   xterm-color|*-256color) COLOR_ENABLED=yes;;
   *) COLOR_ENABLED= ;;
 esac
 
-if [ -n "$force_color_prompt" ]; then
-  if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+if [[ -n "${COLOR_FORCE_ENABLED:-}" ]]; then
+  if [[ -x /usr/bin/tput ]] && tput setaf 1 >&/dev/null; then
     # We have color support; assume it's compliant with Ecma-48 (ISO/IEC-6429).
     # (Lack of such support is extremely rare, and such a case would tend to support setf rather than setaf.)
     COLOR_ENABLED=yes
   fi
 fi
-
-# uncomment to force colored
-# COLOR_ENABLED=yes
 
 # General Foreground Colors
 BLACK='\e[30m'

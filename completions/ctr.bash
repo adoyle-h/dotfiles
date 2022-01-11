@@ -1,7 +1,7 @@
 #! /bin/bash
 # Modify From https://github.com/containerd/containerd/blob/main/contrib/autocomplete/ctr
 
-_cli_bash_autocomplete() {
+_ctr_cli_bash_autocomplete() {
   if [[ "${COMP_WORDS[0]}" != "source" ]]; then
     local cur opts base
     COMPREPLY=()
@@ -16,4 +16,4 @@ _cli_bash_autocomplete() {
   fi
 }
 
-complete -o bashdefault -o default -o nospace -F _cli_bash_autocomplete ctr
+complete -o bashdefault -o default -o nospace -F _ctr_cli_bash_autocomplete ctr

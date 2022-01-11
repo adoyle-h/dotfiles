@@ -1,11 +1,15 @@
 cite about-plugin
 about-plugin 'k8s settings'
 
-alias kc=kubectl
-complete -F __start_kubectl kc
+alias k=kubectl
+complete -F __start_kubectl k
 
 # https://kubernetes.io/docs/reference/kubectl/cheatsheet/#kubectl-context-and-configuration
 export KUBECONFIG=~/.kube/config:~/.kube/work-dev.config:~/.kube/work-test.config
+
+if [[ -d $HOME/.krew/bin ]]; then
+  PATH=${PATH}:$HOME/.krew/bin
+fi
 
 ##########################
 #  Kubebuilder settings  #
@@ -60,4 +64,4 @@ if dotfiles_l.has command kustomize; then
   complete -C kustomize kustomize
 fi
 
-kubebuilder_use 2 > /dev/null
+# kubebuilder_use 2 > /dev/null

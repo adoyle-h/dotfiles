@@ -6,14 +6,19 @@ if [[ -d /usr/local/opt/fzf ]]; then
   FZF_DIR=/usr/local/opt/fzf
   FZF_BIN=$FZF_DIR/bin
   FZF_MANPATH=$FZF_DIR/share/man
+  FZF_SCRIPT_DIR=$FZF_DIR/shell
 elif [[ -d /opt/homebrew/opt/fzf ]]; then
   FZF_DIR=/opt/homebrew/opt/fzf
   FZF_BIN=$FZF_DIR/bin
   FZF_MANPATH=$FZF_DIR/share/man
+  FZF_SCRIPT_DIR=$FZF_DIR/shell
 elif [[ -d $HOME/.fzf/bin ]]; then
   FZF_DIR=$HOME/.fzf
   FZF_BIN=$FZF_DIR/bin
   FZF_MANPATH=$FZF_DIR/man
+  FZF_SCRIPT_DIR=$FZF_DIR/shell
+elif [[ $DOTFILES_OS == Linux ]] && [[ -d /usr/share/doc/fzf ]]; then
+  FZF_SCRIPT_DIR=/usr/share/doc/fzf/examples
 else
   echo "Not found fzf directory. Please install fzf by git or homebrew, see https://github.com/junegunn/fzf#installation" >&2
   echo "Invoke 'a plugins-disable fzf' to disable the plugin"
@@ -75,16 +80,16 @@ if [[ -n "$TMUX" ]]; then
 fi
 
 # Key bindings
-source "$FZF_DIR/shell/key-bindings.bash"
+source "$FZF_SCRIPT_DIR/key-bindings.bash"
 # bind __fzf_cd__ from ALT-C to ALT-T
 bind -m emacs-standard '"\et": " \C-e\C-u`__fzf_cd__`\e\C-e\er\C-m"'
 # bind ALT-C to capitalize-word (follow emacs bindings style)
 bind -m emacs-standard '"\ec": capitalize-word'
 
 # Auto-completion
-source "$FZF_DIR/shell/completion.bash" 2> /dev/null
+source "$FZF_SCRIPT_DIR/completion.bash" 2> /dev/null
 
-unset -v FZF_DIR FZF_MANPATH FZF_BIN
+unset -v FZF_DIR FZF_SCRIPT_DIR FZF_MANPATH FZF_BIN
 
 ## support neo (nvim) bash-completion
 complete -F _fzf_file_completion -o default -o bashdefault neo

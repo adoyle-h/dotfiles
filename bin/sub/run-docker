@@ -6,7 +6,7 @@ set -o pipefail
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
 declare -A map=(
-  [alpine]=3.10
+  [alpine]=3
   [bash]=5
   [ubuntu]=19.10
   [prolog]=stable

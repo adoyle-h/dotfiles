@@ -34,7 +34,7 @@
     # ~/.htmlhintrc: configs/htmlhintrc
     # ~/.stylelintrc: configs/stylelintrc
     # $XDG_CONFIG_HOME/yamllint/config: configs/yamllint.yml
-    # ~/.eslintrc: configs/eslintrc
+    # ~/.eslintrc.yaml: configs/eslintrc.yaml
 
     # git
     # https://git-scm.com/docs/git-config#FILES
@@ -42,6 +42,7 @@
     $XDG_CONFIG_HOME/git/config.user: secrets/gitconfig.user
     $XDG_CONFIG_HOME/git/ignore: configs/gitignore
     $XDG_CONFIG_HOME/git/attributes: configs/gitattributes
+    ~/.gitignore: secrets/gitignore.user
 
     # secrets
     # ~/.ssh: secrets/ssh
@@ -52,4 +53,5 @@
     # others
     ~/bin: bin
     ~/.editorconfig: .editorconfig
+    ~/.prettierrc: configs/prettierrc
     ~/.config/procs/config.toml: configs/procs.config.toml

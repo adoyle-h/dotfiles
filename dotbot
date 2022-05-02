@@ -11,4 +11,18 @@ readonly BASEDIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 # shellcheck source=bash/xdg.bash
 . "${BASEDIR}/bash/xdg.bash"
 
-"${BASEDIR}/deps/dotbot/bin/dotbot" -d "${BASEDIR}" -c "${1:-dotbot.conf.yaml}"
+# shellcheck source=./deps/lobash.bash
+. "${BASEDIR}/deps/lobash.bash"
+
+if (( $# > 0 )); then
+  DOTBOT_CONF=$1
+else
+  case "$(l.detect_os)" in
+    MacOS) DOTBOT_CONF=${BASEDIR}/dotbot.conf/macos.yaml ;;
+    Linux) DOTBOT_CONF=${BASEDIR}/dotbot.conf/debian.yaml ;;
+  esac
+fi
+
+echo "DOTBOT_CONF=${DOTBOT_CONF}"
+
+"${BASEDIR}/deps/dotbot/bin/dotbot" -d "${BASEDIR}" -c "$DOTBOT_CONF"

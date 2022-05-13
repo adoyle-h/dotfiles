@@ -6,7 +6,7 @@ set -o pipefail
 set -o errtrace
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
-sub-bin enable plugin acme alert cheat completion editor fuck fzf gettext gfw git go gpg grep gvm history itmz java keymap lesspipe ls manbash manpage npm nvim nvm preexec prompt python rm shell tmux vscode welcome xcode zl
+sub-bin enable plugin acme alert cheat completion editor fuck fzf gettext gfw git go gpg grep gvm history itmz java keymap lesspipe ls manbash manpage npm nvim nvm preexec prompt python shell tmux vscode welcome xcode zl
 
 sub-bin enable alias avoid-mistakes cd general
 

@@ -12,6 +12,12 @@ insert_final_newline = true
 indent_size = 4
 indent_style = tab
 
+[bin]
+indent_style = tab
+
+[./bin/sub/*]
+indent_style = tab
+
 [*.{diff,md}]
 trim_trailing_whitespace = false
 

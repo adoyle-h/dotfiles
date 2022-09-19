@@ -9,7 +9,8 @@ trim_trailing_whitespace = true
 insert_final_newline = true
 
 [*.{js,jsx,ts}]
-indent_size = 4
+; this option just works with prettier, not implemented with editorconfig
+max_line_length = 100
 indent_style = tab
 
 [bin]

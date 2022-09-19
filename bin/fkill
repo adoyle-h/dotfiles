@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+
+if (( $# > 1 )); then
+  kill_opt=("${@:1:($# - 1)}")
+  keyword="${*: -1:1}"
+else
+  kill_opt=()
+  keyword="${1:-}"
+fi
+
+fzf_cmd=(
+  fzf --multi -q "$keyword"
+  --bind 'ctrl-r:reload(ps -ef)'
+  --header 'Press CTRL-R to reload'
+  --preview 'ps -o "user,uid,pid,ppid,tty,state,%cpu,%mem,start,comm" -p {1}'
+  --preview-window 'up,3,,wrap,follow'
+  --height '70%'
+)
+
+# TODO: why not work?
+# read -r -d '\n' -a pids < <(ps -ef | sed 1d | "${fzf_cmd[@]}" | awk '{print $2}')
+
+ps_cmds=(ps -e -o 'pid,ppid,command')
+
+# shellcheck disable=SC2207
+pids=($("${ps_cmds[@]}" | sed 1d | "${fzf_cmd[@]}" | awk '{print $2}'))
+
+if [[ -n "${pids[*]}" ]]; then
+  echo "To kill below processes by command: kill ${kill_opt:+${kill_opt[*]} }${pids[*]}"
+  echo ""
+  ps -f -p "${pids[@]}"
+  kill "${kill_opt[@]}" "${pids[@]}"
+fi

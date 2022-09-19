@@ -1,5 +1,5 @@
 # Fig pre block. Keep at the top of this file.
-. "$HOME/.fig/shell/bash_profile.pre.bash"
+[[ -f "$HOME/.fig/shell/bash_profile.pre.bash" ]] && . "$HOME/.fig/shell/bash_profile.pre.bash"
 # A login shell: when you are logging in remotely to another machine via ssh. You generally need to login.
 # A non-login shell: when you are already logged into your desktop and you open up the terminal app.
 #
@@ -15,4 +15,4 @@
 [ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc"
 
 # Fig post block. Keep at the bottom of this file.
-. "$HOME/.fig/shell/bash_profile.post.bash"
+[[ -f "$HOME/.fig/shell/bash_profile.post.bash" ]] && . "$HOME/.fig/shell/bash_profile.post.bash"

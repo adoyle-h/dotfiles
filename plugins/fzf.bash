@@ -40,14 +40,34 @@ if dotfiles_l.has_not command fzf; then
 fi
 
 # ---- BASIC ----
-FZF_COLORS='--color=light,hl:196,hl+:196,fg+:255,bg+:238,prompt:33,pointer:255,marker:160,info:252,spinner:237,header:75 --ansi --black'
-FZF_PROMPT="--prompt='> '"
+
+# fg         Text
+# bg         Background
+# preview-fg Preview window text
+# preview-bg Preview window background
+# hl         Highlighted substrings
+# fg+        Text (current line)
+# bg+        Background (current line)
+# gutter     Gutter on the left (defaults to bg+)
+# hl+        Highlighted substrings (current line)
+# query      Query string
+# disabled   Query string when search is disabled
+# info       Info line (match counters)
+# border     Border around the window (--border and --preview)
+# prompt     Prompt
+# pointer    Pointer to the current line
+# marker     Multi-select marker
+# spinner    Streaming input indicator
+# header     Header
+FZF_COLORS='--color=dark,hl:196,fg:-1,bg:#0B0B0C,preview-bg:#0B0B0C,hl:#D75F00,hl+:#D75F00,fg+:#689AFD,bg+:#181928,gutter:#0B0B0C,border:#6B6B6B,prompt:166,pointer:#689AFD,marker:160,info:252,spinner:237,header:#3BB1FF,query:#BEC0C4 --ansi --black'
 FZF_KEYBINDS="--bind=\
+ctrl-t:toggle-all,\
 left:page-up,\
 right:page-down,\
-ctrl-t:toggle-all,\
-ctrl-n:page-down,\
-ctrl-p:page-up,\
+ctrl-f:page-down,\
+ctrl-b:page-up,\
+ctrl-u:preview-half-page-up,\
+ctrl-d:preview-half-page-down,\
 alt-j:jump,\
 esc:deselect-all,\
 ?:toggle-preview\
@@ -62,7 +82,7 @@ FZF_ALT_C_PREVIEW="--preview 'tree -C {} | head -200'"
 FZF_SEARCH_MODE='--extended'
 FZF_SEARCH_RESULT='--sort --tiebreak=begin,length'
 FZF_INTERFACE="${FZF_KEYBINDS} --multi"
-FZF_LAYOUT="--height=50% --min-height=1 --inline-info ${FZF_PROMPT}"
+FZF_LAYOUT="--height=50% --min-height=1 --inline-info --prompt='> ' --pointer='➤ ' --marker='+ ' --border=rounded "
 FZF_DISPLAY="${FZF_COLORS}"
 FZF_SCRIPTING="--select-1 --exit-0"
 

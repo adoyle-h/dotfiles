@@ -14,11 +14,14 @@ else
   keyword="${1:-}"
 fi
 
+ps_cmd=(ps -e -o 'pid,ppid,command')
+ps_detail_cmd=(ps -o 'user,uid,pid,ppid,tty,state,%cpu,%mem,start,comm')
+
 fzf_cmd=(
   fzf --multi -q "$keyword"
-  --bind 'ctrl-r:reload(ps -ef)'
+  --bind "ctrl-r:reload(${ps_cmd[*]} | sed 1d)"
   --header 'Press CTRL-R to reload'
-  --preview 'ps -o "user,uid,pid,ppid,tty,state,%cpu,%mem,start,comm" -p {1}'
+  --preview "${ps_detail_cmd[*]} -p {1}"
   --preview-window 'up,3,,wrap,follow'
   --height '70%'
 )
@@ -26,14 +29,12 @@ fzf_cmd=(
 # TODO: why not work?
 # read -r -d '\n' -a pids < <(ps -ef | sed 1d | "${fzf_cmd[@]}" | awk '{print $2}')
 
-ps_cmds=(ps -e -o 'pid,ppid,command')
-
 # shellcheck disable=SC2207
-pids=($("${ps_cmds[@]}" | sed 1d | "${fzf_cmd[@]}" | awk '{print $2}'))
+pids=($("${ps_cmd[@]}" | sed 1d | "${fzf_cmd[@]}" | awk '{print $1}'))
 
 if [[ -n "${pids[*]}" ]]; then
   echo "To kill below processes by command: kill ${kill_opt:+${kill_opt[*]} }${pids[*]}"
   echo ""
-  ps -f -p "${pids[@]}"
+  "${ps_detail_cmd[@]}" -p "${pids[@]}"
   kill "${kill_opt[@]}" "${pids[@]}"
 fi

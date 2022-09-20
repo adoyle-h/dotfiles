@@ -1,8 +1,3 @@
-; [user]
-;     name = ADoyle
-;     email = adoyle.h@gmail.com
-; [github]
-;     user = adoyle-h
 [gpg]
     program = gpg
 [commit]
@@ -79,6 +74,10 @@
     textconv = "sketchtool dump"
     cachetextconv = true
     binary = true
+[difftool]
+    prompt = false
+[difftool "difftastic"]
+    cmd = difft "$LOCAL" "$REMOTE"
 [difftool "ksdiff"]
     cmd = ksdiff -w $LOCAL $REMOTE
 [difftool "sourcetree"]
@@ -99,6 +98,8 @@
 [mergetool "sourcetree"]
     cmd = /usr/local/bin/ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
     trustExitCode = true
+[interactive]
+    diffFilter = diff-so-fancy --patch
 [rerere]
     enabled = true
 [rebase]

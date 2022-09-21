@@ -1,6 +1,10 @@
 cite about-plugin
 about-plugin 'Make manpage colored'
 
+if dotfiles_l.has command nvim; then
+  export MANPAGER='nvim +Man!'
+fi
+
 # https://unix.stackexchange.com/questions/108699/documentation-on-less-termcap-variables
 export LESS_TERMCAP_mb=$'\e[01;31m'
 export LESS_TERMCAP_md=$'\e[01;31m'

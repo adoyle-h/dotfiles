@@ -8,6 +8,9 @@ end_of_line = lf
 trim_trailing_whitespace = true
 insert_final_newline = true
 
+[configs/gitconfig]
+indent_size = 4
+
 [*.{js,jsx,ts}]
 ; this option just works with prettier, not implemented with editorconfig
 max_line_length = 100

@@ -46,6 +46,9 @@
     $XDG_CONFIG_HOME/yamllint/config: configs/yamllint.yml
     ~/.eslintrc.yaml: configs/eslintrc.yaml
 
+    ## formatters
+    ~/.lua-format: configs/lua-format
+
     # git
     # https://git-scm.com/docs/git-config#FILES
     $XDG_CONFIG_HOME/git/config: configs/gitconfig

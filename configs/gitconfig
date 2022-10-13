@@ -10,11 +10,14 @@
     excludesfile = ~/.gitignore
     autocrlf = input
     safecrlf = true
-    pager = less --tabs=4 -RFXM
+    pager = less --tabs=2 -RFXM ; https://git-scm.com/docs/git-config#Documentation/git-config.txt-corepager
     quotepath = false
 [pager]
-    diff = diff-so-fancy | less --tabs=4 -gRFXM
-    show = diff-so-fancy | less --tabs=4 -gRFXM
+    ; https://git-scm.com/docs/git-config#Documentation/git-config.txt-pagerltcmdgt
+    diff = diff-so-fancy | less --tabs=2 -gRFXM
+    show = diff-so-fancy | less --tabs=2 -gRFXM
+    ; diff = less --tabs=2 -gRFXM
+    ; show = less --tabs=2 -gRFXM
 [alias]
     lg = log --graph --abbrev=8 --format=\"%C(237)╮ %C(auto)%D%C(237)%n%C(237)│ %C(68)%h %C(white)%s%n%C(237)╰ %C(240)%ai (%ar) %aN|%cN\"
     lg4 = log --graph --abbrev=8 --format=\"%C(237)┬─%C(auto)%D%C(237)────────────────────────────────────────────────────────────%n%C(237)│ %C(68)%h %C(white)%s%n%C(237)╰───────── %C(240)%ai (%ar) %aN|%cN\"
@@ -46,6 +49,7 @@
     findw = grep -W -n --heading --break
     conf-fake-user = "!conf_fake_user() { git config user.name \"$1\" && git config user.email \"$1@gmail.com\" ;}; conf_fake_user "
     show-user = config --show-origin --get-regexp \"user.(name)|(email)\"
+    so = show --ext-diff
     au = add -u
     d = diff
     dc = diff --cached

@@ -94,7 +94,7 @@ An elegant way to manage dotfiles, commands, completions, configurations for ter
 
 ![preview.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/dotfiles/preview.png)
 
-The prompt is implemented by [a-bash-prompt][]. See [./plugins/prompt.bash](./plugins/prompt.bash).
+**The prompt line is implemented by [a-bash-prompt][]. See [./plugins/prompt.bash](./plugins/prompt.bash).**
 
 Responsive prompt. Press Enter to auto adjust with window width.
 
@@ -111,6 +111,10 @@ Highlight Backgound jobs:
 Use sub commands:
 
 ![sub-commands.jpeg](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/dotfiles/sub-commands.jpeg)
+
+Bubble Style and Block Style:
+
+![bubble-and-block-styles.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/a-bash-prompt/bubble-and-block-styles.png)
 
 ## Version
 

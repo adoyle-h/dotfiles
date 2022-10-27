@@ -35,6 +35,7 @@ An elegant way to manage dotfiles, commands, completions, configurations for ter
 - [Advanced Usage](#advanced-usage)
 - [Suggestion, Bug Reporting, Contributing](#suggestion-bug-reporting-contributing)
 - [Copyright and License](#copyright-and-license)
+- [Other Projects](#other-projects)
 
 <!-- /MarkdownTOC -->
 
@@ -339,11 +340,15 @@ Any comments and suggestions are always welcome. Please open an [issue][] to con
 
 ## Copyright and License
 
-Copyright (c) 2017-2022 ADoyle (adoyle.h@gmail.com). The project is licensed under the **BSD 3-clause License**.
+Copyright 2017-2022 ADoyle (adoyle.h@gmail.com) Some Rights Reserved. The project is licensed under the **BSD 3-clause License**.
 
 See the [LICENSE][] file for the specific language governing permissions and limitations under the License.
 
 See the [NOTICE][] file distributed with this work for additional information regarding copyright ownership.
+
+## Other Projects
+
+- [Other shell projects](https://github.com/adoyle-h?tab=repositories&q=&type=source&language=shell&sort=stargazers) created by me.
 
 <!-- links -->
 

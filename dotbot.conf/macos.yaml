@@ -33,6 +33,7 @@
     ~/style_checks.xml: configs/java_style_checks.xml
     $XDG_CONFIG_HOME/starship.toml: configs/starship.toml
     $XDG_CONFIG_HOME/clash/config.yaml: configs/clash.yaml
+    $XDG_CONFIG_HOME/zk/config.toml: configs/zk.toml
 
     # GnuPG
     ~/.gnupg/gpg.conf: configs/gpg.conf

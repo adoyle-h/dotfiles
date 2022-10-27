@@ -1,14 +1,15 @@
 cite about-plugin
 about-plugin 'A personal settings for myself (ADoyle). No meanings to other people.'
 
-if dotfiles_l.has_not command adoyle; then
-  echo "Not found command 'adoyle'" >&2
-  echo "WARNING: Invoke 'a plugins-disable adoyle' to disable the plugin" >&2
-  return 0
+if dotfiles_l.has command adoyle; then
+  source <(adoyle completion bash)
 fi
 
-source <(adoyle completion bash)
+if dotfiles_l.has command massren; then
+  alias rename-files='massren'
+fi
 
-# 1 day
-export HOMEBREW_AUTO_UPDATE_SECS=86400
-# export HOMEBREW_NO_AUTO_UPDATE=true
+alias tm='if [ -z $TMUX ]; then tmux -CC new-session -A -s "work" -n "main"; fi'
+
+# export HOMEBREW_AUTO_UPDATE_SECS=86400 # 1 day
+export HOMEBREW_NO_AUTO_UPDATE=1

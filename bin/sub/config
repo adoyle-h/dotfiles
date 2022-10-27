@@ -9,26 +9,15 @@ set -o errtrace
 # Provide sub completions
 if [ "${1:-}" = "--complete" ]; then
   if [[ $COMP_CWORD -lt 3 ]]; then
-    echo "--help"
+    echo "-h --help -l --list"
   fi
 
   exit 0
 fi
 
-readonly flag=${1:-}
-
-case "$flag" in
-  -h|--help|'')
-    cat <<EOF
-USAGE:
-  a config [--help]        Show help
-  a config <key>           Get value
-  a config <key>=<value>   Set value
-EOF
-    exit 0
-    ;;
-esac
-
+# shellcheck disable=2155
+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+readonly CONF_FILE=$SCRIPT_DIR/../../runtime/bash_config.bash
 
 _l.0_3_1_1176955_24859_split() {
   local -i i
@@ -88,14 +77,48 @@ l.split() {
   IFS=$'\n' readarray -t "$output" < <(_l.0_3_1_1176955_24859_split)
 }
 
-declare -a list
-l.split "$1" list '='
+list() {
+  cat "$CONF_FILE"
+}
 
-readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
-readonly CONF_FILE=$SCRIPT_DIR/../../runtime/bash_config.bash
+get_val() {
+  grep -E "^$1" "$CONF_FILE"
+}
 
-if [[ ${#list[@]} == 1 ]]; then
-  grep -E "^DOTFILES_${list[0]}" "$CONF_FILE"
-else
-  sed -i'' -E "s/^DOTFILES_${list[0]}=.+/DOTFILES_${list[0]}=${list[1]}/" "$CONF_FILE"
-fi
+parse_pairs() {
+  declare -a list
+  l.split "$1" list '='
+
+  local key=DOTFILES_${list[0]^^}
+
+  if [[ ${#list[@]} == 1 ]]; then
+    get_val "$key"
+  else
+    sed -i '' -E "s/^${key}=.+/${key}=${list[1]}/" "$CONF_FILE"
+    get_val "$key"
+  fi
+}
+
+case "${1:-}" in
+  -h|--help|'')
+    cat <<EOF
+USAGE:
+  a config [-h|--help]     Show help
+  a config [-l|--list]     List configs
+  a config <key>           Get value
+  a config <key>=<value>   Set value
+EOF
+    exit 0
+    ;;
+
+  -l|--list)
+    list
+    exit 0
+    ;;
+
+  *)
+    for str in "$@"; do
+      parse_pairs "$str"
+    done
+    ;;
+esac

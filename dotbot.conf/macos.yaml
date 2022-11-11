@@ -34,6 +34,7 @@
     $XDG_CONFIG_HOME/starship.toml: configs/starship.toml
     $XDG_CONFIG_HOME/clash/config.yaml: configs/clash.yaml
     $XDG_CONFIG_HOME/zk/config.toml: configs/zk.toml
+    $XDG_CONFIG_HOME/lazygit/config.yml: configs/lazygit.yaml
 
     # GnuPG
     ~/.gnupg/gpg.conf: configs/gpg.conf

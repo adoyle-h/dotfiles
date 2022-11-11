@@ -90,11 +90,16 @@ _df_load "bash/helper.bash"
 # shellcheck source=./os-settings.bash
 _df_load "bash/os-settings.bash"
 
+# Fig: https://github.com/withfig/fig
+[[ $DOTFILES_FIG == on ]] && eval "$(fig init bash pre)"
+
 # shellcheck source=./enable-plugs.bash
 _df_load "bash/enable-plugs.bash"
 
 # shellcheck source=./sub.bash
 _df_load "bash/sub.bash"
+
+[[ $DOTFILES_FIG == on ]] && eval "$(fig init bash post)"
 
 dotfiles_debug "${GREEN}%s${RESET_ALL}" "[DOTFILES LOADED DONE]"
 DOTFILES_LOADED=loaded

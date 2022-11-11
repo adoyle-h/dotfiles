@@ -1,4 +1,5 @@
 DOTFILES_DEBUG=off
+DOTFILES_FIG=off
 DOTFILES_SKIP_COMPS=(
   # enable-plugs
 )

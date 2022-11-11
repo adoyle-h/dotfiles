@@ -8,7 +8,7 @@ set -o pipefail
 declare -A map=(
   [alpine]=3
   [bash]=5
-  [ubuntu]=19.10
+  [ubuntu]=22.04
   [prolog]=stable
 )
 

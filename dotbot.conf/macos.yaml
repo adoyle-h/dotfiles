@@ -6,7 +6,7 @@
 
 # dotbot have no sudo permission
 - shell:
-    - cp ./bash_config_example.bash ./runtime/bash_config.bash
+  - 'if [[ ! -f ./runtime/bash_config.bash ]]; then cp ./runtime/bash_config_example.bash ./runtime/bash_config.bash; fi'
 
 - link:
     # bash

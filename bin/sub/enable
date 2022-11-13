@@ -17,6 +17,8 @@ fi
 
 readonly ENABLED_DIR=$DOTFILES_DIR/enabled
 
+# shellcheck source=../../runtime/bash_config.bash
+. "$DOTFILES_DIR/runtime/bash_config.bash"
 # shellcheck source=./plugable.bash
 . "$DOTFILES_DIR/bin/sub/plugable.bash"
 
@@ -27,7 +29,12 @@ if [[ "${1:-}" == "--complete" ]]; then
   else
     readonly t=$2
     readonly ts=${t_map[$t]}
-    find "$DOTFILES_DIR/$ts" -maxdepth 1 -type f -name "*.bash" -exec basename {} ".bash" \;
+    declare -a plugin_dirs=()
+    get_plugin_dirs plugin_dirs
+
+    for dir in "${plugin_dirs[@]}" ; do
+      find "$dir" -maxdepth 1 -type f -name "*.bash" -exec basename {} ".bash" \;
+    done
   fi
   exit 0
 fi

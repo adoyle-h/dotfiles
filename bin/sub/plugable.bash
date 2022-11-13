@@ -76,22 +76,55 @@ get_weight() {
   fi
 }
 
+get_plugin_dirs() {
+  declare -n dirs="$1"
+  dirs+=( "$DOTFILES_DIR/$ts" )
+
+  local dir
+  for dir in "${DOTFILES_PLUGIN_DIRS[@]}" ; do
+    dirs+=( "$dir/$ts" )
+  done
+}
+
+search_plug() {
+  local name=$1
+
+  for dir in "${plugin_dirs[@]}" ; do
+    if [[ -f "$dir/$name.bash" ]]; then
+      echo "$dir/$name.bash"
+      return
+    fi
+  done
+
+  echo ''
+}
+
 enable_file() {
   local name=$1
+  local filepath=$2
   local weight
-  weight=$(get_weight "$t_dir/$name.bash")
+  weight=$(get_weight "$filepath")
 
-  ln -sf "../$ts/$name.bash" "$ENABLED_DIR/$weight---$name.$t.bash"
+  ln -sf "$filepath" "$ENABLED_DIR/$weight---$name.$t.bash"
   echo "$t '$name' enabled, with weight $weight. Please restart shell to take effect."
 }
 
 enable_it() {
   # $ts and $t are defined in bin/sub/enable
   readonly t_dir="$DOTFILES_DIR/$ts"
+  declare -a plugin_dirs=()
+  get_plugin_dirs plugin_dirs
 
-  local name
+  local name filepath
+
   for name in "$@"; do
-    check_file "$name"
-    enable_file "$name"
+    filepath=$(search_plug "$name")
+
+    if [[ -n $filepath ]]; then
+      enable_file "$name" "$filepath"
+    else
+      echo "No found $t '$name'" >&2
+      exit 1
+    fi
   done
 }

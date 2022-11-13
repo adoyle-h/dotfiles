@@ -6,43 +6,10 @@ An elegant way to manage dotfiles, commands, completions, configurations for ter
 
 **Currently, it is only a personal workplace rather than a framework. So you should FORK the REPO first before using it. The framework is coming soon.**
 
-## TOC
-
-<!-- MarkdownTOC GFM -->
-
-- [Environments](#environments)
-- [Features](#features)
-- [Preview](#preview)
-- [Version](#version)
-- [Core Dependencies](#core-dependencies)
-- [Optional Integrations](#optional-integrations)
-- [Related Projects](#related-projects)
-- [Inspired By](#inspired-by)
-- [Installation](#installation)
-    - [Bootstrap](#bootstrap)
-- [Configuration](#configuration)
-    - [User Modifications](#user-modifications)
-    - [UI](#ui)
-    - [Soft-links](#soft-links)
-- [Usage](#usage)
-    - [bashrc](#bashrc)
-    - [Binary executables](#binary-executables)
-    - [Sub-commands](#sub-commands)
-    - [Enable custom plugins](#enable-custom-plugins)
-    - [Plugin Load Priority](#plugin-load-priority)
-- [File Structure](#file-structure)
-- [Bash initialization process](#bash-initialization-process)
-- [Advanced Usage](#advanced-usage)
-- [Suggestion, Bug Reporting, Contributing](#suggestion-bug-reporting-contributing)
-- [Copyright and License](#copyright-and-license)
-- [Other Projects](#other-projects)
-
-<!-- /MarkdownTOC -->
-
 ## Environments
 
 - ✅ iTerm2 Build 3.0.14 (Terminal.app compatible)
-- ✅ GNU bash 4.4+ and 5.0+ (Not support Bash 4.3 and lower versions)
+- ✅ GNU bash 4.4+ and 5.0+
 - ✅ Tmux 2.7+ (Not necessary. Tmux compatible)
 - ✅ MacOS Intel Arch
 - ✅ MacOS ARM Arch
@@ -82,7 +49,7 @@ An elegant way to manage dotfiles, commands, completions, configurations for ter
   - [fzf][]. See [the configuration](https://github.com/adoyle-h/dotfiles/blob/master/bash-custom/fzf.plugin.bash) and [./plugins/fzf.bash](./plugins/fzf.bash).
   - [taskbook](https://github.com/klaussinani/taskbook).
   - [cheat](https://github.com/cheat/cheat). See [./plugins/cheat.bash](./plugins/cheat.bash)
-  - My best practices with [neovim][]. See [./plugins/nvim.bash](./plugins/nvim.bash) and [my neovim configuration][neovim-config].
+  - My best practices with [neovim][]. See [./plugins/nvim.bash](./plugins/nvim.bash) and [my neovim configuration][one.nvim].
   - My best practices with [tmux][]. See [./plugins/tmux.bash](./plugins/tmux.bash) and [./configs/tmux.conf](./configs/tmux.conf).
   - My best practices with git. See [./plugins/git.bash](./plugins/git.bash) and [./configs/gitconfig](./configs/gitconfig).
   - My cheat sheets based on [chrisallenlane/cheat](https://github.com/chrisallenlane/cheat).
@@ -92,6 +59,9 @@ An elegant way to manage dotfiles, commands, completions, configurations for ter
   - Support programming language related like nvm, rust, gvm.
 
 ## Preview
+
+<details close>
+<summary>Click to expend/collapse</summary>
 
 ![preview.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/dotfiles/preview.png)
 
@@ -116,6 +86,8 @@ Use sub commands:
 Bubble Style and Block Style:
 
 ![bubble-and-block-styles.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/a-bash-prompt/bubble-and-block-styles.png)
+
+</details>
 
 ## Version
 
@@ -147,7 +119,8 @@ These integrations are not required for the project. It will improve the experie
 - [a-bash-prompt][]: A Bash prompt written by pure Bash script.
 - [bash-sensible](https://github.com/mrzool/bash-sensible): An attempt at saner Bash defaults.
 - [neovim][]: Vim-fork focused on extensibility and usability
-- [neovim-config][]: My neovim config
+- [one.nvim][]: My neovim config
+- [Other shell projects](https://github.com/adoyle-h?tab=repositories&q=&type=source&language=shell&sort=stargazers) created by me.
 
 ## Inspired By
 
@@ -316,7 +289,8 @@ General priorities of plugs:
 │   ├── preexec.bash                # Enable bash-preexec library
 │   └── prompt.bash                 # Enable a-bash-prompt
 ├── runtime/                        # Available plugins
-│   └── bash_config.bash            # Dotfiles runtime config
+│   ├── bash_config.bash            # Dotfiles runtime config. It's gitignored
+│   └── bash_config_example.bash    # An example for dotfiles runtime config.
 └── secrets/                        # This folder is ignored by git. Put your secret data here.
 ```
 
@@ -346,10 +320,6 @@ See the [LICENSE][] file for the specific language governing permissions and lim
 
 See the [NOTICE][] file distributed with this work for additional information regarding copyright ownership.
 
-## Other Projects
-
-- [Other shell projects](https://github.com/adoyle-h?tab=repositories&q=&type=source&language=shell&sort=stargazers) created by me.
-
 <!-- links -->
 
 [issue]: https://github.com/adoyle-h/dotfiles/issues
@@ -362,7 +332,7 @@ See the [NOTICE][] file distributed with this work for additional information re
 [bash-it]: https://github.com/Bash-it/bash-it
 [sub]: https://github.com/basecamp/sub
 [neovim]: https://github.com/neovim/neovim
-[neovim-config]: https://github.com/adoyle-h/neovim-config
+[one.nvim]: https://github.com/adoyle-h/one.nvim
 [tmux]: https://github.com/tmux/tmux
 [fzf]: https://github.com/junegunn/fzf
 [font]: https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/DejaVuSansMono

@@ -29,7 +29,7 @@ _COLORS=( "$Red" "$Green" "$Yellow" "$Blue" "$Purple" "$Cyan" "$On_Red" "$On_Gre
 
 h() {
   _usage() {
-    echo "usage: YOUR_COMMAND | h [-idn] args...
+    echo "usage: YOUR_COMMAND | highlights [-idn] args...
     -i : ignore case
     -n : invert colors"
   }

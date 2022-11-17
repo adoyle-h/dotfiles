@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+
+
+# one.bash:usage
+if (( $# == 0 )) || [[ $1 == -h ]] || [[ $1 == --help ]]; then
+  cat <<EOF
+Usage: $ONE_SUB $(basename "$0") [-p] [umlfile] > output.png
+Desc: Convert umlfile to png
+Arguments:
+  umlfile  filepath to UML file
+Options:
+  -p      output image to stdout
+EOF
+  exit 0
+fi
+
+preview=
+
+while getopts ":p" optname
+do
+    case "$optname" in
+    "p")
+        preview=1
+        ;;
+    "?")
+        echo "Invalid option $OPTARG"
+        ;;
+    ":")
+        echo "Missing argument value for option $OPTARG"
+        ;;
+    *)
+        usage
+        ;;
+    esac
+done
+
+#$OPTIND为特殊变量，表示第几个选项，初始值为1
+shift $((OPTIND - 1))      #除了选项之外，该脚本必须接至少一个参数
+if [ $# -eq 0 ]; then
+    usage
+fi
+
+if [ -z "$preview" ]; then
+    docker run --rm -i think/plantuml:latest -tpng < "$1"
+else
+    docker run --rm -i think/plantuml:latest -tpng < "$1" | imgcat &
+fi

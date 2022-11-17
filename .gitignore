@@ -1,15 +1,6 @@
-!.gitkeep
+!**/*/.gitkeep
 /secrets
-/configs/ranger/bookmarks
-/configs/ranger/history
-/configs/ranger/tagged
-/bash_it/plugins/enabled/*
-!/bash_it/plugins/enabled/.gitkeep
-/enabled/*
-!/enabled/.gitkeep
-/runtime/*
-!/runtime/.gitkeep
-!/runtime/bash_config_example.bash
+/others/*
 
 # Created by https://www.gitignore.io/api/vim,osx
 

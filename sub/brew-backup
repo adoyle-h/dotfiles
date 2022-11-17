@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+
+SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+readonly SCRIPT_DIR
+
+main() {
+  local TARGET="$SCRIPT_DIR"/../secrets/Brewfile
+  brew bundle dump --force --describe --file="$TARGET"
+
+  # brew bundle dump do not backup all installed packages
+  # https://github.com/Homebrew/homebrew-bundle/issues/236
+  # So I added them by manual.
+  cat <<EOF >> "$TARGET"
+# added packages by manual
+brew "bash"
+brew "gnupg"
+brew "lua"
+EOF
+
+  echo "Dump to $TARGET"
+}
+
+main "$@"

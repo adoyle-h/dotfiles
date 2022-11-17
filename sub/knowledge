@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+
+# one.bash:usage
+if (( $# == 0 )) || [[ $1 == -h ]] || [[ $1 == --help ]]; then
+  cat <<EOF
+Usage: $ONE_SUB $(basename "$0") <PATTERN>
+
+Desc: Search my knowledges
+
+Arguments:
+  <PATTERN>   pattern for searching content
+
+Environment Variables:
+  KNOWLEDGE_HOME=<absolute-path-to-your-folder>
+EOF
+EOF
+  exit 0
+fi
+
+main() {
+  if [[ -z "${KNOWLEDGE_HOME:-}" ]]; then
+    echo "Not found environment variable: KNOWLEDGE_HOME." >&2
+    echo "KNOWLEDGE_HOME=<absolute-path-to-your-folder>" >&2
+    exit 1
+  fi
+
+  local pattern=$1
+
+  IFS=',' read -r -a folders <<< "$KNOWLEDGE_HOME"
+
+  for folder in "${folders[@]}"; do
+    ag "${pattern}" "$folder"
+  done
+}
+
+main "$@"

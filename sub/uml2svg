@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+
+# one.bash:usage
+if (( $# == 0 )) || [[ $1 == -h ]] || [[ $1 == --help ]]; then
+  cat <<EOF
+Usage: $ONE_SUB $(basename "$0") [umlfile] > output.svg
+Desc: Convert umlfile to svg
+Arguments:
+  umlfile  filepath to UML file
+Options:
+  -p      output image to stdout
+EOF
+  exit 0
+fi
+
+docker run --rm -i think/plantuml:latest < "$1"

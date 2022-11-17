@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+
+SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+readonly SCRIPT_DIR
+
+# shellcheck source=../others/one.bash/deps/lobash.bash
+. "$SCRIPT_DIR/../others/one.bash/deps/lobash.bash"
+
+l.xargs() {
+  local line
+  while read -r line; do
+    "$1" "$line"
+  done
+}
+
+diff_file() {
+  local filename=$1
+  local community="$SCRIPT_DIR/../others/one.bash/deps/one.share/deps/cheatsheets-community/$filename"
+
+  if [[ $limit == 0 ]] || [[ ! -f $community ]]; then return 0; fi
+
+  limit=$(( limit - 1 ))
+
+  diff -u \
+    "$community" \
+    "$SCRIPT_DIR/../others/cheatsheets-adoyle/$filename" \
+    | diff-so-fancy || true
+}
+
+list_file() {
+  local filename=$1
+  local community="$SCRIPT_DIR/../others/one.bash/deps/one.share/deps/cheatsheets-community/$filename"
+
+  if [[ ! -f $community ]]; then return 0; fi
+
+  diff -u \
+    "$community" \
+    "$SCRIPT_DIR/../others/cheatsheets-adoyle/$filename" \
+    | diffstat -C || true
+
+  echo ''
+}
+
+main() {
+  declare -A opts=()
+  declare -a args=()
+  l.parse_params opts args "$@"
+
+  local limit=${opts[n]:-1}
+
+  if [[ -n ${opts[l]:-} ]]; then
+    find "$SCRIPT_DIR"/../others/cheatsheets-adoyle -type f -depth 1 -exec basename {} \; | l.xargs list_file
+    return 0
+  fi
+
+  if (( ${#args[@]} > 0 )); then
+    local filename
+    for filename in "${args[@]}" ; do
+      diff_file "$filename"
+    done
+  else
+    find "$SCRIPT_DIR"/../others/cheatsheets-adoyle -type f -depth 1 -exec basename {} \; | l.xargs diff_file
+  fi
+}
+
+main "$@"

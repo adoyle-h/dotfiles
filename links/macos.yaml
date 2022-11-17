@@ -1,0 +1,81 @@
+- defaults:
+    link:
+      relink: true # If true, override the target file when it existed
+      create: true
+
+# NOTE: dotbot have no sudo permission
+- shell: []
+
+- link:
+    # my
+    $XDG_CONFIG_HOME/nvim: $DOTFILES_DIR/others/nvim
+    $XDG_CONFIG_HOME/cheat/sheets/personal: $DOTFILES_DIR/others/cheatsheets-adoyle
+
+    # others
+    # ~/bin: bin
+    ~/.editorconfig: $DOTFILES_DIR/.editorconfig
+
+    # bash
+    ~/.bashrc: $DOTFILES_DIR/bash/bashrc
+    ~/.inputrc: $DOTFILES_DIR/bash/inputrc
+    ~/.profile: $DOTFILES_DIR/bash/profile
+    ~/.bash_profile: $DOTFILES_DIR/bash/bash_profile
+    $XDG_CONFIG_HOME/blesh/init.sh: $ONE_SHARE_DIR/configs/blerc.bash
+
+    # configs
+    ~/.tmux.conf: $ONE_SHARE_DIR/configs/tmux/tmux.conf
+    ~/.czrc: $ONE_SHARE_DIR/configs/czrc
+    ~/.sshrc: $ONE_SHARE_DIR/configs/sshrc
+    ~/.mdlrc: $ONE_SHARE_DIR/configs/mdlrc
+    ~/.tern-project: $ONE_SHARE_DIR/configs/tern-project
+    ~/Library/Application Support/Hyper/.hyper.js: $ONE_SHARE_DIR/configs/hyper.js # https://hyper.is/#config-location
+    ~/.taskbook.json: $ONE_SHARE_DIR/configs/taskbook.json
+    ~/.leptonrc: $ONE_SHARE_DIR/configs/leptonrc # https://github.com/hackjutsu/Lepton
+    ~/.mutt/muttrc: $ONE_SHARE_DIR/configs/muttrc
+    ~/.mutt/configs: $ONE_SHARE_DIR/configs/mutt
+    ~/style_checks.xml: $ONE_SHARE_DIR/configs/java_style_checks.xml
+    ~/.prettierrc: $ONE_SHARE_DIR/configs/prettierrc
+    ~/.actrc: $ONE_SHARE_DIR/configs/actrc
+    $XDG_CONFIG_HOME/bat/config: $ONE_SHARE_DIR/configs/bat
+    $XDG_CONFIG_HOME/ranger: $ONE_SHARE_DIR/configs/ranger
+    $XDG_CONFIG_HOME/peco/config.json: $ONE_SHARE_DIR/configs/peco.json
+    $XDG_CONFIG_HOME/starship.toml: $ONE_SHARE_DIR/configs/starship.toml
+    $XDG_CONFIG_HOME/zk/config.toml: $ONE_SHARE_DIR/configs/zk.toml
+    $XDG_CONFIG_HOME/lazygit/config.yml: $ONE_SHARE_DIR/configs/lazygit.yaml
+    $XDG_CONFIG_HOME/translate-shell/init.trans: $ONE_SHARE_DIR/configs/translate-shell.trans
+    ~/.config/procs/config.toml: $ONE_SHARE_DIR/configs/procs.config.toml
+    # $XDG_CONFIG_HOME/clash/config.yaml: $ONE_SHARE_DIR/configs/clash.yaml
+
+    # cheat
+    $XDG_CONFIG_HOME/cheat/conf.yml: $ONE_SHARE_DIR/configs/cheat.conf.yml
+    $XDG_CONFIG_HOME/cheat/sheets/community: $ONE_SHARE_DIR/deps/cheatsheets-community
+
+    # GnuPG
+    ~/.gnupg/gpg.conf: $ONE_SHARE_DIR/configs/gpg.conf
+    ~/.gnupg/gpg-agent.conf: $ONE_SHARE_DIR/configs/gpg-agent.conf
+
+    ## lint configs
+    # Vim script Language Lint. https://github.com/Kuniwak/vint
+    ~/.vintrc.yaml: $ONE_SHARE_DIR/configs/vintrc.yaml
+    ~/.htmlhintrc: $ONE_SHARE_DIR/configs/htmlhintrc
+    ~/.stylelintrc: $ONE_SHARE_DIR/configs/stylelintrc
+    ~/.eslintrc.yaml: $ONE_SHARE_DIR/configs/eslintrc.yaml
+    $XDG_CONFIG_HOME/yamllint/config: $ONE_SHARE_DIR/configs/yamllint.yml
+
+    ## formatters
+    ~/.lua-format: $ONE_SHARE_DIR/configs/lua-format
+
+    # git
+    # https://git-scm.com/docs/git-config#FILES
+    $XDG_CONFIG_HOME/git/config: $DOTFILES_DIR/configs/gitconfig
+    $XDG_CONFIG_HOME/git/config.user: ../secrets/gitconfig.user
+    $XDG_CONFIG_HOME/git/config.work: ../secrets/gitconfig.work
+    $XDG_CONFIG_HOME/git/ignore: $DOTFILES_DIR/configs/gitignore
+    $XDG_CONFIG_HOME/git/attributes: $DOTFILES_DIR/configs/gitattributes
+    ~/.gitignore: ../secrets/gitignore.user
+
+    # secrets
+    ~/.ssh: ../secrets/ssh
+    ~/.keybase-installer: ../secrets/keybase-installer
+    ~/.grip/settings.py: ../secrets/grip-settings.py
+    ~/Library/Gas Mask: ../secrets/gas_mask

@@ -126,10 +126,6 @@
     oldNormal = "red bold"
     newNormal = "green bold"
     newHighlight = "green bold 28"
-; [http]
-;     proxy = socks5://127.0.0.1:1080
-; [https]
-;     proxy = socks5://127.0.0.1:1080
 [log]
     date = local
 [include]

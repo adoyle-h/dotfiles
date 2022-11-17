@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+
+declare -A map=(
+  [hide]=civis
+  [show]=cnorm
+)
+
+# one.bash:completion
+if [[ "${1:-}" == --complete ]]; then
+  printf '%s\n' "${!map[@]}"
+  echo '--help'
+  exit 0
+fi
+
+# one.bash:usage
+if (( $# == 0 )) || [[ $1 == -h ]] || [[ $1 == --help ]]; then
+  cat <<EOF
+Usage: $ONE_SUB $(basename "$0") [OPTIONS] <ARGS>
+
+ARGS:
+  hide      Hide cursor
+  show      Show cursor
+
+OPTIONS:
+  -h|--help      Print help
+EOF
+
+  exit 0
+fi
+
+readonly name=$1
+shift
+
+tput "${map[$name]}"

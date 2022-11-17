@@ -1,10 +1,9 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 
-# Only execute this file once
-[[ -n "${_BASHRC_LOADED:-}" ]] && return
-_BASHRC_LOADED=true
+[ -n "${_BASHRC_LOADED:-}" ] && return  # Only execute this file once
+readonly _BASHRC_LOADED=true
 
-export DOTFILES_DIR=$HOME/dotfiles
-readonly DOTFILES_SUB=a
-# shellcheck source=entry.bash
-source "$DOTFILES_DIR/bash/entry.bash"
+ONE_DIR=/Users/adoyle/dotfiles/others/one.bash
+
+# shellcheck source=./others/ONE/entry.bash
+source "$ONE_DIR/bash/entry.bash"

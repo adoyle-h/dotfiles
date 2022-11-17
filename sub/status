@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+
+# one.bash:usage
+if [[ ${1:-} == -h ]] || [[ ${1:-} == --help ]]; then
+  cat <<EOF
+Usage: $ONE_SUB $(basename "$0")
+Desc: Output current shell status
+EOF
+  exit 0
+fi
+
+SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+readonly SCRIPT_DIR
+
+# shellcheck source=../others/one.bash/deps/colors.bash
+. "$ONE_DIR/deps/colors.bash"
+
+cat <<EOF
+${BLUE_ESC}
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+                             　/\\/\\
+                             =(°w°)=
+                             　)❣(⎛
+                              (___)
+                         Welcome! ${USER^^}
+                     Enjoy Coding, Enjoy Life!
+
+$(w | awk '{print "  " $0}')
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+${RESET_ALL_ESC}
+EOF

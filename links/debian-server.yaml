@@ -1,0 +1,37 @@
+- defaults:
+    link:
+      # relink: true
+      create: true
+
+# NOTE: dotbot have no sudo permission
+- shell: []
+
+- link:
+    # my
+    $XDG_CONFIG_HOME/nvim: ../others/nvim
+    # $XDG_CONFIG_HOME/cheat/sheets/personal: ../others/cheatsheets-adoyle
+
+    # others
+    # ~/bin: bin
+    ~/.editorconfig: ../.editorconfig
+
+    # bash
+    ~/.bashrc: $ONE_DIR/bash/bashrc
+    ~/.inputrc: $ONE_DIR/bash/inputrc
+    ~/.profile: $ONE_DIR/bash/profile
+    ~/.bash_profile: $ONE_DIR/bash/bash_profile
+
+    # configs
+    ~/.tmux.conf: $ONE_DIR/configs/tmux/tmux.conf
+#   ~/.sshrc: configs/sshrc
+    $XDG_CONFIG_HOME/ranger: $ONE_DIR/configs/ranger
+    ~/.config/procs/config.toml: $ONE_DIR/configs/procs.config.toml
+
+    # git
+    # https://git-scm.com/docs/git-config#FILES
+    $XDG_CONFIG_HOME/git/config: $ONE_DIR/configs/gitconfig
+    $XDG_CONFIG_HOME/git/config.user: ../secrets/gitconfig.user
+    $XDG_CONFIG_HOME/git/config.work: ../secrets/gitconfig.work
+    $XDG_CONFIG_HOME/git/ignore: $ONE_DIR/configs/gitignore
+    $XDG_CONFIG_HOME/git/attributes: $ONE_DIR/configs/gitattributes
+    ~/.gitignore: ../secrets/gitignore.user

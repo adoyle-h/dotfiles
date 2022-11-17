@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+
+declare -A map=(
+  [alpine]=3
+  [bash]=5
+  [ubuntu]=22.04
+  [prolog]=stable
+)
+
+declare -A image_map=(
+  [prolog]=swipl
+)
+
+# one.bash:completion
+if [[ "${1:-}" == --complete ]]; then
+  printf '%s\n' "${!map[@]}"
+  echo "--help"
+  exit 0
+fi
+
+# one.bash:usage
+if (( $# == 0 )) || [[ $1 == -h ]] || [[ $1 == --help ]]; then
+  cat <<EOF
+Usage: $ONE_SUB $(basename "$0") [OPTIONS] <IMAGE> [<IMAGE_OPTIONS>]
+
+Desc: Run shell in container
+
+Options:
+  -v <version>  Image Version
+
+Available Images: ${!map[@]}
+EOF
+  exit 0
+fi
+
+# shellcheck source=../others/one.bash/deps/lobash.bash
+source "$ONE_DIR/deps/lobash.bash"
+
+main() {
+  declare -A opts=()
+  declare -a args=()
+  l.parse_params opts args "$@"
+
+  readonly name=${args[0]}
+  local VERSION=${opts[v]:-${map[$name]}}
+  local COMMAND=${opts[c]:-}
+  local IMAGE=${image_map[$name]:-$name}
+
+  if [[ -n ${COMMAND:-} ]]; then
+    echo "docker run --rm -it $* $IMAGE:$VERSION $COMMAND"
+    docker run --rm -it "${args[@]:1}" "$IMAGE":"$VERSION" "$COMMAND"
+  else
+    echo "docker run --rm -it $* $IMAGE:$VERSION"
+    docker run --rm -it "${args[@]:1}" "$IMAGE":"$VERSION"
+  fi
+}
+
+main "$@"

@@ -15,6 +15,8 @@ ONE_BASHRC_FO=''
 # If true, all one.bash modules will not be loaded
 ONE_NO_MODS=false
 
+ONE_SHARE_BRANCH=develop
+
 # Add external one.bash repos
 ONE_REPOS=(
   "$DOTFILES_DIR"

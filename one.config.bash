@@ -23,6 +23,30 @@ ONE_REPOS=(
   "$DOTFILES_DIR/secrets"
 )
 
+# Reset environment variable PATH.
+ONE_PATHS=(
+  ~/bin
+
+  # MacOS users notice: /usr/libexec/path_helper will set the PATH.
+  # Refer to https://scriptingosx.com/2017/05/where-paths-come-from/
+  # Further, Homebrew install Bash at $HOMEBREW_PREFIX/bin/bash, and MacOS default bash is at /bin/bash,
+
+  # /usr/local/bin must before /bin in PATH
+  /usr/local/bin
+  /usr/local/sbin
+
+  # /opt/homebrew for MacOS ARM arch
+  /opt/homebrew/bin
+  /opt/homebrew/sbin
+
+  /usr/bin
+  /bin
+  /usr/sbin
+  /sbin
+
+  ONE_REPO_BINS # The path "$ONE_REPO/bin" of each ONE_REPO will fill into PATH
+)
+
 # Skip one.bash components
 ONE_SKIP_COMPS=()
 

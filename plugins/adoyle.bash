@@ -70,3 +70,20 @@ function tmux_list_panes() {
 
 export ZK_NOTEBOOK_DIR="$XDG_DATA_HOME/zk/notebooks"
 GOPATH="$HOME/Workspace/go"
+
+_comp_with_proxy() {
+  if (( COMP_CWORD < 2 )); then
+    compgen -acA -- "$1"
+
+    result=$(compgen -f -- "$1")
+    if [[ -d $result ]]; then
+      compgen -f -- "$result/"
+    else
+      echo "${result[@]}"
+    fi
+  else
+    echo "${COMP_WORDS[COMP_CWORD]}" >/dev/tty
+    compgen -- "${COMP_WORDS[COMP_CWORD]}"
+  fi
+}
+complete -F _comp_with_proxy with-proxy

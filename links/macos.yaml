@@ -23,7 +23,7 @@
     $XDG_CONFIG_HOME/blesh/init.sh: $ONE_SHARE_DIR/configs/blerc.bash
 
     # configs
-    ~/.tmux.conf: $ONE_SHARE_DIR/configs/tmux/tmux.conf
+    ~/.tmux.conf: $DOTFILES_DIR/configs/tmux.conf
     ~/.czrc: $ONE_SHARE_DIR/configs/czrc
     ~/.sshrc: $ONE_SHARE_DIR/configs/sshrc
     ~/.mdlrc: $ONE_SHARE_DIR/configs/mdlrc

@@ -22,8 +22,6 @@ if [[ "$(type -t __git_complete)" == 'function' ]] && [[ "$(type -t __git_main)"
   __git_complete g __git_main
 fi
 
-# alias tm='if [ -z $TMUX ]; then tmux -CC new-session -A -s "work" -n "main"; fi'
-
 diff-fancy() {
   diff -u "$1" "$2" | diff-so-fancy
 }
@@ -41,31 +39,6 @@ export KUBECONFIG=~/.kube/config:~/.kube/work-dev.config:~/.kube/work-test.confi
 
 show_color() {
   perl -e 'foreach $a(@ARGV){print "\e[48:2::".join(":",unpack("C*",pack("H*",$a)))."m \e[49m "};print "\n"' "$@"
-}
-
-function tmux_mouse_turn_on() {
-  tmux set -g mouse on
-  tmux display-message 'Mouse: ON'
-}
-
-function tmux_mouse_turn_off() {
-  tmux set -g mouse off
-  tmux display-message 'Mouse: Off'
-}
-
-function tmux_toggle_mouse() {
-  local old
-  old=$(tmux show -gv mouse)
-
-  if [ "$old" = "on" ]; then
-    tmux_mouse_turn_off
-  else
-    tmux_mouse_turn_on
-  fi
-}
-
-function tmux_list_panes() {
-  tmux lsp -F '#{pane_index}: [#{pane_width}x#{pane_height}] paneId=#{pane_id} #{pane_tty} #{?pane_active,(active),} #{?pane_dead,(dead),}'
 }
 
 export ZK_NOTEBOOK_DIR="$XDG_DATA_HOME/zk/notebooks"

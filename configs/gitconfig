@@ -3,6 +3,7 @@
 [commit]
     gpgsign = false
 [color]
+    ; https://git-scm.com/docs/git-config#Documentation/git-config.txt-color
     ui = true
 [core]
     attributesfile = ~/.gitattributes
@@ -19,15 +20,29 @@
     ; diff = less --tabs=2 -gRFXM
     ; show = less --tabs=2 -gRFXM
 [alias]
-    lg = log --graph --abbrev=8 --format=\"%C(237)╮ %C(auto)%D%C(237)%n%C(237)│ %C(68)%h %C(white)%s%n%C(237)╰ %C(240)%ai (%ar) %aN|%cN\"
-    lg4 = log --graph --abbrev=8 --format=\"%C(237)┬─%C(auto)%D%C(237)────────────────────────────────────────────────────────────%n%C(237)│ %C(68)%h %C(white)%s%n%C(237)╰───────── %C(240)%ai (%ar) %aN|%cN\"
-    lg3 = log --graph --abbrev=8 --format=\"%C(237)─%C(auto)%D%C(237)────────────────────────────────────────────────────────────%n  %C(68)[%h] %C(242)%ai (%ar) %aN|%cN%n  %C(white)%s\"
-    lg2 = log --graph --abbrev=8 --format=\"%C(white) %s%n  %C(68)%h%C(auto)%d %C(243)%ai (%ar) %aN|%cN\"
+    ; "%G?"
+    ; "G" for a good (valid) signature,
+    ; "B" for a bad signature,
+    ; "U" for a good signature with unknown validity,
+    ; "X" for a good signature that has expired,
+    ; "Y" for a good signature made by an expired key,
+    ; "R" for a good signature made by a revoked key,
+    ; "E" if the signature cannot be checked (e.g. missing key)
+    ; "N" for no signature
+    ; lg = log --graph --abbrev=8 --format=\"%C(237)╮ %C(blue)%h%C(auto)%d %C(240)sign:%G?% gN%gE%n%C(237)│ %C(white)%s%n%C(237)╰ %C(240)%ai (%ar) %aN|%cN\"
+    lg = forgit log --abbrev=8
+    lg1 = log --graph --abbrev=8 --format=\"%C(237)╮ %C(auto)%D%n%C(237)│ %C(blue)%h %C(white)%s%n%C(237)╰ %C(240)%ai (%ar) %aN|%cN\"
+    lg4 = log --graph --abbrev=8 --format=\"%C(237)┬─%C(auto)%D%C(237)────────────────────────────────────────────────────────────%n%C(237)│ %C(blue)%h %C(white)%s%n%C(237)╰───────── %C(240)%ai (%ar) %aN|%cN\"
+    lg3 = log --graph --abbrev=8 --format=\"%C(237)─%C(auto)%D%C(237)────────────────────────────────────────────────────────────%n  %C(blue)[%h] %C(242)%ai (%ar) %aN|%cN%n  %C(white)%s\"
+    lg2 = log --graph --abbrev=8 --format=\"%C(white) %s%n  %C(blue)%h%C(auto)%d %C(243)%ai (%ar) %aN|%cN\"
     lga = lg --all
     lgas = lg --all --simplify-by-decoration
     lgs = lg --simplify-by-decoration
     f = fetch --prune
     b = branch -vv
+    bd = forgit branch_delete
+    ; list branches that contains commit
+    bc = branch -vv --contains
     p = pull
     find = grep -n --heading --break
     findn = grep -n
@@ -35,33 +50,51 @@
     c = commit -v
     ca = commit --amend -v
     caq = commit --amend --no-edit
-    a = add -v .
     s = status -s -b
-    children = !"git b --contains"
+    stash-show = forgit stash_show
+    stash-ls = stash list --stat
+    fix = forgit fixup
+    ; children = !"git b --contains"
     parent = !"git show-branch | grep '*' | grep -v develop | head -1 | awk -F'[]~^[]' '{print }'"
     conflicts = diff
     ign = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
-    init-ign = !"git ign macOS,vim,node > .gitignore"
+    ig = forgit ignore
+    init-ign = !"git ig > .gitignore"
     server = !git daemon --reuseaddr --base-path=.git --export-all --verbose
     init-repo = !"git commit -m \"init repo\" --allow-empty && git checkout -b develop"
     dl = clone --single-branch --depth 1
     download = clone --single-branch --depth 1
     findw = grep -W -n --heading --break
-    conf-fake-user = "!conf_fake_user() { git config user.name \"$1\" && git config user.email \"$1@gmail.com\" ;}; conf_fake_user "
-    show-user = config --show-origin --get-regexp \"user.(name)|(email)\"
-    so = show --ext-diff
+    user-fake = "!conf_fake_user() { git config user.name \"$1\" && git config user.email \"$1@gmail.com\" ;}; conf_fake_user "
+    user-show = config --show-origin --get-regexp \"user.(name)|(email)\"
+    so = forgit show
+    a = forgit add
+    aa = add -v .
     au = add -u
-    d = diff
-    dc = diff --cached
+    ap = add -p
+    stage = a
+    unstage = forgit reset_head
+    rshead = unstage
+    rsref = forgit reset_reflog
+    rs = forgit reset_commit
+    rb = forgit rebase
+    d = forgit diff
+    dc = forgit diff --cached
     co = checkout
+    cob = forgit checkout_branch
+    coc = forgit checkout_commit
+    cof = forgit checkout_file
+    cot = forgit checkout_tag
+    coref = forgit checkout_reflog
     cm = commit -m
-    cob = checkout -b
     cp = cherry-pick
+    ; cp = forgit cherry_pick
     ls = ls-files
-    ls-stash = stash list --stat
+    m = forgit merge
+    wk = worktree
     workconfig = !"git config user.name \"${GIT_CONFIG_WORK_USERNAME}\" && git config user.email \"${GIT_CONFIG_WORK_EMAIL}\""
-    show-orig = "!f() { git status -s -uall | grep -e '\\.orig$' | awk '{print $2}'; }; f"
-    rm-orig = "!f() { git show-orig | xargs rm; }; f"
+    orig-show = "!f() { git status -s -uall | grep -e '\\.orig$' | awk '{print $2}'; }; f"
+    orig-rm = "!f() { git show-orig | xargs rm; }; f"
 [push]
     default = current
 [pull]

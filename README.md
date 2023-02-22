@@ -1,6 +1,6 @@
 # Dotfiles
 
-My dotfiles based on [one.bash](https://github.com/adoyle-h/one.bash) for personal usage.
+My dotfiles based on [one.bash](https://github.com/one-bash/one.bash) for personal usage.
 
 Not accept any PR.
 
@@ -27,7 +27,8 @@ Not accept any PR.
 
 ## Copyright and License
 
-Copyright 2017-2022 ADoyle (adoyle.h@gmail.com) Some Rights Reserved. The project is licensed under the **BSD 3-clause License**.
+Copyright 2017-2023 ADoyle (adoyle.h@gmail.com). Some Rights Reserved.
+The project is licensed under the **BSD 3-clause License**.
 
 Read the [LICENSE][] file for the specific language governing permissions and limitations under the License.
 
@@ -38,7 +39,3 @@ Read the [NOTICE][] file distributed with this work for additional information r
 
 [LICENSE]: ./LICENSE
 [NOTICE]: ./NOTICE
-[tags]: https://github.com/adoyle-h/dotfiles/tags
-[issue]: https://github.com/adoyle-h/dotfiles/issues
-[discussion]: https://github.com/adoyle-h/dotfiles/discussions
-[PR]: https://github.com/adoyle-h/dotfiles/pulls

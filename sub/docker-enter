@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+cmd1="nc -U ~/Library/Containers/com.docker.docker/Data/debug-shell.sock"
+cmd2="docker run -it --rm --privileged --pid=host justincormack/nsenter1"
+
+cat <<EOF
+1) $cmd1
+2) $cmd2
+EOF
+read -p 'Choose: (Default: 1) ' -r choose
+
+case ${choose:-1} in
+    1 ) eval "$cmd1" ;;
+    2 ) eval "$cmd2" ;;
+    * )
+      echo "Invalid value" >&2
+      exit 3
+      ;;
+esac

@@ -1,18 +1,15 @@
 # shellcheck disable=2034
 # ONE_LOAD_PRIORITY: 190
-about-plugin 'A personal settings for myself'
-
-if one_l.has command adoyle; then
-  source <(adoyle completion bash)
-fi
+about-plugin 'Personal settings for myself'
 
 if one_l.has command massren; then
   alias rename-files='massren'
 fi
 
-alias c='bat'
-alias usrctl='systemctl --user'
+# PROMPT_FORMAT_EXIT_STATUS='✖%s'
+
 alias neo="nvim"
+alias irc='irssi'
 
 alias g='git'
 alias gti='git' # for typo
@@ -25,9 +22,6 @@ fi
 diff-fancy() {
   diff -u "$1" "$2" | diff-so-fancy
 }
-
-# export HOMEBREW_AUTO_UPDATE_SECS=86400 # 1 day
-export HOMEBREW_NO_AUTO_UPDATE=1
 
 export KNOWLEDGE_HOME=/Users/adoyle/Doc/Today-I-Learned,/Users/adoyle/Doc/What-I-Read
 
@@ -44,19 +38,8 @@ show_color() {
 export ZK_NOTEBOOK_DIR="$XDG_DATA_HOME/zk/notebooks"
 GOPATH="$HOME/Workspace/go"
 
-_comp_with_proxy() {
-  if (( COMP_CWORD < 2 )); then
-    compgen -acA -- "$1"
 
-    result=$(compgen -f -- "$1")
-    if [[ -d $result ]]; then
-      compgen -f -- "$result/"
-    else
-      echo "${result[@]}"
-    fi
-  else
-    echo "${COMP_WORDS[COMP_CWORD]}" >/dev/tty
-    compgen -- "${COMP_WORDS[COMP_CWORD]}"
-  fi
-}
-complete -F _comp_with_proxy with-proxy
+# bind __fzf_cd__ from ALT-C to ALT-T
+bind -m emacs-standard '"\et": " \C-e\C-u`__fzf_cd__`\e\C-e\er\C-m"'
+# bind ALT-C to capitalize-word (follow emacs bindings style)
+bind -m emacs-standard '"\ec": capitalize-word'

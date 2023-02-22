@@ -87,8 +87,8 @@
     cot = forgit checkout_tag
     coref = forgit checkout_reflog
     cm = commit -m
-    cp = cherry-pick
-    ; cp = forgit cherry_pick
+    ; cp = cherry-pick
+    cp = forgit cherry_pick
     ls = ls-files
     m = forgit merge
     wk = worktree

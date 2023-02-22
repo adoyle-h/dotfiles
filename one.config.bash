@@ -53,8 +53,8 @@ ONE_SKIP_COMPS=()
 # User should print the path of one.bash env file
 # @param os type
 ONE_LINKS_CONF() {
-  case "$1" in
-    MacOS) echo "$DOTFILES_DIR"/links/macos.yaml ;;
-    Linux) echo "$DOTFILES_DIR"/links/debian.yaml ;;
+  case "$1_$2" in
+    Darwin*) echo "$DOTFILES_DIR"/links/macos.yaml ;;
+    Linux*) echo "$DOTFILES_DIR"/links/debian.yaml ;;
   esac
 }

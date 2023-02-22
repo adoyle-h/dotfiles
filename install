@@ -56,6 +56,22 @@ check() {
   return 0
 }
 
+downloads=(
+  git-forgit='https://raw.githubusercontent.com/wfxr/forgit/master/bin/git-forgit'
+  trans='https://git.io/trans'
+)
+
+download_bins() {
+  local name target
+  for name in "${!downloads[@]}"; do
+    target=~/bin/"$name"
+    if [[ ! -f "$target" ]]; then
+      curl -L -o "$target" "${downloads[$name]}"
+      chmod +x "$target"
+    fi
+  done
+}
+
 main() {
   check
 
@@ -67,6 +83,8 @@ main() {
   cd "$ONE_DIR"/deps/ble.sh
   make -C "$ONE_DIR"/deps/ble.sh install INSDIR="$HOME/.local/share/blesh"
   cd "$ONE_DIR"
+
+  download_bins
 
   # local system=$(l.)
   # system=$(l.choose macos debian debian-server)

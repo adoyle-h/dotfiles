@@ -1,0 +1,1 @@
+APPEND="doctools completion"

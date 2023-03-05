@@ -35,7 +35,7 @@
     ~/.mutt/configs: $ONE_SHARE_DIR/configs/mutt
     ~/style_checks.xml: $ONE_SHARE_DIR/configs/java_style_checks.xml
     ~/.prettierrc: $ONE_SHARE_DIR/configs/prettierrc
-    ~/.actrc: $ONE_SHARE_DIR/configs/actrc
+    ~/.actrc: $DOTFILES_DIR/configs/actrc
     $XDG_CONFIG_HOME/bat/config: $ONE_SHARE_DIR/configs/bat
     $XDG_CONFIG_HOME/ranger: $ONE_SHARE_DIR/configs/ranger
     $XDG_CONFIG_HOME/peco/config.json: $ONE_SHARE_DIR/configs/peco.json

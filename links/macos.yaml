@@ -11,6 +11,10 @@
     $XDG_CONFIG_HOME/nvim: $DOTFILES_DIR/others/nvim
     $XDG_CONFIG_HOME/cheat/sheets/personal: $DOTFILES_DIR/others/cheatsheets-adoyle
 
+    # Mac App
+    ~/Library/Application Support/com.dmitrynikolaev.numi/extensions: $DOTFILES_DIR/configs/numi.app/extensions
+    ~/Library/Application Support/Hyper/.hyper.js: $ONE_SHARE_DIR/configs/hyper.js # https://hyper.is/#config-location
+
     # others
     # ~/bin: bin
     ~/.editorconfig: $DOTFILES_DIR/.editorconfig
@@ -28,7 +32,6 @@
     ~/.sshrc: $ONE_SHARE_DIR/configs/sshrc
     ~/.mdlrc: $ONE_SHARE_DIR/configs/mdlrc
     ~/.tern-project: $ONE_SHARE_DIR/configs/tern-project
-    ~/Library/Application Support/Hyper/.hyper.js: $ONE_SHARE_DIR/configs/hyper.js # https://hyper.is/#config-location
     ~/.taskbook.json: $ONE_SHARE_DIR/configs/taskbook.json
     ~/.leptonrc: $ONE_SHARE_DIR/configs/leptonrc # https://github.com/hackjutsu/Lepton
     ~/.mutt/muttrc: $ONE_SHARE_DIR/configs/muttrc

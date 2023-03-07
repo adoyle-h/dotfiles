@@ -2,26 +2,31 @@
 
 My dotfiles based on [one.bash](https://github.com/one-bash/one.bash) for personal usage.
 
-Not accept any PR.
+It provides an example for the usage of one.bash. Do not use this repo directly.
+
+Not accept any PR and advice.
 
 ## Usages
 
 ## Project Structure
 
 ```
-├── bootstraps/                     # Scripts for bootstraping
+├── bootstraps/                     # Personal scripts for bootstraping
 │   └── recommended_plugs*          # Enabled recommended plugins/completions/aliaes
-├── bootstrap*                      # (WIP) To install dotfiles framework and system tools from bare system
-├── install*                        # To install dotfiles framework
-
 ├── cheat/                          # It is ignored in git. git clone https://github.com/adoyle-h/my-command-cheat cheat
-├── envs                            # Dotbot configurations
+├── links                           # Dotbot configurations
 │   ├── debian-server.yaml          # For Debian Server
 │   ├── debian.yaml                 # For general Linux system
 │   └── macos.yaml                  # For MacOS system
-
-│   ├── nvim/                       # My neovim configurations.
-
+├── bash/                           # Personal bashrc
+├── configs/                        # Personal configs
+├── plugins/                        # Personal plugins
+├── completions/                    # Personal completions
+├── aliases/                        # Personal aliases
+├── bin/                            # Personal commands
+├── sub/                            # Personal one commands
+├── others/                         # Dependencies, submodules
+├── scripts/                        # Scripts for this repo
 └── secrets/                        # This folder is ignored by git. Put your secret data here.
 ```
 

@@ -76,7 +76,7 @@ main() {
   check
 
   # shellcheck source=./init.bash
-  . "$SCRIPT_DIR"/../init.bash
+  . "$SCRIPT_DIR"/init.bash
 
   git submodule update --init --recursive
 

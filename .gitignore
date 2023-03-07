@@ -44,3 +44,6 @@ Temporary Items
 .apdisk
 
 # End of https://www.gitignore.io/api/vim,osx
+
+/makefile-utils/*
+!/makefile-utils/*.mk

@@ -24,7 +24,7 @@
     ~/.inputrc: $DOTFILES_DIR/bash/inputrc
     ~/.profile: $DOTFILES_DIR/bash/profile
     ~/.bash_profile: $DOTFILES_DIR/bash/bash_profile
-    $XDG_CONFIG_HOME/blesh/init.sh: $ONE_SHARE_DIR/configs/blerc.bash
+    $XDG_CONFIG_HOME/blesh/init.sh: $DOTFILES_DIR/configs/blerc.bash
 
     # configs
     ~/.tmux.conf: $DOTFILES_DIR/configs/tmux.conf

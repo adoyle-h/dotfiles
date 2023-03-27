@@ -16,6 +16,9 @@ indent_size = 4
 max_line_length = 100
 indent_style = tab
 
+[*.{go,mod}]
+indent_style = tab
+
 [bin]
 indent_style = tab
 

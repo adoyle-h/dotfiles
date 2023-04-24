@@ -42,16 +42,3 @@ function tmux-toggle-mouse() {
 function tmux-list-panes() {
   tmux lsp -F '#{pane_index}: [#{pane_width}x#{pane_height}] paneId=#{pane_id} #{pane_tty} #{?pane_active,(active),} #{?pane_dead,(dead),}'
 }
-
-# https://gist.github.com/thugcee/41d1ba786fa5e66167ed6ee45e4f6346
-tmux-windows() {
-  local display="#{session_id}|#{window_id}|	#{session_name}: #{window_name}"
-  local line
-  # shellcheck disable=2091
-  line=$(tmux list-windows -a -F "$display" | $(__fzfcmd 2>/dev/null || echo fzf)) || return 0
-  # shellcheck disable=2206
-  local args=( ${line//|/ } )
-
-  tmux switch-client -t "${args[0]}"
-  tmux select-window -t "${args[1]}"
-}

@@ -75,7 +75,6 @@
     $XDG_CONFIG_HOME/git/config.work: ../secrets/gitconfig.work
     $XDG_CONFIG_HOME/git/ignore: $DOTFILES_DIR/configs/gitignore
     $XDG_CONFIG_HOME/git/attributes: $DOTFILES_DIR/configs/gitattributes
-    ~/.gitignore: ../secrets/gitignore.user
 
     # secrets
     ~/.ssh: ../secrets/ssh

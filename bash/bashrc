@@ -2,8 +2,5 @@
 
 [ -n "${_BASHRC_LOADED:-}" ] && return  # Only execute this file once
 readonly _BASHRC_LOADED=true
-
 ONE_DIR=/Users/adoyle/dotfiles/others/one.bash
-
-# shellcheck source=./others/ONE/entry.bash
-source "$ONE_DIR/bash/entry.bash"
+. "$ONE_DIR/bash/entry.bash"

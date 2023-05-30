@@ -6,6 +6,10 @@ if one_l.has command massren; then
   alias rename-files='massren'
 fi
 
+# Make a steady cursor
+# https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h4-Functions-using-CSI-_-ordered-by-the-final-character-lparen-s-rparen:CSI-Ps-SP-q.1D81
+# printf -- '\x1b[6 q' >/dev/tty
+
 # PROMPT_FORMAT_EXIT_STATUS='✖%s'
 
 alias neo="nvim"
@@ -43,3 +47,21 @@ GOPATH="$HOME/Workspace/go"
 bind -m emacs-standard '"\et": " \C-e\C-u`__fzf_cd__`\e\C-e\er\C-m"'
 # bind ALT-C to capitalize-word (follow emacs bindings style)
 bind -m emacs-standard '"\ec": capitalize-word'
+
+
+with-proxy() {
+  local MY_PROXY=${MY_PROXY:-127.0.0.1:7890}
+  local http_proxy="http://$MY_PROXY"
+  local https_proxy="http://$MY_PROXY"
+  local socket_proxy="socks5://$MY_PROXY"
+
+  shopt -s expand_aliases
+
+  # shellcheck disable=2097
+  http_proxy="$http_proxy" \
+  HTTP_PROXY="$http_proxy" \
+  https_proxy="$https_proxy" \
+  HTTPS_PROXY="$https_proxy" \
+  ALL_PROXY="$socket_proxy" \
+    "$@"
+}

@@ -1,0 +1,269 @@
+version: 3
+profiles: []
+hotkeys:
+  toggle-window: []
+  copy-current-path: []
+  ctrl-c:
+    - Ctrl-C
+  copy:
+    - ⌘-C
+  paste:
+    - ⌘-V
+  clear:
+    - ⌘-K
+  select-all:
+    - ⌘-A
+  zoom-in:
+    - ⌘-=
+    - ⌘-Shift-=
+  zoom-out:
+    - ⌘--
+    - ⌘-Shift--
+  reset-zoom:
+    - ⌘-0
+  home:
+    - ⌘-Left
+    - Home
+  end:
+    - ⌘-Right
+    - End
+  previous-word:
+    - ⌥-Left
+  next-word:
+    - ⌥-Right
+  delete-previous-word:
+    - ⌥-Backspace
+  delete-line:
+    - ⌘-Backspace
+  delete-next-word:
+    - ⌥-Delete
+  search:
+    - ⌘-F
+  pane-focus-all:
+    - ⌘-Shift-I
+  focus-all-tabs:
+    - ⌘-⌥-Shift-I
+  scroll-to-top:
+    - Shift-PageUp
+  scroll-up:
+    - ⌥-PageUp
+  scroll-down:
+    - ⌥-PageDown
+  scroll-to-bottom:
+    - Shift-PageDown
+  restart-telnet-session: []
+  restart-ssh-session: []
+  launch-winscp: []
+  settings-tab: {}
+  settings:
+    - ⌘-,
+  serial:
+    - Alt-K
+  restart-serial-session: []
+  new-tab:
+    - ⌘-T
+  new-window:
+    - ⌘-N
+  profile: {}
+  profile-selectors: {}
+  toggle-fullscreen: []
+  close-tab:
+    - ⌘-W
+  reopen-tab:
+    - ⌘-Shift-T
+  toggle-last-tab: []
+  rename-tab:
+    - ⌘-R
+  next-tab:
+    - Ctrl-Tab
+  previous-tab:
+    - Ctrl-Shift-Tab
+  move-tab-left:
+    - ⌘-Shift-Left
+  move-tab-right:
+    - ⌘-Shift-Right
+  rearrange-panes:
+    - Ctrl-Shift
+  tab-1:
+    - ⌘-1
+  tab-2:
+    - ⌘-2
+  tab-3:
+    - ⌘-3
+  tab-4:
+    - ⌘-4
+  tab-5:
+    - ⌘-5
+  tab-6:
+    - ⌘-6
+  tab-7:
+    - ⌘-7
+  tab-8:
+    - ⌘-8
+  tab-9:
+    - ⌘-9
+  tab-10: []
+  duplicate-tab: []
+  restart-tab: []
+  reconnect-tab: []
+  explode-tab:
+    - ⌘-Shift-.
+  combine-tabs:
+    - ⌘-Shift-,
+  tab-11: []
+  tab-12: []
+  tab-13: []
+  tab-14: []
+  tab-15: []
+  tab-16: []
+  tab-17: []
+  tab-18: []
+  tab-19: []
+  tab-20: []
+  split-right:
+    - ⌘-Shift-D
+  split-bottom:
+    - ⌘-D
+  split-left: []
+  split-top: []
+  pane-nav-right:
+    - ⌘-⌥-Right
+  pane-nav-down:
+    - ⌘-⌥-Down
+  pane-nav-up:
+    - ⌘-⌥-Up
+  pane-nav-left:
+    - ⌘-⌥-Left
+  pane-nav-previous:
+    - ⌘-⌥-[
+  pane-nav-next:
+    - ⌘-⌥-]
+  pane-nav-1: []
+  pane-nav-2: []
+  pane-nav-3: []
+  pane-nav-4: []
+  pane-nav-5: []
+  pane-nav-6: []
+  pane-nav-7: []
+  pane-nav-8: []
+  pane-nav-9: []
+  pane-maximize:
+    - ⌘-⌥-Enter
+  close-pane:
+    - ⌘-Shift-W
+  pane-increase-vertical: []
+  pane-decrease-vertical: []
+  pane-increase-horizontal: []
+  pane-decrease-horizontal: []
+  profile-selector:
+    - ⌘-E
+  switch-profile:
+    - ⌘-Shift-E
+  command-selector:
+    - ⌘-P
+  quick-restart:
+    - ⌘-Shift-R
+terminal:
+  searchOptions: {}
+  colorScheme:
+    name: deep
+    foreground: '#bfbfbf'
+    background: rgb(8, 8, 8)
+    cursor: '#d0d0d0'
+    colors:
+      - '#000000'
+      - '#d70005'
+      - '#1cd915'
+      - '#d9bd26'
+      - '#5665ff'
+      - '#b052da'
+      - '#50d2da'
+      - '#e0e0e0'
+      - '#535353'
+      - '#fb0007'
+      - '#22ff18'
+      - '#fedc2b'
+      - '#9fa9ff'
+      - '#e09aff'
+      - '#8df9ff'
+      - '#ffffff'
+    cursorAccent: '#d0d0d0'
+    selection: rgb(230, 74, 25,0.2)
+    selectionForeground: '090909'
+  font: DejaVuSansMono Nerd Font
+  cursor: beam
+  bell: visual
+  customColorSchemes:
+    - name: deep
+      foreground: '#bfbfbf'
+      background: '#080808'
+      cursor: '#d0d0d0'
+      colors:
+        - '#000000'
+        - '#d70005'
+        - '#1cd915'
+        - '#d9bd26'
+        - '#5665ff'
+        - '#b052da'
+        - '#50d2da'
+        - '#e0e0e0'
+        - '#535353'
+        - '#fb0007'
+        - '#22ff18'
+        - '#fedc2b'
+        - '#9fa9ff'
+        - '#e09aff'
+        - '#8df9ff'
+        - '#ffffff'
+      cursorAccent: '#d0d0d0'
+      selection: rgb(230, 74, 25,0.2)
+      selectionForeground: '090909'
+  fontSize: 17
+  altIsMeta: true
+  fontWeightBold: 900
+  drawBoldTextInBrightColors: false
+  scrollOnInput: false
+ssh: {}
+configSync:
+  parts: {}
+  token: adoyle
+clickableLinks: {}
+accessibility: {}
+appearance:
+  tabsInFullscreen: true
+  css: |-
+    /* * { color: blue !important; } */
+
+    .tab-bar {
+        height: 18px !important;
+        line-height: 18px !important;
+        font-size: 0.8em !important;
+    }
+
+    .tab-bar .btn-tab-bar {
+      height: 18px !important;
+      line-height: 18px !important;
+      padding: 0 6px !important;
+    }
+
+    .tab-bar .btn-tab-bar svg {
+      width: 10px !important;
+    }
+
+    terminaltab > .content {
+      margin: 0 0 0 8px !important;
+    }
+
+    app-root>.content .tab-bar>.tabs tab-header .current-tab-indicator {
+      background: blue;
+    }
+hacks: {}
+providerBlacklist: []
+commandBlacklist: []
+language: zh-CN
+enableAnalytics: false
+enableWelcomeTab: false
+pluginBlacklist: []
+profileDefaults:
+  ssh:
+    disableDynamicTitle: true

@@ -8,6 +8,8 @@ Not accept any PR and advice.
 
 ## Usages
 
+`./install` for help.
+
 ## Project Structure
 
 ```

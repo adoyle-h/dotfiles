@@ -49,6 +49,30 @@ bind -m emacs-standard '"\et": " \C-e\C-u`__fzf_cd__`\e\C-e\er\C-m"'
 bind -m emacs-standard '"\ec": capitalize-word'
 
 
+#### binding functions ####
+
+__a_keymap_trigger_sudo() {
+  local r
+
+  r=$(one_l.start_with "$READLINE_LINE" "sudo ")
+
+  local t
+  if [[ $r == true ]]; then
+    t="$(one_l.trim_start "$READLINE_LINE" 'sudo ')"
+  else
+    t="sudo ${READLINE_LINE}"
+  fi
+
+  READLINE_LINE="$t"
+  READLINE_POINT=$(( READLINE_POINT + ${#t} ))
+}
+
+# Alt+S
+# bind -x '"\es": "__a_keymap_trigger_sudo"'
+# bind -x '"\es": " \C-u \C-a\C-k`__a_keymap_trigger_sudo`\e\C-e"'
+# bind '"\es": "\C-asudo \C-e"'
+
+
 with-proxy() {
   local MY_PROXY=${MY_PROXY:-127.0.0.1:7890}
   local http_proxy="http://$MY_PROXY"

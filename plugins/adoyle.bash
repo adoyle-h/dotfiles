@@ -14,6 +14,7 @@ fi
 
 alias neo="nvim"
 alias irc='irssi'
+alias cheat='cheat -a'
 
 alias g='git'
 alias gti='git' # for typo

@@ -28,7 +28,7 @@ diff-fancy() {
   diff -u "$1" "$2" | diff-so-fancy
 }
 
-export KNOWLEDGE_HOME=/Users/adoyle/Doc/Today-I-Learned,/Users/adoyle/Doc/What-I-Read
+export KNOWLEDGE_HOME=$HOME/Doc/Today-I-Learned,$HOME/Doc/What-I-Read
 
 # https://github.com/adoyle-h/iThoughts-Search
 export ITMZ_DIR=~/Dropbox/My/knowledge-library

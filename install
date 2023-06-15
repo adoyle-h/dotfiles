@@ -51,19 +51,6 @@ set_proxy () {
   export ALL_PROXY="$socket_proxy"
 }
 
-create_bashrc() {
-  {
-  cat <<'EOF'
-# ~/.bashrc: executed by bash(1) for non-login shells.
-
-[ -n "${_BASHRC_LOADED:-}" ] && return  # Only execute this file once
-readonly _BASHRC_LOADED=true
-EOF
-
-  one --bashrc
-  } > "$DOTFILES_DIR/bash/bashrc"
-}
-
 init_one_bash() {
   ln -fs "$DOTFILES_DIR/others/one.bash/bin/one" $HOME/bin/one
   export PATH="$PATH:$HOME/bin"
@@ -105,8 +92,6 @@ main() {
   download_bins
 
   init_one_bash
-
-  create_bashrc
 
   ONE_DIR=$HOME/dotfiles/others/one.bash
   . "$ONE_DIR/bash/entry.bash"

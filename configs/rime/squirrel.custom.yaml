@@ -1,2 +1,32 @@
 patch:
-  preset_color_schemes/purity_of_form_custom/candidate_list_layout: linear  # 候选项排列方向 stacked | linear
+  style/color_scheme: AD
+  preset_color_schemes:
+    purity_of_form_custom:
+      name: AD
+      author: ADoyle
+      font_face: "PTSans-Regular"
+      font_point: 17.0
+      label_font_face: "PTSans-Regular"
+      label_font_point: 13.0
+      comment_font_face: "PTSans-Regular"
+      comment_font_point: 13.0
+      candidate_list_layout: linear
+      text_orientation: horizontal
+      inline_preedit: true
+      translucency: true
+      corner_radius: 6.0
+      hilited_corner_radius: 4.0
+      border_height: 4.0
+      border_width: 12.0
+      line_spacing: 8.0
+      color_space: display_p3
+      back_color: 0x2B2B2B
+      candidate_text_color: 0xD8FFFFFF
+      comment_text_color: 0x3FFFFFFF
+      label_color: 0xE5BBBBBB
+      hilited_candidate_back_color: 0x484848
+      hilited_candidate_text_color: 0xEE944F
+      hilited_comment_text_color: 0x3FFFFFFF
+      hilited_candidate_label_color: 0xEE944F
+      text_color: 0x3FFFFFFF
+      hilited_text_color: 0xFFFFFF

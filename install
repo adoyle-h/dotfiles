@@ -52,7 +52,7 @@ set_proxy () {
 }
 
 init_one_bash() {
-  ln -fs "$DOTFILES_DIR/others/one.bash/bin/one" $HOME/bin/one
+  ln -fs "$DOTFILES_DIR/others/one.bash/bin/one" "$HOME/bin/one"
   export PATH="$PATH:$HOME/bin"
   one dep install
 
@@ -72,7 +72,6 @@ main() {
   check
 
   GITHUB_CLONE=git github_clone "adoyle-h/dotfiles-envs" "$ENV_DIR"
-  GITHUB_CLONE=git github_clone "adoyle-h/secrets" "$DOTFILES_DIR/secrets"
 
   if [[ ! -d "$env" ]]; then
     echo "Not found directory: $env" >&2

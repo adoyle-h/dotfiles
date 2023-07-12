@@ -1,0 +1,2 @@
+patch:
+  preset_color_schemes/purity_of_form_custom/candidate_list_layout: linear  # 候选项排列方向 stacked | linear

@@ -1,0 +1,13 @@
+patch:
+  menu/page_size: 8
+  switcher/hotkeys:
+    - "Control+grave" # control+`
+  switcher/save_options:
+    - full_shape
+    - ascii_punct
+    - simplification
+    - zh_hans
+    - emoji_suggestion
+  key_binder/bindings:
+    - { when: has_menu, accept: Tab, send: Page_Down } # 向下翻页
+    - { when: has_menu, accept: Shift+Tab, send: Page_Up } # 向上翻页

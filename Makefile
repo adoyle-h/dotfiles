@@ -4,7 +4,10 @@ include ./makefile-utils/*.mk
 .PHONY: init
 init:
 
-
 .PHONY: install
 install:
 	@./scripts/install
+
+.PHONY: link
+link:
+	one link

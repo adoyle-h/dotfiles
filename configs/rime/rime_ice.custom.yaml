@@ -1,5 +1,7 @@
 patch:
 
+  melt_eng/dictionary: my_melt_eng
+
   switches:
     - name: ascii_mode
       states: [ 中, 英 ]

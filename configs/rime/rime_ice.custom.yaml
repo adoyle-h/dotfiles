@@ -1,5 +1,6 @@
 patch:
 
+  # https://github.com/iDvel/rime-ice/issues/334#issuecomment-1582485399
   melt_eng/dictionary: my_melt_eng
 
   switches:

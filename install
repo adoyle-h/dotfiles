@@ -52,6 +52,8 @@ set_proxy () {
 }
 
 init_one_bash() {
+  echo "[TODO] init one.bash"
+
   ln -fs "$DOTFILES_DIR/others/one.bash/bin/one" "$HOME/bin/one"
   export PATH="$PATH:$HOME/bin"
   one dep install
@@ -63,6 +65,8 @@ init_one_bash() {
   one_conf_path=$(realpath "$env"/one.config.bash)
   ln -fs "$one_conf_path" "$ONE_CONF"
   bash -c ". '$ONE_CONF' && PATH=$PATH one link"
+
+  echo "[DONE] init one.bash"
 }
 
 main() {

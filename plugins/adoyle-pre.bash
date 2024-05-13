@@ -15,6 +15,7 @@ fi
 alias neo="nvim"
 alias irc='irssi'
 alias cheat='cheat -a'
+alias manc='man -L zh_CN '
 
 alias g='git'
 alias gti='git' # for typo
@@ -79,8 +80,6 @@ with-proxy() {
   local http_proxy="http://$MY_PROXY"
   local https_proxy="http://$MY_PROXY"
   local socket_proxy="socks5://$MY_PROXY"
-
-  shopt -s expand_aliases
 
   # shellcheck disable=2097
   http_proxy="$http_proxy" \

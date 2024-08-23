@@ -16,6 +16,9 @@ indent_size = 2
 [.gitmodules]
 indent_style = tab
 
+[.git/config]
+indent_style = tab
+
 [*.lua]
 indent_style = tab
 

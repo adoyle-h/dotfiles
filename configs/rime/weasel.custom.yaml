@@ -1,0 +1,56 @@
+# For 小狼毫 (Windows)
+patch:
+  style:
+    color_scheme: ADoyle
+    color_scheme_dark: ADoyle
+
+    font_face: "Segoe UI Emoji, Microsoft YaHei, SF Pro, Noto Color Emoji"
+    label_font_face: "Microsoft YaHei"
+    comment_font_face: "Microsoft YaHei"
+    font_point: 13                 # 全局字体字号
+    label_font_point: 9            # 标签字体字号，不设定 fallback 到 font_point
+    comment_font_point: 10         # 注释字体字号，不设定 fallback 到 font_point
+    inline_preedit: true           # 行内显示预编辑区：true；false
+    horizontal: true               # 候选项横排：true；false
+
+    label_format: "%s."            # 标签字符：例如 %s. 效果为 1. 2. 3. ....
+
+    layout:
+      baseline: 0                  # 字号百分比，与 linespacing 一同设置可解决字体跳动问题，设置为 0 为禁用
+      linespacing: 0               # 字号百分比，参考 <https://github.com/rime/weasel/pull/1177>
+      align_type: center           # 标签、候选文字、注解文字之间的相对对齐方式：top ; center ; bottom
+      max_height: 600              # 候选框最大高度，文本竖排模式下如高度超此尺寸则换列显示候选，设置为 0 不启用此功能
+      max_width: 0                 # 候选框最大宽度，horizontal 布局如宽超此尺寸则换行显示候选，设置为 0 不启用此功能
+      min_height: 0                # 候选框最小高度
+      min_width: 10                # 候选框最小宽度
+      border_width: 2              # 边框宽度；又名 border
+      margin_x: 8                  # 主体元素和候选框的左右边距；为负值时，不显示候选框
+      margin_y: 8                  # 主体元素的上下边距；为负值时，不显示候选框
+      spacing: 0                   # inline_preedit 为否时，编码区域和候选区域的间距
+      candidate_spacing: 10        # 候选项之间的间距
+      hilite_spacing: 4            # 候选项和相应标签的间距
+      hilite_padding: 4            # 高亮区域和内部文字的间距，影响高亮区域大小
+      # hilite_padding_x: 8        # 高亮区域和内部文字的左右间距，如无特殊指定则依 hilite_padding 设置
+      # hilite_padding_y: 8        # 高亮区域和内部文字的上下间距，如无特殊指定则依 hilite_padding 设置
+      shadow_radius: 0             # 阴影区域半径，为 0 不显示阴影；需要同时在配色方案中指定非透明的阴影颜色
+      shadow_offset_x: 4           # 阴影左右偏移距离
+      shadow_offset_y: 4           # 阴影上下偏移距离
+      corner_radius: 2             # 候选窗口圆角半径
+      round_corner: 2              # 候选背景色块圆角半径，又名 hilited_corner_radius
+      # type: vertical             # 布局设置，效果和 style 下的设置相同：horizontal（横向）；vertical（竖向） ; vertical_text（竖排文本） ; vertical+fullscreen（全屏） ; horizontal+fullscreen（横向全屏）
+
+  preset_color_schemes:
+    ADoyle:
+      name: ADoyle Style
+      author: ADoyle
+      color_format: rgba
+      text_color: 0
+      back_color: 0x242424
+      border_color: 0x242424
+      label_color: 0xd6d2d2
+      candidate_text_color: 0xd6d2d2
+      comment_text_color: 0x3FFFFFFF
+      hilited_candidate_text_color: 0x3da3fc
+      hilited_comment_text_color: 0x3FFFFFFF
+      hilited_candidate_back_color: 0x383838
+      hilited_label_color: 0x3da3fc

@@ -1,24 +1,39 @@
 patch:
+  schema_list:
+    # 可以直接删除或注释不需要的方案，对应的 *.schema.yaml 方案文件也可以直接删除
+    # 除了 t9，它依赖于 rime_ice，用九宫格别删 rime_ice.schema.yaml
+    - schema: rime_ice       # 雾凇拼音（全拼）
+    - schema: luna_pinyin    # 朙月拼音
+    - schema: t9             # 九宫格（仓输入法）
+
   menu/page_size: 8
 
   switcher/hotkeys:
-    - "Control+grave" # control+`
+    - Control+grave # control+`
 
   switcher/save_options:
     - ascii_punct
     - traditionalization
     - emoji
     - full_shape
+    - search_single_char
 
   key_binder/bindings:
-    - { when: has_menu, accept: Tab, send: Page_Down } # 向下翻页
-    - { when: has_menu, accept: Shift+Tab, send: Page_Up } # 向上翻页
+    - { accept: Control+p, send: Up, when: composing }
+    - { accept: Control+n, send: Down, when: composing }
+    - { accept: Control+b, send: Left, when: composing }
+    - { accept: Control+f, send: Right, when: composing }
+    - { accept: Control+a, send: Home, when: composing }
+    - { accept: Control+e, send: End, when: composing }
+    - { accept: Control+d, send: Delete, when: composing }
+    - { accept: Control+k, send: Shift+Delete, when: composing }
+    - { accept: Control+h, send: BackSpace, when: composing }
+    - { accept: Shift+Tab, send: Page_Up, when: has_menu }
+    - { accept: Tab, send: Page_Down, when: has_menu }
 
   # 中西文切换
   #
-  # good_old_caps_lock:
-  # true   切换大写
-  # false  切换中英
+  # good_old_caps_lock: true 切换大写. false 切换中英
   # macOS 偏好设置的优先级更高，如果勾选【使用大写锁定键切换“ABC”输入法】则始终会切换输入法。
   #
   # 切换中英：

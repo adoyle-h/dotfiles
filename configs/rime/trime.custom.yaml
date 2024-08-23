@@ -1,0 +1,4 @@
+# For 同文输入法 (Trime)
+patch:
+  preset_keyboards/t9:
+    __include: /preset_keyboards/.default

@@ -1,26 +1,30 @@
+# For 鼠须管 (MacOS)
 patch:
-  style/color_scheme: AD
+
+  style/color_scheme: ADoyle
+  style/color_scheme_dark: ADoyle
+
   preset_color_schemes:
-    purity_of_form_custom:
-      name: AD
+    ADoyle:
+      name: ADoyle's color scheme
       author: ADoyle
-      font_face: "PTSans-Regular"
-      font_point: 17.0
-      label_font_face: "PTSans-Regular"
+      font_face: PingFangSC-Regular
+      font_point: 18.0
+      label_font_face: PingFangSC-Regular
       label_font_point: 13.0
-      comment_font_face: "PTSans-Regular"
+      comment_font_face: PingFangSC-Regular
       comment_font_point: 13.0
       candidate_list_layout: linear
       text_orientation: horizontal
       inline_preedit: true
       translucency: true
-      corner_radius: 6.0
-      hilited_corner_radius: 4.0
+      corner_radius: 2.0
+      hilited_corner_radius: 2.0
       border_height: 4.0
       border_width: 12.0
       line_spacing: 8.0
       color_space: display_p3
-      back_color: 0x2B2B2B
+      back_color: 0x242424
       candidate_text_color: 0xD8FFFFFF
       comment_text_color: 0x3FFFFFFF
       label_color: 0xE5BBBBBB

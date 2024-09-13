@@ -3,7 +3,6 @@
 set -o errexit -o nounset -o pipefail -o errtrace
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
-
 SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 readonly SCRIPT_DIR
 readonly DOTFILES_DIR=$SCRIPT_DIR
@@ -37,12 +36,12 @@ check() {
   check_cmd python3
 }
 
-set_proxy () {
+set_proxy() {
   [[ -z ${PROXY:-} ]] && return
 
-  local http_proxy="http://$PROXY";
-  local https_proxy="http://$PROXY";
-  local socket_proxy="socks5://$PROXY";
+  local http_proxy="http://$PROXY"
+  local https_proxy="http://$PROXY"
+  local socket_proxy="socks5://$PROXY"
 
   export http_proxy="$http_proxy"
   export HTTP_PROXY="$http_proxy"
@@ -59,14 +58,22 @@ init_one_bash() {
   one dep install
 
   local ONE_BASH_DIR=${XDG_CONFIG_HOME:-$HOME/.config}/one.bash
+
+  echo "Create one.bash directory: $ONE_BASH_DIR"
   mkdir -p "$ONE_BASH_DIR"
   local ONE_CONF=$ONE_BASH_DIR/one.config.bash
   local one_conf_path
   one_conf_path=$(realpath "$env"/one.config.bash)
+  echo "ONE_CONF: $ONE_CONF -> $one_conf_path"
   ln -fs "$one_conf_path" "$ONE_CONF"
-  bash -c ". '$ONE_CONF' && PATH=$PATH one link"
 
   echo "[DONE] init one.bash"
+}
+
+init_links() {
+  local ONE_BASH_DIR=${XDG_CONFIG_HOME:-$HOME/.config}/one.bash
+  local ONE_CONF=$ONE_BASH_DIR/one.config.bash
+  bash -c ". '$ONE_CONF' && PATH=$PATH one link"
 }
 
 main() {
@@ -95,6 +102,7 @@ main() {
   download_bins
 
   init_one_bash
+  init_links
 
   ONE_DIR=$HOME/dotfiles/others/one.bash
   . "$ONE_DIR/bash/entry.bash"

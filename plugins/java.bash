@@ -1,1 +1,0 @@
-about-plugin 'My java'

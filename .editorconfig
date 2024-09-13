@@ -11,7 +11,7 @@ insert_final_newline = true
 [/bins/sub/*]
 indent_style = tab
 
-[/configs/gitconfig]
+[/configs/git/*]
 indent_size = 4
 
 [{Dockerfile,Dockerfile.*,*.dockerfile}]
@@ -40,9 +40,6 @@ indent_style = tab
 
 [*.{diff,md}]
 trim_trailing_whitespace = false
-
-[Makefile]
-indent_style = tab
 
 [{Makefile,*.mk}]
 indent_style = tab

@@ -126,8 +126,8 @@
     log = true
     ff = false
     tool = nvimdiff
-    conflictstyle = merge  ; default
-    ; conflictstyle = diff3
+    ; conflictstyle = merge  ; default
+    conflictstyle = diff3    ; better diff. https://juejin.cn/post/7267477916744630308
 [mergetool]
     prompt = false
 [mergetool "nvimdiff"]
@@ -165,3 +165,4 @@
     date = local
 [include]
     path = config.user
+    path = config.delta

@@ -1,11 +1,3 @@
-# ONE_LOAD_PRIORITY: 900
-
-if one_l.has command adoyle; then
-  source <(adoyle completion bash)
-fi
-
-complete -F _nvim_completions -o bashdefault neo
-
 _with-proxy_completions() {
   # shellcheck disable=2034
   local cur prev words cword split comp_args

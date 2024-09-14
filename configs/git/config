@@ -15,12 +15,6 @@
     safecrlf = true
     pager = less --tabs=2 -RFXM ; https://git-scm.com/docs/git-config#Documentation/git-config.txt-corepager
     quotepath = false
-[pager]
-    ; https://git-scm.com/docs/git-config#Documentation/git-config.txt-pagerltcmdgt
-    diff = diff-so-fancy | less --tabs=2 -gRFXM
-    show = diff-so-fancy | less --tabs=2 -gRFXM
-    ; diff = less --tabs=2 -gRFXM
-    ; show = less --tabs=2 -gRFXM
 [alias]
     ; "%G?"
     ; "G" for a good (valid) signature,
@@ -127,7 +121,6 @@
     ff = false
     tool = nvimdiff
     ; conflictstyle = merge  ; default
-    conflictstyle = diff3    ; better diff. https://juejin.cn/post/7267477916744630308
 [mergetool]
     prompt = false
 [mergetool "nvimdiff"]
@@ -137,8 +130,6 @@
 [mergetool "sourcetree"]
     cmd = /usr/local/bin/ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
     trustExitCode = true
-[interactive]
-    diffFilter = diff-so-fancy --patch
 [rerere]
     enabled = true
 [rebase]

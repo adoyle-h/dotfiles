@@ -1,0 +1,10 @@
+# vim: ft=gitconfig
+[pager]
+    ; https://git-scm.com/docs/git-config#Documentation/git-config.txt-pagerltcmdgt
+    diff = diff-so-fancy | less --tabs=2 -gRFXM
+    show = diff-so-fancy | less --tabs=2 -gRFXM
+    ; diff = less --tabs=2 -gRFXM
+    ; show = less --tabs=2 -gRFXM
+
+[interactive]
+    diffFilter = diff-so-fancy --patch

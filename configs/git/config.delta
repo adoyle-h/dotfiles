@@ -1,6 +1,6 @@
 # vim: ft=gitconfig
 [core]
-    pager = delta
+    pager = delta --width=${FZF_PREVIEW_COLUMNS:-$COLUMNS}
 
 [interactive]
     diffFilter = delta --color-only
@@ -10,6 +10,9 @@
     features = decorations 'Sublime Snazzy'
     side-by-side = true
     tabs = 2
+
+[merge]
+    conflictstyle = diff3    ; better diff. https://juejin.cn/post/7267477916744630308
 
 [diff]
     colorMoved = default

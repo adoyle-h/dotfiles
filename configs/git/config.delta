@@ -7,7 +7,7 @@
 
 [delta]
     navigate = true
-    features = decorations 'Sublime Snazzy'
+    features = adoyle-dark
     side-by-side = true
     tabs = 2
 
@@ -23,11 +23,35 @@
 [delta "interactive"]
     keep-plus-minus-markers = false
 
-[delta "decorations"]
-    commit-decoration-style = blue ol
-    commit-style = raw
-    file-style = omit
-    hunk-header-decoration-style = blue box
-    hunk-header-file-style = red
-    hunk-header-line-number-style = "#067a00"
+[delta "adoyle-dark"]
+    dark = true
+    syntax-theme = Solarized (dark)
+    hyperlinks = false
+    keep-plus-minus-markers = false
+    commit-decoration-style = "#ffd21a" ul ol
+    commit-style = "#ffd21a" bold
+    file-decoration-style = "#1688f0" "#141E35" ol
+    file-style = "#1688f0" bold italic
+    file-added-label = [A]
+    file-copied-label = [C]
+    file-modified-label = [M]
+    file-removed-label = [D]
+    file-renamed-label = [R]
+    hunk-header-decoration-style = "#1688f0" box ul
+    hunk-header-file-style = "#ABAFB5"
+    hunk-header-line-number-style = "#B696DB"
     hunk-header-style = file line-number syntax
+    line-numbers = true
+    line-numbers-left-format = " {nm:^1} "
+    line-numbers-right-format = "{np:^1} "
+    line-numbers-zero-style = "#474D53" "#0e0e11"
+    line-numbers-left-style = "#474D53" "#0e0e11"
+    line-numbers-right-style = "#474D53" "#0e0e11"
+    line-numbers-minus-style = "#D01A00" "#0e0e11"
+    line-numbers-plus-style = "#18c92d" "#0e0e11"
+    minus-emph-style = syntax "#780000"
+    minus-style = syntax "#220708"
+    plus-emph-style = syntax "#104f10"
+    plus-style = syntax "#0a1c07"
+    whitespace-error-style = "#280050" reverse
+    zero-style = syntax

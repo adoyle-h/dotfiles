@@ -9,7 +9,6 @@
     navigate = true
     features = adoyle-dark
     side-by-side = true
-    tabs = 2
 
 [merge]
     conflictstyle = diff3    ; better diff. https://juejin.cn/post/7267477916744630308
@@ -27,10 +26,12 @@
     dark = true
     syntax-theme = Solarized (dark)
     hyperlinks = false
+    tabs = 2
+    # For diff
     keep-plus-minus-markers = false
     commit-decoration-style = "#ffd21a" ul ol
     commit-style = "#ffd21a" bold
-    file-decoration-style = "#1688f0" "#141E35" ol
+    file-decoration-style = "#1688f0" ol
     file-style = "#1688f0" bold italic
     file-added-label = [A]
     file-copied-label = [C]
@@ -53,5 +54,14 @@
     minus-style = syntax "#220708"
     plus-emph-style = syntax "#104f10"
     plus-style = syntax "#0a1c07"
-    whitespace-error-style = "#280050" reverse
+    whitespace-error-style = magenta reverse
     zero-style = syntax
+    # For blame
+    blame-format = "{timestamp:<15} {author:<10} {commit:<8} "
+    blame-palette = "#050505" "#151515"
+    blame-separator-format = "│{n:^4}"
+    # For grep
+    grep-file-style = "#1688f0" bold italic ul
+    grep-match-line-style = raw
+    grep-context-line-style = grey
+    grep-match-word-style = red

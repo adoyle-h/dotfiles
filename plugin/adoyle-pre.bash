@@ -35,7 +35,7 @@ export KNOWLEDGE_HOME=$HOME/Doc/Today-I-Learned,$HOME/Doc/What-I-Read
 export ITMZ_DIR=~/Dropbox/My/knowledge-library
 export ITMZ_HOME=~/.itmz
 
-export KUBECONFIG=~/.kube/config:~/.kube/work-dev.config:~/.kube/work-test.config
+# export KUBECONFIG=~/.kube/config:~/.kube/work-dev.config:~/.kube/work-test.config
 
 show_color() {
   perl -e 'foreach $a(@ARGV){print "\e[48:2::".join(":",unpack("C*",pack("H*",$a)))."m \e[49m "};print "\n"' "$@"

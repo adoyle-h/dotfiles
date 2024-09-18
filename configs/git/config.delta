@@ -8,13 +8,14 @@
 [delta]
     navigate = true
     features = adoyle-dark
-    side-by-side = true
+    side-by-side = false
 
 [merge]
     conflictstyle = diff3    ; better diff. https://juejin.cn/post/7267477916744630308
 
 [diff]
     colorMoved = default
+    ; colorMoved = no
 
 [interactive]
     diffFilter = delta --color-only --features=interactive
@@ -57,7 +58,7 @@
     whitespace-error-style = magenta reverse
     zero-style = syntax
     # For blame
-    blame-format = "{timestamp:<15} {author:<10} {commit:<8} "
+    blame-format = "{timestamp:<15} {author:<14} {commit:<8} "
     blame-palette = "#050505" "#151515"
     blame-separator-format = "│{n:^4}"
     # For grep
